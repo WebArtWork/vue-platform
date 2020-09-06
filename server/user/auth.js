@@ -49,6 +49,8 @@ module.exports = function(waw) {
 	*/
 		const prepare_user = function(user){
 			user = JSON.parse(JSON.stringify(user));
+			delete user.fb_token;
+			delete user.google_token;
 			delete user.password;
 			delete user.resetPin;
 			delete user.resetCounter;
@@ -219,7 +221,7 @@ module.exports = function(waw) {
 			}, function (req, token, refreshToken, profile, done) {
 				if(req.user){
 					req.user.google_token = token;
-					req.user.google = true;
+					req.user.google_id = profile.id;
 					return req.user.save(function(){
 						done(null, req.user);
 					});
@@ -238,7 +240,7 @@ module.exports = function(waw) {
 					if (err) done(err);
 					else if (user) {
 						user.google_token = token;
-						user.google = true;
+						user.google_id = profile.id;
 						user.save(function(){
 							done(null, user);
 						});
@@ -252,7 +254,7 @@ module.exports = function(waw) {
 						if(profile.photos[0]) newUser.avatarUrl = profile.photos[0].value;
 						newUser.reg_email = newUser.email;
 						newUser.google_token = token;
-						newUser.google = true;
+						newUser.google_id = profile.id;
 						newUser.data = {};
 						User.findOne({}).sort({ _id: -1 }).exec(function(err, doc){
 							newUser.inc = 10000;
@@ -286,13 +288,13 @@ module.exports = function(waw) {
 			}, function (req, token, refreshToken, profile, done) {
 				if(req.user){
 					req.user.fb_token = token;
-					req.user.fb = true;
+					req.user.fb_id = profile.id;
 					return req.user.save(function(){
 						done(null, req.user);
 					});
 				}
 				let query = {
-					fb_token: token
+					fb_id: profile.id
 				};
 				if(profile.emails[0]){
 					query = {
@@ -305,7 +307,7 @@ module.exports = function(waw) {
 					if (err) done(err);
 					else if (user) {
 						user.fb_token = token;
-						user.fb = true;
+						user.fb_id = profile.id;
 						user.save(function(){
 							done(null, user);
 						});
@@ -319,7 +321,7 @@ module.exports = function(waw) {
 						if(profile.photos[0]) newUser.avatarUrl = profile.photos[0].value;
 						newUser.reg_email = newUser.email;
 						newUser.fb_token = token;
-						newUser.fb = true;
+						newUser.fb_id = profile.id;
 						newUser.data = {};
 						User.findOne({}).sort({ _id: -1 }).exec(function(err, doc){
 							newUser.inc = 10000;
