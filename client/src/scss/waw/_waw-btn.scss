@@ -44,6 +44,7 @@
     &._danger {
         background-color: $red;
         transition: 0.2s ease-in-out;
+		color: white;
 
         &:hover {
             background-color: $redD;
