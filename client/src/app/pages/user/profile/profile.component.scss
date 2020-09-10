@@ -1,8 +1,11 @@
+@import 'vars';
+@import 'media';
 .profile-wrapper {
     display: flex;
     justify-content: center;
     height: calc(100vh - 60px);
     overflow: auto;
+    background: $basic;
 }
 
 .profile {
