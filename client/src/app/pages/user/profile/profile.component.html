@@ -22,7 +22,8 @@
 			</div>
 			<div class="profile-right">
 				<div class="profile-right__img">
-					<img width="50" height="50" [src]="us.avatarUrl" alt="">
+					<!-- <img width="50" height="50" [src]="us.avatarUrl" alt=""> -->
+					<img class="logo-img" src="/assets/logo.png" alt="">
 					<label class="profile-right__img__upload">
 						<div><i class="material-icons">arrow_circle_up</i></div>
 						<input type="file" name="file" (change)="us.changeAvatar($event)" [hidden]="true" accept="image/*">
