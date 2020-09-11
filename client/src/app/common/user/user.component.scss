@@ -16,7 +16,11 @@
     }
 
     &__link {
-        color: darkcyanz;
+        color: rgb(171, 168, 168);
+		margin-right: 15px;
+		&:last-child {
+			margin-right: 0;
+		}
 
         &:hover {
             background: transparent;
