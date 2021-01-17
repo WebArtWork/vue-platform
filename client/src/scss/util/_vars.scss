@@ -12,9 +12,12 @@ $danger: #E74C3C;
 $border: #95A5A6;
 
 /* font family */
-$ff-base: "Roboto", sans-serif;
-$ff-title: "Lato", sans-serif;
-$ff-second: 'Roboto', sans-serif;
+$ff-base: "Roboto",
+sans-serif;
+$ff-title: "Lato",
+sans-serif;
+$ff-second: 'Roboto',
+sans-serif;
 
 /* font-size */
 $fs: 16px;
@@ -37,7 +40,7 @@ $black: #000;
 $dark: #000;
 
 
-
+$borderRadius: 3px;
 
 
 // --var
@@ -48,7 +51,7 @@ $c-primary-3:#FDD835;
 $c-border: #CDD9ED;
 $c-border-hover: #99A3BA;
 $c-text: #6C7486;
-$c-text-head: #3F4656;	
+$c-text-head: #3F4656;
 
 
 
@@ -61,4 +64,3 @@ $c-text-head: #3F4656;
 $sidebarColor: #1F2226;
 $sidebarWidth: 230px;
 $sidebarHiddenWidth: 62px;
-

@@ -1,8 +1,8 @@
 // table
 .table-wrapp {
-    background: #FFFFFF;
+    background: $white;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
+    border-radius: 3px;
     padding: 20px;
     width: 100%;
 
@@ -14,128 +14,86 @@
         table-layout: fixed;
     }
 
-    .cl-table-clients {
-        display: flex;
-        justify-content: space-between;
+    &._vertical {
+        @media screen and (max-width: 600px) {
+            .cl-table-clients__img {
+                display: none;
+            }
 
-        @media screen and (max-width: 1468px) {
-            flex-direction: column;
-            align-items: center;
+            td {
+                text-align: right;
+            }
 
             .cl-table-clients__info {
-                margin-left: 0;
+                text-align: right;
             }
-        }
 
-        .icon-pencil {
-            &::before{transition: .2s all ease-in-out;}
-            &:hover {
-                &::before {color: $sky;transition: .2s all ease-in-out;}
-                
+            table {
+                border: 0;
             }
-        }
 
-        &__img {
-            min-width: 50px;
-            min-height: 50px;
-            width: 50px;
-            height: 50px;
-            border: 1.5px solid #DFE0EB;
-            box-sizing: border-box;
-            border-radius: 50%;
-            padding: 3px;
-
-            img {
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-                object-fit: cover;
+            td .cl-table-clients {
+                align-items: flex-end;
             }
-        }
 
-        &__info {
-            flex-grow: 1;
-            text-align: left;
-            margin-left: 20px;
-        }
+            table caption {
+                font-size: 1.3em;
+            }
 
+            table thead {
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
 
-    }
+            table tr {
+                display: block;
+                margin-bottom: .625em;
+                border-bottom: 3px solid #ddd;
+            }
 
-    @media screen and (max-width: 600px) {
-        .cl-table-clients__img {
-            display: none;
-        }
+            table td {
+                display: block;
+                border-right: none;
+                text-align: right;
+                min-height: 56px;
+            }
 
-        td {
-            text-align: right;
-        }
+            table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
 
-        .cl-table-clients__info {
-            text-align: right;
-        }
-
-        table {
-            border: 0;
-        }
-
-        td .cl-table-clients {
-            align-items: flex-end;
-        }
-
-        table caption {
-            font-size: 1.3em;
-        }
-
-        table thead {
-            border: none;
-            clip: rect(0 0 0 0);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            width: 1px;
-        }
-
-        table tr {
-            display: block;
-            margin-bottom: .625em;
-            border-bottom: 3px solid #ddd;
-        }
-
-        table td {
-            display: block;
-            border-right: none;
-        }
-
-        table td::before {
-            /*
-    * aria-label has no advantage, it won't be read inside a table
-    content: attr(aria-label);
-    */
-            content: attr(data-label);
-            float: left;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        table td:last-child {
-            border-bottom: 0;
+            table td:last-child {
+                border-bottom: 0;
+            }
         }
     }
 
     th {
         padding: 15px 10px;
         text-align: center;
-        border-right: 2px solid #BDBDBD;
-        border-bottom: 0.5px solid #334D6E;
+        border-right: 2px solid $grey;
+        border-bottom: 0.5px solid $blue;
         font-weight: 500;
         font-size: 16px;
         line-height: 24px;
         letter-spacing: 0.01em;
         text-transform: uppercase;
-        color: #334D6E;
+        color: $blue;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        &:last-child {
+            border-right: none;
+        }
 
         @include bp-max(md) {
             font-size: 12px;
@@ -147,12 +105,12 @@
         padding: 15px 10px;
         text-align: center;
         vertical-align: middle;
-        border-right: 2px solid #BDBDBD;
+        border-right: 2px solid $grey;
         border-bottom: 2px dashed #E0E0E0;
         font-size: 14px;
         line-height: 24px;
         letter-spacing: 0.01em;
-        color: #334D6E;
+        color: $blue;
         word-break: break-word;
 
         @include bp-max(md) {
@@ -163,9 +121,7 @@
     tr:last-child {
         td {
             border-bottom: none;
-            border-bottom: none;
         }
-
     }
 
     tr {
@@ -175,14 +131,31 @@
             border-right: none;
             border-right: none;
         }
+
+        @media (max-width:600px) {
+            &:nth-child(even) {
+                background: rgba(0, 0, 0, 0.04);
+            }
+        }
+
+    }
+}
+@include bp-max(xl) {
+    .xl-hide {
+        display: none;
     }
 
+    .xl-br-none {
+        border-right: none !important;
+    }
 }
-.table-wrapp tbody tr {
-    transition: .3s all ease-in-out;
 
-    &:hover {
-        transition: .3s all ease-in-out;
-        background: rgb(132 132 132 / 10%);
+@include bp-max(sm) {
+    .sm-hide {
+        display: none;
+    }
+
+    .sm-br-none {
+        border-right: none !important;
     }
 }

@@ -1,38 +1,40 @@
 // textarea
-.waw-textarea{
+.waw-textarea {
+    display: block;
     position: relative;
+    margin: 10px 0;
 
-    span {
-        font-size: 16px;
-        line-height: 16px;
+    &__title {
+        display: block;
+        text-align: left;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 14px;
         letter-spacing: 0.01em;
         text-transform: uppercase;
         color: $blue;
-        margin-bottom: 10px;
-        display: inline-block;
-		font-weight: bold;
+        margin-bottom: 5px;
     }
 
-    // input body settings
+    // textarea body settings
     textarea {
-        font-size: 14px;
         padding: 10px 20px;
         display: block;
         width: 100%;
         border: 1px solid $grey;
-        border-radius: 15px;
+        border-radius: $borderRadius;
         color: $blue;
         letter-spacing: 0.2px;
         font-size: 16px;
         background-color: $white;
         transition: .3s all ease-in-out;
-		min-height: 80px;
-		resize: vertical;
-		max-height: 150px;
+        min-height: 80px;
+        resize: vertical;
+        max-height: 150px;
 
         &::placeholder {
             color: $grey;
-			transition: .1s all ease-in-out;
+            transition: .1s all ease-in-out;
         }
 
         &:focus {
@@ -41,18 +43,12 @@
             color: $sky;
         }
 
-    }
-
-    &._disabled {
-        textarea {
+        &[disabled] {
             border-color: $grey;
             color: $grey;
             cursor: not-allowed;
-        }
-
-        span {
-            color: $grey;
+            opacity: 0.6;
+            background-color: $greyL;
         }
     }
-
 }

@@ -1,26 +1,28 @@
 // INPUT
 .waw-input {
+    display: block;
     position: relative;
+    margin: 10px 0;
 
-    span {
-		font-weight: bold;
-        font-size: 16px;
-        line-height: 16px;
+    &__title {
+        display: block;
+        text-align: left;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 14px;
         letter-spacing: 0.01em;
         text-transform: uppercase;
         color: $blue;
-        margin-bottom: 10px;
-        display: inline-block;
+        margin-bottom: 5px;
     }
 
     // input body settings
     input {
-        font-size: 14px;
-        padding: 10px 20px;
+        padding: 10px;
         display: block;
         width: 100%;
         border: 1px solid $grey;
-        border-radius: 15px;
+        border-radius: $borderRadius;
         color: $blue;
         letter-spacing: 0.2px;
         font-size: 16px;
@@ -29,7 +31,7 @@
 
         &::placeholder {
             color: $grey;
-			transition: .1s all ease-in-out;
+            transition: .1s all ease-in-out;
         }
 
         &:focus {
@@ -38,18 +40,18 @@
             color: $sky;
         }
 
-    }
-
-    &._disabled {
-        input {
+        &[disabled] {
             border-color: $grey;
             color: $grey;
             cursor: not-allowed;
+            opacity: 0.6;
+            background-color: $greyL;
         }
 
-        span {
-            color: $grey;
+        &[type="time"] {
+            display: block;
+            -webkit-appearance: textfield;
+            -moz-appearance: textfield;
         }
     }
-
 }
