@@ -1,15 +1,16 @@
+import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
+// Core
+import { GuestComponent } from './layout/guest/guest.component';
+import { UserComponent } from './layout/user/user.component';
 import { Authenticated, Guest, Admins } from '@services';
-// Common
 import { AppComponent } from './app.component';
-import { GuestComponent } from './common/guest/guest.component';
-import { UserComponent } from './common/user/user.component';
+import { CoreModule } from '@core';
 // config
 import { WacomModule, MetaGuard, Config } from 'wacom';
 const config: Config = {
-	socket: {},
+	socket: false,
 	meta: {
 		useTitleSuffix: true,
 		defaults: {
@@ -28,7 +29,7 @@ const config: Config = {
 		path: '',
 		canActivate: [Authenticated],
 		component: UserComponent,
-		children: [/* user */ {
+		children: [/* user */{
 			path: 'profile',
 			canActivate: [MetaGuard],
 			data: {
@@ -105,6 +106,7 @@ const config: Config = {
 		UserComponent
 	],
 	imports: [
+		CoreModule,
 		BrowserModule,
 		WacomModule.forRoot(config),
 		RouterModule.forRoot(routes, {

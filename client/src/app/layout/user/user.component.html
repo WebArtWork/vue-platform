@@ -1,0 +1,11 @@
+<div class="topbar">
+	<div class="topbar-left">
+		<a class="topbar__link" routerLink="/users" *ngIf="us.me.is?.admin">Users</a>
+	</div>
+	<div class="topbar-right">
+		<a class="topbar__link _img" routerLink="/profile">
+			<img class="profile-img" alt="" [src]="us.me.avatarUrl">
+		</a>
+	</div>
+</div>
+<router-outlet></router-outlet>

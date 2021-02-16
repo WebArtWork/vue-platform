@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-
 @Component({
-	selector: 'app-guest',
+	selector: 'guest',
 	templateUrl: './guest.component.html',
 	styleUrls: ['./guest.component.scss']
 })
-export class GuestComponent {
+export class GuestComponent{
 	constructor() {}
 }

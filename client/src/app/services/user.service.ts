@@ -1,54 +1,73 @@
+import { CanActivate, ActivatedRouteSnapshot, 
+	RouterStateSnapshot, Router, Route } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MongoService } from 'wacom';
-import { Router } from '@angular/router';
+import { MongoService, FileService } from 'wacom';
 
 @Injectable({
 	providedIn: 'root'
 })
-
 export class UserService {
 	/*
 	*	Declarations
 	*/
-		public users: any = [];
-		public _users: any = {};
-		public is: any = {};
-		public data: any = {};
-		public avatarUrl: any;
-		public name: any;
-		public email: any;
-		constructor(private mongo: MongoService,
-			private router: Router,
-			private http: HttpClient) {
-			mongo.fetch('user', {
+		constructor(private mongo: MongoService, private file: FileService,
+			private router: Router, private http: HttpClient) {
+			file.add({
+				id: 'userAvatarUrl',
+				resize: 256,
+				part: 'user',
+				cb: file=>{
+					if(typeof file != 'string') return;
+					this.me.avatarUrl = file;
+				}
+			});
+			mongo.config('user', {
 				replace: {
-					data: (field, cb, doc) => {
-						if(typeof field != 'object') field = {};
-						if(typeof field.request!='object')  field.request = {};
-						if(typeof field.reason !='object')  field.reason = {};
-						cb(field);
+					data: (data, cb, doc) => {
+						if(typeof data != 'object') data = {};
+						console.log(data);
+						cb(data);
 					},
 					is: mongo.beObj
 				}
-			}, me => {
-				if(!me._id) return this.logout();
-				for (var key in me) {
-					this[key] = me[key];
-				}
-				this.users = mongo.get('user', (arr, obj) => {
-					this._users = obj;
-				});
 			});
+			this.me = mongo.fetch('user', {
+				name: 'me'
+			}, me => {
+				if(!me._id && localStorage.getItem('waw_user')) this.logout();
+			});
+			this.users = mongo.get('user');
 		}
+		public roles = ['admin'];
+		public users: any = [];
+		public me: any = { data: {} };
 	/*
 	*	User Management
 	*/
+		create(user){
+			this.mongo.create('user', user);
+		}
+		doc(userId){
+			return this.mongo.fetch('user', {
+				query: { _id: userId }
+			});
+		}
 		update(){
 			this.mongo.afterWhile(this, ()=>{
-				this.mongo.update('user', this, {
-					fields: 'name data'
+				this.mongo.update('user', this.me);
+			});
+		}
+		save(user){
+			this.mongo.afterWhile(this, ()=>{
+				this.mongo.update('user', user, {
+					name: 'admin'
 				});
+			});
+		}
+		delete(user){
+			this.mongo.delete('user', user, {
+				name: 'admin'
 			});
 		}
 		change_password(oldPass, newPass){
@@ -66,42 +85,47 @@ export class UserService {
 			this.router.navigate(['/login']);
 		}
 	/*
-	*	Admin Management
-	*/
-		create(user){
-			this.mongo.create('user', user);
-		}
-		save(user){
-			this.mongo.afterWhile(this, ()=>{
-				this.mongo.update('user', user, {
-					name: 'admin'
-				});
-			});
-		}
-		delete(user){
-			this.mongo.delete('user', user, {
-				name: 'admin'
-			});
-		}
-	/*
 	*	End of 
 	*/
-			todataUrl(fl, cb) {
-				var a = new FileReader();
-				a.onload = (e)=>{
-					var target: any = e.target;
-					cb(target.result);
-				}
-				a.readAsDataURL(fl);
-			}
-			changeAvatar(e){
-				this.todataUrl(e.target.files[0], (dataUrl)=>{
-					this.avatarUrl = dataUrl;
-					this.http.post('/api/user/avatar', {
-						dataUrl: dataUrl
-					}).subscribe((resp:any)=> {
-						this.avatarUrl = resp;
-					});
-				});
-			}
+}
+
+@Injectable()
+export class Admins implements CanActivate {
+	constructor(private router: Router) {}
+	canActivate(){
+		if ( localStorage.getItem('waw_user') ) {
+			let user = JSON.parse(localStorage.getItem('waw_user'));
+			if(user.is && user.is.admin) return true;
+			this.router.navigate(['/profile']);
+			return false;
+		} else {
+			this.router.navigate(['/login']);
+			return false;
+		}
+	}
+}
+
+@Injectable()
+export class Authenticated implements CanActivate {
+	constructor(private router: Router) {}
+	canActivate(){
+		if ( localStorage.getItem('waw_user') ) {
+			return true;
+		} else {
+			return this.router.navigate(['/login']);
+		}
+	}
+
+}
+
+@Injectable()
+export class Guest implements CanActivate {
+	constructor(private router: Router) {}
+	canActivate(){
+		if (localStorage.getItem('waw_user')) {
+			return this.router.navigate(['/'])
+		} else {
+			return true;
+		}
+	}
 }

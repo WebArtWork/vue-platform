@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CommonModule as Common } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WacomModule } from 'wacom';
+
 @NgModule({
 	declarations: [],
-	exports: [/* filters */
+	exports: [
+		CommonModule,
 		FormsModule,
 		WacomModule,
-		Common
 	],
 	imports: [
+		CommonModule,
 		FormsModule,
 		WacomModule,
-		Common
 	]
 })
-export class CommonModule { }
+export class CoreModule { }

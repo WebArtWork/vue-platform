@@ -10,6 +10,7 @@
 			"keys": ["name", "data", "is"],
 			"name": "admin"
 		}],
+		"fetch": ["", "me"],
 		"delete": ["admin"]
 	},
 	"dependencies": {

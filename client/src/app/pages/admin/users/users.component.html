@@ -5,9 +5,8 @@
 				<tr>
 					<th scope="col">User</th>
 					<th scope="col">Email</th>
-					<th scope="col" *ngFor="let role of us.data.roles; let i = index;">{{role}}</th>
+					<th scope="col" *ngFor="let role of us.roles; let i = index;">{{role}}</th>
 					<th scope="col">Actions</th>
-
 				</tr>
 			</thead>
 			<tbody>
@@ -21,8 +20,7 @@
 						</div>
 					</td>
 					<td data-label="E-mail">{{user.email}}</td>
-					<td data-label="Role" *ngFor="let role of us.data.roles; let i = index;">
-						<!-- label should cover all space it can cover under this td tab -->
+					<td data-label="Role" *ngFor="let role of us.roles; let i = index;">
 						<label>
 							<input type="checkbox" [(ngModel)]="user.is[role]" (ngModelChange)="us.save(user);" name="role name">
 						</label>
@@ -30,36 +28,10 @@
 					<td data-label="Actions">
 						<i class="material-icons" (click)="us.delete(user);">delete</i>
 					</td>
-
 				</tr>
-
 			</tbody>
 		</table>
 	</div>
-
-	<form (ngSubmit)="create_role();" class="users-field">
-		<div class="waw-input">
-			<label>
-				<span>Add new role</span>
-				<input type="text" [(ngModel)]="new_role" name="new role" placeholder="Name">
-			</label>
-		</div>
-		<button class="waw-btn _primary" type="submit" [disabled]="!new_role">Create</button>
-	</form>
-
-
-	<div class="users-field" *ngFor="let role of us.data.roles; let i = index;">
-		<div class="waw-input">
-			<label>
-				<span>Role {{i+1}}</span>
-				<input type="text" [(ngModel)]="us.data.roles[i]" (ngModelChange)="us.update();" name="role name">
-			</label>
-		</div>
-		<button class="waw-btn _danger" (click)="us.data.roles.splice(i, 1); us.update();">Delete</button>
-	</div>
-
-
-
 	<form (ngSubmit)="us.create(new_user); new_user={}" class="users-field">
 		<div class="waw-input">
 			<label>
@@ -67,12 +39,6 @@
 				<input type="email" [(ngModel)]="new_user.email" name="new user email" placeholder="Email">
 			</label>
 		</div>
-		<button class="waw-btn _primary" type="submit" [disabled]="!new_user.email">Create</button>
+		<button class="waw-btn _primary" type="submit" [disabled]="!ui.valid(new_user.email)">Create</button>
 	</form>
-
-
-	<div class="users-btn">
-		<button class="waw-btn _primary" (click)="generate();">Generate 100 Users</button>
-		<button class="waw-btn _primary" (click)="delete();">Delete generated Users</button>
-	</div>
 </div>
