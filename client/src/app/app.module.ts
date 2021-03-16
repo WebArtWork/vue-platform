@@ -8,18 +8,7 @@ import { Authenticated, Guest, Admins } from '@services';
 import { AppComponent } from './app.component';
 import { CoreModule } from '@core';
 // config
-import { WacomModule, MetaGuard, Config } from 'wacom';
-const config: Config = {
-	socket: false,
-	meta: {
-		useTitleSuffix: true,
-		defaults: {
-			title: 'Web Art Work',
-			titleSuffix: ' | Web Art Work',
-			'og:image': 'https://webart.work/api/user/cdn/waw-logo.png'
-		}
-	}
-};
+import { WacomModule, MetaGuard } from 'wacom';
 /*
 *	Routing Management
 */
@@ -108,7 +97,27 @@ const config: Config = {
 	imports: [
 		CoreModule,
 		BrowserModule,
-		WacomModule.forRoot(config),
+		WacomModule.forRoot({
+			socket: false,
+			meta: {
+				useTitleSuffix: true,
+				defaults: {
+					title: 'Web Art Work',
+					titleSuffix: ' | Web Art Work',
+					'og:image': 'https://webart.work/api/user/cdn/waw-logo.png'
+				}
+			},
+			alert: {
+				alerts: { /* alerts */
+
+				}
+			},
+			modal: {
+				modals: { /* modals */
+
+				}
+			}
+		}),
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'enabled',
 			preloadingStrategy: PreloadAllModules

@@ -13,10 +13,9 @@
 		"db": "waw"
 	},
 	"parts": {
-		"core": "waw",
 		"angular": "waw",
-		"sem": "waw",
-		"unique": "waw"
+		"core": "waw",
+		"sem": "waw"
 	},
 	"dependencies": {
 		"mongoose": "*"
