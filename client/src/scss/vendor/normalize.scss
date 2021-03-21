@@ -81,3 +81,14 @@ textarea {
 [hidden] {
 	display: none;
 }
+img{
+	width: 100%;
+	display: inline-block;
+	vertical-align: top;
+}
+a {
+	text-decoration: none;
+	&:visited{
+		color: inherit;
+	}
+}

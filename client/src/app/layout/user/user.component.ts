@@ -6,5 +6,6 @@ import { UserService } from '@services';
 	styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
+	public navToggle: any;
 	constructor(public us: UserService){}
 }
