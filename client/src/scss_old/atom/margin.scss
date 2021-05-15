@@ -1,5 +1,4 @@
-
-// ===== ADD NEEDED SIZED SEPARETED BY SPACE: $margin-px: 0 10 20 30; =====
+/* Add needed sized separeted by space: $margin-px: 0 10 20 30; */
 $margin-px: 0;
 $margin-x-px: 0;
 $margin-y-px: 0;
@@ -8,7 +7,7 @@ $margin-bottom-px: 0 15;
 $margin-left-px: 0;
 $margin-right-px: 0;
 
-// ===== GENERATORS =====
+/* Generators */
 @mixin margin {
     @each $i in $margin-px {
         .m#{$i} {

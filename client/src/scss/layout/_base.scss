@@ -1,32 +1,48 @@
-html,
-*,
-*:before,
-*:after {
-	box-sizing: border-box;
-}
-* {
-	outline: 0;
-}
-
-html,
-body {
-	height: 100%;
-	width: 100%;
-	margin: 0;
-	padding: 0;
-}
+// ===== BASE STYLE ===== 
 html {
-	font-size: $fs;
-	overflow: hidden;
-	height: 100vh;
+    font-size: $fs;
+    overflow: hidden;
+    height: 100vh;
 }
 body {
-	font-family: $ff-base;
-	color: $text;
-	line-height: 1.4;
-	position: relative;
-	overflow: hidden;
-	height: 100vh;
+    font-family: $ff-base;
+    color: $c-text;
+    line-height: 1.4;
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+}
+/* === PAGE LAYOUT === */
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    max-width: $container;
+    width: 100%;
 }
 
-
+.page {
+    &__header {
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        max-width: $container;
+        width: 100%;
+        border-bottom: 1px solid $c-border;
+    }
+    &__body {
+        flex-grow: 1;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+    }
+    &__footer {
+        border-top: 1px solid $c-border;
+    }
+    &__title {
+        font-weight: $ff-bold;
+        font-size: $fs * 2;
+        line-height: $fs * 2;
+        letter-spacing: 0.5px;
+        color: $c-basic;
+    }
+}
