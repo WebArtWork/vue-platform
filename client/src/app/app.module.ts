@@ -9,55 +9,51 @@ import { AppComponent } from './app.component';
 import { CoreModule } from '@core';
 // config
 import { WacomModule, MetaGuard } from 'wacom';
-/*
-*	Routing Management
-*/
-	const routes: Routes = [{
+const routes: Routes = [{
+	path: '',
+	canActivate: [Guest],
+	component: GuestComponent,
+	children: [/* guest */{
 		path: '',
-		canActivate: [Guest],
-		component: GuestComponent,
-		children: [/* guest */{
-			path: '',
-			canActivate: [MetaGuard],
-			data: {
-				meta: {
-					title: 'Sign'
-				}
-			},
-			loadChildren: () => import('./pages/guest/sign/sign.module').then(m => m.SignModule)
-		}]
-	}, {
-		path: '',
-		canActivate: [Authenticated],
-		component: UserComponent,
-		children: [/* user */{
-			path: 'profile',
-			canActivate: [MetaGuard],
-			data: {
-				meta: {
-					title: 'My Profile'
-				}
-			},
-			loadChildren: () => import('./pages/user/profile/profile.module').then(m => m.ProfileModule)
-		}]
-	}, {
-		path: 'admin',
-		canActivate: [Admins],
-		component: UserComponent,
-		children: [/* admin */{
-			path: 'users',
-			canActivate: [MetaGuard],
-			data: {
-				meta: {
-					title: 'Users'
-				}
-			},
-			loadChildren: () => import('./pages/admin/users/users.module').then(m => m.UsersModule)
-		}]
-	}, {
-		path: '**', redirectTo: 'profile', pathMatch: 'full'
-	}];
-/* Bootstrap */
+		canActivate: [MetaGuard],
+		data: {
+			meta: {
+				title: 'Sign'
+			}
+		},
+		loadChildren: () => import('./pages/guest/sign/sign.module').then(m => m.SignModule)
+	}]
+}, {
+	path: '',
+	canActivate: [Authenticated],
+	component: UserComponent,
+	children: [/* user */{
+		path: 'profile',
+		canActivate: [MetaGuard],
+		data: {
+			meta: {
+				title: 'My Profile'
+			}
+		},
+		loadChildren: () => import('./pages/user/profile/profile.module').then(m => m.ProfileModule)
+	}]
+}, {
+	path: 'admin',
+	canActivate: [Admins],
+	component: UserComponent,
+	children: [/* admin */{
+		path: 'users',
+		canActivate: [MetaGuard],
+		data: {
+			meta: {
+				title: 'Users'
+			}
+		},
+		loadChildren: () => import('./pages/admin/users/users.module').then(m => m.UsersModule)
+	}]
+}, {
+	path: '**', redirectTo: 'profile', pathMatch: 'full'
+}];
 
 @NgModule({
 	declarations: [
