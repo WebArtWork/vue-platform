@@ -10,12 +10,14 @@ module.exports = function(waw) {
 	}
 	waw.crud('user', {
 		get: {
+			ensure: waw.next,
 			query: function(){
 				return {};
 			},
 			select: select
 		},
 		fetch: [{
+			ensure: waw.next,
 			query: function(req){
 				return {
 					_id: req.body._id
@@ -39,13 +41,7 @@ module.exports = function(waw) {
 			}
 		}, {
 			name: 'admin',
-			ensure: function(req, res, next){
-				if(req.user && req.user.is && req.user.is.admin){
-					next();
-				}else{
-					res.json(false);
-				}
-			},
+			ensure: waw.role('admin'),
 			query: function(req, res, next) {
 				return {
 					_id: req.body._id
@@ -54,13 +50,7 @@ module.exports = function(waw) {
 		}],
 		delete: {
 			name: 'admin',
-			ensure: function(req, res, next){
-				if(req.user && req.user.is && req.user.is.admin){
-					next();
-				}else{
-					res.json(false);
-				}
-			},
+			ensure: waw.role('admin'),
 			query: function(req, res, next) {
 				return {
 					_id: req.body._id

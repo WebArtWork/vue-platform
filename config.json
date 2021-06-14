@@ -21,10 +21,8 @@
 		"mongoose": "*"
 	},
 	"user": {
-		"pages": "login sign reset save",
 		"is": {
 			"admin": "ceo@webart.work"
-		},
-		"urls": ["webart.work", "localhost:8080"]
+		}
 	}
 }

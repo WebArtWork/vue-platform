@@ -13,7 +13,19 @@ import { WacomModule, MetaGuard } from 'wacom';
 *	Routing Management
 */
 	const routes: Routes = [{
-		path: '', redirectTo: 'profile', pathMatch: 'full'
+		path: '',
+		canActivate: [Guest],
+		component: GuestComponent,
+		children: [/* guest */{
+			path: '',
+			canActivate: [MetaGuard],
+			data: {
+				meta: {
+					title: 'Sign'
+				}
+			},
+			loadChildren: () => import('./pages/guest/sign/sign.module').then(m => m.SignModule)
+		}]
 	}, {
 		path: '',
 		canActivate: [Authenticated],
@@ -29,7 +41,7 @@ import { WacomModule, MetaGuard } from 'wacom';
 			loadChildren: () => import('./pages/user/profile/profile.module').then(m => m.ProfileModule)
 		}]
 	}, {
-		path: '',
+		path: 'admin',
 		canActivate: [Admins],
 		component: UserComponent,
 		children: [/* admin */{
@@ -41,47 +53,6 @@ import { WacomModule, MetaGuard } from 'wacom';
 				}
 			},
 			loadChildren: () => import('./pages/admin/users/users.module').then(m => m.UsersModule)
-		}]
-	}, {
-		path: '',
-		canActivate: [Guest],
-		component: GuestComponent,
-		children: [/* guest */{
-			path: 'login',
-			canActivate: [MetaGuard],
-			data: {
-				meta: {
-					title: 'Login'
-				}
-			},
-			loadChildren: () => import('./pages/guest/login/login.module').then(m => m.LoginModule)
-		}, {
-			path: 'sign',
-			canActivate: [MetaGuard],
-			data: {
-				meta: {
-					title: 'Sign Up'
-				}
-			},
-			loadChildren: () => import('./pages/guest/sign/sign.module').then(m => m.SignModule)
-		}, {
-			path: 'reset',
-			canActivate: [MetaGuard],
-			data: {
-				meta: {
-					title: 'Reset Password'
-				}
-			},
-			loadChildren: () => import('./pages/guest/reset/reset.module').then(m => m.ResetModule)
-		}, {
-			path: 'save',
-			canActivate: [MetaGuard],
-			data: {
-				meta: {
-					title: 'New Password'
-				}
-			},
-			loadChildren: () => import('./pages/guest/save/save.module').then(m => m.SaveModule)
 		}]
 	}, {
 		path: '**', redirectTo: 'profile', pathMatch: 'full'
@@ -120,7 +91,8 @@ import { WacomModule, MetaGuard } from 'wacom';
 		}),
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'enabled',
-			preloadingStrategy: PreloadAllModules
+			preloadingStrategy: PreloadAllModules,
+			relativeLinkResolution: 'legacy'
 		})
 	],
 	providers: [Authenticated, Guest, Admins],
