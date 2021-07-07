@@ -7,7 +7,7 @@
 *.gz
 *node_modules
 *bower_components
-.idea
+*.idea
 *.git
 *server.json
 *package-lock.json

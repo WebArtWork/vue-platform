@@ -19,29 +19,31 @@ export class UserService {
 				part: 'user',
 				cb: file=>{
 					if(typeof file != 'string') return;
-					this.me.avatarUrl = file;
+					this.user.avatarUrl = file;
 				}
 			});
 			mongo.config('user', {
 				replace: {
 					data: (data, cb, doc) => {
 						if(typeof data != 'object') data = {};
-						console.log(data);
 						cb(data);
 					},
 					is: mongo.beObj
 				}
 			});
-			this.me = mongo.fetch('user', {
+			this.user = mongo.fetch('user', {
 				name: 'me'
-			}, me => {
-				if(!me._id && localStorage.getItem('waw_user')) this.logout();
+			}, user => {
+				if(localStorage.getItem('waw_user') && !user) this.logout();
 			});
-			this.users = mongo.get('user');
+			this.users = mongo.get('user', (arr, obj)=>{
+				this._users = obj;
+			});
 		}
 		public roles = ['admin'];
 		public users: any = [];
-		public me: any = { data: {} };
+		public _users: any = [];
+		public user: any = { data: {}, is: {} };
 	/*
 	*	User Management
 	*/
@@ -49,13 +51,16 @@ export class UserService {
 			this.mongo.create('user', user);
 		}
 		doc(userId){
-			return this.mongo.fetch('user', {
-				query: { _id: userId }
-			});
+			if(!this._users[userId]){
+				this._users[userId] = this.mongo.fetch('user', {
+					query: { _id: userId }
+				});
+			}
+			return this._users[userId];
 		}
 		update(){
 			this.mongo.afterWhile(this, ()=>{
-				this.mongo.update('user', this.me);
+				this.mongo.update('user', this.user);
 			});
 		}
 		save(user){
@@ -80,9 +85,10 @@ export class UserService {
 			});	
 		}
 		logout(){
-			localStorage.removeItem('waw_user')
+			this.user = { data: {}, is: {} };
+			localStorage.removeItem('waw_user');
 			this.http.get('/api/user/logout').subscribe((resp:any)=> {});
-			this.router.navigate(['/login']);
+			this.router.navigate(['/']);
 		}
 	/*
 	*	End of 
@@ -99,7 +105,7 @@ export class Admins implements CanActivate {
 			this.router.navigate(['/profile']);
 			return false;
 		} else {
-			this.router.navigate(['/login']);
+			this.router.navigate(['/']);
 			return false;
 		}
 	}
@@ -112,7 +118,7 @@ export class Authenticated implements CanActivate {
 		if ( localStorage.getItem('waw_user') ) {
 			return true;
 		} else {
-			return this.router.navigate(['/login']);
+			return this.router.navigate(['/']);
 		}
 	}
 
@@ -123,7 +129,7 @@ export class Guest implements CanActivate {
 	constructor(private router: Router) {}
 	canActivate(){
 		if (localStorage.getItem('waw_user')) {
-			return this.router.navigate(['/'])
+			return this.router.navigate(['/profile'])
 		} else {
 			return true;
 		}

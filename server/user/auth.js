@@ -43,25 +43,8 @@ module.exports = async function(waw) {
 	/*
 	*	Serve Client
 	*/
-		waw.use(function(req, res, next) {
-			let host = req.get('host').toLowerCase();
-			if(req.url.indexOf('/api/')==0) return next();
-			if(waw.config.user && waw.config.user.urls.indexOf(host)>=0){
-				if(req.url.indexOf('.')>-1){
-					res.sendFile(process.cwd()+'/client/dist/client'+req.url);
-				}else{
-					let pages = waw.config.user.pages.split(' ');
-					for (var i = 0; i < pages.length; i++) {
-						if(req.url.indexOf(pages[i])>=0){
-							return res.sendFile(process.cwd()+'/client/dist/client/index.html');
-						}
-					}
-					next();
-				}
-			}else{
-				next();
-			}
-		});
+		waw.serve(process.cwd()+'/client/dist/app');
+		waw.url(process.cwd()+'/client/dist/app/index.html', '/admin/users /profile /');
 	/*
 	*	Set is on users from config
 	*/

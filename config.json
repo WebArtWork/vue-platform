@@ -13,19 +13,16 @@
 		"db": "waw"
 	},
 	"parts": {
-		"core": "waw",
 		"angular": "waw",
-		"sem": "waw",
-		"unique": "waw"
+		"core": "waw",
+		"sem": "waw"
 	},
 	"dependencies": {
 		"mongoose": "*"
 	},
 	"user": {
-		"pages": "login sign reset save",
 		"is": {
 			"admin": "ceo@webart.work"
-		},
-		"urls": ["webart.work", "localhost:8080"]
+		}
 	}
 }
