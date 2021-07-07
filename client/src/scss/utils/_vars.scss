@@ -5,17 +5,17 @@
 $container: 1210px;
 
 // ## COLORS
-// const colors 
+// const colors
 $c-black: #000;
 $c-white: #fff;
-// main colors 
+// main colors
 $c-basic: #313131;
 $c-sky: #3498DB;
 $c-grey: #BDBDBD;
 $c-danger: #E74C3C;
 $c-warn: #E67E22;
 $c-success: #14c76e;
-// aditional colors 
+// aditional colors
 $c-text: #333333;
 $c-text-l: #34495E;
 $c-border: #95A5A6;
@@ -25,14 +25,11 @@ $c-shadow: #f3f3f3;
 $fs: 16px;
 $ff-bold: bold;
 $ff-base: "Roboto",sans-serif;
-// $ff-second: 'Roboto',sans-serif;
 
 // ## BORDER
-$b-radius: 15px;
-$b-radius-btn: 35px;
+$b-radius: 5px;
+$b-radius-btn: 25px;
 $b-radius-img: 50%;
 
-// TRANSITION 
+// TRANSITION
 $transition: .3s all ease-in-out;
-
-

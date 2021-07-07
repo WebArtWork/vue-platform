@@ -1,17 +1,18 @@
-// forms 
+// forms
 .forms {
     position: relative;
     margin: 10px 0;
     &__title {
         color: $c-basic;
-        font-size: calc($fs - 2px);
-        line-height: calc($fs - 2px);
+        font-size: calc(#{$fs} - 2px);
+        line-height: calc(#{$fs} - 2px);
         letter-spacing: 0.01em;
-        text-transform: uppercase;
         margin-bottom: 5px;
     }
     &__input,
-    &__textarea {
+    &__textarea,
+	&__select {
+		height: 40px;
         background-color: $c-white;
         border: 1px solid $c-border;
         border-radius: $b-radius;
@@ -46,9 +47,19 @@
             -moz-appearance: textfield;
         }
     }
+	&__select {
+		appearance: none;
+		padding-right: 30px;
+	}
+	&__chevron {
+		position: absolute;
+		top: 30px;
+		right: 12px;
+		&::before {color: $c-basic;}
+	}
     &__textarea {
         min-height: 80px;
         resize: vertical;
-        max-height: 150px;
+        max-height: 250px;
     }
 }

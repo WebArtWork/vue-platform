@@ -1,24 +1,49 @@
 ======== Structure  ========
-1. waw button 
-2. waw input 
+1. waw button
+2. waw input
 3. waw checkbox
 4. waw radio
 5. waw textarea
-6. waw switch 
-7. waw nav 
-8. waw table 
+6. waw switch
+7. waw nav
+8. waw table
 
 
-1. ==== waw button ====
-<button class="waw-btn _primary _primary--mob">Add</button>
-<button class="waw-btn _second _second--mob">Cancel</button>
-<button class="waw-btn _danger _danger--mob">Delete</button>
+1. ==== button ====
+<button class="btn _primary">Add</button>
+<button class="btn _second">Cancel</button>
+<button class="btn _danger">Delete</button>
 
-2. ==== waw input ====
-<label class="waw-input">
-	<span class="waw-input__title">Email</span>
-	<input (keydown.enter)="true" type="email" placeholder="E-mail" name="email">
+2. ==== input ====
+ <div class="forms">
+	<span class="forms__title">Text</span>
+	<input class="forms__input" type="text" name="text" placeholder="Your text">
+</div>
+
+3. ==== select ====
+<div class="forms">
+	<span class="forms__title">Name</span>
+	<span class="forms__chevron material-icons">expand_more</span>
+	<select class="forms__select">
+		<option value="Default">Default</option>
+	</select>
+</div>
+5. ==== textarea ====
+<div class="forms">
+	<span class="forms__title">Text</span>
+	<textarea class="forms__textarea" placeholder="Text"></textarea>
+</div>
+
+6. ==== switch ====
+<label class="switch">
+	<div class="switch__toggle">
+		<input class="switch__input" type="checkbox">
+		<span class="switch__slider _round"></span>
+	</div>
+	<div class="switch__text">Sound notification</div>
 </label>
+
+
 
 3. ====  waw checkbox ====
 <label class="waw-checkbox">
@@ -34,49 +59,13 @@
 	<span class="checkmark"></span>
 </label>
 
-5. ==== waw textarea ====
-<label class="waw-textarea">
-	<span class="waw-textarea__title">Alert message</span>
-	<textarea placeholder="Alert messages" name="Alert message" disabled></textarea>
-</label>
 
-6. ==== waw switch ====
-<div class="waw-switch">
-	<label class="waw-switch__toggle">
-		<input type="checkbox" name="notifications">
-		<span class="waw-switch__slider _round"></span>
-	</label>
-	<div class="waw-switch__text">title</div>
-</div>
+
+
+
 
 
 7. ==== waw nav ====
-<nav class="waw-nav">
-	<input type="checkbox" id="check">
-	<label class="waw-nav__logo"><a href="#">WAW</a></label>
-	<label for="check" class="waw-nav__checkbtn">
-		<i class="fas fa-bars"></i>
-	</label>
-
-	<ul>
-		<li><a class="active" href="#"><label for="menu">Menu</label></a></li>
-		<li><a href="#">Home</a></li>
-		<li><a href="#">Get started</a></li>
-		<li><a href="#">Documentation</a></li>
-		<li><a href="#">Download</a></li>
-	</ul>
-</nav>
-
-<input class="leftMenu__input" type="checkbox" id="menu">
-<div class="leftMenu leftMenu__active">
-	<ul>
-		<li><a href="#">Link</a></li>
-		<li><a href="#">Link</a></li>
-		<li><a href="#">Link</a></li>
-		<li><a href="#">Link</a></li>
-		<li><a href="#">Link</a></li>
-	</ul>
-</div>
 
 8. ==== waw table ====
 <div class="table-wrapp">
