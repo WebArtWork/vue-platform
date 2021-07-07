@@ -1,5 +1,5 @@
 var User = require(__dirname + '/schema.js');
-module.exports = function(waw) {
+module.exports = async function(waw) {
 	var router = waw.router('/api/user');
 	waw.file('user', {
 		rename: (req)=>{ return req.user._id+'.jpg' },

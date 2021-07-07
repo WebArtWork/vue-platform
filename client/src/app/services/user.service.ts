@@ -11,9 +11,13 @@ export class UserService {
 	/*
 	*	Declarations
 	*/
+		public roles = ['admin'];
+		public users: any = [];
+		public _users: any = {};
+		public user: any = { data: {}, is: {} };
 		constructor(private mongo: MongoService, private file: FileService,
 			private router: Router, private http: HttpClient) {
-			file.add({
+			this.file.add({
 				id: 'userAvatarUrl',
 				resize: 256,
 				part: 'user',
@@ -22,7 +26,7 @@ export class UserService {
 					this.user.avatarUrl = file;
 				}
 			});
-			mongo.config('user', {
+			this.mongo.config('user', {
 				replace: {
 					data: (data, cb, doc) => {
 						if(typeof data != 'object') data = {};
@@ -40,10 +44,6 @@ export class UserService {
 				this._users = obj;
 			});
 		}
-		public roles = ['admin'];
-		public users: any = [];
-		public _users: any = [];
-		public user: any = { data: {}, is: {} };
 	/*
 	*	User Management
 	*/
