@@ -1,7 +1,7 @@
 const User = require(__dirname+'/schema.js');
 const mongoose = require('mongoose');
 const passport = require('passport');
-module.exports = function(waw) {
+module.exports = async function(waw) {
 	if(waw.config.mail){
 		const nodemailer = require("nodemailer");
 		let transporter = nodemailer.createTransport({
