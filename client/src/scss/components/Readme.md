@@ -68,37 +68,29 @@
 </label>
 
 
-8. ==== waw table ====
+8. ==== table ====
 <div class="table-wrapp">
-	<table class="table" cellpadding="0" cellspacing="0">
-		<thead>
-			<tr>
-				<th scope="col">Clients</th>
-				<th scope="col">Address</th>
-				<th scope="col">Email</th>
-				<th scope="col">Phone</th>
-				<th scope="col">additional phone</th>
-				<th scope="col">Gender</th>
-				<th scope="col">Date of birth</th>
+	<table class="table">
+		<thead class="table-header">
+			<tr class="table-header__tr">
+				<th class="table__th">Clients</th>
+				<th class="table__th">Address</th>
+				<th class="table__th">Email</th>
+				<th class="table__th">Phone</th>
+				<th class="table__th">additional phone</th>
+				<th class="table__th">Gender</th>
+				<th class="table__th">Date of birth</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr *ngFor="let item of [{},{},{},{},{},{},{},{},{},{},{}]">
-				<td data-label="Clients">
-					<div class="cl-table-clients">
-						<div class="cl-table-clients__img"><img src="assets/img/user.jpg" alt="user avatar" /></div>
-						<div class="cl-table-clients__info">
-							<div class="cl-table-clients__name">Anna Korsun</div>
-							<div class="cl-table-clients__desc">#65ghd4</div>
-						</div>
-					</div>
-				</td>
-				<td data-label="Address">Street of Blue Flowers 23</td>
-				<td data-label="Email">korsun_anna@gmail.com</td>
-				<td data-label="Phone">(201) 555-0124</td>
-				<td data-label="phone 2">(201) 555-0124</td>
-				<td data-label="Gender">Woman</td>
-				<td data-label="birth">2.05.1978</td>
+		<tbody class="table-body">
+			<tr class="table-body__tr" *ngFor="let item of [{},{},{},{},{},{},{},{},{},{},{}]">
+				<td class="table__td">Ivan Petrneko</td>
+				<td class="table__td">Street of Blue Flowers 23</td>
+				<td class="table__td">korsun_anna@gmail.com</td>
+				<td class="table__td">(201) 555-0124</td>
+				<td class="table__td">(201) 555-0124</td>
+				<td class="table__td">Woman</td>
+				<td class="table__td">2.05.1978</td>
 			</tr>
 		</tbody>
 	</table>
