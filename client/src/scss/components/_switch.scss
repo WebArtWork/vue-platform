@@ -38,7 +38,7 @@
             top: 50%;
             transform: translateY(-50%);
             background-color: $c-white;
-            transition: 0.4s;
+            transition: $transition;
         }
         &._round {
             border-radius: 34px;
@@ -51,7 +51,7 @@
         margin-left: 10px;
         font-size: calc(#{$fs} - 2px);
         line-height: calc(#{$fs} - 2px);
-        letter-spacing: 0.01em;
+        letter-spacing: $letter-spacing;
         color: $c-basic;
     }
 }

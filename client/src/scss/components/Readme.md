@@ -1,13 +1,12 @@
 ======== Structure  ========
-1. waw button
-2. waw input
-3. waw checkbox
-4. waw radio
-5. waw textarea
-6. waw switch
-7. waw nav
-8. waw table
-
+1. button
+2. input
+3. select
+5. textarea
+6. switch
+4. radio
+7. checkbox
+8. table
 
 1. ==== button ====
 <button class="btn _primary">Add</button>
@@ -28,13 +27,14 @@
 		<option value="Default">Default</option>
 	</select>
 </div>
-5. ==== textarea ====
+
+4. ==== textarea ====
 <div class="forms">
 	<span class="forms__title">Text</span>
 	<textarea class="forms__textarea" placeholder="Text"></textarea>
 </div>
 
-6. ==== switch ====
+5. ==== switch ====
 <label class="switch">
 	<div class="switch__toggle">
 		<input class="switch__input" type="checkbox">
@@ -43,20 +43,28 @@
 	<div class="switch__text">Sound notification</div>
 </label>
 
-
-
-3. ====  waw checkbox ====
-<label class="waw-checkbox">
-	<span class="waw-checkbox___title">Title</span>
-	<input name="Name" type="checkbox" disabled>
-	<span class="checkmark"></span>
+6. ==== checkbox ====
+<label class="checkbox">
+	<input class="checkbox__input" type="checkbox" name="text">
+	<div class="checkbox__body">
+		<span class="checkbox__svg"><svg width="12px" height="10px"><use xlink:href="#check"></use></svg></span>
+		<span class="checkbox__text">Text</span>
+	</div>
 </label>
 
-4. ==== waw radio ====
-<label for="name1" class="waw-radio">
-	<span class="waw-radio__title">Title</span>
-	<input id="name1" name="radio" type="radio" checked="checked">
-	<span class="checkmark"></span>
+<!-- Checkbox SVG Sprites - put one time on page-->
+<svg class="checkbox__svg-icon">
+    <symbol id="check" viewbox="0 0 12 10">
+        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+    </symbol>
+</svg>
+
+
+7. ==== radio ====
+<label class="radio">
+	<input type="radio" name="text" class="radio__input">
+	<span class="radio__label"></span>
+	<div class="radio__text">Text</div>
 </label>
 
 

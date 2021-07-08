@@ -6,7 +6,7 @@
         color: $c-basic;
         font-size: calc(#{$fs} - 2px);
         line-height: calc(#{$fs} - 2px);
-        letter-spacing: 0.01em;
+        letter-spacing: $letter-spacing;
         margin-bottom: 5px;
     }
     &__input,
@@ -21,7 +21,7 @@
         transition: $transition;
         width: 100%;
         display: block;
-        letter-spacing: 0.2px;
+        letter-spacing: $letter-spacing;
 		padding: 10px;
         &::placeholder {
             color: $c-grey;
