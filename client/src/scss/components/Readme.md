@@ -14,25 +14,25 @@
 <button class="btn _danger">Delete</button>
 
 2. ==== input ====
- <div class="forms">
+ <label class="forms">
 	<span class="forms__title">Text</span>
 	<input class="forms__input" type="text" name="text" placeholder="Your text">
-</div>
+</label>
 
 3. ==== select ====
-<div class="forms">
+<label class="forms">
 	<span class="forms__title">Name</span>
 	<span class="forms__chevron material-icons">expand_more</span>
 	<select class="forms__select">
 		<option value="Default">Default</option>
 	</select>
-</div>
+</label>
 
 4. ==== textarea ====
-<div class="forms">
+<label class="forms">
 	<span class="forms__title">Text</span>
 	<textarea class="forms__textarea" placeholder="Text"></textarea>
-</div>
+</label>
 
 5. ==== switch ====
 <label class="switch">

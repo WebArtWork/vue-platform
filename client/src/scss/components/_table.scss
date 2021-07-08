@@ -1,8 +1,8 @@
 // table
 .table-wrapp {
     background: $c-white;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-    border-radius: 3px;
+    box-shadow: $c-shadow;
+    border-radius: $b-radius;
     padding: 20px;
     width: 100%;
     .table {
@@ -16,11 +16,9 @@
             text-align: center;
             border-right: 2px solid $c-grey;
             border-bottom: 0.5px solid $c-text;
-            font-weight: 500;
-            font-size: 16px;
+            font-size: $ff-base;
             line-height: 24px;
-            letter-spacing: 0.01em;
-            text-transform: uppercase;
+            letter-spacing: $letter-spacing;
             color: $c-text;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -38,9 +36,9 @@
             vertical-align: middle;
             border-right: 2px solid $c-grey;
             border-bottom: 2px dashed #E0E0E0;
-            font-size: 14px;
+            font-size: calc(#{$ff-base} - 2px);
             line-height: 24px;
-            letter-spacing: 0.01em;
+            letter-spacing: $letter-spacing;
             color: $c-text;
             word-break: break-word;
             @include bp-max(md) {
