@@ -1,8 +1,7 @@
 import { CanActivate, ActivatedRouteSnapshot, 
 	RouterStateSnapshot, Router, Route } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MongoService, FileService } from 'wacom';
+import { MongoService, FileService, HttpService } from 'wacom';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,7 +15,7 @@ export class UserService {
 		public _users: any = {};
 		public user: any = { data: {}, is: {} };
 		constructor(private mongo: MongoService, private file: FileService,
-			private router: Router, private http: HttpClient) {
+			private router: Router, private http: HttpService) {
 			this.file.add({
 				id: 'userAvatarUrl',
 				resize: 256,
@@ -79,7 +78,7 @@ export class UserService {
 			this.http.post('/api/user/changePassword', {
 				newPass: newPass,
 				oldPass: oldPass
-			}).subscribe(resp => {
+			}, resp => {
 				if(resp) alert('successfully changed password');
 				else alert('failed to change password');
 			});	
@@ -87,7 +86,7 @@ export class UserService {
 		logout(){
 			this.user = { data: {}, is: {} };
 			localStorage.removeItem('waw_user');
-			this.http.get('/api/user/logout').subscribe((resp:any)=> {});
+			this.http.get('/api/user/logout', resp => {});
 			this.router.navigate(['/']);
 		}
 	/*
