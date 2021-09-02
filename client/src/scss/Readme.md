@@ -1,40 +1,38 @@
-• SCSS FOLDER PACK BY WAW • 
+# • SCSS FOLDER PACK BY WAW • 
 
-I. GET STARTED
-# Import app.scss to your global styles -> @import: "scss/app";
+## I. GET STARTED
+- Import app.scss to your global styles -> ```@import: "scss/app";```
 
-II. STRUCTURE
-# atom 
+## II. STRUCTURE
+### Atom 
 	1. display
 	2. margin
 	3. padding
 	4. size
 	5. text
-# common
-# components
+### Components
 	1. buttons
 	2. forms
 	3. nav
 	4. switch
 	5. table
-# layout
+### Layout
 	1. base
 	2. grid
 	3. scroll
-# pages
-# utils
+### Utils
 	1. fonts
 	2. icons
 	3. media
 	4. vars
 	5. angular
-# vendors
+### Vendors
 	1. normalize
 
-III. SETTINGS
-# Go to app.scss and turn on/off imports scss files
+## III. SETTINGS
+- Go to ```app.scss``` and turn on/off imports scss files
 
-IV. INFO
+## IV. INFO
 1. atom - include atomic classes.
 2. common - include styles which appears on few pages.
 3. components - include independent blocks
@@ -43,16 +41,16 @@ IV. INFO
 6. utils - include abstract styles
 7. vendors - include imports resets, normalize, libs
 
-V. HOW TO USE COMPONENTS
-# Go to scss/components/README.md - ready made html for components
+## V. HOW TO USE COMPONENTS
+- Go to ```scss/components/README.md``` - ready made html for components
 
-VI. HTML/SCSS RULES
-# We use BEM technology but changed a little for themselves (optional)
-a. HTML
+## VI. HTML/SCSS RULES
+### We use BEM technology but changed a little for themselves (optional)
+#### a. HTML
 	1. block -> "header"
 	2. element -> "header__link"
 	3. modifier -> "_active"
-b. SCSS
+#### b. SCSS
 	1. block -> "header {}"
 	2. element -> "&__link {}"
 	3. modifier -> "&._active {}"
