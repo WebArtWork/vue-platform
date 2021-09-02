@@ -1,12 +1,3 @@
-======== Structure  ========
-1. button
-2. input
-3. select
-5. textarea
-6. switch
-4. radio
-7. checkbox
-8. table
 
 1. ==== button ====
 ```
