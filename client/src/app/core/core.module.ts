@@ -5,7 +5,7 @@ import { WacomModule } from 'wacom';
 
 @NgModule({
 	declarations: [],
-	exports: [
+	exports: [ /* exports */
 		CommonModule,
 		FormsModule,
 		WacomModule,
