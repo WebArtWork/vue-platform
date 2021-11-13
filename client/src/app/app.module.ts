@@ -76,12 +76,22 @@ const routes: Routes = [{
 			},
 			alert: {
 				alerts: { /* alerts */
-
 				}
 			},
 			modal: {
 				modals: { /* modals */
-
+				}
+			},
+			alert: {
+				alerts: { /* alerts */
+				}
+			},
+			loader: {
+				loaders: { /* loaders */
+				}
+			},
+			popup: {
+				popups: { /* popups */
 				}
 			}
 		}),
