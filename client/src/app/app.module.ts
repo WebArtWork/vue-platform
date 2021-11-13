@@ -56,10 +56,12 @@ const routes: Routes = [{
 }];
 
 @NgModule({
-	declarations: [
+	declarations: [ /* declarations */
 		AppComponent,
 		GuestComponent,
 		UserComponent
+	],
+	entryComponents: [ /* entryComponents */
 	],
 	imports: [
 		CoreModule,
@@ -82,16 +84,12 @@ const routes: Routes = [{
 				modals: { /* modals */
 				}
 			},
-			alert: {
-				alerts: { /* alerts */
+			popup: {
+				popups: { /* popups */
 				}
 			},
 			loader: {
 				loaders: { /* loaders */
-				}
-			},
-			popup: {
-				popups: { /* popups */
 				}
 			}
 		}),
