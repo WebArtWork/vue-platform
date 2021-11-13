@@ -29,7 +29,6 @@ module.exports = async function(waw) {
 			useUnifiedTopology: true,
 			useNewUrlParser: true
 		});
-		mongoose.set('useCreateIndex', true);
 		mongoose.Promise = global.Promise;
 	}
 	passport.serializeUser(function(user, done) {
