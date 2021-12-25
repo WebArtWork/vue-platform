@@ -2,11 +2,13 @@ var User = require(__dirname + '/schema.js');
 module.exports = async function(waw) {
 	var router = waw.router('/api/user');
 	waw.file('user', {
-		rename: (req)=>{ return req.user._id+'.jpg' },
+		rename: (req)=>{
+			return req.user._id+'.jpg'
+		},
 		ensure: waw.ensure
 	});
 	var select = function(){
-		return '-password';
+		return '-password -resetPin -resetCounter -resetCreate';
 	}
 	waw.crud('user', {
 		get: {

@@ -2,48 +2,55 @@ const User = require(__dirname+'/schema.js');
 const mongoose = require('mongoose');
 const passport = require('passport');
 module.exports = async function(waw) {
-	if(waw.config.mail){
-		const nodemailer = require("nodemailer");
-		let transporter = nodemailer.createTransport({
-			host: waw.config.mail.host,
-			port: waw.config.mail.port,
-			secure: waw.config.mail.secure,
-			auth: waw.config.mail.auth
-		});
-		waw.send = (opts, cb=resp=>{})=>{
-			transporter.sendMail({
-				from: waw.config.mail.from,
-				subject: opts.subject || waw.config.mail.subject,
-				to: opts.to,
-				text: opts.text,
-				html: opts.html
-			}, cb);
+	// initialize
+		if(waw.config.mail){
+			const nodemailer = require("nodemailer");
+			let transporter = nodemailer.createTransport({
+				host: waw.config.mail.host,
+				port: waw.config.mail.port,
+				secure: waw.config.mail.secure,
+				auth: waw.config.mail.auth
+			});
+			waw.send = (opts, cb=resp=>{})=>{
+				transporter.sendMail({
+					from: waw.config.mail.from,
+					subject: opts.subject || waw.config.mail.subject,
+					to: opts.to,
+					text: opts.text,
+					html: opts.html
+				}, cb);
+			}
+		}else{
+			waw.send = ()=>{}
 		}
-	}else{
-		waw.send = ()=>{}
-	}
-	waw.use(passport.initialize());
-	waw.use(passport.session());
-	if(mongoose.connection.readyState==0){
-		mongoose.connect(waw.mongoUrl, {
-			useUnifiedTopology: true,
-			useNewUrlParser: true
+		waw.use(passport.initialize());
+		waw.use(passport.session());
+		if(mongoose.connection.readyState==0){
+			mongoose.connect(waw.mongoUrl, {
+				useUnifiedTopology: true,
+				useNewUrlParser: true
+			});
+			mongoose.Promise = global.Promise;
+		}
+		passport.serializeUser(function(user, done) {
+			done(null, user.id);
 		});
-		mongoose.Promise = global.Promise;
-	}
-	passport.serializeUser(function(user, done) {
-		done(null, user.id);
-	});
-	passport.deserializeUser(function(id, done) {
-		User.findById(id, function(err, user) {
-			done(err, user);
+		passport.deserializeUser(function(id, done) {
+			User.findById(id, function(err, user) {
+				done(err, user);
+			});
 		});
-	});
 	/*
 	*	Serve Client
 	*/
-		waw.serve(process.cwd()+'/client/dist/app');
-		waw.url(process.cwd()+'/client/dist/app/index.html', '/admin/users /profile /');
+		waw.serve(process.cwd() + '/client/dist/app');
+		waw.url(process.cwd() + '/client/dist/app/index.html', '/admin/users /profile /');
+	    waw.url(process.cwd() + '/template/dist/index.html', '/', {
+	        title: waw.config.name,
+	        description: waw.config.description,
+	        keywords: waw.config.keywords,
+	        image: 'https://webart.work/template/img/spider.svg'
+	    });
 	/*
 	*	Set is on users from config
 	*/
@@ -82,19 +89,6 @@ module.exports = async function(waw) {
 			return user;
 		}
 		const router = waw.router('/api/user');
-		router.get("/me", function(req, res) {
-			let user = {};
-			if(req.user){
-				User.schema.eachPath(function(path) {
-					path = path.split('.')[0];
-					user[path] = req.user[path];
-				});
-			}else{
-				user.data = req.session.data;
-			}
-			if(!user.data) user.data = {};
-			res.json(prepare_user(user));
-		});
 		router.post("/status", function(req, res) {
 			User.findOne({
 				$or: [{
@@ -227,137 +221,5 @@ module.exports = async function(waw) {
 				}
 			});
 		}));
-	// Google
-		if (waw.config.user.google) {
-			var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-			router.get('/google', passport.authenticate('google', {
-				scope: ['profile', 'email']
-			}));
-			router.get('/google/callback', passport.authenticate('google', {
-				successRedirect: '/login',
-				failureRedirect: '/login'
-			}));
-			passport.use('google', new GoogleStrategy({
-				clientID: waw.config.user.google.clientID,
-				clientSecret: waw.config.user.google.clientSecret,
-				callbackURL: waw.config.user.google.callbackURL,
-				passReqToCallback: true
-			}, function (req, token, refreshToken, profile, done) {
-				if(req.user){
-					req.user.google_token = token;
-					req.user.google_id = profile.id;
-					return req.user.save(function(){
-						done(null, req.user);
-					});
-				}
-				let query = {
-					fb_token: token
-				};
-				if(profile.emails[0]){
-					query = {
-						$or: [query, {
-							email: profile.emails[0].value.toLowerCase()
-						}]
-					}
-				}
-				User.findOne(query, function (err, user) {
-					if (err) done(err);
-					else if (user) {
-						user.google_token = token;
-						user.google_id = profile.id;
-						user.save(function(){
-							done(null, user);
-						});
-					}else{
-						var newUser = new User();
-						newUser.is = {
-							admin: false
-						};
-						newUser.name = profile.displayName;
-						if(profile.emails[0]) newUser.email = profile.emails[0].value.toLowerCase();
-						if(profile.photos[0]) newUser.avatarUrl = profile.photos[0].value;
-						newUser.reg_email = newUser.email;
-						newUser.google_token = token;
-						newUser.google_id = profile.id;
-						newUser.data = {};
-						User.findOne({}).sort({ _id: -1 }).exec(function(err, doc){
-							newUser.inc = 10000;
-							if(doc&&doc.inc) newUser.inc = doc.inc+1;
-							newUser.save(function(err) {
-								if (err) throw err;
-								done(null, newUser);
-							});
-						});
-					}
-				});
-			}));
-		}
-	// Facebook
-		if (waw.config.user.facebook) {
-			var FacebookStrategy = require('passport-facebook').Strategy;
-			router.get('/facebook', passport.authenticate('facebook', {
-				display: 'page',
-				scope: 'email'
-			}));
-			router.get('/facebook/callback', passport.authenticate('facebook', {
-				successRedirect: '/login',
-				failureRedirect: '/login'
-			}));
-			passport.use('facebook',new FacebookStrategy({
-				clientID: waw.config.user.facebook.clientID,
-				clientSecret: waw.config.user.facebook.clientSecret,
-				callbackURL: waw.config.user.facebook.callbackURL,
-				profileFields: ['id', 'displayName', 'link', 'photos', 'email'],
-				passReqToCallback: true
-			}, function (req, token, refreshToken, profile, done) {
-				if(req.user){
-					req.user.fb_token = token;
-					req.user.fb_id = profile.id;
-					return req.user.save(function(){
-						done(null, req.user);
-					});
-				}
-				let query = {
-					fb_id: profile.id
-				};
-				if(profile.emails[0]){
-					query = {
-						$or: [query, {
-							email: profile.emails[0].value.toLowerCase()
-						}]
-					}
-				}
-				User.findOne(query, function (err, user) {
-					if (err) done(err);
-					else if (user) {
-						user.fb_token = token;
-						user.fb_id = profile.id;
-						user.save(function(){
-							done(null, user);
-						});
-					}else{
-						var newUser = new User();
-						newUser.is = {
-							admin: false
-						};
-						newUser.name = profile.displayName;
-						if(profile.emails[0]) newUser.email = profile.emails[0].value.toLowerCase();
-						if(profile.photos[0]) newUser.avatarUrl = profile.photos[0].value;
-						newUser.reg_email = newUser.email;
-						newUser.fb_token = token;
-						newUser.fb_id = profile.id;
-						newUser.data = {};
-						User.findOne({}).sort({ _id: -1 }).exec(function(err, doc){
-							newUser.inc = 10000;
-							if(doc&&doc.inc) newUser.inc = doc.inc+1;
-							newUser.save(function(err) {
-								if (err) throw err;
-								return done(null, newUser);
-							});
-						});
-					}
-				});
-			}));
-		}
 	// End of Crud
 };

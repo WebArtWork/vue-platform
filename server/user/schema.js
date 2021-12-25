@@ -8,14 +8,12 @@ var schema = mongoose.Schema({
 	reg_email: {type: String, unique: true, sparse: true, trim: true},
 	password: String,
 	name: String,
-	fb_token: String,
-	fb_id: String,
-	google_token: String,
-	google_id: String,
 	resetPin: Number,
 	resetCounter: Number,
 	resetCreate: Number
-}, {minimize: false});
+}, {
+	minimize: false
+});
 schema.methods.generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };

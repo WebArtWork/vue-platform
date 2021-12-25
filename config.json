@@ -1,8 +1,8 @@
 {
 	"name": "wawNgx",
-	"description": "Default waw project with Angular client",
+	"description": "Default waw project with Angular client and Template landing",
+	"keywords": "Default Project",
 	"license": "MIT",
-	"production": false,
 	"icon": "/client/src/favicon.ico",
 	"prefix": "wawNgx",
 	"port": 8080,
