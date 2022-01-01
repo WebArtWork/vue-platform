@@ -1,4 +1,3 @@
-// == VARS ==
 
 
 // ## LAYOUT
@@ -8,28 +7,36 @@ $container: 1210px;
 // const colors
 $c-black: #000;
 $c-white: #fff;
+
+
+
 // main colors
-$c-basic: #313131;
-$c-sky: #3498DB;
+$c-basic: #3558AE;
+$c-sky: #080b0e;
 $c-grey: #BDBDBD;
 $c-danger: #E74C3C;
 $c-warn: #E67E22;
 $c-success: #14c76e;
+$c-bg: #F3F4F7;
+$c-danger-hover: darken($c-danger, 10%);
+
 // aditional colors
-$c-text: #333333;
+$c-text: #444444;
 $c-text-l: #34495E;
-$c-border: #95A5A6;
+$c-border: #F0F1F7;
 $c-shadow: #f3f3f3;
 
 // ## FONT
 $fs: 16px;
 $ff-bold: bold;
-$ff-base: "Roboto",sans-serif;
-$letter-spacing: 0.01em;
+$ff-base: "Poppins",
+sans-serif;
+$letter-spacing: 0.3px;
 
 // ## BORDER
-$b-radius: 5px;
-$b-radius-btn: 25px;
+$b-radius: 8px;
+$b-radius-card: 10px;
+$b-radius-btn: 10px;
 $b-radius-img: 50%;
 
 // TRANSITION

@@ -3,34 +3,36 @@
     position: relative;
     margin: 10px 0;
     &__title {
-        color: $c-basic;
-        font-size: calc(#{$fs} - 2px);
-        line-height: calc(#{$fs} - 2px);
+		display: inline-block;
+        color: #666666;
+        font-size: calc(#{$fs} - 4px);
+        line-height: calc(#{$fs} + 2px);
         letter-spacing: $letter-spacing;
-        margin-bottom: 5px;
+        margin-bottom: 6px;
+		font-weight: 500;
     }
     &__input,
     &__textarea,
 	&__select {
-		height: 40px;
-        background-color: $c-white;
-        border: 1px solid $c-border;
+		height: 42px;
+        background-color: #FCFDFE;
+        border: 1px solid #F0F1F7;
         border-radius: $b-radius;
-        color: $c-basic;
-        font-size: $fs;
+        color: #19235C;
+        font-size: calc(#{$fs} - 2px);
+		line-height: calc(#{$fs} + 4px);
         transition: $transition;
         width: 100%;
         display: block;
         letter-spacing: $letter-spacing;
 		padding: 10px;
         &::placeholder {
-            color: $c-grey;
+            color: #ADB8C6;
             transition: $transition;
         }
         &:focus {
             transition: $transition;
-            border-color: $c-sky;
-            color: $c-sky;
+            border-color: #256EFF;
         }
 		&:disabled {
             background-color: lighten($c-grey, 10%);

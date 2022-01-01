@@ -27,6 +27,7 @@
 		</div>
 	</nav>
 	<div class="main">
+		<div class="fade"  [@showInOut]="navToggle" *ngIf="navToggle"></div>
 		<router-outlet></router-outlet>
 	</div>
 </div>

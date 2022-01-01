@@ -1,16 +1,16 @@
 .btn {
     font-size: $fs;
-    font-weight: $ff-bold;
+    font-weight: 500;
     font-family: $ff-base;
     background-color: $c-sky;
     border-radius: $b-radius-btn;
     transition: $transition;
     color: $c-white;
 	position: relative;
-    padding: 10px 25px;
-    letter-spacing: 1.25px;
+    padding: 11px 25px;
+    // letter-spacing: 1.25px;
+	line-height: 19px;
     text-align: center;
-    text-transform: uppercase;
     white-space: nowrap;
     user-select: none;
     border: none;
@@ -23,15 +23,16 @@
         }
     }
     &._second {
-        border: 2px solid $c-sky;
+        border: 1px solid #256EFF;
         background-color: $c-white;
-        color: $c-sky;
+        color: #256EFF;
+
     }
     &._danger {
         background-color: $c-danger;
         color: white;
         &:hover {
-            background-color: darken($c-danger, 10%);
+            background: rgba($c-danger, 1);
         }
     }
     &:disabled {

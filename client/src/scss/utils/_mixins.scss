@@ -1,0 +1,7 @@
+@mixin text-default($ls, $lh, $fw, $fs, $color) {
+    letter-spacing: $ls;
+    line-height: $lh;
+    font-weight: $fw;
+    font-size: $fs;
+    color: $color;
+}

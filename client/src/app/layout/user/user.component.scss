@@ -1,4 +1,5 @@
 @import "angular";
+/*  WRAPPER STYLE  */
 .wrapper {
     position: fixed;
     width: 100%;
@@ -6,32 +7,33 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    background: $c-bg;
     .main {
         flex-grow: 1;
         overflow-y: auto;
         display: flex;
         flex-direction: column;
-        border-top-left-radius: 25px;
-        border-top-right-radius: 25px;
-        margin-top: 5px;
-        @include bp-max(md) {
-            border-bottom-left-radius: 25px;
-            border-bottom-right-radius: 25px;
-            margin-bottom: 5px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-            margin-top: 0;
+        position: relative;
+        .fade {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 9;
+            background: rgba(0, 0, 0, 0.3);
         }
     }
 }
+/*  NAV STYLE  */
 .nav {
     background: $c-basic;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 45px;
-    z-index: 99;
+    min-height: 50px;
+    z-index: 10;
+    overflow: hidden;
+    box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
     &__ul {
         z-index: 1;
         margin-top: 0;
@@ -73,15 +75,13 @@
             width: 5px;
             height: 5px;
             background-color: $c-white;
-            bottom: -3px;
+            bottom: -1px;
             border-radius: $b-radius-img;
             transform: translateY(15px);
             opacity: 0;
             @include bp-max(md) {
                 top: -3px;
             }
-
-
         }
         &._activeLink {
             &::before {
@@ -99,7 +99,7 @@
             }
         }
         .material-icons {
-            color: #fff;
+            color: $c-white;
             width: 24px;
         }
     }
@@ -148,15 +148,16 @@
         margin: 0;
         max-width: 250px;
         width: 100%;
-        height: calc(100% - 45px);
-        top: 45px;
+        height: calc(100% - 50px);
+        top: 50px;
         position: fixed;
-        background-color: $c-basic;
+        background-color: $c-white;
         right: 0;
         transform: translateX(120%);
         display: flex;
         flex-direction: column;
         transition: $transition;
+        box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
         &._active {
             transform: translateX(0);
         }
