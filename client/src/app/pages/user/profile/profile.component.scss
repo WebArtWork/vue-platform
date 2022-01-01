@@ -10,11 +10,9 @@
     box-shadow: 0px 0px 6px rgba(168, 168, 168, 0.14);
     &__header {
         @include text-default(0, 23px, 500, 20px, $c-text);
-        padding: 10px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        @include flexBox(flex, null, space-between, center, null);
         border-radius: $b-radius;
+        padding: 10px 20px;
     }
     &__body {
         padding: 10px 20px;
@@ -23,9 +21,7 @@
         margin-top: 20px;
         .btn {
             margin: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            @include flexBox(flex, null, space-between, center, null);
         }
         .material-icons {
             margin-right: 10px;
@@ -59,9 +55,7 @@
         height: 24px;
         border-radius: $b-radius-img;
         background: $c-basic;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include flexBox(flex, null, center, center, null);
         transition: $transition;
     }
     &__icon {

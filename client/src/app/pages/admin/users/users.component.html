@@ -1,4 +1,4 @@
-<div class="users">
+<div class="users container">
     <form (ngSubmit)="us.create(new_user); new_user={}" class="users-field">
         <label class="forms">
             <span class="forms__title">New User</span>
@@ -20,7 +20,7 @@
                 <tr class="table-body__tr" *ngFor="let user of us.users|search:search:'name email'">
                     <td class="table__td user">
                         <div class="table-user">
-                            <div class="table-user__img"><img [src]="user.avatarUrl" alt="" height="50" width="50"></div>
+                            <div class="table-user__img"><img [src]="user.avatarUrl || 'assets/default.png'" alt="User Avatar" height="50" width="50"></div>
                             <div class="table-user__text">{{user.name}}</div>
                         </div>
                     </td>

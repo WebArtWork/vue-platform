@@ -5,14 +5,12 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    @include flexBox(flex, column, null, null, null);
     background: $c-bg;
     .main {
         flex-grow: 1;
         overflow-y: auto;
-        display: flex;
-        flex-direction: column;
+        @include flexBox(flex, column, null, null, null);
         position: relative;
         .fade {
             position: fixed;
@@ -27,9 +25,7 @@
 .nav {
     background: $c-basic;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include flexBox(flex, null, space-between, center, null);
     min-height: 50px;
     z-index: 10;
     overflow: hidden;
@@ -40,8 +36,7 @@
         margin-bottom: 0;
         padding: 0 10px;
         transition: $transition;
-        display: flex;
-        align-items: center;
+        @include flexBox(flex, null, null, center, null);
         width: 100%;
     }
     &__li {
@@ -56,7 +51,6 @@
         &:not(:last-child) {
             margin-right: 10px;
         }
-
     }
     &__a {
         cursor: pointer;
@@ -106,8 +100,7 @@
     &__toggle {
         width: 100%;
         height: 100%;
-        display: flex;
-        align-items: center;
+        @include flexBox(flex, null, null, center, null);
         position: relative;
         order: 3;
         cursor: pointer;
@@ -154,8 +147,7 @@
         background-color: $c-white;
         right: 0;
         transform: translateX(120%);
-        display: flex;
-        flex-direction: column;
+        @include flexBox(flex, column, null, null, null);
         transition: $transition;
         box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
         &._active {
@@ -164,8 +156,7 @@
         &-list {
             flex-grow: 1;
             height: 100%;
-            display: flex;
-            flex-direction: column;
+            @include flexBox(flex, column, null, null, null);
             overflow-y: auto;
             padding: 10px 5px;
             .nav__burger-link {
@@ -174,10 +165,7 @@
             }
         }
         &-user {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            @include flexBox(flex, column, center, center, null);
             color: $c-white;
             padding: 5px;
             border-bottom: 1px solid $c-border;
@@ -186,16 +174,15 @@
             }
             .material-icons {
                 color: $c-white;
-                font-size: 48px;
+                font-size: $fs - 32px;
             }
         }
         &-link {
-            display: flex;
-            align-items: center;
+           @include flexBox(flex, null, null, center, null);
             .material-icons {
                 color: $c-white;
                 margin-right: 10px;
-                font-size: 30px;
+                font-size: $fs + 14px;
             }
         }
     }
