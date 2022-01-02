@@ -1,5 +1,5 @@
 <div class="wrapper" id="wrapper">
-	<nav class="nav"(clickOutside)="navToggle=false">
+	<nav class="nav" (clickOutside)="navToggle=false">
 		<ul class="nav__ul container" [class._active]="navToggle">
 			<li class="nav__li">
 				<a class="nav__a" (click)="navToggle=false" routerLinkActive="_activeLink" [routerLinkActiveOptions]="{ exact: true }" routerLink="/profile">
@@ -19,15 +19,19 @@
 		</ul>
 		<div class="nav__burger" [class._active]="navToggle">
 			<div class="nav__burger-list">
+				<div class="theme-switch">
+					<span class="material-icons" *ngIf="us.user.data.theme=='light' || us.user.data.theme==undefined" (click)="darkmodeToggle('dark')">dark_mode</span>
+					<span class="material-icons" *ngIf="us.user.data.theme=='dark'" (click)="darkmodeToggle('light')">light_mode</span>
+				</div>
 				<a class="nav__burger-link nav__burger-user" routerLink="/profile">
 					<span class="material-icons">account_circle</span>
-					<div class="name">{{us.user.name || "Sign"}}</div>
+					<div class="name">{{us.user.name || "Profile"}}</div>
 				</a>
 			</div>
 		</div>
 	</nav>
 	<div class="main">
-		<div class="fade"  [@showInOut]="navToggle" *ngIf="navToggle"></div>
+		<div class="fade" [@showInOut]="navToggle" *ngIf="navToggle"></div>
 		<router-outlet></router-outlet>
 	</div>
 </div>

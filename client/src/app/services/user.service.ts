@@ -1,4 +1,4 @@
-import { CanActivate, ActivatedRouteSnapshot, 
+import { CanActivate, ActivatedRouteSnapshot,
 	RouterStateSnapshot, Router, Route } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { MongoService, FileService, HttpService } from 'wacom';
@@ -12,6 +12,7 @@ export class UserService {
 	*/
 		public roles = ['admin'];
 		public users: any = [];
+
 		public _users: any = {};
 		public user: any = { data: {}, is: {} };
 		constructor(private mongo: MongoService, private file: FileService,
@@ -81,7 +82,7 @@ export class UserService {
 			}, resp => {
 				if(resp) alert('successfully changed password');
 				else alert('failed to change password');
-			});	
+			});
 		}
 		logout(){
 			this.user = { data: {}, is: {} };
@@ -90,7 +91,7 @@ export class UserService {
 			this.router.navigate(['/']);
 		}
 	/*
-	*	End of 
+	*	End of
 	*/
 }
 

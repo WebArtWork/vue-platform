@@ -35,7 +35,7 @@
             border-color: #256EFF;
         }
 		&:disabled {
-            background-color: lighten($c-grey, 10%);
+            background-color: $c-grey;
             border-color: $c-grey;
             color: $c-grey;
             cursor: default;

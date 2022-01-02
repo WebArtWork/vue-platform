@@ -6,9 +6,25 @@ import { Animation } from "src/app/core/animation"
 	selector: 'app-user',
 	templateUrl: './user.component.html',
 	styleUrls: ['./user.component.scss'],
-	animations: [ Animation ]
+	animations: [Animation]
 })
 export class UserComponent {
 	public navToggle: any = false;
-	constructor(public us: UserService){}
+	constructor(public us: UserService) {
+
+	}
+	darkmodeToggle(color) {
+		this.us.user.data.theme = color
+		if (this.us.user.data.theme == 'dark') {
+			document.getElementById('html').classList.add("dark");
+		}
+		else if (this.us.user.data.theme != 'dark') {
+			document.getElementById('html').classList.remove("dark");
+		}
+	}
+	ngOnInit() {
+		if (this.us.user.data.theme == 'dark') {
+			document.getElementById('html').classList.add("dark")
+		}
+	}
 }

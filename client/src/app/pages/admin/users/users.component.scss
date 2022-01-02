@@ -41,16 +41,20 @@
 }
 
 .users-field {
-    @include flexBox(flex, null, space-between, center, null);
+    @include flexBox(flex, null, space-between, flex-end, null);
+    .btn {
+        margin: 10px;
+    }
+    .forms {
+        width: 100%;
+    }
     @include bp-max(xs) {
-		.forms {
-			width: 100%;
-		}
         flex-direction: column;
-		.btn {
-			margin-bottom: 20px;
-			width: 100%;
-		}
+		align-items: center;
+        .btn {
+            margin-bottom: 20px;
+            width: 100%;
+        }
     }
 }
 
@@ -58,5 +62,18 @@
     transition: $transition;
     &:hover {
         color: $c-danger;
+    }
+}
+
+.users {
+    background: $c-white;
+    border-radius: $b-radius-card;
+    box-shadow: 0px 0px 6px rgba(168, 168, 168, 0.14);
+    padding: 10px 30px;
+    &__header {
+        @include text-default(0, 23px, 500, 20px, $c-text);
+        @include flexBox(flex, null, space-between, center, null);
+        border-radius: $b-radius;
+        padding: 30px 0;
     }
 }
