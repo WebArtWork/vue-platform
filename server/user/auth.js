@@ -44,13 +44,14 @@ module.exports = async function(waw) {
 	*	Serve Client
 	*/
 		waw.serve(process.cwd() + '/client/dist/app');
+		waw.build(process.cwd()+'/template', 'index');
 		waw.url(process.cwd() + '/client/dist/app/index.html', '/admin/users /profile /');
-	    waw.url(process.cwd() + '/template/dist/index.html', '/', {
-	        title: waw.config.name,
-	        description: waw.config.description,
-	        keywords: waw.config.keywords,
-	        image: 'https://webart.work/template/img/spider.svg'
-	    });
+		waw.url(process.cwd() + '/template/dist/index.html', '/', {
+			title: waw.config.name,
+			description: waw.config.description,
+			keywords: waw.config.keywords,
+			image: 'https://webart.work/template/img/spider.svg'
+		});
 	/*
 	*	Set is on users from config
 	*/
