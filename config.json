@@ -13,6 +13,7 @@
 		"db": "waw"
 	},
 	"parts": {
+		"template": "waw",
 		"angular": "waw",
 		"core": "waw",
 		"sem": "waw"
