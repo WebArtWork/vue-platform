@@ -1,5 +1,5 @@
 {
-	"priority": 901,
+	"priority": 1001,
 	"name": "User",
 	"router": "router.js auth.js",
 	"crud": {
@@ -14,9 +14,9 @@
 		"delete": ["admin"]
 	},
 	"dependencies": {
-		"nodemailer": "*",
-		"passport-local": "*",
 		"bcrypt-nodejs": "*",
-		"passport": "*"
+		"nodemailer": "*",
+		"njwt": "*",
+		"uuid": "*"
 	}
 }

@@ -1,7 +1,14 @@
 const User = require(__dirname+'/schema.js');
+const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
-const passport = require('passport');
 module.exports = async function(waw) {
+	if (!waw.config.signingKey) {
+		waw.config.signingKey = uuidv4();
+		let serverJson = waw.readJson(process.cwd() + '/server.json');
+		serverJson.signingKey = waw.config.signingKey;
+		waw.writeJson(process.cwd() + '/server.json', serverJson);
+	}
+	console.log(waw.config.signingKey);
 	// initialize
 		if(waw.config.mail){
 			const nodemailer = require("nodemailer");
@@ -23,8 +30,6 @@ module.exports = async function(waw) {
 		}else{
 			waw.send = ()=>{}
 		}
-		waw.use(passport.initialize());
-		waw.use(passport.session());
 		if(mongoose.connection.readyState==0){
 			mongoose.connect(waw.mongoUrl, {
 				useUnifiedTopology: true,
@@ -32,28 +37,24 @@ module.exports = async function(waw) {
 			});
 			mongoose.Promise = global.Promise;
 		}
-		passport.serializeUser(function(user, done) {
-			done(null, user.id);
-		});
-		passport.deserializeUser(function(id, done) {
-			User.findById(id, function(err, user) {
-				done(err, user);
-			});
-		});
 	/*
 	*	Serve Client
 	*/
 		waw.serve(process.cwd() + '/client/dist/app');
-		/*
+		waw.url(process.cwd() + '/client/dist/app/index.html', '/admin/users /profile /auth');
+	/*
+	*	Serve Template
+	*/
+		waw.serve(process.cwd() + '/template', {
+			prefix: '/template'
+		});
 		waw.build(process.cwd()+'/template', 'index');
-		waw.url(process.cwd() + '/client/dist/app/index.html', '/admin/users /profile /');
 		waw.url(process.cwd() + '/template/dist/index.html', '/', {
 			title: waw.config.name,
 			description: waw.config.description,
 			keywords: waw.config.keywords,
 			image: 'https://webart.work/template/img/spider.svg'
 		});
-		*/
 	/*
 	*	Set is on users from config
 	*/
@@ -81,16 +82,6 @@ module.exports = async function(waw) {
 	/*
 	*	Initialize User and Mongoose
 	*/
-		const prepare_user = function(user){
-			user = JSON.parse(JSON.stringify(user));
-			delete user.fb_token;
-			delete user.google_token;
-			delete user.password;
-			delete user.resetPin;
-			delete user.resetCounter;
-			delete user.resetCreate;
-			return user;
-		}
 		const router = waw.router('/api/user');
 		router.post("/status", function(req, res) {
 			User.findOne({
@@ -116,7 +107,7 @@ module.exports = async function(waw) {
 				console.log(user.resetPin);
 				user.resetCreate = new Date().getTime();
 				user.resetCounter = 3;
-				user.markModified('data'); 
+				user.markModified('data');
 					user.save(function(err){
 						if (err) throw err;
 						waw.send({
@@ -152,7 +143,7 @@ module.exports = async function(waw) {
 					delete user.resetCounter;
 					delete user.resetCreate;
 				}
-				user.markModified('data'); 
+				user.markModified('data');
 				user.save(function(err) {
 					if (err) throw err;
 					res.json(message);
@@ -171,58 +162,51 @@ module.exports = async function(waw) {
 			req.logout();
 			res.json(true);
 		});
-	/*
-	*	Passport Management
-	*/
-		var LocalStrategy = require('passport-local').Strategy;
-		router.post('/login', passport.authenticate('login'), function(req, res) {
-			res.json(prepare_user(req.user));
-		});
-		passport.use('login', new LocalStrategy({
-			usernameField : 'email',
-			passwordField : 'password'
-		}, function(username, password, done) {
+		router.post('/login', (req, res) => {
 			User.findOne({
-				email: username.toLowerCase(),
+				email: req.body.username.toLowerCase(),
 				blocked: {
 					$ne: true
 				}
-			}, function(err, user) {
-				if (err) return done(err);
-				if (!user) return done(null, false);
-				if (!user.validPassword(password)) return done(null, false);
-				return done(null, user);
-			});
-		}));
-		router.post('/signup', passport.authenticate('signup'), function(req, res) {
-			res.json(prepare_user(req.user));
-		});
-		passport.use('signup', new LocalStrategy({
-			usernameField : 'email',
-			passwordField : 'password',
-			passReqToCallback : true
-		}, function(req, username, password, done) {
-			User.findOne({
-				email: username.toLowerCase()
-			}, function(err, user) {
-				if (err) return done(err);
-				if (user) return done(null, false);
-				else {
-					var newUser = new User();
-					newUser.is = {
-						admin: false
-					};
-					newUser.name = req.body.name;
-					newUser.email = username.toLowerCase();
-					newUser.reg_email = username.toLowerCase();
-					newUser.password = newUser.generateHash(password);
-					newUser.data = req.session.data && typeof req.session.data == 'object' && req.session.data || {};
-					newUser.save(function(err) {
-						if (err) throw err;
-						return done(null, newUser);
-					});
+			}, function (err, user) {
+				if (err || !user || !user.validPassword(req.body.password)) {
+					return res.json(false);
 				}
+				user = JSON.parse(JSON.stringify(user));
+				delete user.password;
+				delete user.resetPin;
+				user.token = nJwt.create(user, signingKey).compact();
+				res.json(user);
 			});
-		}));
+		});
+		router.post('/sign', (req, res) => {
+			User.findOne({
+				email: req.body.username.toLowerCase(),
+				blocked: {
+					$ne: true
+				}
+			}, function (err, user) {
+				if (err || user) {
+					return res.json(false);
+				}
+				user = new User();
+				user.is = {
+					admin: false
+				};
+				user.name = req.body.name;
+				user.email = req.body.username.toLowerCase();
+				user.reg_email = req.body.username.toLowerCase();
+				user.password = user.generateHash(req.body.password);
+				user.data = {};
+				user.save(function (err) {
+					if (err) throw err;
+					user = JSON.parse(JSON.stringify(user));
+					delete user.password;
+					delete user.resetPin;
+					user.token = nJwt.create(user, signingKey).compact();
+					res.json(user);
+				});
+			});
+		});
 	// End of Crud
 };
