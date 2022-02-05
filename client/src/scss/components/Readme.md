@@ -103,3 +103,16 @@
 	</table>
 </div>
 ```
+
+
+9. ==== card ====
+```
+<div class="w-card"></div>
+
+<div class="w-card _pd"></div>
+
+<div class="w-card">
+	<div class="w-card__header"></div>
+</div>
+
+```

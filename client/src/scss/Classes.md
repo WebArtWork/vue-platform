@@ -15,6 +15,11 @@
 	col-2m // column min-width 50%
 	col-25 // column width 40%
 
+### CARD
+	w-card // card body
+	w-card _pd  // card with padding
+	w-card__header // header card inside w-card
+
 ### Atom (should turn on in file app.scss)
 	1. Display
 		d-b //display-block:

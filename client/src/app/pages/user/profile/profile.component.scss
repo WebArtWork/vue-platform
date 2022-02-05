@@ -5,17 +5,10 @@
 }
 /*  PROFILE STYLE  */
 .profile {
-    background: var(--c-white);
-    border-radius: var(--b-radius-card);
-    box-shadow: 0px 0px 6px rgba(168, 168, 168, 0.14);
     &__header {
-        @include text-default(0, 23px, 500, 20px, var(--c-text));
+        @include text-default(0, 23px, 500, 20px, var(--c-text-primary));
         @include flexBox(flex, null, space-between, center, null);
         border-radius: var(--b-radius);
-        padding: 10px 20px;
-    }
-    &__body {
-        padding: 10px 20px;
     }
     &__logout {
         margin-top: 20px;
@@ -54,7 +47,7 @@
         width: 24px;
         height: 24px;
         border-radius: var(--b-radius-img);
-        background: var(--c-basic);
+        background: var(--c-primary);
         @include flexBox(flex, null, center, center, null);
         transition: var(--transition);
     }

@@ -34,10 +34,10 @@
         }
     }
     &:disabled {
-        background-color: var(--c-grey);
+        background-color: var(--c-grey-dark);
         cursor: default;
         &:hover {
-            background-color: var(--c-grey);
+            background-color: var(--c-grey-dark);
         }
     }
 }

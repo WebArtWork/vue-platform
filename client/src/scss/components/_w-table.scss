@@ -1,10 +1,11 @@
 // table
 .w-table-wrap {
-    background: var(--c-white);
+    background: var(--c-bg-secondary);
     box-shadow: var(--c-shadow);
     border-radius: var(--b-radius);
     padding: 20px;
     width: 100%;
+	transition: var(--transition);
     .w-table {
         border-collapse: collapse;
         margin: 0;
@@ -19,7 +20,7 @@
             font-size: var(--fs);
             line-height: var(--fs) + 8px;
             letter-spacing: var(--letter-spacing);
-            color: var(--c-text);
+            color: var(--c-text-primary);
             text-overflow: ellipsis;
             overflow: hidden;
 			text-transform: capitalize;
@@ -41,7 +42,7 @@
             font-size: var(--fs) - 2px;
             line-height: var(--fs) + 8px;
             letter-spacing: var(--letter-spacing);
-            color: var(--c-text);
+            color: var(--c-text-primary);
             word-break: break-word;
             @include bp-max(md) {
                 font-size: var(--fs) - 4px;

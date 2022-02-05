@@ -1,7 +1,7 @@
 # • SCSS FOLDER PACK BY WAW •
 
 ## I. GET STARTED
-- Import app.scss to your global styles -> ```@import: "scss/app";```
+- Import app.scss to your global styles -> ```@import: "scss/waw";```
 
 ## II. STRUCTURE
 ### Atom
@@ -32,14 +32,14 @@
 ### Vendors
 	1. normalize
 ## III. SETTINGS
-- Go to ```app.scss``` and turn on/off imports scss files
+- Go to ```waw.scss``` and turn on/off imports scss files
 ## IV. INFO
 1. atom - include atomic classes.
 2. common - include styles which appears on few pages.
 3. components - include independent blocks
 4. layout - include global layout settings
 5. pages - include style for specifically page
-6. utils - include abstract styles
+6. utils - include utilities styles
 7. vendors - include imports resets, normalize, libs
 
 ## V. HOW TO USE COMPONENTS
