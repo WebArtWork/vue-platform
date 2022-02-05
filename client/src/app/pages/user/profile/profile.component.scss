@@ -5,13 +5,13 @@
 }
 /*  PROFILE STYLE  */
 .profile {
-    background: $c-white;
-    border-radius: $b-radius-card;
+    background: var(--c-white);
+    border-radius: var(--b-radius-card);
     box-shadow: 0px 0px 6px rgba(168, 168, 168, 0.14);
     &__header {
-        @include text-default(0, 23px, 500, 20px, $c-text);
+        @include text-default(0, 23px, 500, 20px, var(--c-text));
         @include flexBox(flex, null, space-between, center, null);
-        border-radius: $b-radius;
+        border-radius: var(--b-radius);
         padding: 10px 20px;
     }
     &__body {
@@ -19,7 +19,7 @@
     }
     &__logout {
         margin-top: 20px;
-        .btn {
+        .w-btn {
             margin: 0;
             @include flexBox(flex, null, space-between, center, null);
         }
@@ -31,8 +31,8 @@
 
 /*  AVATAR PHOTO STYLE  */
 .avatar {
-    border-radius: $b-radius-img;
-    border: 1px solid $c-border;
+    border-radius: var(--b-radius-img);
+    border: 1px solid var(--c-border);
     position: relative;
     margin: 0 auto;
     padding: 3px;
@@ -44,7 +44,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: $b-radius-img;
+        border-radius: var(--b-radius-img);
     }
     &__upload {
         cursor: pointer;
@@ -53,13 +53,13 @@
         bottom: 0px;
         width: 24px;
         height: 24px;
-        border-radius: $b-radius-img;
-        background: $c-basic;
+        border-radius: var(--b-radius-img);
+        background: var(--c-basic);
         @include flexBox(flex, null, center, center, null);
-        transition: $transition;
+        transition: var(--transition);
     }
     &__icon {
-        color: $c-white;
-        font-size: $fs;
+        color: var(--c-white);
+        font-size: var(--fs);
     }
 }

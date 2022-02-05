@@ -1,5 +1,5 @@
 // SWITCH
-.switch {
+.w-switch {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -10,25 +10,25 @@
     }
     &__input {
         display: none;
-        &:checked+.switch__slider {
-            background-color: $c-sky;
-            border: 1px solid $c-sky;
+        &:checked+.w-switch__slider {
+            background-color: var(--c-primary);
+            border: 1px solid var(--c-primary);
         }
-        &:focus+.switch__slider {
-            box-shadow: 0 0 1px $c-grey;
+        &:focus+.w-switch__slider {
+            box-shadow: 0 0 1px var(--c-grey);
         }
-        &:checked+.switch__slider:before {
+        &:checked+.w-switch__slider:before {
             transform: translate(15px, -50%);
-            background-color: $c-white;
+            background-color: var(--c-white);
         }
     }
     &__slider {
         position: absolute;
         inset: 0;
-        background-color: $c-grey;
-        border: 1px solid $c-grey;
+        background-color: var(--c-grey);
+        border: 1px solid var(--c-grey);
         outline: none;
-        transition: $transition;
+        transition: var(--transition);
         &:before {
             position: absolute;
             content: "";
@@ -37,8 +37,8 @@
             left: 6px;
             top: 50%;
             transform: translateY(-50%);
-            background-color: $c-white;
-            transition: $transition;
+            background-color: var(--c-white);
+            transition: var(--transition);
         }
         &._round {
             border-radius: 34px;
@@ -49,9 +49,9 @@
     }
     &__text {
         margin-left: 10px;
-        font-size: calc(#{$fs} - 2px);
-        line-height: calc(#{$fs} - 2px);
-        letter-spacing: $letter-spacing;
-        color: $c-basic;
+        font-size: calc(#{var(--fs)} - 2px);
+        line-height: calc(#{var(--fs)} - 2px);
+        letter-spacing: var(--letter-spacing);
+        color: var(--c-basic);
     }
 }

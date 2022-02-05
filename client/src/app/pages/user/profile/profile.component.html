@@ -9,20 +9,25 @@
 		</div>
 	</div>
 	<div class="profile__body">
-		<div class="forms">
-			<span class="forms__title">Name</span>
-			<input class="forms__input" type="text" name="name" placeholder="Your name" [(ngModel)]="us.user.name" (ngModelChange)="us.update();">
+		<div class="w-forms">
+			<span class="w-forms__title">Name</span>
+			<input class="w-forms__input" type="text" name="name" placeholder="Your name" [(ngModel)]="us.user.name" (ngModelChange)="us.update();">
 		</div>
-		<div class="forms">
-			<span class="forms__title">Phone number</span>
-			<input class="forms__input" type="tel" name="number" placeholder="Phone number" [(ngModel)]="us.user.data.phone" (ngModelChange)="us.update();">
+		<div class="w-forms">
+			<span class="w-forms__title">Phone number</span>
+			<input class="w-forms__input" type="tel" name="number" placeholder="Phone number" [(ngModel)]="us.user.data.phone" (ngModelChange)="us.update();">
 		</div>
-		<div class="forms">
-			<span class="forms__title">Bio</span>
-			<textarea class="forms__textarea" placeholder="Bio" [(ngModel)]="us.user.data.bio" (ngModelChange)="us.update();"></textarea>
+		<div class="w-forms">
+			<span class="w-forms__title">Bio</span>
+			<textarea class="w-forms__textarea" placeholder="Bio" [(ngModel)]="us.user.data.bio" (ngModelChange)="us.update();"></textarea>
 		</div>
 		<div class="profile__logout">
-			<button class="btn _danger" (click)="us.logout();"><span class="material-icons">logout</span>Logout</button>
+			<button class="w-btn _danger" (click)="us.logout();"><span class="material-icons">logout</span>Logout</button>
+			<label class="w-radio">
+				<input type="radio" name="text" class="w-radio__input">
+				<span class="w-radio__label"></span>
+				<div class="w-radio__text">Text</div>
+			</label>
 		</div>
 	</div>
 </div>

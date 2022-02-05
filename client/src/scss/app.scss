@@ -2,8 +2,9 @@
 // VENDORS
 // UTILS
 // LAYOUT
-// COMMON
 // COMPONENTS
+// COMMON
+// PLUGINS
 // PAGES
 // ATOM
 
@@ -20,20 +21,20 @@
 
 // ## LAYOUT
 @import "layout/base";
+@import "layout/scroll";
 // @import "layout/grid";
-// @import "layout/scroll";
+
+// ## COMPONENTS
+@import "components/w-btn";
+@import "components/w-switch";
+@import "components/w-forms";
+@import "components/w-checkbox";
+@import "components/w-radio";
+@import "components/w-table";
 
 // ## COMMON
 
-
-// ## COMPONENTS
-@import "components/buttons";
-@import "components/forms";
-@import "components/switch";
-@import "components/checkbox";
-@import "components/radio";
-@import "components/table";
-
+// ## PLUGINS
 
 // ## PAGES
 
