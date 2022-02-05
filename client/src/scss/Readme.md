@@ -14,10 +14,11 @@
 ### Components
 	1. w-btn
 	2. w-checkbox
-	3. w-forms
-	4. w-radio
-	5. w-switch
-	6. w-table
+	3. w-card
+	4. w-forms
+	5. w-radio
+	6. w-switch
+	7. w-table
 ### Layout
 	1. base
 	2. grid
