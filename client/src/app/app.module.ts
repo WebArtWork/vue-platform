@@ -15,6 +15,15 @@ const routes: Routes = [{
 	canActivate: [Guest],
 	component: GuestComponent,
 	children: [/* guest */{
+		path: 'uikit',
+		canActivate: [MetaGuard],
+		data: {
+			meta: {
+				title: 'Uikit'
+			}
+		},
+		loadChildren: () => import('./pages/guest/uikit/uikit.module').then(m => m.UikitModule)
+	}, {
 		path: '',
 		canActivate: [MetaGuard],
 		data: {
