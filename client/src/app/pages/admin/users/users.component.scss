@@ -15,7 +15,7 @@
         img {
             width: 100%;
             height: 100%;
-            border-radius: $b-radius-img;
+            border-radius: var(--b-radius-img);
         }
         @include bp-max(md) {
             display: none;
@@ -23,7 +23,7 @@
     }
 }
 
-.table {
+.w-table {
     @include bp-max(md) {
         .email,
         .role {
@@ -42,7 +42,7 @@
 
 .users-field {
     @include flexBox(flex, null, space-between, flex-end, null);
-    .btn {
+    .w-btn {
         margin: 10px;
     }
     .forms {
@@ -51,29 +51,24 @@
     @include bp-max(xs) {
         flex-direction: column;
 		align-items: center;
-        .btn {
+        .w-btn {
             margin-bottom: 20px;
             width: 100%;
         }
     }
 }
 
-.table__td.actions .material-icons {
-    transition: $transition;
+.w-table__td.actions .material-icons {
+    transition: var(--transition);
     &:hover {
-        color: $c-danger;
+        color: var(--c-error);
     }
 }
 
 .users {
-    background: $c-white;
-    border-radius: $b-radius-card;
-    box-shadow: 0px 0px 6px rgba(168, 168, 168, 0.14);
-    padding: 10px 30px;
     &__header {
-        @include text-default(0, 23px, 500, 20px, $c-text);
+        @include text-default(0, 23px, 500, 20px, var(--c-text-primary));
         @include flexBox(flex, null, space-between, center, null);
-        border-radius: $b-radius;
-        padding: 30px 0;
+        border-radius: var(--b-radius);
     }
 }

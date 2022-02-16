@@ -1,71 +1,56 @@
-html:root {
+:root {
+    // const
+    --c-white: #fff;
+    --c-black: #000;
+    --c-grey: #e7e7e7;
+    --c-grey-dark: #bfbfbf;
+
+    // theme
+    --c-basic: #3558ae;
+    --c-primary: #256eff;
+    --c-primary-hover: #0051f1;
+    --c-secondary: red;
+    --c-bg-primary: #f3f4f7;
+    --c-bg-secondary: #ffffff;
+    --c-bg-tertiary: #fcfdfe;
+    --c-border: #f0f1f7;
+    --c-shadow: #f3f3f3;
+    --c-text-primary: #666666;
+    --c-text-secondary: #19235c;
+    --c-placeholder: #adb8c6;
+
+    // classic
+    --c-warn: #e67e22;
+    --c-error: #e74c3c;
+    --c-error-hover: #d62c1a;
+    --c-success: #14c76e;
+    --c-info: #17a2b8;
+
+    // geometry
     --container: 1210px;
-    --color-basic: #3558AE;
-    --color-1: #256EFF;
-    --color-1-hover: #0051f1;
-    --color-grey: #BDBDBD;
-    --color-warn: #E67E22;
-    --color-danger: #E74C3C;
-    --color-danger-hover: #d62c1a;
-    --color-success: #14c76e;
-    --color-bg: #F3F4F7;
-    --color-text: #444444;
-    --color-text-l: #34495E;
-    --color-border: #F0F1F7;
-    --color-shadow: #f3f3f3;
-    --color-white: #fff;
+    --b-radius: 8px;
+    --b-radius-card: 10px;
+    --b-radius-btn: 10px;
+    --b-radius-img: 50%;
+	--padding: 10px;
     --fs: 16px;
     --ff-bold: bold;
     --ff-base: "Poppins",
         sans-serif;
     --letter-spacing: 0.3px;
-    --b-radius: 8px;
-    --b-radius-card: 10px;
-    --b-radius-btn: 10px;
-    --b-radius-img: 50%;
     --transition: .3s all ease-in-out;
 }
 
 
+
 html.dark:root {
-    --color-basic: #333;
+    --c-basic: #333;
+	--c-bg-primary: #282828;
+	--c-bg-secondary: #343434;
+	--c-bg-tertiary: #404040;
+    --c-border: #404040;
+    --c-shadow: #444444;
+    --c-text-primary: #ffffff;
+    --c-text-secondary: #ffffff;
+    --c-placeholder: #7a7a7a;
 }
-
-// ## LAYOUT
-$container: var(--container);
-
-// ## COLORS
-// const colors
-$c-black: var(--color-black);
-$c-white: var(--color-white);
-// main colors
-$c-basic: var(--color-basic);
-$c-sky: var(--color-1);
-$c-sky-hover: var(--color-1-hover);
-$c-grey: var(--color-grey);
-$c-danger: var(--color-danger);
-$c-danger-hover: var(--color-danger-hover);
-$c-warn: var(--color-warn);
-$c-success: var(--color-success);
-$c-bg: var(--color-bg);
-
-// aditional colors
-$c-text: var(--color-text);
-$c-text-l: var(--color-text-l);
-$c-border: var(--color-border);
-$c-shadow: var(--color-shadow);
-
-// ## FONT
-$fs: var(--fs);
-$ff-bold: var(--ff-bold);
-$ff-base: var(--ff-base);
-$letter-spacing: var(--letter-spacing);
-
-// ## BORDER
-$b-radius: var(--b-radius);
-$b-radius-card: var(--b-radius-card);
-$b-radius-btn: var(--b-radius-btn);
-$b-radius-img: var(--b-radius-img);
-
-// TRANSITION
-$transition: var(--transition);
