@@ -10,6 +10,7 @@ import { CoreModule } from '@core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // config
 import { WacomModule, MetaGuard } from 'wacom';
+
 const routes: Routes = [{
 	path: '',
 	canActivate: [Guest],
@@ -93,14 +94,6 @@ const routes: Routes = [{
 			},
 			modal: {
 				modals: { /* modals */
-				}
-			},
-			popup: {
-				popups: { /* popups */
-				}
-			},
-			loader: {
-				loaders: { /* loaders */
 				}
 			}
 		}),

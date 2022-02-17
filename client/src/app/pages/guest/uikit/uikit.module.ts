@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CoreModule } from '@core';
 import { UikitComponent } from './uikit.component';
 import { Routes, RouterModule } from '@angular/router';
+import { InputModule, TextareaModule, SwitchModule, CheckboxModule, RadioModule, BreadcrumbModule, CollapseModule, ProgressModule, CardModule, SelectModule, ButtonModule, TableModule} from 'src/app/modules';
 
 const routes: Routes = [{
 	path: '',
@@ -11,7 +12,19 @@ const routes: Routes = [{
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
-		CoreModule
+		CoreModule,
+		InputModule,
+		TextareaModule,
+		SwitchModule,
+		CheckboxModule,
+		RadioModule,
+		BreadcrumbModule,
+		CollapseModule,
+		ProgressModule,
+		CardModule,
+		SelectModule,
+		ButtonModule,
+		TableModule
 	],
 	declarations: [
 		UikitComponent
