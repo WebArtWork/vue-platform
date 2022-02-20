@@ -67,51 +67,45 @@ const routes: Routes = [{
 }];
 
 @NgModule({
-	declarations: [ /* declarations */
-		AppComponent,
-		GuestComponent,
-		UserComponent
-	],
-	entryComponents: [ /* entryComponents */
-	],
-	imports: [
-		CoreModule,
-		BrowserModule,
-		BrowserAnimationsModule,
-		WacomModule.forRoot({
-			socket: false,
-			meta: {
-				useTitleSuffix: true,
-				defaults: {
-					title: 'Web Art Work',
-					titleSuffix: ' | Web Art Work',
-					'og:image': 'https://webart.work/api/user/cdn/waw-logo.png'
-				}
-			},
-			alert: {
-				alerts: { /* alerts */
-				}
-			},
-			modal: {
-				modals: { /* modals */
-				}
-			},
-			loader: {
-				loaders: { /* loaders */
-				}
-			},
-			popup: {
-				popups: { /* popups */
-				}
-			}
-		}),
-		RouterModule.forRoot(routes, {
-			scrollPositionRestoration: 'enabled',
-			preloadingStrategy: PreloadAllModules,
-			relativeLinkResolution: 'legacy'
-		})
-	],
-	providers: [Authenticated, Guest, Admins],
-	bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        GuestComponent,
+        UserComponent
+    ],
+    imports: [
+        CoreModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        WacomModule.forRoot({
+            socket: false,
+            meta: {
+                useTitleSuffix: true,
+                defaults: {
+                    title: 'Web Art Work',
+                    titleSuffix: ' | Web Art Work',
+                    'og:image': 'https://webart.work/api/user/cdn/waw-logo.png'
+                }
+            },
+            alert: {
+                alerts: { /* alerts */}
+            },
+            modal: {
+                modals: { /* modals */}
+            },
+            loader: {
+                loaders: { /* loaders */}
+            },
+            popup: {
+                popups: { /* popups */}
+            }
+        }),
+        RouterModule.forRoot(routes, {
+            scrollPositionRestoration: 'enabled',
+            preloadingStrategy: PreloadAllModules,
+            relativeLinkResolution: 'legacy'
+        })
+    ],
+    providers: [Authenticated, Guest, Admins],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
