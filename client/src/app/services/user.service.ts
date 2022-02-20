@@ -1,5 +1,4 @@
-import { CanActivate, ActivatedRouteSnapshot,
-	RouterStateSnapshot, Router, Route } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { MongoService, FileService, HttpService } from 'wacom';
 
@@ -12,7 +11,6 @@ export class UserService {
 	*/
 		public roles = ['admin'];
 		public users: any = [];
-
 		public _users: any = {};
 		public user: any = { data: {}, is: {} };
 		constructor(private mongo: MongoService, private file: FileService,
@@ -38,7 +36,11 @@ export class UserService {
 			this.user = mongo.fetch('user', {
 				name: 'me'
 			}, user => {
-				if(localStorage.getItem('waw_user') && !user) this.logout();
+				if(localStorage.getItem('waw_user') && !user) {
+					this.logout();
+				}
+				this.user = user;
+				localStorage.setItem('waw_user', JSON.stringify(user));
 			});
 			this.users = mongo.get('user', (arr, obj)=>{
 				this._users = obj;
@@ -87,8 +89,8 @@ export class UserService {
 		logout(){
 			this.user = { data: {}, is: {} };
 			localStorage.removeItem('waw_user');
-			this.http.get('/api/user/logout', resp => {});
 			this.router.navigate(['/']);
+			this.http.remove('token');
 		}
 	/*
 	*	End of

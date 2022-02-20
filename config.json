@@ -12,7 +12,7 @@
 		"port": 27017,
 		"db": "waw"
 	},
-	"parts": {
+	"modules": {
 		"template": "waw",
 		"angular": "waw",
 		"core": "waw",

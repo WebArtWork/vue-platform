@@ -1,6 +1,8 @@
 const User = require(__dirname+'/schema.js');
 const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
+const nJwt = require('nJwt');
+const fs = require('fs');
 module.exports = async function(waw) {
 	if (!waw.config.signingKey) {
 		waw.config.signingKey = uuidv4();
@@ -8,7 +10,6 @@ module.exports = async function(waw) {
 		serverJson.signingKey = waw.config.signingKey;
 		waw.writeJson(process.cwd() + '/server.json', serverJson);
 	}
-	console.log(waw.config.signingKey);
 	// initialize
 		if(waw.config.mail){
 			const nodemailer = require("nodemailer");
@@ -40,8 +41,14 @@ module.exports = async function(waw) {
 	/*
 	*	Serve Client
 	*/
+
 		waw.serve(process.cwd() + '/client/dist/app');
-		waw.url(process.cwd() + '/client/dist/app/index.html', '/admin/users /profile /auth');
+		const client = process.cwd() + '/client/dist/app/index.html';
+		if (fs.existsSync(client)) {
+			waw.url(client, '/admin/users /profile /auth');
+		} else {
+			console.log("You don't have client build, careful with committing without that");
+		}
 	/*
 	*	Serve Template
 	*/
@@ -158,13 +165,23 @@ module.exports = async function(waw) {
 				});
 			}else res.json(false);
 		});
-		router.get('/logout', function(req, res) {
-			req.logout();
-			res.json(true);
+		waw.use((req, res, next) => {
+			if (req.headers.token) {
+				nJwt.verify(req.headers.token, waw.config.signingKey, (err, verifiedJwt) => {
+					if (err) {
+						res.set('remove', 'token');
+						res.set('Access-Control-Expose-Headers', 'field')
+						next();
+					} else {
+						req.user = verifiedJwt.body;
+						next();
+					}
+				});
+			} else next();
 		});
 		router.post('/login', (req, res) => {
 			User.findOne({
-				email: req.body.username.toLowerCase(),
+				email: req.body.email.toLowerCase(),
 				blocked: {
 					$ne: true
 				}
@@ -175,13 +192,15 @@ module.exports = async function(waw) {
 				user = JSON.parse(JSON.stringify(user));
 				delete user.password;
 				delete user.resetPin;
-				user.token = nJwt.create(user, signingKey).compact();
+				user.token = nJwt.create(user, waw.config.signingKey);
+				user.token.setExpiration(new Date().getTime() + (48 * 60 * 60 * 1000));
+				user.token = user.token.compact();
 				res.json(user);
 			});
 		});
 		router.post('/sign', (req, res) => {
 			User.findOne({
-				email: req.body.username.toLowerCase(),
+				email: req.body.email.toLowerCase(),
 				blocked: {
 					$ne: true
 				}
@@ -193,9 +212,8 @@ module.exports = async function(waw) {
 				user.is = {
 					admin: false
 				};
-				user.name = req.body.name;
-				user.email = req.body.username.toLowerCase();
-				user.reg_email = req.body.username.toLowerCase();
+				user.email = req.body.email.toLowerCase();
+				user.reg_email = req.body.email.toLowerCase();
 				user.password = user.generateHash(req.body.password);
 				user.data = {};
 				user.save(function (err) {
@@ -203,7 +221,9 @@ module.exports = async function(waw) {
 					user = JSON.parse(JSON.stringify(user));
 					delete user.password;
 					delete user.resetPin;
-					user.token = nJwt.create(user, signingKey).compact();
+					user.token = nJwt.create(user, waw.config.signingKey);
+					user.token.setExpiration(new Date().getTime() + (48 * 60 * 60 * 1000));
+					user.token = user.token.compact();
 					res.json(user);
 				});
 			});

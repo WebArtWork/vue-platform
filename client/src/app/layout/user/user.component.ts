@@ -9,10 +9,8 @@ import { Animation } from "src/app/core/animation"
 	animations: [Animation]
 })
 export class UserComponent {
-	public navToggle: any = false;
-	constructor(public us: UserService) {
-
-	}
+	public show: any = false;
+	constructor(public us: UserService) {}
 	darkmodeToggle(color) {
 		this.us.user.data.theme = color
 		if (this.us.user.data.theme == 'dark') {

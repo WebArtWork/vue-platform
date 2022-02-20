@@ -1,5 +1,5 @@
 {
-	"priority": 1001,
+	"priority": 800,
 	"name": "User",
 	"router": "router.js auth.js",
 	"crud": {
