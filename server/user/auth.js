@@ -1,7 +1,7 @@
 const User = require(__dirname+'/schema.js');
 const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
-const nJwt = require('nJwt');
+const nJwt = require('njwt');
 const fs = require('fs');
 module.exports = async function(waw) {
 	if (!waw.config.signingKey) {
