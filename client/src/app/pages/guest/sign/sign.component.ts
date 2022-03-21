@@ -72,7 +72,7 @@ export class SignComponent {
 		});
 	}
 	sign() {
-		this.http.post('/api/user/signup', this.user, (user: any) => {
+		this.http.post('/api/user/sign', this.user, (user: any) => {
 			if (!user) {
 				return this.alert.error({
 					text: "Something went wrong",
