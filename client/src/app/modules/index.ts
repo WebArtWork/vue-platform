@@ -8,5 +8,5 @@ export { CollapseModule } from './collapse/collapse.module';
 export { ProgressModule } from './progress/progress.module';
 export { CardModule } from './card/card.module';
 export { SelectModule } from './select/select.module';
-export { ButtonModule } from './button/button.module';
 export { TableModule } from './table/table.module';
+export { ButtonModule } from './button/button.module';
