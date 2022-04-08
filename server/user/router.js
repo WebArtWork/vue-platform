@@ -1,9 +1,18 @@
+const User = require(__dirname + '/schema.js');
 module.exports = async function(waw) {
 	waw.file('user', {
 		rename: (req)=>{
 			return req.user._id+'.jpg'
 		},
-		ensure: waw.ensure
+		ensure: waw.ensure,
+		process: async (req, res) => {
+			const user = await User.findOne({
+				_id: req.user._id
+			});
+			user.thumb = req.files[0].url;
+			await user.save();
+			res.json(req.files);
+		}
 	});
 	var select = function(){
 		return '-password -resetPin -resetCounter -resetCreate';
