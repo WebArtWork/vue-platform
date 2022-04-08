@@ -21,7 +21,7 @@ export class UserService {
 				part: 'user',
 				cb: file=>{
 					if(typeof file != 'string') return;
-					this.user.avatarUrl = file;
+					this.user.thumb = file;
 				}
 			});
 			this.mongo.config('user', {
