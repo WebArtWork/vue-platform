@@ -11,7 +11,7 @@ module.exports = async function(waw) {
 			});
 			user.thumb = req.files[0].url;
 			await user.save();
-			res.json(req.files);
+			res.json(user.thumb);
 		}
 	});
 	var select = function(){
