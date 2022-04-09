@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '@services';
 import { Animation } from "src/app/core/animation"
+import { StoreService } from 'wacom';
 
 @Component({
 	selector: 'app-user',
@@ -10,19 +11,23 @@ import { Animation } from "src/app/core/animation"
 })
 export class UserComponent {
 	public show: any = false;
-	constructor(public us: UserService) {}
-	darkmodeToggle(color) {
-		this.us.user.data.theme = color
-		if (this.us.user.data.theme == 'dark') {
-			document.getElementById('html').classList.add("dark");
-		}
-		else if (this.us.user.data.theme != 'dark') {
-			document.getElementById('html').classList.remove("dark");
-		}
+	public mode: string = '';
+	constructor(public us: UserService, private store: StoreService) {
+		store.get('mode', mode => {
+			if(mode) {
+				this.mode = mode;
+				document.getElementById('html').classList.add(mode);
+			}
+		});
 	}
-	ngOnInit() {
-		if (this.us.user.data.theme == 'dark') {
-			document.getElementById('html').classList.add("dark")
+	set(mode = '') {
+		if (mode) {
+			this.store.set('mode', mode);
+			document.getElementById('html').classList.add(mode);
+		} else {
+			this.store.remove('mode');
+			document.getElementById('html').classList.remove(this.mode);
 		}
+		this.mode = mode;
 	}
 }

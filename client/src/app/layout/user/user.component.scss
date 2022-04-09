@@ -164,6 +164,9 @@
             .nav__burger-link {
                 color: var(--c-text-primary);
                 padding: 10px;
+				.avatar__img {
+					border-radius: 50%;
+				}
             }
         }
 		&-link {
