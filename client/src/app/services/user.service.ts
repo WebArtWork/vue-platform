@@ -39,8 +39,10 @@ export class UserService {
 				if(localStorage.getItem('waw_user') && !user) {
 					this.logout();
 				}
-				this.user = user;
-				localStorage.setItem('waw_user', JSON.stringify(user));
+        if (user) {
+				  this.user = user;
+				  localStorage.setItem('waw_user', JSON.stringify(user));
+        }
 			});
 			this.users = mongo.get('user', (arr, obj)=>{
 				this._users = obj;
