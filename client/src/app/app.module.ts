@@ -91,12 +91,6 @@ const routes: Routes = [{
             },
             modal: {
                 modals: { /* modals */}
-            },
-            loader: {
-                loaders: { /* loaders */}
-            },
-            popup: {
-                popups: { /* popups */}
             }
         }),
         RouterModule.forRoot(routes, {
