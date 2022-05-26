@@ -8,7 +8,8 @@
 			</div>
 			<div class="w-forms">
 				<span class="w-forms__title">Password:</span>
-				<input class="w-forms__input" type="password" placeholder="Password" name="password" [(ngModel)]="user.password" #password>
+				<input class="w-forms__input" [type]="show_password && 'text' || 'password'" placeholder="Password" name="password" [(ngModel)]="user.password" #password>
+				<span (click)="show_password = !show_password">Toggle</span>
 			</div>
 			<div class="w-forms" *ngIf="reseting">
 				<span class="w-forms__title">Code:</span>

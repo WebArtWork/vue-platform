@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 	styleUrls: ['./sign.component.scss']
 })
 export class SignComponent {
+	public show_password = false;
 	constructor(
 		private alert: AlertService,
 		private http: HttpService,
