@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { HashService, HttpService, AlertService } from 'wacom';
+import { HashService, HttpService, AlertService, UiService } from 'wacom';
 import { UserService } from 'src/app/services';
 import { Router } from '@angular/router';
 @Component({
@@ -14,7 +14,8 @@ export class SignComponent {
 		private http: HttpService,
 		private hash: HashService,
 		private us: UserService,
-		private router: Router
+		private router: Router,
+		public ui: UiService
 	) {
 		this.user.email = this.hash.get('email') || 'ceo@webart.work';
 		this.user.password = this.hash.get('password') || 'asdasdasdasd';
