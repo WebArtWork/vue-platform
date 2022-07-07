@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CoreModule } from 'src/app/core';
 import { ProfileComponent } from './profile.component';
 import { Routes, RouterModule } from '@angular/router';
+import { SecurityComponent } from './security/security.component';
 
 const routes: Routes = [{
 	path: '',
@@ -14,7 +15,8 @@ const routes: Routes = [{
 		CoreModule
 	],
 	declarations: [
-		ProfileComponent
+		ProfileComponent,
+		SecurityComponent
 	],
 	providers: []
 

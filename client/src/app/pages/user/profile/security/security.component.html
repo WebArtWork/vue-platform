@@ -1,0 +1,9 @@
+<label class="profile__label">
+	<p>Current Password</p>
+	<input [(ngModel)]="oldPass" type="text" name="old">
+</label>
+<label class="profile__label">
+	<p>New Password</p>
+	<input [(ngModel)]="newPass" type="text" name="new">
+</label>
+<button (click)="us.change_password(oldPass, newPass)">Change</button>

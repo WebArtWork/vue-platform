@@ -1,6 +1,6 @@
 import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { MongoService, FileService, HttpService } from 'wacom';
+import { MongoService, FileService, HttpService, AlertService } from 'wacom';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,7 +17,8 @@ export class UserService {
 		private mongo: MongoService,
 		private file: FileService,
 		private router: Router,
-		private http: HttpService
+		private http: HttpService,
+		private alert: AlertService
 	) {
 		this.file.add({
 			id: 'userAvatarUrl',
@@ -34,21 +35,22 @@ export class UserService {
 					if (typeof data != 'object') data = {};
 					cb(data);
 				},
-				is: mongo.beObj
+				is: this.mongo.beObj
 			}
 		});
-		this.user = mongo.fetch('user', {
-			name: 'me'
-		}, (user: any) => {
-			if (localStorage.getItem('waw_user') && !user) {
-				this.logout();
-			}
-			if (user) {
-				this.user = user;
-				localStorage.setItem('waw_user', JSON.stringify(user));
-			}
-		});
-		this.users = mongo.get('user', (arr:any, obj:any) => {
+		if (localStorage.getItem('waw_user')) {
+			this.user = this.mongo.fetch('user', {
+				name: 'me'
+			}, (user: any) => {
+				if (user) {
+					this.user = user;
+					localStorage.setItem('waw_user', JSON.stringify(user));
+				} else {
+					this.logout();
+				}
+			});
+		}
+		this.users = this.mongo.get('user', (arr:any, obj:any) => {
 			this._users = obj;
 		});
 	}
@@ -88,8 +90,15 @@ export class UserService {
 			newPass: newPass,
 			oldPass: oldPass
 		}, resp => {
-			if (resp) alert('successfully changed password');
-			else alert('failed to change password');
+			if (resp) {
+				this.alert.info({
+					text: 'Successfully changed password'
+				});
+			} else {
+				this.alert.error({
+					text: 'Failed to change password'
+				});
+			}
 		});
 	}
 	logout() {

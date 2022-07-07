@@ -9,6 +9,9 @@
 		</div>
 	</div>
 	<div class="profile__body">
+
+		<button (click)="change_password()">Change Password</button>
+
 		<div class="w-forms">
 			<span class="w-forms__title">Name</span>
 			<input class="w-forms__input" type="text" name="name" placeholder="Your name" [(ngModel)]="us.user.name" (ngModelChange)="us.update();">

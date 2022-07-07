@@ -77,11 +77,8 @@ const routes: Routes = [{
                     'og:image': 'https://webart.work/api/user/cdn/waw-logo.png'
                 }
             },
-            alert: {
-                alerts: { /* alerts */}
-            },
             modal: {
-                modals: { /* modals */}
+                modals: {/* modals */}
             }
         }),
         RouterModule.forRoot(routes, {
