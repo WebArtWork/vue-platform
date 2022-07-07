@@ -15,7 +15,7 @@ module.exports = async function(waw) {
 		}
 	});
 	var select = function(){
-		return '-password -resetPin -resetCounter -resetCreate';
+		return '-password -resetPin';
 	}
 	waw.crud('user', {
 		get: {
@@ -23,7 +23,7 @@ module.exports = async function(waw) {
 			query: function(){
 				return {};
 			},
-			select: select
+			select
 		},
 		fetch: [{
 			ensure: waw.next,
@@ -32,7 +32,7 @@ module.exports = async function(waw) {
 					_id: req.body._id
 				}
 			},
-			select: select
+			select
 		},{
 			name: 'me',
 			query: function(req){
@@ -40,14 +40,15 @@ module.exports = async function(waw) {
 					_id: req.user._id
 				}
 			},
-			select: select
+			select
 		}],
 		update: [{
 			query: function(req, res, next) {
 				return {
 					_id: req.user._id
 				}
-			}
+			},
+			select
 		}, {
 			name: 'admin',
 			ensure: waw.role('admin'),
@@ -55,7 +56,8 @@ module.exports = async function(waw) {
 				return {
 					_id: req.body._id
 				}
-			}
+			},
+			select
 		}],
 		delete: {
 			name: 'admin',
@@ -64,7 +66,8 @@ module.exports = async function(waw) {
 				return {
 					_id: req.body._id
 				}
-			}
+			},
+			select
 		}
 	});
 };
