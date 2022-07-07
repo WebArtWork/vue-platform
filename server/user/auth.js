@@ -106,24 +106,25 @@ module.exports = async function (waw) {
 			res.json(json);
 		});
 	});
+	const new_pin = (user, cb) => {
+		user.resetPin = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+		console.log(user.resetPin);
+		user.markModified('data');
+		user.save(function (err) {
+			if (err) throw err;
+			waw.send({
+				to: user.email,
+				subject: 'Code: ' + user.resetPin,
+				html: 'Code: ' + user.resetPin
+			}, cb);
+		});
+	}
 	router.post("/request", function (req, res) {
 		User.findOne({
 			email: req.body.email.toLowerCase()
 		}, function (err, user) {
-			user.resetPin = Math.floor(Math.random() * (999999 - 100000)) + 100000;
-			console.log(user.resetPin);
-			user.resetCreate = new Date().getTime();
-			user.resetCounter = 3;
-			user.markModified('data');
-			user.save(function (err) {
-				if (err) throw err;
-				waw.send({
-					to: user.email,
-					subject: 'Code: ' + user.resetPin,
-					html: 'Code: ' + user.resetPin
-				}, function () {
-					res.json(true);
-				});
+			new_pin(user, ()=>{
+				res.json(true);
 			});
 		});
 	});
@@ -131,30 +132,18 @@ module.exports = async function (waw) {
 		User.findOne({
 			email: req.body.email.toLowerCase()
 		}, function (err, user) {
-			var message;
-			var now = new Date().getTime();
-			if (user.resetCounter > 0 && (now - user.resetCreate) <= 600000) {
-				if (user.resetPin == req.body.pin) {
-					user.password = user.generateHash(req.body.password);
-					message = 'Password successfully changed.';
-					delete user.resetPin;
-					delete user.resetCounter;
-					delete user.resetCreate;
-				} else {
-					user.resetCounter--;
-					message = 'Wrong code.';
-				}
-			} else {
-				message = 'I am sorry reset code is not active now.'
+			if (user.resetPin == req.body.pin) {
+				user.password = user.generateHash(req.body.password);
 				delete user.resetPin;
-				delete user.resetCounter;
-				delete user.resetCreate;
+				user.save(function (err) {
+					if (err) throw err;
+					res.json(true);
+				});
+			} else {
+				new_pin(user, () => {
+					res.json(false);
+				});
 			}
-			user.markModified('data');
-			user.save(function (err) {
-				if (err) throw err;
-				res.json(message);
-			});
 		});
 	});
 	router.post("/changePassword", waw.ensure, async (req, res) => {

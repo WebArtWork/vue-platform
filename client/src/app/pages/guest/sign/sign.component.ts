@@ -96,10 +96,15 @@ export class SignComponent {
 	}
 	save() {
 		this.http.post('/api/user/change', this.user, (resp: any) => {
-			this.alert.info({
-				text: resp
-			});
-			if (resp != 'Password successfully changed.') return;
+			if (resp) {
+				this.alert.info({
+					text: 'Password successfully changed'
+				});
+			} else {
+				this.alert.error({
+					text: 'Wrong Code'
+				});
+			}
 			this.http.post('/api/user/login', this.user, (user: any) => {
 				if (!user) {
 					return this.alert.error({
