@@ -55,7 +55,12 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+			"stylePreprocessorOptions": {
+			    "includePaths": [
+			        "src/scss/utils"
+			    ]
+			}
           },
           "configurations": {
             "production": {
@@ -123,10 +128,18 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+                "includePaths": [
+                    "src/scss/utils"
+                ]
+            }
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

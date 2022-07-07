@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from '@services';
+import { UserService } from 'src/app/services';
 import { UiService } from 'wacom';
 
 @Component({
@@ -19,4 +19,3 @@ export class UsersComponent{
 		}
 	}
 }
-

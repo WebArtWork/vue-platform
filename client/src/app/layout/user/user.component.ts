@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from '@services';
+import { UserService } from 'src/app/services';
 import { Animation } from "src/app/core/animation"
 import { StoreService } from 'wacom';
 
@@ -12,21 +12,24 @@ import { StoreService } from 'wacom';
 export class UserComponent {
 	public show: any = false;
 	public mode: string = '';
-	constructor(public us: UserService, private store: StoreService) {
-		store.get('mode', mode => {
+	constructor(
+		public us: UserService,
+		private store: StoreService
+	) {
+		store.get('mode', (mode: string) => {
 			if(mode) {
 				this.mode = mode;
-				document.getElementById('html').classList.add(mode);
+				(document.getElementById('html') as any).classList.add(mode);
 			}
 		});
 	}
 	set(mode = '') {
 		if (mode) {
 			this.store.set('mode', mode);
-			document.getElementById('html').classList.add(mode);
+			(document.getElementById('html') as any).classList.add(mode);
 		} else {
 			this.store.remove('mode');
-			document.getElementById('html').classList.remove(this.mode);
+			(document.getElementById('html') as any).classList.remove(this.mode);
 		}
 		this.mode = mode;
 	}

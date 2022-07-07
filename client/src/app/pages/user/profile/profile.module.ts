@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CoreModule } from '@core';
+import { CoreModule } from 'src/app/core';
 import { ProfileComponent } from './profile.component';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -17,7 +17,7 @@ const routes: Routes = [{
 		ProfileComponent
 	],
 	providers: []
-	
+
 })
 
 export class ProfileModule { }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CoreModule } from '@core';
+import { CoreModule } from 'src/app/core';
 import { UsersComponent } from './users.component';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -17,7 +17,7 @@ const routes: Routes = [{
 		UsersComponent
 	],
 	providers: []
-	
+
 })
 
 export class UsersModule { }

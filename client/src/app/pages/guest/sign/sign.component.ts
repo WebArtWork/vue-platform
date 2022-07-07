@@ -19,13 +19,13 @@ export class SignComponent {
 		this.user.email = this.hash.get('email') || 'ceo@webart.work';
 		this.user.password = this.hash.get('password') || 'asdasdasdasd';
 	}
-	@ViewChild('email') email: ElementRef;
+	@ViewChild('email', { static: false }) email!: ElementRef;
 	email_focus() {
 		setTimeout(() => {
 			this.email.nativeElement.focus();
 		}, 100);
 	}
-	@ViewChild('password') password: ElementRef;
+	@ViewChild('password', { static: false }) password!: ElementRef;
 	password_focus() {
 		setTimeout(() => {
 			this.password.nativeElement.focus();
