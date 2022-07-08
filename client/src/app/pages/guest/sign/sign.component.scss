@@ -56,6 +56,16 @@
         font-size: calc(#{var(--fs)} - 6px);
         line-height: calc(#{var(--fs)} + 4px);
         letter-spacing: var(--letter-spacing);
+		transition: var(--transition);
+		&._sky {
+			color: var(--c-info);
+		}
+		&._orange {
+			color: var(--c-warn);
+		}
+		&._green {
+			color: var(--c-success);
+		}
 	}
 	&__input {
 		padding-right: 35px;
@@ -74,5 +84,8 @@
 		i {
 			font-size: 21px;
 		}
+	}
+	.icon-visibility {
+		color: var(--c-primary);
 	}
 }
