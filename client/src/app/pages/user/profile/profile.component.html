@@ -10,7 +10,7 @@
 	</div>
 	<div class="profile__body">
 
-		<button (click)="change_password()">Change Password</button>
+
 
 		<div class="w-forms">
 			<span class="w-forms__title">Name</span>
@@ -24,8 +24,14 @@
 			<span class="w-forms__title">Bio</span>
 			<textarea class="w-forms__textarea" placeholder="Bio" [(ngModel)]="us.user.data.bio" (ngModelChange)="us.update();"></textarea>
 		</div>
-		<div class="profile__logout">
-			<button class="w-btn _danger" (click)="us.logout();"><span class="material-icons">logout</span>Logout</button>
+		<div class="profile__footer">
+			<div class="profile__logout">
+				<button class="w-btn _danger" (click)="us.logout();"><span class="material-icons">logout</span>Logout</button>
+			</div>
+			<div class="profile__password">
+				<button class="w-btn _link" (click)="change_password()">Change Password</button>
+			</div>
 		</div>
+
 	</div>
 </div>

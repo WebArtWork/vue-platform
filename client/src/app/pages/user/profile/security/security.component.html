@@ -1,9 +1,20 @@
-<label class="profile__label">
-	<p>Current Password</p>
-	<input [(ngModel)]="oldPass" type="text" name="old">
-</label>
-<label class="profile__label">
-	<p>New Password</p>
-	<input [(ngModel)]="newPass" type="text" name="new">
-</label>
-<button (click)="us.change_password(oldPass, newPass)">Change</button>
+<h3>Change password</h3>
+<div class="row">
+	<div class="col-2">
+		<label class="w-forms">
+			<span class="w-forms__title">Current Password</span>
+			<input class="w-forms__input" [(ngModel)]="oldPass" type="text" name="old" placeholder="Current Password">
+		</label>
+	</div>
+	<div class="col-2">
+		<label class="w-forms">
+			<span class="w-forms__title">New Password</span>
+			<input class="w-forms__input" [(ngModel)]="newPass" type="text" name="new" placeholder="New Password">
+		</label>
+	</div>
+</div>
+
+
+
+
+<button class="w-btn _primary" (click)="us.change_password(oldPass, newPass)">Change</button>

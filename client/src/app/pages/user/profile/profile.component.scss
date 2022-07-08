@@ -10,6 +10,9 @@
         @include flexBox(flex, null, space-between, center, null);
         border-radius: var(--b-radius);
     }
+	&__footer {
+		@include flexBox(flex, null, space-between, center, wrap);
+	}
     &__logout {
         margin-top: 20px;
         .w-btn {
