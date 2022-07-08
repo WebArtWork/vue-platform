@@ -3,18 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WacomModule } from 'wacom';
 
-
 @NgModule({
 	declarations: [],
 	exports: [ /* exports */
 		CommonModule,
 		FormsModule,
-		WacomModule,
+		WacomModule
 	],
 	imports: [
 		CommonModule,
 		FormsModule,
-		WacomModule,
+		WacomModule
 	]
 })
 export class CoreModule { }
