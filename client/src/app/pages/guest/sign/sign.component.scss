@@ -45,3 +45,34 @@
         }
     }
 }
+.w-forms {
+	position: relative;
+	&__level {
+		top: 5px;
+		right:5px;
+		position: absolute;
+		display: inline-block;
+        color: var(--c-text-secondary);
+        font-size: calc(#{var(--fs)} - 6px);
+        line-height: calc(#{var(--fs)} + 4px);
+        letter-spacing: var(--letter-spacing);
+	}
+	&__input {
+		padding-right: 35px;
+	}
+	&__input-block {
+		position: relative;
+	}
+	&__toggle {
+		display: flex;
+		position: absolute;
+		right: 10px;
+		top: 50%;
+		color: var(--c-placeholder);
+		transform: translateY(-50%);
+		cursor: pointer;
+		i {
+			font-size: 21px;
+		}
+	}
+}

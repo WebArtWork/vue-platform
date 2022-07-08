@@ -8,9 +8,14 @@
 			</div>
 			<div class="w-forms">
 				<span class="w-forms__title">Password:</span>
-				<input class="w-forms__input" [type]="show_password && 'text' || 'password'" placeholder="Password" name="password" [(ngModel)]="user.password" #password>
-				<span (click)="show_password = !show_password">Toggle</span>
-				<span>Level: {{ui.valid(user.password, 'password')}}</span>
+				<div class="w-forms__input-block">
+					<input class="w-forms__input" [type]="show_password && 'text' || 'password'" placeholder="Password" name="password" [(ngModel)]="user.password" #password>
+					<span class="w-forms__toggle" (click)="show_password = !show_password">
+						<i *ngIf="show_password">visibility</i>
+						<i *ngIf="!show_password">visibility_off</i>
+					</span>
+				</div>
+				<span class="w-forms__level">Level: {{ui.valid(user.password, 'password')}}</span>
 			</div>
 			<div class="w-forms" *ngIf="reseting">
 				<span class="w-forms__title">Code:</span>
