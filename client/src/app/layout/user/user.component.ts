@@ -11,7 +11,7 @@ import { StoreService } from 'wacom';
 })
 export class UserComponent {
 	public show: any = false;
-	public mode: string = '';
+	public mode = '';
 	constructor(
 		public us: UserService,
 		private store: StoreService
