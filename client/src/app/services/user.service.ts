@@ -10,12 +10,10 @@ export class UserService {
 	/*
 	*	Declarations
 	*/
+	public user: User = this.empty();
 	public roles = ['admin'];
 	public users: User[] = [];
-	public _users: {
-		[key: string]: string
-	} = {};
-	public user: User = this.empty();
+	public _users: Any = {};
 	constructor(
 		private alert: AlertService,
 		private mongo: MongoService,
