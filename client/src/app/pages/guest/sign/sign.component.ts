@@ -2,12 +2,24 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { HashService, HttpService, AlertService, UiService } from 'wacom';
 import { UserService } from 'src/app/services';
 import { Router } from '@angular/router';
+import { User } from 'src/app/core';
+
+interface Status {
+	email: string;
+	pass: string
+}
 @Component({
 	selector: 'app-sign',
 	templateUrl: './sign.component.html',
 	styleUrls: ['./sign.component.scss']
 })
+
 export class SignComponent {
+	public user = {
+		email: this.hash.get('email') || 'ceo@webart.work',
+		password: this.hash.get('password') || 'asdasdasdasd',
+		code: ''
+	};
 	public show_password = false;
 	constructor(
 		private alert: AlertService,
@@ -16,10 +28,7 @@ export class SignComponent {
 		private us: UserService,
 		private router: Router,
 		public ui: UiService
-	) {
-		this.user.email = this.hash.get('email') || 'ceo@webart.work';
-		this.user.password = this.hash.get('password') || 'asdasdasdasd';
-	}
+	) {}
 	@ViewChild('email', { static: false }) email!: ElementRef;
 	email_focus() {
 		setTimeout(() => {
@@ -32,7 +41,6 @@ export class SignComponent {
 			this.password.nativeElement.focus();
 		}, 100);
 	}
-	public user: any = {};
 	submit() {
 		if (this.reseting && this.user.code) {
 			return this.save();
@@ -50,7 +58,7 @@ export class SignComponent {
 			});
 			return this.password_focus();
 		}
-		this.http.post('/api/user/status', this.user, (resp: any) => {
+		this.http.post('/api/user/status', this.user, (resp: Status) => {
 			if (resp.email && resp.pass) {
 				this.login();
 			} else if (resp.email) {
@@ -61,7 +69,7 @@ export class SignComponent {
 		});
 	}
 	login() {
-		this.http.post('/api/user/login', this.user, (user: any) => {
+		this.http.post('/api/user/login', this.user, (user: User) => {
 			if (!user) {
 				return this.alert.error({
 					text: "Something went wrong",
@@ -74,7 +82,7 @@ export class SignComponent {
 		});
 	}
 	sign() {
-		this.http.post('/api/user/sign', this.user, (user: any) => {
+		this.http.post('/api/user/sign', this.user, (user: User) => {
 			if (!user) {
 				return this.alert.error({
 					text: "Something went wrong",
@@ -88,7 +96,7 @@ export class SignComponent {
 	}
 	public reseting = false;
 	reset() {
-		this.http.post('/api/user/request', this.user, (resp: any) => {
+		this.http.post('/api/user/request', this.user, () => {
 			this.reseting = true;
 		});
 		this.alert.info({
@@ -96,7 +104,7 @@ export class SignComponent {
 		});
 	}
 	save() {
-		this.http.post('/api/user/change', this.user, (resp: any) => {
+		this.http.post('/api/user/change', this.user, (resp: boolean) => {
 			if (resp) {
 				this.alert.info({
 					text: 'Password successfully changed'
@@ -106,7 +114,7 @@ export class SignComponent {
 					text: 'Wrong Code'
 				});
 			}
-			this.http.post('/api/user/login', this.user, (user: any) => {
+			this.http.post('/api/user/login', this.user, (user: User) => {
 				if (!user) {
 					return this.alert.error({
 						text: "Something went wrong",

@@ -1,6 +1,6 @@
 import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { MongoService, FileService, HttpService, AlertService } from 'wacom';
+import { Any, MongoService, FileService, HttpService, AlertService } from 'wacom';
 import { User } from '../core';
 
 @Injectable({
@@ -17,11 +17,11 @@ export class UserService {
 	} = {};
 	public user: User = this.empty();
 	constructor(
+		private alert: AlertService,
 		private mongo: MongoService,
-		private file: FileService,
-		private router: Router,
 		private http: HttpService,
-		private alert: AlertService
+		private file: FileService,
+		private router: Router
 	) {
 		this.file.add({
 			id: 'userAvatarUrl',
@@ -34,7 +34,7 @@ export class UserService {
 		});
 		this.mongo.config('user', {
 			replace: {
-				data: (data: any, cb: any, doc: any) => {
+				data: (data: Any, cb: (data: Any) => Any) => {
 					if (typeof data != 'object') data = {};
 					cb(data);
 				},
@@ -44,7 +44,7 @@ export class UserService {
 		if (localStorage.getItem('waw_user')) {
 			this.user = this.mongo.fetch('user', {
 				name: 'me'
-			}, (user: any) => {
+			}, (user: User) => {
 				if (user) {
 					this.user = user;
 					localStorage.setItem('waw_user', JSON.stringify(user));
@@ -53,7 +53,7 @@ export class UserService {
 				}
 			});
 		}
-		this.users = this.mongo.get('user', (arr:any, obj:any) => {
+		this.users = this.mongo.get('user', (users:User[], obj:Any) => {
 			this._users = obj;
 		});
 	}
