@@ -18,11 +18,11 @@
 		</div>
 		<div class="w-forms">
 			<span class="w-forms__title">Phone number</span>
-			<input class="w-forms__input" type="tel" name="number" placeholder="Phone number" [(ngModel)]="us.user.data.phone" (ngModelChange)="us.update();">
+			<input class="w-forms__input" type="tel" name="number" placeholder="Phone number" [(ngModel)]="us.user.data['phone']" (ngModelChange)="us.update();">
 		</div>
 		<div class="w-forms">
 			<span class="w-forms__title">Bio</span>
-			<textarea class="w-forms__textarea" placeholder="Bio" [(ngModel)]="us.user.data.bio" (ngModelChange)="us.update();"></textarea>
+			<textarea class="w-forms__textarea" placeholder="Bio" [(ngModel)]="us.user.data['bio']" (ngModelChange)="us.update();"></textarea>
 		</div>
 		<div class="profile__footer">
 			<div class="profile__logout">

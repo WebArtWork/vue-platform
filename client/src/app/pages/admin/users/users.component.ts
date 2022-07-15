@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from 'src/app/core';
 import { UserService } from 'src/app/services';
 import { UiService } from 'wacom';
 
@@ -8,17 +9,10 @@ import { UiService } from 'wacom';
 	styleUrls: ['./users.component.scss']
 })
 export class UsersComponent{
-	public search:any='';
+	public new_user: User = this.us.empty();
+	public search = '';
 	constructor(
 		public us: UserService,
 		public ui: UiService
 	) {}
-	public new_user:any = {};
-	delete() {
-		for(let i = this.us.users.length-1; i>=0; i--){
-			if(this.us.users[i].generated){
-				this.us.delete(this.us.users[i]);
-			}
-		}
-	}
 }

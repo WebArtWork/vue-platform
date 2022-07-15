@@ -6,7 +6,7 @@ import { UserService } from 'src/app/services';
 	styleUrls: ['./security.component.scss']
 })
 export class SecurityComponent {
-	public close: any;
+	public close = ()=>{};
 	public oldPass = '';
 	public newPass = '';
 	constructor(

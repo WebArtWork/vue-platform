@@ -41,7 +41,6 @@ module.exports = async function (waw) {
 	/*
 	*	Serve Client
 	*/
-
 	waw.serve(process.cwd() + '/client/dist/app');
 	const client = process.cwd() + '/client/dist/app/index.html';
 	if (fs.existsSync(client)) {

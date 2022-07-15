@@ -1,6 +1,7 @@
 import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { MongoService, FileService, HttpService, AlertService } from 'wacom';
+import { User } from '../core';
 
 @Injectable({
 	providedIn: 'root'
@@ -10,9 +11,11 @@ export class UserService {
 	*	Declarations
 	*/
 	public roles = ['admin'];
-	public users: any = [];
-	public _users: any = {};
-	public user: any = { data: {}, is: {} };
+	public users: User[] = [];
+	public _users: {
+		[key: string]: string
+	} = {};
+	public user: User = this.empty();
 	constructor(
 		private mongo: MongoService,
 		private file: FileService,
@@ -24,7 +27,7 @@ export class UserService {
 			id: 'userAvatarUrl',
 			resize: 256,
 			part: 'user',
-			cb: (file: any) => {
+			cb: (file: string | File) => {
 				if (typeof file != 'string') return;
 				this.user.thumb = file;
 			}
@@ -57,7 +60,16 @@ export class UserService {
 	/*
 	*	User Management
 	*/
-	create(user:any) {
+	empty() : User {
+		return {
+			name: '',
+			email: '',
+			thumb: '',
+			is: {},
+			data: {}
+		}
+	}
+	create(user: User) {
 		this.mongo.create('user', user);
 	}
 	doc(userId: string) {
@@ -73,14 +85,14 @@ export class UserService {
 			this.mongo.update('user', this.user);
 		});
 	}
-	save(user:any) {
+	save(user: User) {
 		this.mongo.afterWhile(this, () => {
 			this.mongo.update('user', user, {
 				name: 'admin'
 			});
 		});
 	}
-	delete(user:any) {
+	delete(user: User) {
 		this.mongo.delete('user', user, {
 			name: 'admin'
 		});
@@ -102,7 +114,7 @@ export class UserService {
 		});
 	}
 	logout() {
-		this.user = { data: {}, is: {} };
+		this.user = this.empty();
 		localStorage.removeItem('waw_user');
 		this.router.navigate(['/']);
 		this.http.remove('token');

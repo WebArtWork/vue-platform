@@ -10,13 +10,13 @@ import { StoreService } from 'wacom';
 	animations: [Animation]
 })
 export class UserComponent {
-	public show: any = false;
+	public show = false;
 	public mode = '';
 	constructor(
 		public us: UserService,
 		private store: StoreService
 	) {
-		store.get('mode', (mode: string) => {
+		this.store.get('mode', (mode: string) => {
 			if(mode) {
 				this.mode = mode;
 				(document.getElementById('html') as any).classList.add(mode);
