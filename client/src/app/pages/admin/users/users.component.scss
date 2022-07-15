@@ -4,7 +4,7 @@
     @include flexBox(flex, column, null, null, null);
     padding: 20px;
 }
-.table-user {
+.w-table-user {
     @include flexBox(flex, null, null, center, wrap);
     &__img {
         width: 30px;

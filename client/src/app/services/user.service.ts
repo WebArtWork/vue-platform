@@ -1,7 +1,7 @@
+import { Any, MongoService, FileService, HttpService, AlertService } from 'wacom';
 import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Any, MongoService, FileService, HttpService, AlertService } from 'wacom';
-import { User } from '../core';
+import { User } from 'src/app/core';
 
 @Injectable({
 	providedIn: 'root'

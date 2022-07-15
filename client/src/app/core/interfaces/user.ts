@@ -4,6 +4,6 @@ export interface User {
 	name: string;
 	email: string;
 	thumb: string;
-	is: Any;
 	data: Any;
+	is: Any;
 }

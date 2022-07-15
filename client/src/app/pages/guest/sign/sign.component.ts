@@ -75,10 +75,10 @@ export class SignComponent {
 					text: "Something went wrong",
 				});
 			}
-			this.us.user = user;
-			this.http.set('token', user.token);
 			localStorage.setItem('waw_user', JSON.stringify(user));
-			this.router.navigate(['/profile'])
+			this.http.set('token', user.token);
+			this.router.navigate(['/profile']);
+			this.us.user = user;
 		});
 	}
 	sign() {
@@ -88,11 +88,11 @@ export class SignComponent {
 					text: "Something went wrong",
 				});
 			}
-			this.us.user = user;
-			this.http.set('token', user.token);
 			localStorage.setItem('waw_user', JSON.stringify(user));
+			this.http.set('token', user.token);
 			this.router.navigate(['/profile']);
-		})
+			this.us.user = user;
+		});
 	}
 	public reseting = false;
 	reset() {
