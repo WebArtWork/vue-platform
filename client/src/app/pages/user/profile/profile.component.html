@@ -9,12 +9,8 @@
 		</div>
 	</div>
 	<div class="profile__body">
-
-
-
-		<div class="w-forms">
-			<span class="w-forms__title">Name</span>
-			<input class="w-forms__input" type="text" name="name" placeholder="Your name" [(ngModel)]="us.user.name" (ngModelChange)="us.update();">
+		<div>
+			<winput ngDefaultControl [(ngModel)]="us.user.name" disabled="false" (ngModelChange)="us.update();" label="Name" type="text" name="name" placeholder="Your name"></winput>
 		</div>
 		<div class="w-forms">
 			<span class="w-forms__title">Phone number</span>
