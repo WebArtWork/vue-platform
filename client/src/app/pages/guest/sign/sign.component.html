@@ -14,7 +14,7 @@
 				#email />
 			</div> -->
 			<div>
-				<winput ngDefaultControl [(ngModel)]="user.email" disabled="false" (keydown.enter)="!user.password && password_focus()" label="Email" type="email" name="email" placeholder="Email"></winput>
+				<winput ngDefaultControl [(ngModel)]="user.email" [disabled]="false" (keydown.enter)="!user.password && password_focus()" label="Email" type="email" name="email" placeholder="Email"></winput>
 			</div>
 			<div class="w-forms">
 				<span class="w-forms__title">Password:</span>

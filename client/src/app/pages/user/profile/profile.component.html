@@ -10,7 +10,7 @@
 	</div>
 	<div class="profile__body">
 		<div>
-			<winput ngDefaultControl [(ngModel)]="us.user.name" disabled="false" (ngModelChange)="us.update();" label="Name" type="text" name="name" placeholder="Your name"></winput>
+			<winput ngDefaultControl [(ngModel)]="us.user.name" [disabled]="false" (ngModelChange)="us.update();" label="Name" type="text" name="name" placeholder="Your name"></winput>
 		</div>
 		<div class="w-forms">
 			<span class="w-forms__title">Phone number</span>
@@ -30,4 +30,37 @@
 		</div>
 
 	</div>
+</div>
+
+<div>
+	<wcard [padding]="true">
+		<div class="profile__header w-card__header">
+			<div>Profile Settings</div>
+			<div>
+				<div class="avatar _profile">
+					<img class="avatar__img" width="50" height="50" [src]="us.user.thumb || 'assets/default.png'" alt="">
+					<label class="avatar__upload" for="userAvatarUrl"><i class="material-icons avatar__icon">edit</i></label>
+				</div>
+			</div>
+		</div>
+		<div class="profile__body">
+			
+			<winput ngDefaultControl [(ngModel)]="us.user.name" [disabled]="false" (ngModelChange)="us.update();" label="Name" type="text" name="name" placeholder="Your name"></winput>
+
+			<winput ngDefaultControl [(ngModel)]="us.user.data['phone']" [disabled]="false" (ngModelChange)="us.update();" label="Phone number" type="tel" name="number" placeholder="Phone number"></winput>
+			<div class="w-forms">
+				<span class="w-forms__title">Bio</span>
+				<textarea class="w-forms__textarea" placeholder="Bio" [(ngModel)]="us.user.data['bio']" (ngModelChange)="us.update();"></textarea>
+			</div>
+			<div class="profile__footer">
+				<div class="profile__logout">
+					<button class="w-btn _danger" (click)="us.logout();"><span class="material-icons">logout</span>Logout</button>
+				</div>
+				<div class="profile__password">
+					<button class="w-btn _link" (click)="change_password()">Change Password</button>
+				</div>
+			</div>
+
+		</div>
+	</wcard>
 </div>

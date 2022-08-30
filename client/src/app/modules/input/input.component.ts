@@ -7,11 +7,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class InputComponent {
 	@Input() wngModel: unknown;
-	@Input() label: string;
+	@Input() label = '';
 	@Input() name = 'name';
 	@Input() type = 'text';
-	@Input() placeholder: string;
-	@Input() disabled: bool;
+	@Input() placeholder = '';
+	@Input() disabled: false;
 	@Output() wngModelChange = new EventEmitter()
 
 	constructor() { }
