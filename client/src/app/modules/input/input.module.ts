@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CoreModule } from 'src/app/core';
+import { FormsModule } from '@angular/forms';
 import { InputComponent } from './input.component';
 
 @NgModule({
 	imports: [
-		CoreModule
+		FormsModule
 	],
 	declarations: [
 		InputComponent
