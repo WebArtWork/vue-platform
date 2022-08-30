@@ -5,6 +5,7 @@ import { WacomModule } from 'wacom';
 import { ButtonModule } from 'src/app/modules/button/button.module';
 import { InputModule } from 'src/app/modules/input/input.module';
 import { CardModule } from 'src/app/modules/card/card.module';
+import { TextareaModule } from 'src/app/modules/textarea/textarea.module';
 
 @NgModule({
 	declarations: [],
@@ -14,7 +15,8 @@ import { CardModule } from 'src/app/modules/card/card.module';
 		WacomModule,
 		ButtonModule,
 		InputModule,
-		CardModule
+		CardModule,
+		TextareaModule
 	],
 	imports: [
 		CommonModule,

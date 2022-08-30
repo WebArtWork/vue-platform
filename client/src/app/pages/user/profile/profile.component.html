@@ -44,10 +44,11 @@
 			</div>
 		</div>
 		<div class="profile__body">
-			
+
 			<winput ngDefaultControl [(ngModel)]="us.user.name" [disabled]="false" (ngModelChange)="us.update();" label="Name" type="text" name="name" placeholder="Your name"></winput>
 
 			<winput ngDefaultControl [(ngModel)]="us.user.data['phone']" [disabled]="false" (ngModelChange)="us.update();" label="Phone number" type="tel" name="number" placeholder="Phone number"></winput>
+			
 			<div class="w-forms">
 				<span class="w-forms__title">Bio</span>
 				<textarea class="w-forms__textarea" placeholder="Bio" [(ngModel)]="us.user.data['bio']" (ngModelChange)="us.update();"></textarea>
