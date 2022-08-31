@@ -1,0 +1,4 @@
+<label class="w-forms">
+	<span class="w-forms__title">{{label}}</span>
+	<textarea class="w-forms__textarea" [attr.disabled]="disabled" [placeholder]="placeholder" [(ngModel)]="model" (ngModelChange)="modelChange.emit(model)"></textarea>
+</label>

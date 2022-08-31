@@ -1,0 +1,48 @@
+@import 'angular';
+.w-forms {
+    position: relative;
+    margin: 10px 0;
+    &__title {
+		display: inline-block;
+        color: var(--c-text-primary);
+        font-size: calc(#{var(--fs)} - 4px);
+        line-height: calc(#{var(--fs)} + 2px);
+        letter-spacing: var(--letter-spacing);
+        margin-bottom: 6px;
+		font-weight: 500;
+    }
+    &__textarea {
+		height: 42px;
+        background-color: var(--c-bg-tertiary);
+        border: 1px solid var(--c-border);
+        border-radius: var(--b-radius);
+        color: var(--c-text-secondary);
+        font-size: calc(#{var(--fs)} - 2px);
+		line-height: calc(#{var(--fs)} + 4px);
+        transition: var(--transition);
+        width: 100%;
+        display: block;
+        letter-spacing: var(--letter-spacing);
+		padding: 10px;
+        &::placeholder {
+            color: var(--c-placeholder);
+            transition: var(--transition);
+        }
+        &:focus {
+            transition: var(--transition);
+            border-color: var(--c-primary);
+        }
+		&:disabled {
+            background-color: var(--c-grey);
+            border-color: var(--c-grey);
+            color: var(--c-grey);
+            cursor: default;
+            opacity: 0.6;
+        }
+    }
+    &__textarea {
+        min-height: 80px;
+        resize: vertical;
+        max-height: 250px;
+    }
+}
