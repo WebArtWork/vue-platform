@@ -6,12 +6,11 @@ import { GuestComponent } from './layout/guest/guest.component';
 import { UserComponent } from './layout/user/user.component';
 import { Authenticated, Guest, Admins } from 'src/app/services';
 import { AppComponent } from './app.component';
-// import { CoreModule } from 'src/app/core';
+import { CoreModule } from 'src/app/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // config
 import { WacomModule, MetaGuard } from 'wacom';
 import { environment } from 'src/environments/environment';
-
 const routes: Routes = [{
 	path: '',
 	canActivate: [Guest],

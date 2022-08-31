@@ -5,11 +5,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 	styleUrls: ['./textarea.component.scss']
 })
 export class TextareaComponent{
-	@Input() ngModel: unknown;
+	@Input() wngModel: unknown;
 	@Input() label = '';
 	@Input() placeholder = '';
-	@Input() disabled: false;
-	@Input() model: false;
+	@Input() disabled = null;
+	@Input() model = null;
 	@Output() modelChange = new EventEmitter()
 
 	constructor() {}
