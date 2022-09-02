@@ -15,6 +15,30 @@ interface Status {
 })
 
 export class SignComponent {
+	public formConfig = {
+		title: 'Sign In / Sign Up',
+		class: 'webart.work',
+		components: [
+			{
+				module: 'winput',
+				type: 'email',
+				label: 'E-mail',
+				placeholder: 'fill your email',
+				input: 'email'
+			},
+			{
+				module: 'winput',
+				type: 'password',
+				label: 'Password',
+				placeholder: 'fill your password',
+				input: 'password'
+			}, {
+				module: 'wbutton',
+				label: 'Modal',
+				output: 'submit'
+			}
+		]
+	}
 	public user = {
 		email: this.hash.get('email') || 'ceo@webart.work',
 		password: this.hash.get('password') || 'asdasdasdasd',
