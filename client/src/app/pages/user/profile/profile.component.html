@@ -13,10 +13,10 @@
 		</div>
 		<div class="profile__body">
 
-			<winput ngDefaultControl [(ngModel)]="us.user.name" [disabled]="false" (ngModelChange)="us.update();" label="Name" type="text" name="name" placeholder="Your name"></winput>
+			<winput ngDefaultControl [(ngModel)]="us.user.name" [disabled]="false" (ngModelChange)="us.update();" label="Name" name="name" placeholder="Your name"></winput>
 
-			<winput ngDefaultControl [(ngModel)]="us.user.data['phone']" [disabled]="false" (ngModelChange)="us.update();" label="Phone number" type="tel" name="number" placeholder="Phone number"></winput>
-			
+			<winput ngDefaultControl [(ngModel)]="us.user.data['phone']" [disabled]="false" (ngModelChange)="us.update();" label="Phone number" [type]="inputTypes.TEL" name="number" placeholder="Phone number"></winput>
+
 			<wtextarea ngDefaultControl [(ngModel)]="us.user.data['bio']" (ngModelChange)="us.update();" label="Bio" placeholder="Bio"></wtextarea>
 
 			<div class="profile__footer">

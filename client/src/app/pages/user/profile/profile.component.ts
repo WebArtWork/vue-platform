@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InputTypes } from 'src/app/modules/input/input.interface';
 import { UserService } from 'src/app/services';
 import { ModalService } from 'wacom';
 import { SecurityComponent } from './security/security.component';
@@ -9,6 +10,7 @@ import { SecurityComponent } from './security/security.component';
 	styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
+	readonly inputTypes = InputTypes;
 	constructor(
 		public us: UserService,
 		private modal: ModalService

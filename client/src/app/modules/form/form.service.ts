@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ModalService } from 'wacom';
+import { ButtonTypes } from '../button/button.interface';
+import { InputTypes } from '../input/input.interface';
 import { ModalComponent } from './modal/modal.component';
 
 export enum FormModules {
@@ -14,11 +16,12 @@ export enum FormOutputs {
 
 export interface FormComponent {
 	module: FormModules;
-	type?: string;
+	type?: InputTypes | ButtonTypes;
 	label?: string;
 	placeholder?: string;
 	input?: string;
 	output?: FormOutputs;
+	disabled?: () => boolean;
 }
 
 export interface FormConfig {

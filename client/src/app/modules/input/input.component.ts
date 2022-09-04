@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { InputTypes } from './input.interface';
 
 @Component({
 	selector: 'winput',
@@ -6,10 +7,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 	styleUrls: ['./input.component.scss']
 })
 export class InputComponent {
+	@Input() type: InputTypes = InputTypes.TEXT;
 	@Input() wngModel: unknown;
 	@Input() label = '';
 	@Input() name = 'name';
-	@Input() type = 'text';
 	@Input() placeholder = '';
 	@Input() disabled: false;
 	@Output() wngModelChange = new EventEmitter()

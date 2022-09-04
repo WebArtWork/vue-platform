@@ -1,41 +1,48 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { HashService, HttpService, AlertService, UiService } from 'wacom';
+import { FormConfig, FormModules, FormOutputs } from 'src/app/modules/form/form.service';
+import {
+	HashService,
+	HttpService,
+	AlertService,
+	UiService
+} from 'wacom';
 import { UserService } from 'src/app/services';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core';
+import { InputTypes } from 'src/app/modules/input/input.interface';
+import { ButtonTypes } from 'src/app/modules/button/button.interface';
 
-interface Status {
+interface RespStatus {
 	email: string;
 	pass: string
 }
 @Component({
-	selector: 'app-sign',
 	templateUrl: './sign.component.html',
 	styleUrls: ['./sign.component.scss']
 })
 
 export class SignComponent {
-	public formConfig = {
+	public formConfig: FormConfig = {
 		title: 'Sign In / Sign Up',
-		class: 'webart.work',
 		components: [
 			{
-				module: 'winput',
-				type: 'email',
-				label: 'E-mail',
+				module: FormModules.INPUT,
+				type: InputTypes.EMAIL,
 				placeholder: 'fill your email',
+				label: 'E-mail',
 				input: 'email'
 			},
 			{
-				module: 'winput',
-				type: 'password',
-				label: 'Password',
+				module: FormModules.INPUT,
+				type: InputTypes.PASSWORD,
 				placeholder: 'fill your password',
+				label: 'Password',
 				input: 'password'
 			}, {
-				module: 'wbutton',
-				label: 'Modal',
-				output: 'submit'
+				module: FormModules.BUTTON,
+				output: FormOutputs.SUBMIT,
+				type: ButtonTypes.PRIMARY,
+				label: 'Sign'
 			}
 		]
 	}
@@ -82,7 +89,7 @@ export class SignComponent {
 			});
 			return this.password_focus();
 		}
-		this.http.post('/api/user/status', this.user, (resp: Status) => {
+		this.http.post('/api/user/Respstatus', this.user, (resp: RespStatus) => {
 			if (resp.email && resp.pass) {
 				this.login();
 			} else if (resp.email) {

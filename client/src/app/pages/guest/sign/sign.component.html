@@ -1,12 +1,13 @@
 <div class="auth-wrapper">
 	<div class="auth">
-		<!--
-			<wform
-				[doc]="user"
-				[config]="formConfig"
-				(submit)="submit()"
-			></wform>
-		-->
+
+		<wform
+			[doc]="user"
+			[config]="formConfig"
+			(submit)="submit()"
+		></wform>
+
+		<hr>
 
 		<div class="auth__title">Sign In / Sign Up</div>
 		<form class="auth__forms" (ngSubmit)="submit()">
@@ -22,7 +23,15 @@
 				#email />
 			</div> -->
 			<div>
-				<winput ngDefaultControl [(ngModel)]="user.email" [disabled]="false" (keydown.enter)="!user.password && password_focus()" label="Email" type="email" name="email" placeholder="Email"></winput>
+				<winput
+					ngDefaultControl
+					[(ngModel)]="user.email"
+					[disabled]="false"
+					(keydown.enter)="!user.password && password_focus()"
+					label="Email"
+					name="email"
+					placeholder="Email"
+				></winput>
 			</div>
 			<div class="w-forms">
 				<span class="w-forms__title">Password:</span>
@@ -45,8 +54,5 @@
 				<button class="w-btn _primary" type="submit">Let's go</button>
 			</div>
 		</form>
-
-
-
 	</div>
 </div>
