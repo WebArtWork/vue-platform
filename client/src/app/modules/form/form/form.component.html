@@ -1,19 +1,19 @@
 <h1 *ngIf="config.title">{{config.title}}</h1>
-<div *ngFor="let comp of config.components">
-	<ng-container *ngIf="comp.module === modules.INPUT">
+<div *ngFor="let component of config.components">
+	<ng-container *ngIf="component.module === modules.INPUT">
 		<winput
 			ngDefaultControl
-			[(wngModel)]="doc[comp.input || 'name']"
-			[label]="comp.label || ''"
-			[type]="type(comp)"
-			[placeholder]="comp.placeholder || ''"
-			[name]="comp.label || 'name'"
+			[(wngModel)]="doc[component.input || 'name']"
+			[label]="component.label || ''"
+			[type]="inputType(component)"
+			[placeholder]="component.placeholder || ''"
+			[name]="component.label || 'name'"
 
 			(wngModelChange)="change.emit()"
 			(keydown.enter)="change.emit('enter')"
-			[disabled]="disabled(comp)"
+			[disabled]="disabled(component)"
 		></winput>
-		<ng-container *ngIf="comp.type === inputTypes.PASSWORD">
+		<ng-container *ngIf="component.type === inputTypes.PASSWORD">
 			<!-- <div class="w-forms__input-block">
 				<span class="w-forms__toggle" (click)="show_password = !show_password">
 					<i *ngIf="show_password" class="icon-visibility">visibility</i>
@@ -26,7 +26,7 @@
 		</ng-container>
 	</ng-container>
 	<wbutton
-		*ngIf="comp.module === modules.BUTTON"
-		[type]="comp.type as buttonTypes"
+		*ngIf="component.module === modules.BUTTON"
+		[type]="buttonType(component)"
 	></wbutton>
 </div>

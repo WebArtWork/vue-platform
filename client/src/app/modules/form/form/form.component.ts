@@ -3,6 +3,7 @@ import { ButtonTypes } from '../../button/button.interface';
 import { InputTypes } from '../../input/input.interface';
 import {
 	FormConfig,
+	FormComponent as FormComponentInterface,
 	FormModules,
 	FormOutputs,
 	FormService
@@ -32,15 +33,19 @@ export class FormComponent {
 
 	constructor(public fm: FormService) {}
 
-	type(component: FormComponent): InputTypes  {
-		return (component.type as InputTypes) || InputTypes.TEXT
+	inputType(component: FormComponentInterface): InputTypes  {
+		return (component.type as unknown as InputTypes) || InputTypes.TEXT
 	}
 
-	disabled(component: FormComponent): boolean  {
-		if (typeof component.disabled !== 'function') {
-			return component.disabled(component);
+	disabled(component: FormComponentInterface): boolean  {
+		if (typeof component.disabled === 'function') {
+			return component.disabled();
 		} else {
 			return false;
 		}
+	}
+
+	buttonType(component: FormComponentInterface): ButtonTypes {
+		return component.type as unknown as ButtonTypes;
 	}
 }

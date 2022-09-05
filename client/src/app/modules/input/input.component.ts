@@ -8,12 +8,18 @@ import { InputTypes } from './input.interface';
 })
 export class InputComponent {
 	@Input() type: InputTypes = InputTypes.TEXT;
+
 	@Input() wngModel: unknown;
+
 	@Input() label = '';
+
 	@Input() name = 'name';
+
 	@Input() placeholder = '';
-	@Input() disabled: false;
-	@Output() wngModelChange = new EventEmitter()
+
+	@Input() disabled: boolean;
+
+	@Output() wngModelChange = new EventEmitter();
 
 	constructor() { }
 }
