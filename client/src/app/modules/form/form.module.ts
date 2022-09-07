@@ -5,6 +5,7 @@ import { InputModule } from '../input/input.module';
 import { TextareaModule } from '../textarea/textarea.module';
 import { FormComponent } from './form/form.component';
 import { ModalComponent } from './modal/modal.component';
+import { ComponentComponent } from './form/component/component.component';
 
 @NgModule({
 	imports: [
@@ -15,7 +16,8 @@ import { ModalComponent } from './modal/modal.component';
 	],
 	declarations: [
 		ModalComponent,
-		FormComponent
+		FormComponent,
+		ComponentComponent
 	],
 	exports: [ FormComponent ],
 	providers: []

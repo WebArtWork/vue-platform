@@ -1,0 +1,46 @@
+<ng-container
+	*ngIf="component.module === modules.INPUT && !component.hidden"
+>
+	<winput
+		ngDefaultControl
+		[(wngModel)]="use_doc[input || 'name']"
+		[label]="component.label || ''"
+		[type]="inputType()"
+		[placeholder]="component.placeholder || ''"
+		[name]="component.label || 'name'"
+		(wngModelChange)="change.emit()"
+		(keydown.enter)="change.emit('enter')"
+		[disabled]="disabled()"
+	></winput>
+	<ng-container *ngIf="component.type === inputTypes.PASSWORD || password">
+		<div class="w-forms__input-block">
+			<span class="w-forms__toggle" (click)="togglePassword()">
+				<i *ngIf="password" class="icon-visibility">visibility</i>
+				<i *ngIf="!password">visibility_off</i>
+			</span>
+		</div>
+		<span
+			class="w-forms__level"
+			[class._sky]="ui.level(doc.password) === 1"
+			[class._orange]="ui.level(doc.password) === 2"
+			[class._green]="ui.level(doc.password) === 3"
+		>
+			Level: {{ui.level(doc.password)}}
+		</span>
+	</ng-container>
+</ng-container>
+<wtextarea
+	*ngIf="component.module === modules.TEXTAREA"
+	ngDefaultControl
+	[(wngModel)]="use_doc[input || 'description']"
+	(wngModelChange)="change.emit()"
+	[label]="component.label || ''"
+	[placeholder]="component.placeholder || ''"
+></wtextarea>
+<wbutton
+	(click)="submit.emit()"
+	*ngIf="component.module === modules.BUTTON"
+	[type]="buttonType()"
+>
+	{{component.label}}
+</wbutton>
