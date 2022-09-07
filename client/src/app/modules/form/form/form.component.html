@@ -1,34 +1,43 @@
 <div class="w-forms">
 	<h1 class="w-forms__title" *ngIf="config.title">{{config.title}}</h1>
-	<div *ngFor="let component of config.components">
-		<ng-container *ngIf="component.module === modules.INPUT">
+	<div *ngFor="let component of config.components; index as i">
+		<ng-container
+			*ngIf="component.module === modules.INPUT && !component.hidden"
+		>
 			<winput
-			ngDefaultControl
-			[(wngModel)]="doc[component.input || 'name']"
-			[label]="component.label || ''"
-			[type]="inputType(component)"
-			[placeholder]="component.placeholder || ''"
-			[name]="component.label || 'name'"
-
-			(wngModelChange)="change.emit()"
-			(keydown.enter)="change.emit('enter')"
-			[disabled]="disabled(component)"
+				ngDefaultControl
+				[(wngModel)]="doc[component.input || 'name']"
+				[label]="component.label || ''"
+				[type]="inputType(component)"
+				[placeholder]="component.placeholder || ''"
+				[name]="component.label || 'name'"
+				(wngModelChange)="change.emit()"
+				(keydown.enter)="change.emit('enter')"
+				[disabled]="disabled(component)"
 			></winput>
-			<ng-container *ngIf="component.type === inputTypes.PASSWORD">
-			<!-- <div class="w-forms__input-block">
-				<span class="w-forms__toggle" (click)="show_password = !show_password">
-					<i *ngIf="show_password" class="icon-visibility">visibility</i>
-					<i *ngIf="!show_password">visibility_off</i>
+			<ng-container *ngIf="component.type === inputTypes.PASSWORD || data[i + 'password']">
+				<div class="w-forms__input-block">
+					<span class="w-forms__toggle" (click)="togglePassword(component, i)">
+						<i *ngIf="data[i]" class="icon-visibility">visibility</i>
+						<i *ngIf="!data[i]">visibility_off</i>
+					</span>
+				</div>
+				<span
+					class="w-forms__level"
+					[class._sky]="ui.level(doc.password) === 1"
+					[class._orange]="ui.level(doc.password) === 2"
+					[class._green]="ui.level(doc.password) === 3"
+				>
+					Level: {{ui.level(doc.password)}}
 				</span>
-			</div>
-			<span class="w-forms__level" [class._sky]="ui.level(user.password) === 1" [class._orange]="ui.level(user.password) === 2" [class._green]="ui.level(user.password) === 3">
-				Level: {{ui.level(user.password)}}
-			</span> -->
 		</ng-container>
 	</ng-container>
 	<wbutton
-	*ngIf="component.module === modules.BUTTON"
-	[type]="buttonType(component)"
-	>{{component.label}}</wbutton>
+		(click)="submit.emit()"
+		*ngIf="component.module === modules.BUTTON"
+		[type]="buttonType(component)"
+	>
+		{{component.label}}
+	</wbutton>
 </div>
 </div>

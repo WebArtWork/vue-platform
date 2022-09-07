@@ -18,6 +18,7 @@ export interface FormComponent {
 	module: FormModules;
 	type?: InputTypes | ButtonTypes;
 	label?: string;
+	hidden?: boolean;
 	placeholder?: string;
 	input?: string;
 	output?: FormOutputs;

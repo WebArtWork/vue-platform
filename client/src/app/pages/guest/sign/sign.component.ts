@@ -22,6 +22,12 @@ interface RespStatus {
 })
 
 export class SignComponent {
+	public user = {
+		email: this.hash.get('email') || 'ceo@webart.work',
+		password: this.hash.get('password') || 'asdasdasdasd',
+		code: ''
+	};
+	@ViewChild('form') form: ElementRef;
 	public formConfig: FormConfig = {
 		title: 'Sign In / Sign Up',
 		components: [
@@ -38,7 +44,15 @@ export class SignComponent {
 				placeholder: 'fill your password',
 				label: 'Password',
 				input: 'password'
-			}, {
+			},
+			{
+				module: FormModules.INPUT,
+				placeholder: 'fill code from email',
+				hidden: true,
+				label: 'Code',
+				input: 'code'
+			},
+			{
 				module: FormModules.BUTTON,
 				output: FormOutputs.SUBMIT,
 				type: ButtonTypes.PRIMARY,
@@ -46,12 +60,17 @@ export class SignComponent {
 			}
 		]
 	}
-	public user = {
-		email: this.hash.get('email') || 'ceo@webart.work',
-		password: this.hash.get('password') || 'asdasdasdasd',
-		code: ''
-	};
-	public show_password = false;
+	set(user: User) {
+		if (!user) {
+			return this.alert.error({
+				text: "Something went wrong",
+			});
+		}
+		localStorage.setItem('waw_user', JSON.stringify(user));
+		this.http.set('token', user.token);
+		this.us.user = user;
+		this.router.navigate(['/profile']);
+	}
 	constructor(
 		private alert: AlertService,
 		private http: HttpService,
@@ -60,36 +79,26 @@ export class SignComponent {
 		private router: Router,
 		public ui: UiService
 	) {}
-	@ViewChild('email', { static: false }) email!: ElementRef;
-	email_focus() {
-		setTimeout(() => {
-			this.email.nativeElement.focus();
-		}, 100);
-	}
-	@ViewChild('password', { static: false }) password!: ElementRef;
-	password_focus() {
-		setTimeout(() => {
-			this.password.nativeElement.focus();
-		}, 100);
-	}
 	submit() {
-		if (this.reseting && this.user.code) {
+		if (!this.formConfig.components[2].hidden && this.user.code) {
 			return this.save();
 		}
 		if (!this.user.email) {
 			this.alert.error({
 				text: 'Enter your email',
 			});
-			return this.email_focus();
+			return;
+			//return this.email_focus();
 		}
 		this.hash.set('email', this.user.email);
 		if (!this.user.password) {
 			this.alert.error({
 				text: 'Enter your password',
 			});
-			return this.password_focus();
+			return;
+			// return this.password_focus();
 		}
-		this.http.post('/api/user/Respstatus', this.user, (resp: RespStatus) => {
+		this.http.post('/api/user/status', this.user, (resp: RespStatus) => {
 			if (resp.email && resp.pass) {
 				this.login();
 			} else if (resp.email) {
@@ -100,35 +109,14 @@ export class SignComponent {
 		});
 	}
 	login() {
-		this.http.post('/api/user/login', this.user, (user: User) => {
-			if (!user) {
-				return this.alert.error({
-					text: "Something went wrong",
-				});
-			}
-			localStorage.setItem('waw_user', JSON.stringify(user));
-			this.http.set('token', user.token);
-			this.router.navigate(['/profile']);
-			this.us.user = user;
-		});
+		this.http.post('/api/user/login', this.user, this.set.bind(this));
 	}
 	sign() {
-		this.http.post('/api/user/sign', this.user, (user: User) => {
-			if (!user) {
-				return this.alert.error({
-					text: "Something went wrong",
-				});
-			}
-			localStorage.setItem('waw_user', JSON.stringify(user));
-			this.http.set('token', user.token);
-			this.router.navigate(['/profile']);
-			this.us.user = user;
-		});
+		this.http.post('/api/user/sign', this.user, this.set.bind(this));
 	}
-	public reseting = false;
 	reset() {
 		this.http.post('/api/user/request', this.user, () => {
-			this.reseting = true;
+			this.formConfig.components[2].hidden = false;
 		});
 		this.alert.info({
 			text: "Mail will sent to your email"
@@ -145,17 +133,7 @@ export class SignComponent {
 					text: 'Wrong Code'
 				});
 			}
-			this.http.post('/api/user/login', this.user, (user: User) => {
-				if (!user) {
-					return this.alert.error({
-						text: "Something went wrong",
-					});
-				}
-				this.us.user = user;
-				this.http.set('token', user.token);
-				localStorage.setItem('waw_user', JSON.stringify(user));
-				this.router.navigate(['/profile']);
-			});
+			this.login();
 		});
 	}
 }
