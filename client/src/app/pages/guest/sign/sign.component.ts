@@ -117,6 +117,7 @@ export class SignComponent {
 	reset() {
 		this.http.post('/api/user/request', this.user, () => {
 			this.formConfig.components[2].hidden = false;
+			console.log(this.formConfig);
 		});
 		this.alert.info({
 			text: "Mail will sent to your email"

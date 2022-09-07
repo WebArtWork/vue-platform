@@ -20,6 +20,4 @@ export class InputComponent {
 	@Input() disabled: boolean;
 
 	@Output() wngModelChange = new EventEmitter();
-
-	constructor() { }
 }

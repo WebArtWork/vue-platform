@@ -30,14 +30,22 @@
 				>
 					Level: {{ui.level(doc.password)}}
 				</span>
+			</ng-container>
 		</ng-container>
-	</ng-container>
-	<wbutton
-		(click)="submit.emit()"
-		*ngIf="component.module === modules.BUTTON"
-		[type]="buttonType(component)"
-	>
-		{{component.label}}
-	</wbutton>
-</div>
+		<wbutton
+			(click)="submit.emit()"
+			*ngIf="component.module === modules.BUTTON"
+			[type]="buttonType(component)"
+		>
+			{{component.label}}
+		</wbutton>
+		<wtextarea
+			*ngIf="component.module === modules.TEXTAREA"
+			ngDefaultControl
+			[(wngModel)]="doc[component.input || 'description']"
+			(wngModelChange)="change.emit()"
+			[label]="component.label || ''"
+			[placeholder]="component.placeholder || ''"
+		></wtextarea>
+	</div>
 </div>

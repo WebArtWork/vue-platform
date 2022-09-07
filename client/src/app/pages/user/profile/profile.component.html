@@ -1,5 +1,3 @@
-<!-- ==== w-card module with other modules inside ==== -->
-
 <div class="container">
 	<wcard [padding]="true">
 		<div class="profile__header w-card__header">
@@ -12,22 +10,19 @@
 			</div>
 		</div>
 		<div class="profile__body">
-
-			<winput ngDefaultControl [(ngModel)]="us.user.name" [disabled]="false" (ngModelChange)="us.update();" label="Name" name="name" placeholder="Your name"></winput>
-
-			<winput ngDefaultControl [(ngModel)]="us.user.data['phone']" [disabled]="false" (ngModelChange)="us.update();" label="Phone number" [type]="inputTypes.TEL" name="number" placeholder="Phone number"></winput>
-
-			<wtextarea ngDefaultControl [(ngModel)]="us.user.data['bio']" (ngModelChange)="us.update();" label="Bio" placeholder="Bio"></wtextarea>
-
+			<wform [config]="formConfig" (change)="us.update()" [doc]="us.user" #form></wform>
 			<div class="profile__footer">
 				<div class="profile__logout">
-					<button class="w-btn _danger" (click)="us.logout();"><span class="material-icons">logout</span>Logout</button>
+					<wbutton (click)="us.logout()" [type]="buttonTypes.DANGER">
+						<span class="material-icons">logout</span>Logout
+					</wbutton>
 				</div>
 				<div class="profile__password">
-					<button class="w-btn _link" (click)="change_password()">Change Password</button>
+					<wbutton (click)="change_password()" [type]="buttonTypes.LINK">
+						Change Password
+					</wbutton>
 				</div>
 			</div>
-
 		</div>
 	</wcard>
 </div>

@@ -6,7 +6,8 @@ import { ModalComponent } from './modal/modal.component';
 
 export enum FormModules {
 	INPUT = 'winput',
-	BUTTON = 'wbutton'
+	BUTTON = 'wbutton',
+	TEXTAREA = 'wtextarea'
 }
 
 export enum FormOutputs {
