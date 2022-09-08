@@ -14,8 +14,11 @@
     user-select: none;
     border: none;
     cursor: pointer;
+    // =============
+    display: flex;
+    align-items: center;
+    // TODO LORDIK. I put these styles in order to align the material log out icon with the inscription: "log out". For some reason they were not aligned.
 
-    // ==== TO BE REVIEWED ====
     margin: 20px auto 5px;
     width: 100%;
     // TODO LORDIK. I had to put these properties in order to match the style of the primary btn on the sign-in page (Arsen)
@@ -34,12 +37,6 @@
     &._danger {
         background-color: var(--c-error);
         color: white;
-
-        // ==== TO BE REVIEWED ====
-        display: flex;
-        align-items: center;
-        // TODO LORDIK. I put these styles in order to align the material log out icon with the inscription: "log out". For some reason they were not aligned.
-
         &:hover {
             background: var(--c-error-hover);
         }
