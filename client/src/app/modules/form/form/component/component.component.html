@@ -12,6 +12,9 @@
 		(keydown.enter)="change.emit('enter')"
 		[disabled]="disabled()"
 	></winput>
+
+	<!-- ==== Password ==== -->
+
 	<ng-container *ngIf="component.type === inputTypes.PASSWORD || password">
 		<div class="w-forms__input-block">
 			<span class="w-forms__toggle" (click)="togglePassword()">
@@ -28,6 +31,9 @@
 			Level: {{ui.level(doc.password)}}
 		</span>
 	</ng-container>
+
+	<!-- ========================= -->
+	
 </ng-container>
 <wtextarea
 	*ngIf="component.module === modules.TEXTAREA"
