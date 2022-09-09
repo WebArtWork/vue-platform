@@ -7,6 +7,7 @@ import { InputModule } from 'src/app/modules/input/input.module';
 import { CardModule } from 'src/app/modules/card/card.module';
 import { TextareaModule } from 'src/app/modules/textarea/textarea.module';
 import { FormModule } from 'src/app/modules/form/form.module';
+import { TableModule } from '../modules/table/table.module';
 
 @NgModule({
 	declarations: [],
@@ -18,7 +19,8 @@ import { FormModule } from 'src/app/modules/form/form.module';
 		InputModule,
 		CardModule,
 		TextareaModule,
-		FormModule
+		FormModule,
+		TableModule
 	],
 	imports: [
 		CommonModule,

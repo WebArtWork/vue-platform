@@ -1,22 +1,20 @@
 import { Component, Input, ContentChildren, OnInit, Output, QueryList, AfterContentInit, EventEmitter, ContentChild} from '@angular/core';
 import { CellDirective, SortDirective, ActionsDirective, CustomEditDirective} from './table.directive';
-import { toArray } from 'rxjs/operators';
 @Component({
 	selector: 'wtable',
 	templateUrl: './table.component.html',
-	styleUrls: ['./table.component.scss'],
-
+	styleUrls: ['./table.component.scss']
 })
 
 export class TableComponent implements OnInit, AfterContentInit {
 	//Intitalize
-	@Input('columns') columns = [];
+	@Input('columns') columns:any = [];
 	@Input('config') config:any;
 	@Input('rows') rows:any = [];
 	@ContentChildren(CellDirective) cell: QueryList<CellDirective>;
 	@ContentChildren(SortDirective) sortHeaders: QueryList<SortDirective>;
-	@ContentChild(ActionsDirective, { static: false }) action;
-	@ContentChild(CustomEditDirective, { static: false }) editForm;
+	@ContentChild(ActionsDirective, { static: false }) action: any;
+	@ContentChild(CustomEditDirective, { static: false }) editForm: any;
 	public custom_cell:any = {};
 	public sortable:any = {};
 	public searchShow:any;
@@ -56,7 +54,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 	previous() {
 		if(this.config.page > 1) this.config.page -= 1;
 	}
-	changePerPage(row) {
+	changePerPage(row: any) {
 		this.config.perPage = row;
 		if(((this.config.page-1)*this.config.perPage) > this.rows.length) this.lastPage();
 		this.select_page_size = false;
@@ -67,7 +65,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 	isLast() {
 		return this.rows&&(this.config.page == Math.ceil(this.rows.length/this.config.perPage))||false;
 	}
-	sort(column) {
+	sort(column: any) {
 		if(this.sort_type.title != column.title) this.sort_type = {};
 		if(this.sortable[column.field]) {
 			this.sort_type = {
@@ -90,7 +88,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 		}
 	}
 	public doc:any;
-	edit(doc?) {
+	edit(doc: any = {}) {
 		this.doc = doc||{};
 		console.log(this.doc);
 	}

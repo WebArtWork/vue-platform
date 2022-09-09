@@ -3,8 +3,8 @@ import { Directive, TemplateRef, Input, OnInit } from '@angular/core';
 @Directive({
   selector: 'ng-template[cell]'
 })
-export class CellDirective implements OnInit{  
-	@Input('cell') cell; 
+export class CellDirective implements OnInit{
+	@Input('cell') cell: any;
 	constructor(public template: TemplateRef<any>) {
 
 	}
@@ -16,7 +16,7 @@ export class CellDirective implements OnInit{
   selector: 'ng-template[sort]'
 })
 export class SortDirective implements OnInit{
-	@Input('cell') cell; 
+	@Input('cell') cell: any;
 	constructor(public template: TemplateRef<any>) {
 
 	}
@@ -27,20 +27,12 @@ export class SortDirective implements OnInit{
 @Directive({
   selector: 'ng-template[actions]'
 })
-export class ActionsDirective implements OnInit{
-	constructor(public template: TemplateRef<any>) {
-
-	}
-	ngOnInit() {
-	}
+export class ActionsDirective {
+	constructor(public template: TemplateRef<any>) {}
 }
 @Directive({
   selector: 'ng-template[customEdit]'
 })
-export class CustomEditDirective implements OnInit{
-	constructor(public template: TemplateRef<any>) {
-
-	}
-	ngOnInit() {
-	}
+export class CustomEditDirective {
+	constructor(public template: TemplateRef<any>) {}
 }
