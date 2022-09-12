@@ -3,18 +3,37 @@
 	<div class="table-flex _jc-sb _ai-c">
 		<div *ngIf="config.searchable" class="table-search" [class.table-search--active]="searchShow">
 			<div class="table-search__icon" (click)="searchShow=!searchShow"></div>
-			<input class="table-search__input" type="text" placeholder="Search..." [(ngModel)]="searching_text" (ngModelChange)="onSearch.emit($event)">
+			<input
+				(ngModelChange)="onSearch.emit($event)"
+				[(ngModel)]="searching_text"
+				class="table-search__input"
+				placeholder="Search..."
+				type="text"
+			/>
 		</div>
-		<button class="table-plus-btn" (click)="edit()" *ngIf="config.doc && config.create">+</button>
+		<button
+			*ngIf="config.doc && config.create"
+			class="table-plus-btn"
+			(click)="edit()"
+		>+</button>
 	</div>
+	{{columns|json}}
 	<table class="table" cellpadding="0" cellspacing="0">
 		<thead class="table-header">
 			<tr>
 				<th *ngIf="config.num">No.</th>
 				<th scope="col" *ngFor="let column of columns">
-					<div class="table-header__sort" [class._sortActiveDown]="sort_type.direction == 'desc' && column.field == sort_type.title" [class._sortActiveUp]="sort_type.direction == 'asc' && column.field == sort_type.title" (click)="sort(column)">
+					<div
+						class="table-header__sort"
+						[class._sortActiveDown]="sort_type.direction == 'desc' && column.field == sort_type.title"
+						[class._sortActiveUp]="sort_type.direction == 'asc' && column.field == sort_type.title"
+						(click)="sort(column)"
+					>
 						<span>{{column.title}}</span>
-						<span *ngIf="sortable[column.field]" class="material-icons icon-arrow">keyboard_backspace</span>
+						<span
+							*ngIf="sortable[column.field]"
+							class="material-icons icon-arrow"
+						>keyboard_backspace</span>
 					</div>
 				</th>
 				<th>
@@ -38,7 +57,7 @@
 				</ng-template>
 				<ng-template #customRows>
 					<td>
-						<ng-container *ngTemplateOutlet="custom_cell[column.field]; context: {$implicit: row}"></ng-container> 
+						<ng-container *ngTemplateOutlet="custom_cell[column.field]; context: {$implicit: row}"></ng-container>
 					</td>
 				</ng-template>
 				<ng-container *ngIf="custom_cell[column.field]; then customRows; else defaultRows"></ng-container>
@@ -46,10 +65,10 @@
 			<td *ngIf="config.delete||config.update">
 				<button *ngIf="config.update" (click)="edit(row)">Edit</button>
 				<button *ngIf="config.delete" (click)="config.delete(row)">Delete</button>
-			</td>	
+			</td>
 		</tr>
 	</tbody>
-	<tfoot class="table-footer" *ngIf="config.perPage"> 
+	<tfoot class="table-footer" *ngIf="config.perPage">
 		<div class="item-page">
 			<div class="item-page__text">Items per page</div>
 			<div class="item-page__dropdown" (clickOutside)="select_page_size = false" [class.open]="select_page_size">
@@ -88,7 +107,7 @@
 		</form>
 	</ng-template>
 	<ng-template #customEdit>
-		<ng-container *ngTemplateOutlet="editForm.template; context: {doc: doc}"></ng-container> 
+		<ng-container *ngTemplateOutlet="editForm.template; context: {doc: doc}"></ng-container>
 	</ng-template>
 	<ng-container *ngIf="editForm&&editForm.template; then customEdit; else defaultEdit"></ng-container>
 </ng-container>

@@ -9,8 +9,9 @@ import { UiService } from 'wacom';
 	styleUrls: ['./users.component.scss']
 })
 export class UsersComponent{
-	public new_user: User = this.us.empty();
-	public search = '';
+	columns = ['user', 'email', 'roles', 'actions'];
+	new_user: User = this.us.empty();
+	search = '';
 	constructor(
 		public us: UserService,
 		public ui: UiService

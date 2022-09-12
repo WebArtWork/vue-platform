@@ -26,7 +26,12 @@ export class TableComponent implements OnInit, AfterContentInit {
 	ngOnInit() {
         this.default_config();
 		for (let i = 0; i < this.columns.length; i++){
-			if(typeof this.columns[i] == 'string') this.columns[i] = {title: this.columns[i], field: this.columns[i]}
+			if(typeof this.columns[i] === 'string') {
+				this.columns[i] = {
+					title: this.columns[i],
+					field: this.columns[i]
+				}
+			}
 		}
 		this.init_doc_config();
 	}
