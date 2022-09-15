@@ -17,7 +17,6 @@
 			(click)="edit()"
 		>+</button>
 	</div>
-	{{columns|json}}
 	<table class="table" cellpadding="0" cellspacing="0">
 		<thead class="table-header">
 			<tr>
@@ -25,9 +24,9 @@
 				<th scope="col" *ngFor="let column of columns">
 					<div
 						class="table-header__sort"
+						(click)="sort(column)"
 						[class._sortActiveDown]="sort_type.direction == 'desc' && column.field == sort_type.title"
 						[class._sortActiveUp]="sort_type.direction == 'asc' && column.field == sort_type.title"
-						(click)="sort(column)"
 					>
 						<span>{{column.title}}</span>
 						<span
@@ -36,12 +35,12 @@
 						>keyboard_backspace</span>
 					</div>
 				</th>
-				<th>
+				<th *ngIf="config.delete||config.update">
 					<ng-template #customAction>
 						<ng-container *ngTemplateOutlet="action.template"></ng-container>
 					</ng-template>
 					<ng-template #defaultAction>Actions</ng-template>
-					<ng-container *ngIf="config.delete||config.update">
+					<ng-container>
 						<ng-container *ngIf="action; then customAction; else defaultAction"></ng-container>
 					</ng-container>
 				</th>
@@ -53,7 +52,8 @@
 			<td *ngIf="config.num">{{row.num}}</td>
 			<ng-container *ngFor="let column of columns">
 				<ng-template #defaultRows>
-					<td *ngIf="row[column.field]" [attr.data-label]="column.title">{{row[column.field]}}</td>
+					<!-- *ngIf="row[column.field]" -->
+					<td [attr.data-label]="column.title">{{row[column.field]}}</td>
 				</ng-template>
 				<ng-template #customRows>
 					<td>
@@ -90,8 +90,6 @@
 	</tfoot>
 </table>
 <ng-container *ngIf="config.doc && doc">
-	{{config.doc}}
-	{{doc}}
 	<ng-template #defaultEdit>
 		<form class="field-form" (ngSubmit)="submit()">
 			<div class="field-form__list">

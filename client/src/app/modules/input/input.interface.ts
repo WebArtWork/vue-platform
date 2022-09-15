@@ -5,4 +5,5 @@ export enum InputTypes {
 	NUMBER = 'number',
 	EMAIL = 'email',
 	PASSWORD = 'password',
+	CHECKBOX = 'checkbox'
 }

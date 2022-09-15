@@ -3,25 +3,17 @@ import { Directive, TemplateRef, Input, OnInit } from '@angular/core';
 @Directive({
   selector: 'ng-template[cell]'
 })
-export class CellDirective implements OnInit{
+export class CellDirective {
 	@Input('cell') cell: any;
-	constructor(public template: TemplateRef<any>) {
-
-	}
-	ngOnInit() {
-	}
+	constructor(public template: TemplateRef<any>) {}
 }
 
 @Directive({
   selector: 'ng-template[sort]'
 })
-export class SortDirective implements OnInit{
+export class SortDirective {
 	@Input('cell') cell: any;
-	constructor(public template: TemplateRef<any>) {
-
-	}
-	ngOnInit() {
-	}
+	constructor(public template: TemplateRef<any>) {}
 }
 
 @Directive({
