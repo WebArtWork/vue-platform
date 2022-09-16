@@ -13,14 +13,24 @@ export class UsersComponent {
 	readonly inputTypes = InputTypes;
 
 	config = {
-		delete: (user: any)=>{
+		doc: 'email name',
+		new: ()=>{
+			return this.us.new();
+		},
+		create: (user: User) => {
+			this.us.create(user);
+		},
+		update: (user: User)=>{
+			this.us.save(user);
+		},
+		delete: (user: User)=>{
 			this.us.delete(user);
 		}
 	};
 
 	columns = ['name', 'email'];
 
-	new_user: User = this.us.empty();
+	new_user: User = this.us.new();
 
 	search = '';
 

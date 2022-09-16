@@ -1,17 +1,11 @@
 <div class="users container w-card _pd">
 	<div class="users__header w-card__header">Users (Admin)</div>
-    <form (ngSubmit)="us.create(new_user); new_user = us.empty()" class="users-field">
-        <!-- <label class="w-forms">
-            <span class="w-forms__title">New User</span>
-            <input class="w-forms__input" type="text" [(ngModel)]="new_user.email" name="new user" placeholder="Email">
-        </label> -->
-        <button class="w-btn _primary" type="submit" [disabled]="!ui.valid(new_user.email)">Create</button>
-    </form>
     <div class="w-table-wrap">
 				<winput [type]="inputTypes.CHECKBOX"></winput>
 
 		<wtable [columns]="columns" [config]="config" [rows]="us.users">
-			<ng-template cell="admin" let-element>
+			<ng-template #test cell="admin" let-element>
+				<div>hello world</div>
 				<winput [type]="inputTypes.CHECKBOX"></winput>
 			</ng-template>
 		</wtable>

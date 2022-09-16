@@ -1,5 +1,5 @@
 import { trigger, state, style, animate, transition, } from '@angular/animations';
-export const Animation = [
+export const CoreAnimation = [
 	trigger('flyInOut', [
 		state('in', style({ transform: 'translateX(0)' })),
 		transition('void => *', [

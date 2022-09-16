@@ -10,7 +10,7 @@ export class UserService {
 	/*
 	*	Declarations
 	*/
-	public user: User = this.empty();
+	public user: User = this.new();
 	public roles = ['admin'];
 	public users: User[] = [];
 	public _users: Any = {};
@@ -58,7 +58,7 @@ export class UserService {
 	/*
 	*	User Management
 	*/
-	empty() : User {
+	new() : User {
 		return {
 			name: '',
 			email: '',
@@ -112,7 +112,7 @@ export class UserService {
 		});
 	}
 	logout() {
-		this.user = this.empty();
+		this.user = this.new();
 		localStorage.removeItem('waw_user');
 		this.router.navigate(['/']);
 		this.http.remove('token');

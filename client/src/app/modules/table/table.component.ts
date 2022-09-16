@@ -18,7 +18,10 @@ export class TableComponent implements OnInit, AfterContentInit {
 
 	@Input('rows') rows: any = [];
 
-	@ContentChildren(CellDirective) cell: QueryList<CellDirective>;
+	@Input('id') _id: any = '_id';
+
+	// @ContentChildren(CellDirective) cell: QueryList<CellDirective>;
+	@ContentChildren('test') cell: QueryList<CellDirective>;
 
 	@ContentChildren(SortDirective) sortHeaders: QueryList<SortDirective>;
 
@@ -28,17 +31,19 @@ export class TableComponent implements OnInit, AfterContentInit {
 
 	@Output('onSearch') onSearch = new EventEmitter();
 
+	select_page_size = false;
+
+	searching_text = '';
+
 	custom_cell: any = {};
+
+	sort_type: any = {};
 
 	sortable: any = {};
 
 	searchShow: any;
 
-	select_page_size = false;
-
-	searching_text = '';
-
-	sort_type: any = {};
+	doc: any;
 
 	ngOnInit() {
 		this.default_config();
@@ -71,17 +76,15 @@ export class TableComponent implements OnInit, AfterContentInit {
 	}
 
 	ngAfterContentInit() {
-		if (this.sortHeaders) {
-			for (let i = 0; i < this.sortHeaders.toArray().length; i++) {
-				this.sortable[this.sortHeaders.toArray()[i].cell] = true;
-			}
+		setTimeout(()=>{
+			console.log(this.cell, this.custom_cell);
+		}, 5000)
+		for (let i = 0; i < this.sortHeaders.toArray().length; i++) {
+			this.sortable[this.sortHeaders.toArray()[i].cell] = true;
 		}
 
-		if (this.cell) {
-			for (let i = 0; i < this.cell.toArray().length; i++) {
-				this.custom_cell[this.cell.toArray()[i].cell] = this.cell.toArray()[i].template;
-			}
-			console.log(this.custom_cell, this.cell);
+		for (let i = 0; i < this.cell.toArray().length; i++) {
+			this.custom_cell[this.cell.toArray()[i].cell] = this.cell.toArray()[i].template;
 		}
 	}
 
@@ -112,7 +115,11 @@ export class TableComponent implements OnInit, AfterContentInit {
 	}
 
 	isLast() {
-		return this.rows && (this.config.page == Math.ceil(this.rows.length / this.config.perPage)) || false;
+		return (
+			this.rows &&
+			(this.config.page == Math.ceil(this.rows.length / this.config.perPage)) ||
+			false
+		);
 	}
 
 	sort(column: any) {
@@ -144,15 +151,13 @@ export class TableComponent implements OnInit, AfterContentInit {
 		}
 	}
 
-	public doc: any;
-
 	edit(doc: any = {}) {
 		this.doc = doc || {};
 	}
 
 	submit() {
 		if (
-			this.doc._id &&
+			this.doc[this._id] &&
 			typeof this.config.update === 'function'
 		) {
 			this.config.update(this.doc);

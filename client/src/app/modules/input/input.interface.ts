@@ -1,9 +1,9 @@
 
 export enum InputTypes {
-	TEL = 'tel',
-	TEXT = 'text',
+	PASSWORD = 'password',
+	CHECKBOX = 'checkbox',
 	NUMBER = 'number',
 	EMAIL = 'email',
-	PASSWORD = 'password',
-	CHECKBOX = 'checkbox'
+	TEXT = 'text',
+	TEL = 'tel'
 }
