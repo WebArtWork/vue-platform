@@ -5,6 +5,7 @@ import {
 	ActionsDirective,
 	CustomEditDirective
 } from './table.directive';
+
 @Component({
 	selector: 'wtable',
 	templateUrl: './table.component.html',
@@ -12,16 +13,15 @@ import {
 })
 
 export class TableComponent implements OnInit, AfterContentInit {
-	@Input('columns') columns: any = [];
-
 	@Input('config') config: any = {};
+
+	@Input('columns') columns: any = [];
 
 	@Input('rows') rows: any = [];
 
-	@Input('id') _id: any = '_id';
+	@Input('id') _id = '_id';
 
-	// @ContentChildren(CellDirective) cell: QueryList<CellDirective>;
-	@ContentChildren('test') cell: QueryList<CellDirective>;
+	@ContentChildren(CellDirective) cell: QueryList<CellDirective>;
 
 	@ContentChildren(SortDirective) sortHeaders: QueryList<SortDirective>;
 

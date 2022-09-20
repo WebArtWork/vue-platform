@@ -2,9 +2,9 @@ import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // Core
-import { GuestComponent } from './layout/guest/guest.component';
-import { UserComponent } from './layout/user/user.component';
-import { Authenticated, Guest, Admins } from 'src/app/services';
+import { GuestComponent } from './core/theme/guest/guest.component';
+import { UserComponent } from './core/theme/user/user.component';
+import { AuthenticatedGuard, GuestGuard, AdminsGuard } from 'src/app/core';
 import { AppComponent } from './app.component';
 import { CoreModule } from 'src/app/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,7 +13,7 @@ import { WacomModule, MetaGuard } from 'wacom';
 import { environment } from 'src/environments/environment';
 const routes: Routes = [{
 	path: '',
-	canActivate: [Guest],
+	canActivate: [GuestGuard],
 	component: GuestComponent,
 	children: [/* guest */{
 		path: '',
@@ -27,7 +27,7 @@ const routes: Routes = [{
 	}]
 }, {
 	path: '',
-	canActivate: [Authenticated],
+	canActivate: [AuthenticatedGuard],
 	component: UserComponent,
 	children: [/* user */{
 		path: 'profile',
@@ -41,7 +41,7 @@ const routes: Routes = [{
 	}]
 }, {
 	path: 'admin',
-	canActivate: [Admins],
+	canActivate: [AdminsGuard],
 	component: UserComponent,
 	children: [/* admin */{
 		path: 'users',
@@ -87,7 +87,7 @@ const routes: Routes = [{
             relativeLinkResolution: 'legacy'
         })
     ],
-    providers: [Authenticated, Guest, Admins],
+	providers: [AuthenticatedGuard, GuestGuard, AdminsGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

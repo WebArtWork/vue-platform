@@ -1,10 +1,11 @@
 <div class="users container w-card _pd">
 	<div class="users__header w-card__header">Users (Admin)</div>
     <div class="w-table-wrap">
-				<winput [type]="inputTypes.CHECKBOX"></winput>
+		<!-- remove when table will show this -->
+		<winput [type]="inputTypes.CHECKBOX"></winput>
 
 		<wtable [columns]="columns" [config]="config" [rows]="us.users">
-			<ng-template #test cell="admin" let-element>
+			<ng-template cell="admin" let-element>
 				<div>hello world</div>
 				<winput [type]="inputTypes.CHECKBOX"></winput>
 			</ng-template>
@@ -77,7 +78,6 @@
                 </tr>
             </tbody>
         </table>
-
     </div>
 </div>
 

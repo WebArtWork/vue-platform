@@ -6,7 +6,7 @@ import {
 	AlertService,
 	UiService
 } from 'wacom';
-import { UserService } from 'src/app/services';
+import { UserService } from 'src/app/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core';
 import { InputTypes } from 'src/app/modules/input/input.interface';

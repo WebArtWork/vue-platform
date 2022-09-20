@@ -1,6 +1,6 @@
 import { Component, Renderer2 } from '@angular/core';
 import { CoreAnimation } from 'src/app/core';
-import { UserService } from 'src/app/services';
+import { UserService } from 'src/app/core';
 import { StoreService } from 'wacom';
 
 @Component({

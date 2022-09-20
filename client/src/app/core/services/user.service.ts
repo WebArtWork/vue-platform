@@ -1,5 +1,5 @@
 import { Any, MongoService, FileService, HttpService, AlertService } from 'wacom';
-import { CanActivate, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/core';
 
@@ -120,45 +120,4 @@ export class UserService {
 	/*
 	*	End of
 	*/
-}
-
-@Injectable()
-export class Admins implements CanActivate {
-	constructor(private router: Router) { }
-	canActivate() {
-		if (localStorage.getItem('waw_user')) {
-			const user = JSON.parse(localStorage.getItem('waw_user') as string);
-			if (user.is && user.is.admin) return true;
-			this.router.navigate(['/profile']);
-			return false;
-		} else {
-			this.router.navigate(['/']);
-			return false;
-		}
-	}
-}
-
-@Injectable()
-export class Authenticated implements CanActivate {
-	constructor(private router: Router) { }
-	canActivate() {
-		if (localStorage.getItem('waw_user')) {
-			return true;
-		} else {
-			return this.router.navigate(['/']);
-		}
-	}
-
-}
-
-@Injectable()
-export class Guest implements CanActivate {
-	constructor(private router: Router) { }
-	canActivate() {
-		if (localStorage.getItem('waw_user')) {
-			return this.router.navigate(['/profile'])
-		} else {
-			return true;
-		}
-	}
 }

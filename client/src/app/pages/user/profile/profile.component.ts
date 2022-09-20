@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ButtonTypes } from 'src/app/modules/button/button.interface';
 import { FormConfig, FormModules } from 'src/app/modules/form/form.service';
 import { InputTypes } from 'src/app/modules/input/input.interface';
-import { UserService } from 'src/app/services';
+import { UserService } from 'src/app/core';
 import { ModalService } from 'wacom';
 import { SecurityComponent } from './security/security.component';
 

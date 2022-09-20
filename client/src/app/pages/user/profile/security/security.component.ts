@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from 'src/app/services';
+import { UserService } from 'src/app/core';
 @Component({
 	selector: 'security',
 	templateUrl: './security.component.html',

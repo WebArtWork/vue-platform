@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/core';
 import { InputTypes } from 'src/app/modules/input/input.interface';
-import { UserService } from 'src/app/services';
+import { UserService } from 'src/app/core';
 import { UiService } from 'wacom';
 
 @Component({
