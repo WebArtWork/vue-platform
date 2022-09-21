@@ -17,22 +17,6 @@
             ],
             "rules": {
                 "no-console": "warn",
-                "@angular-eslint/component-selector": [
-                    "error",
-                    {
-                        "prefix": "app",
-                        "style": "kebab-case",
-                        "type": "element"
-                    }
-                ],
-                "@angular-eslint/directive-selector": [
-                    "error",
-                    {
-                        "prefix": "app",
-                        "style": "camelCase",
-                        "type": "attribute"
-                    }
-                ],
                 "@typescript-eslint/explicit-function-return-type": "error",
                 "@typescript-eslint/no-unsafe-call": "off",
                 "@typescript-eslint/no-unsafe-member-access": "off",

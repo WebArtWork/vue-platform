@@ -14,6 +14,8 @@ import { SecurityComponent } from './security/security.component';
 export class ProfileComponent {
 	readonly buttonTypes = ButtonTypes;
 
+	readonly inputTypes = InputTypes;
+
 	formConfig: FormConfig = {
 		components: [
 			{
@@ -39,11 +41,9 @@ export class ProfileComponent {
 
 	constructor(public us: UserService, private modal: ModalService) {}
 
-	change_password() {
+	change_password(): void {
 		this.modal.show({
 			component: SecurityComponent
 		});
 	}
-
-	readonly inputTypes = InputTypes;
 }

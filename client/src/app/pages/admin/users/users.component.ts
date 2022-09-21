@@ -63,19 +63,10 @@ export class UsersComponent {
 				}
 			]
 		},
-		doc: 'email name',
-		new: () => {
-			return this.us.new();
-		},
-		create: (user: User) => {
-			this.us.create(user);
-		},
-		update: (user: User) => {
-			this.us.save(user);
-		},
-		delete: (user: User) => {
-			this.us.delete(user);
-		}
+		new: this.us.new.bind(this.us),
+		create: this.us.create.bind(this.us),
+		update: this.us.save.bind(this.us),
+		delete: this.us.delete.bind(this.us)
 	};
 
 	columns = ['name', 'email'];

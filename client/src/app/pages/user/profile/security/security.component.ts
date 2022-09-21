@@ -1,25 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core';
 
 @Component({
-	selector: 'security',
 	templateUrl: './security.component.html',
 	styleUrls: ['./security.component.scss']
 })
-export class SecurityComponent {
-	close = () => {};
-
+export class SecurityComponent implements OnInit, OnDestroy {
 	oldPass = '';
 
 	newPass = '';
 
 	constructor(public us: UserService) {}
 
-	ngOnInit() {
+	close: () => void;
+
+	ngOnInit(): void {
 		document.body.classList.add('_modal-small');
 	}
 
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		document.body.classList.remove('_modal-small');
 	}
 }

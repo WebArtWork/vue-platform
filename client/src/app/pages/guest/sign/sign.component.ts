@@ -62,7 +62,7 @@ export class SignComponent {
 		]
 	};
 
-	set(user: User) {
+	set(user: User): void {
 		if (!user) {
 			return this.alert.error({
 				text: 'Something went wrong'
@@ -87,7 +87,7 @@ export class SignComponent {
 		public ui: UiService
 	) {}
 
-	submit() {
+	submit(): void {
 		if (!this.formConfig.components[2].hidden && this.user.code) {
 			return this.save();
 		}
@@ -123,19 +123,17 @@ export class SignComponent {
 		});
 	}
 
-	login() {
+	login(): void {
 		this.http.post('/api/user/login', this.user, this.set.bind(this));
 	}
 
-	sign() {
+	sign(): void {
 		this.http.post('/api/user/sign', this.user, this.set.bind(this));
 	}
 
-	reset() {
+	reset(): void {
 		this.http.post('/api/user/request', this.user, () => {
 			this.formConfig.components[2].hidden = false;
-
-			console.log(this.formConfig);
 		});
 
 		this.alert.info({
@@ -143,7 +141,7 @@ export class SignComponent {
 		});
 	}
 
-	save() {
+	save(): void {
 		this.http.post('/api/user/change', this.user, (resp: boolean) => {
 			if (resp) {
 				this.alert.info({

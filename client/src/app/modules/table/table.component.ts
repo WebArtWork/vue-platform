@@ -54,7 +54,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 
 	doc: any;
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.default_config();
 
 		for (let i = 0; i < this.columns.length; i++) {
@@ -69,7 +69,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 		this.init_doc_config();
 	}
 
-	default_config() {
+	default_config(): void {
 		if (!this.config.pageSizeOptions) {
 			this.config.pageSizeOptions = [5, 10, 25];
 		}
@@ -87,7 +87,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 		}
 	}
 
-	ngAfterContentInit() {
+	ngAfterContentInit(): void {
 		for (let i = 0; i < this.sortHeaders.toArray().length; i++) {
 			this.sortable[this.sortHeaders.toArray()[i].cell] = true;
 		}
@@ -103,19 +103,19 @@ export class TableComponent implements OnInit, AfterContentInit {
 		console.log(this.cell, this.custom_cell);
 	}
 
-	next() {
+	next(): void {
 		if (this.config.page * this.config.perPage < this.rows.length) {
 			this.config.page += 1;
 		}
 	}
 
-	previous() {
+	previous(): void {
 		if (this.config.page > 1) {
 			this.config.page -= 1;
 		}
 	}
 
-	changePerPage(row: any) {
+	changePerPage(row: any): void {
 		this.config.perPage = row;
 
 		if ((this.config.page - 1) * this.config.perPage > this.rows.length) {
@@ -125,11 +125,11 @@ export class TableComponent implements OnInit, AfterContentInit {
 		this.select_page_size = false;
 	}
 
-	lastPage() {
+	lastPage(): void {
 		this.config.page = Math.ceil(this.rows.length / this.config.perPage);
 	}
 
-	isLast() {
+	isLast(): void {
 		return (
 			(this.rows &&
 				this.config.page ==
@@ -138,7 +138,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 		);
 	}
 
-	sort(column: any) {
+	sort(column: any): void {
 		if (this.sort_type.title != column.title) {
 			this.sort_type = {};
 		}
@@ -154,7 +154,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 		}
 	}
 
-	init_doc_config() {
+	init_doc_config(): void {
 		if (typeof this.config.doc == 'string') {
 			this.config.doc = this.config.doc.split(' ');
 		}
@@ -170,11 +170,11 @@ export class TableComponent implements OnInit, AfterContentInit {
 		}
 	}
 
-	edit(doc: any = {}) {
+	edit(doc: any = {}): void {
 		this.doc = doc || {};
 	}
 
-	submit() {
+	submit(): void {
 		if (this.doc[this.value] && typeof this.config.update === 'function') {
 			this.config.update(this.doc);
 		} else if (typeof this.config.create === 'function') {
