@@ -1,4 +1,3 @@
-
 export enum InputTypes {
 	PASSWORD = 'password',
 	CHECKBOX = 'checkbox',

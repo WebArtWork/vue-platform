@@ -8,19 +8,9 @@ import { ModalComponent } from './modal/modal.component';
 import { ComponentComponent } from './form/component/component.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		InputModule,
-		ButtonModule,
-		TextareaModule
-	],
-	declarations: [
-		ModalComponent,
-		FormComponent,
-		ComponentComponent
-	],
-	exports: [ FormComponent ],
+	imports: [CommonModule, InputModule, ButtonModule, TextareaModule],
+	declarations: [ModalComponent, FormComponent, ComponentComponent],
+	exports: [FormComponent],
 	providers: []
 })
-
-export class FormModule { }
+export class FormModule {}

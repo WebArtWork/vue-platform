@@ -28,24 +28,30 @@ export class ComponentComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.input = this.component.input;
+
 		this.use_doc = this.doc;
-		if (
-			this.input &&
-			this.input.split('.').length > 1
-		) {
+
+		if (this.input && this.input.split('.').length > 1) {
 			const deep = this.input.split('.');
+
 			while (deep.length > 1) {
 				console.log(deep.length, this.use_doc);
+
 				const put = deep.shift();
+
 				this.use_doc = this.use_doc[put];
+
 				console.log(deep.length, this.use_doc, put, this.doc[put]);
 			}
+
 			this.input = deep[0];
 		}
 	}
 
 	inputType(): InputTypes {
-		return (this.component.type as unknown as InputTypes) || InputTypes.TEXT
+		return (
+			(this.component.type as unknown as InputTypes) || InputTypes.TEXT
+		);
 	}
 
 	disabled(): boolean {
@@ -60,17 +66,19 @@ export class ComponentComponent implements OnInit {
 		return this.component.type as unknown as ButtonTypes;
 	}
 
-	public password = false;
+	password = false;
 
 	togglePassword() {
 		if (this.password) {
 			this.password = false;
+
 			this.component.type = InputTypes.PASSWORD;
 		} else {
 			this.password = true;
+
 			this.component.type = InputTypes.TEXT;
 		}
 	}
 
-	constructor(public ui: UiService) { }
+	constructor(public ui: UiService) {}
 }

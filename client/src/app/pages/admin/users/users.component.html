@@ -1,89 +1,75 @@
 <div class="users container w-card _pd">
 	<div class="users__header w-card__header">Users (Admin)</div>
-    <div class="w-table-wrap">
-		<!-- remove when table will show this -->
-		<winput [type]="inputTypes.CHECKBOX"></winput>
-
+	<div class="w-table-wrap">
 		<wtable [columns]="columns" [config]="config" [rows]="us.users">
-			<ng-template cell="admin" let-element>
-				<div>hello world</div>
+			<ng-template *ngIf="true then admin"></ng-template>
+			<ng-template #admin cell="admin" let-element>
+				<span>{{element|json}}</span>
 				<winput [type]="inputTypes.CHECKBOX"></winput>
 			</ng-template>
 		</wtable>
 
-		<hr>
+		<hr />
 
-        <table class="w-table">
-            <thead class="w-table-header">
-                <tr class="w-table-header__tr">
-                    <th class="w-table__th user">User</th>
-                    <th class="w-table__th email">Email</th>
-                    <th
+		<table class="w-table">
+			<thead class="w-table-header">
+				<tr class="w-table-header__tr">
+					<th class="w-table__th user">User</th>
+					<th class="w-table__th email">Email</th>
+					<th
 						*ngFor="let role of us.roles; let i = index;"
 						class="w-table__th role"
 					>
 						{{role}}
 					</th>
-                    <th class="w-table__th actions">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="w-table-body">
-                <tr
+					<th class="w-table__th actions">Actions</th>
+				</tr>
+			</thead>
+			<tbody class="w-table-body">
+				<tr
 					*ngFor="let user of us.users|search:search:'name email'"
 					class="w-table-body__tr"
 				>
-                    <td class="w-table__td user">
-                        <div class="w-table-user">
-                            <div class="w-table-user__img">
+					<td class="w-table__td user">
+						<div class="w-table-user">
+							<div class="w-table-user__img">
 								<img
 									[src]="user.avatarUrl || 'assets/default.png'"
 									alt="User Avatar"
 									height="50"
 									width="50"
-								></div>
-                            <div class="w-table-user__text">{{user.name}}</div>
-                        </div>
-                    </td>
-                    <td class="w-table__td email">{{user.email}}</td>
-                    <td
-						class="w-table__td role"
-						*ngFor="let role of us.roles; let i = index;"
-					>
-                        <label class="w-checkbox">
-                            <input
-								(ngModelChange)="us.save(user);" name="role name"
-								[(ngModel)]="user.is[role]"
-								class="w-checkbox__input"
-								type="checkbox"
-							>
-                            <div class="w-checkbox__body">
-                                <span
-									class="w-checkbox__svg"
 								>
+							</div>
+							<div class="w-table-user__text">{{user.name}}</div>
+						</div>
+					</td>
+					<td class="w-table__td email">{{user.email}}</td>
+					<td class="w-table__td role" *ngFor="let role of us.roles; let i = index;">
+						<label class="w-checkbox">
+							<input (ngModelChange)="us.save(user);" name="role name" [(ngModel)]="user.is[role]" class="w-checkbox__input" type="checkbox">
+							<div class="w-checkbox__body">
+								<span class="w-checkbox__svg">
 									<svg width="12px" height="10px">
-                                        <use xlink:href="#check"></use>
-                                    </svg>
+										<use xlink:href="#check"></use>
+									</svg>
 								</span>
-                            </div>
-                        </label>
-                    </td>
-                    <td class="w-table__td actions">
-                        <i
-							class="material-icons"
-							(click)="us.delete(user);"
-						>
+							</div>
+						</label>
+					</td>
+					<td class="w-table__td actions">
+						<i class="material-icons" (click)="us.delete(user);">
 							delete
 						</i>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <!-- Checkbox SVG Sprites -->
 <svg class="w-checkbox__svg-icon">
-    <symbol id="check" viewbox="0 0 12 10">
-        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-    </symbol>
+	<symbol id="check" viewbox="0 0 12 10">
+		<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+	</symbol>
 </svg>

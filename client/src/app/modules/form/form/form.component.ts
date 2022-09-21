@@ -1,15 +1,15 @@
-import { Component, EventEmitter, Input, Output  } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
 	FormConfig,
 	FormComponent as FormComponentInterface
 } from '../form.service';
+
 @Component({
 	selector: 'wform',
 	templateUrl: './form.component.html',
 	styleUrls: ['./form.component.scss']
 })
 export class FormComponent {
-
 	@Input() config: FormConfig;
 
 	@Input() doc: any = {};

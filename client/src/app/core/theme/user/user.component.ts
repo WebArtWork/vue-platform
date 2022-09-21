@@ -17,10 +17,10 @@ export class UserComponent {
 	constructor(
 		private renderer: Renderer2,
 		private store: StoreService,
-		public us: UserService,
+		public us: UserService
 	) {
 		this.store.get('mode', (mode: string) => {
-			if(mode) {
+			if (mode) {
 				this.mode = mode;
 
 				this.renderer.addClass(document.body.parentNode, mode);
@@ -38,6 +38,7 @@ export class UserComponent {
 
 			this.renderer.removeClass(document.body.parentNode, 'dark');
 		}
+
 		this.mode = mode;
 	}
 }

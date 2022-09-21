@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 @Component({
 	selector: 'wcard',
 	templateUrl: './card.component.html',
@@ -6,11 +7,16 @@ import { Component, Input } from '@angular/core';
 })
 export class CardComponent {
 	@Input() padding = false;
+
 	@Input() align = 'center';
+
 	@Input() image: boolean;
+
 	@Input() title: string;
+
 	@Input() subtitle: string;
+
 	@Input() text: string;
 
-	constructor() { }
+	constructor() {}
 }

@@ -29,20 +29,16 @@ export interface FormComponent {
 export interface FormConfig {
 	title?: string;
 	class?: string;
-	components: FormComponent[]
+	components: FormComponent[];
 }
 
 @Injectable({
 	providedIn: 'root'
 })
 export class FormService {
-	constructor(private _modal: ModalService) { }
-	modal(
-		config: FormConfig,
-		doc: any,
-		submit = () => { },
-		change = () => { }
-	) {
+	constructor(private _modal: ModalService) {}
+
+	modal(config: FormConfig, doc: any, submit = () => {}, change = () => {}) {
 		this._modal.show({
 			component: ModalComponent,
 			class: 'forms_modal',

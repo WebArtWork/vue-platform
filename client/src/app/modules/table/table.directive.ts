@@ -4,27 +4,30 @@ import { Directive, TemplateRef, Input } from '@angular/core';
 	selector: 'ng-template[cell]'
 })
 export class CellDirective {
-	@Input('cell') cell: any;
-	constructor(public template: TemplateRef<any>) { }
+	@Input() cell: any;
+
+	constructor(public template: TemplateRef<any>) {}
 }
 
 @Directive({
 	selector: 'ng-template[sort]'
 })
 export class SortDirective {
-	@Input('cell') cell: any;
-	constructor(public template: TemplateRef<any>) { }
+	@Input() cell: any;
+
+	constructor(public template: TemplateRef<any>) {}
 }
 
 @Directive({
 	selector: 'ng-template[actions]'
 })
 export class ActionsDirective {
-	constructor(public template: TemplateRef<any>) { }
+	constructor(public template: TemplateRef<any>) {}
 }
+
 @Directive({
 	selector: 'ng-template[customEdit]'
 })
 export class CustomEditDirective {
-	constructor(public template: TemplateRef<any>) { }
+	constructor(public template: TemplateRef<any>) {}
 }

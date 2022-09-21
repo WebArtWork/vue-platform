@@ -1,4 +1,10 @@
-import { Any, MongoService, FileService, HttpService, AlertService } from 'wacom';
+import {
+	Any,
+	MongoService,
+	FileService,
+	HttpService,
+	AlertService
+} from 'wacom';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/core';
@@ -8,12 +14,16 @@ import { User } from 'src/app/core';
 })
 export class UserService {
 	/*
-	*	Declarations
-	*/
-	public user: User = this.new();
-	public roles = ['admin'];
-	public users: User[] = [];
-	public _users: Any = {};
+	 *	Declarations
+	 */
+	user: User = this.new();
+
+	roles = ['admin'];
+
+	users: User[] = [];
+
+	_users: Any = {};
+
 	constructor(
 		private alert: AlertService,
 		private mongo: MongoService,
@@ -27,62 +37,78 @@ export class UserService {
 			part: 'user',
 			cb: (file: string | File) => {
 				if (typeof file != 'string') return;
+
 				this.user.thumb = file;
 			}
 		});
+
 		this.mongo.config('user', {
 			replace: {
 				data: (data: Any, cb: (data: Any) => Any) => {
 					if (typeof data != 'object') data = {};
+
 					cb(data);
 				},
 				is: this.mongo.beObj
 			}
 		});
+
 		if (localStorage.getItem('waw_user')) {
-			this.user = this.mongo.fetch('user', {
-				name: 'me'
-			}, (user: User) => {
-				if (user) {
-					this.user = user;
-					localStorage.setItem('waw_user', JSON.stringify(user));
-				} else {
-					this.logout();
+			this.user = this.mongo.fetch(
+				'user',
+				{
+					name: 'me'
+				},
+				(user: User) => {
+					if (user) {
+						this.user = user;
+
+						localStorage.setItem('waw_user', JSON.stringify(user));
+					} else {
+						this.logout();
+					}
 				}
-			});
+			);
 		}
-		this.users = this.mongo.get('user', (users:User[], obj:Any) => {
+
+		this.users = this.mongo.get('user', (users: User[], obj: Any) => {
 			this._users = obj;
 		});
 	}
+
 	/*
-	*	User Management
-	*/
-	new() : User {
+	 *	User Management
+	 */
+	new(): User {
 		return {
 			name: '',
 			email: '',
 			thumb: '',
 			is: {},
 			data: {}
-		}
+		};
 	}
+
 	create(user: User) {
 		this.mongo.create('user', user);
 	}
+
 	doc(userId: string) {
 		if (!this._users[userId]) {
 			this._users[userId] = this.mongo.fetch('user', {
 				query: { _id: userId }
 			});
 		}
+
 		return this._users[userId];
 	}
+
 	update() {
 		this.mongo.afterWhile(this, () => {
 			this.mongo.update('user', this.user);
 		});
 	}
+
 	save(user: User) {
 		this.mongo.afterWhile(this, () => {
 			this.mongo.update('user', user, {
@@ -90,34 +116,44 @@ export class UserService {
 			});
 		});
 	}
+
 	delete(user: User) {
 		this.mongo.delete('user', user, {
 			name: 'admin'
 		});
 	}
+
 	change_password(oldPass: string, newPass: string) {
-		this.http.post('/api/user/changePassword', {
-			newPass: newPass,
-			oldPass: oldPass
-		}, resp => {
-			if (resp) {
-				this.alert.info({
-					text: 'Successfully changed password'
-				});
-			} else {
-				this.alert.error({
-					text: 'Failed to change password'
-				});
+		this.http.post(
+			'/api/user/changePassword',
+			{
+				newPass: newPass,
+				oldPass: oldPass
+			},
+			(resp) => {
+				if (resp) {
+					this.alert.info({
+						text: 'Successfully changed password'
+					});
+				} else {
+					this.alert.error({
+						text: 'Failed to change password'
+					});
+				}
 			}
-		});
+		);
 	}
+
 	logout() {
 		this.user = this.new();
+
 		localStorage.removeItem('waw_user');
+
 		this.router.navigate(['/']);
+
 		this.http.remove('token');
 	}
 	/*
-	*	End of
-	*/
+	 *	End of
+	 */
 }

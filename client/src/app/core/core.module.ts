@@ -11,11 +11,9 @@ import { TableModule } from '../modules/table/table.module';
 import { UserComponent } from './selectors/user/user.component';
 
 @NgModule({
-	declarations: [
-    UserComponent
-  ],
-	exports: [ /* exports */
-		CommonModule,
+	declarations: [UserComponent],
+	exports: [
+		/* exports */ CommonModule,
 		FormsModule,
 		WacomModule,
 		ButtonModule,
@@ -25,10 +23,6 @@ import { UserComponent } from './selectors/user/user.component';
 		FormModule,
 		TableModule
 	],
-	imports: [
-		CommonModule,
-		FormsModule,
-		WacomModule
-	]
+	imports: [CommonModule, FormsModule, WacomModule]
 })
-export class CoreModule { }
+export class CoreModule {}

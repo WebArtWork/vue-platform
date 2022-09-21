@@ -1,4 +1,14 @@
-import { Component, Input, ContentChildren, OnInit, Output, QueryList, AfterContentInit, EventEmitter, ContentChild } from '@angular/core';
+import {
+	Component,
+	Input,
+	ContentChildren,
+	OnInit,
+	Output,
+	QueryList,
+	AfterContentInit,
+	EventEmitter,
+	ContentChild
+} from '@angular/core';
 import {
 	CellDirective,
 	SortDirective,
@@ -11,15 +21,14 @@ import {
 	templateUrl: './table.component.html',
 	styleUrls: ['./table.component.scss']
 })
-
 export class TableComponent implements OnInit, AfterContentInit {
-	@Input('config') config: any = {};
+	@Input() config: any = {};
 
-	@Input('columns') columns: any = [];
+	@Input() columns: any = [];
 
-	@Input('rows') rows: any = [];
+	@Input() rows: any = [];
 
-	@Input('id') _id = '_id';
+	@Input() value = '_id';
 
 	@ContentChildren(CellDirective) cell: QueryList<CellDirective>;
 
@@ -29,7 +38,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 
 	@ContentChild(CustomEditDirective, { static: false }) editForm: any;
 
-	@Output('onSearch') onSearch = new EventEmitter();
+	@Output() onSearch = new EventEmitter();
 
 	select_page_size = false;
 
@@ -53,7 +62,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 				this.columns[i] = {
 					title: this.columns[i],
 					field: this.columns[i]
-				}
+				};
 			}
 		}
 
@@ -64,28 +73,34 @@ export class TableComponent implements OnInit, AfterContentInit {
 		if (!this.config.pageSizeOptions) {
 			this.config.pageSizeOptions = [5, 10, 25];
 		}
+
 		if (!this.config.perPage) {
 			this.config.perPage = 5;
 		}
+
 		if (!this.config.page) {
 			this.config.page = 1;
 		}
+
 		if (!this.config.searchable) {
 			this.config.searchable = false;
 		}
 	}
 
 	ngAfterContentInit() {
-		setTimeout(()=>{
-			console.log(this.cell, this.custom_cell);
-		}, 5000)
 		for (let i = 0; i < this.sortHeaders.toArray().length; i++) {
 			this.sortable[this.sortHeaders.toArray()[i].cell] = true;
 		}
 
 		for (let i = 0; i < this.cell.toArray().length; i++) {
-			this.custom_cell[this.cell.toArray()[i].cell] = this.cell.toArray()[i].template;
+			const cell = this.cell.toArray()[i];
+
+			this.custom_cell[cell.cell] = cell.template;
+
+			console.log('WE GOT IT');
 		}
+
+		console.log(this.cell, this.custom_cell);
 	}
 
 	next() {
@@ -103,7 +118,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 	changePerPage(row: any) {
 		this.config.perPage = row;
 
-		if (((this.config.page - 1) * this.config.perPage) > this.rows.length) {
+		if ((this.config.page - 1) * this.config.perPage > this.rows.length) {
 			this.lastPage();
 		}
 
@@ -116,8 +131,9 @@ export class TableComponent implements OnInit, AfterContentInit {
 
 	isLast() {
 		return (
-			this.rows &&
-			(this.config.page == Math.ceil(this.rows.length / this.config.perPage)) ||
+			(this.rows &&
+				this.config.page ==
+					Math.ceil(this.rows.length / this.config.perPage)) ||
 			false
 		);
 	}
@@ -130,8 +146,11 @@ export class TableComponent implements OnInit, AfterContentInit {
 		if (this.sortable[column.field]) {
 			this.sort_type = {
 				title: column.field,
-				direction: (typeof this.sort_type.direction != 'string' && 'asc') || (this.sort_type.direction == 'asc' && 'desc') || undefined
-			}
+				direction:
+					(typeof this.sort_type.direction != 'string' && 'asc') ||
+					(this.sort_type.direction == 'asc' && 'desc') ||
+					undefined
+			};
 		}
 	}
 
@@ -156,16 +175,12 @@ export class TableComponent implements OnInit, AfterContentInit {
 	}
 
 	submit() {
-		if (
-			this.doc[this._id] &&
-			typeof this.config.update === 'function'
-		) {
+		if (this.doc[this.value] && typeof this.config.update === 'function') {
 			this.config.update(this.doc);
-		} else if (
-			typeof this.config.create === 'function'
-		) {
+		} else if (typeof this.config.create === 'function') {
 			this.config.create(this.doc);
 		}
+
 		this.doc = null;
 	}
 }

@@ -5,7 +5,10 @@
 			class="table-search"
 			[class.table-search--active]="searchShow"
 		>
-			<div class="table-search__icon" (click)="searchShow=!searchShow"></div>
+			<div
+				class="table-search__icon"
+				(click)="searchShow=!searchShow"
+			></div>
 			<input
 				(ngModelChange)="onSearch.emit($event)"
 				[(ngModel)]="searching_text"
@@ -14,11 +17,6 @@
 				type="text"
 			/>
 		</div>
-		<button
-			*ngIf="config.doc && config.create"
-			class="table-plus-btn"
-			(click)="edit()"
-		>+</button>
 	</div>
 	<table class="table" cellpadding="0" cellspacing="0">
 		<thead class="table-header">
@@ -48,7 +46,9 @@
 			</tr>
 		</thead>
 		<tbody class="table-body">
-			<tr *ngFor="let row of rows|search: searching_text: (config.searchBy||'title')|page: config: sort_type index as i;">
+			<tr
+				*ngFor="let row of rows|search: searching_text: (config.searchBy||'title')|page: config: sort_type index as i;"
+			>
 				<td *ngIf="config.num">{{row.num}}</td>
 				<ng-container *ngFor="let column of columns">
 					<ng-template #defaultRows>
@@ -63,13 +63,27 @@
 					<ng-container *ngIf="custom_cell[column.field]; then customRows; else defaultRows"></ng-container>
 				</ng-container>
 				<td *ngIf="config.delete||config.update">
-					<button *ngIf="config.update" (click)="edit(row)">Edit</button>
-					<button *ngIf="config.delete" (click)="config.delete(row)">Delete</button>
+					<button *ngIf="config.formUpdate" (click)="edit(row)">
+						Edit
+					</button>
+					<button *ngIf="config.delete" (click)="config.delete(row)">
+						Delete
+					</button>
 				</td>
 			</tr>
 		</tbody>
-		<tfoot class="table-footer" *ngIf="config.perPage">
-			<div class="item-page">
+		<tfoot
+			class="table-footer"
+			*ngIf="config.perPage || (config.formCreate && config.create)"
+		>
+			<button
+				*ngIf="config.formCreate && config.create"
+				class="table-plus-btn"
+				(click)="edit()"
+			>
+				+
+			</button>
+			<div class="item-page" *ngIf="config.perPage">
 				<div class="item-page__text">Items per page</div>
 				<div
 					class="item-page__dropdown"
@@ -79,76 +93,85 @@
 					<div
 						class="caption"
 						(click)="select_page_size = !select_page_size"
-					>{{config.perPage}}</div>
+					>
+						{{config.perPage}}
+					</div>
 					<div class="list">
-						<div class="item" *ngFor="let row of config.pageSizeOptions">
+						<div
+							class="item"
+							*ngFor="let row of config.pageSizeOptions"
+						>
 							<div
-								[class.selected]="row==config.perPage"
+								[class.selected]="row === config.perPage"
 								(click)="changePerPage(row)"
-							>{{row}}</div>
+							>
+								{{row}}
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="item-page__result">
-					<span>{{((config.page-1)*config.perPage)+1}} - {{config.page*config.perPage > rows?.length&&rows?.length||config.page*config.perPage}}</span>
+					<span>
+						{{((config.page-1)*config.perPage)+1}} -
+						{{config.page*config.perPage >
+						rows?.length&&rows?.length||config.page*config.perPage}}
+					</span>
 					<span> of </span>
-					<span>{{(rows | search: searching_text: (config.searchBy||'title'))?.length}}</span>
+					<span>
+						{{(rows | search: searching_text:
+						(config.searchBy||'title'))?.length}}
+					</span>
 				</div>
 			</div>
-			<div class="table-footer__pagination">
+			<div class="table-footer__pagination" *ngIf="config.perPage">
 				<button
-					[disabled]="config.page == 1"
+					[disabled]="config.page === 1"
 					class="table-footer__arrow _start"
 					(click)="config.page = 1"
-				><i class="chevron"></i></button>
+				>
+					<i class="chevron"></i>
+				</button>
 				<button
-					[disabled]="config.page == 1"
+					[disabled]="config.page === 1"
 					class="table-footer__arrow _left"
 					(click)="previous()"
-				><i class="chevron"></i></button>
+				>
+					<i class="chevron"></i>
+				</button>
 				<button
 					[disabled]="config.page*config.perPage > rows?.length"
 					class="table-footer__arrow _right"
 					(click)="next()"
-				><i class="chevron"></i></button>
+				>
+					<i class="chevron"></i>
+				</button>
 				<button
 					[disabled]="isLast()"
 					class="table-footer__arrow _end"
 					(click)="lastPage()"
-				><i class="chevron"></i></button>
+				>
+					<i class="chevron"></i>
+				</button>
 			</div>
 		</tfoot>
 	</table>
-	<ng-container *ngIf="config.doc && doc">
+	<ng-container *ngIf="(config.formCreate || config.formUpdate) && doc">
 		<ng-template #defaultEdit>
-			<form class="field-form" (ngSubmit)="submit()">
-				<div class="field-form__list">
-					<label
-						class="field-form__item"
-						*ngFor="let field of config.doc"
-					>
-						<span
-							class="field-form__span"
-							*ngIf="field.label"
-						>{{field.label}}</span>
-						<input
-							[placeholder]="field.placeholder||field.name"
-							[(ngModel)]="doc[field.name]"
-							[type]="field.type||'text'"
-							class="field-form__input"
-							[name]="field.name"
-						/>
-					</label>
-				</div>
-				<div class="field-form__action">
-					<button class="_cancel" type="button" (click)="doc=null;">Cancel</button>
-					<button class="_create" type="submit">{{doc._id&&'Save'||'Create'}}</button>
-				</div>
-			</form>
+			<wform
+				[config]="doc[value] ? config.formUpdate : config.formCreate"
+				(submit)="submit()"
+				class="field-form"
+				[doc]="doc"
+				#form
+			></wform>
 		</ng-template>
 		<ng-template #customEdit>
-			<ng-container *ngTemplateOutlet="editForm.template; context: {doc: doc}"></ng-container>
+			<ng-container
+				*ngTemplateOutlet="editForm.template; context: {doc: doc}"
+			></ng-container>
 		</ng-template>
-		<ng-container *ngIf="editForm && editForm.template; then customEdit; else defaultEdit"></ng-container>
+		<ng-container
+			*ngIf="editForm && editForm.template; then customEdit; else defaultEdit"
+		></ng-container>
 	</ng-container>
 </div>

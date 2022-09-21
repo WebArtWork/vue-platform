@@ -3,20 +3,16 @@ import { CoreModule } from 'src/app/core';
 import { SignComponent } from './sign.component';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [{
-	path: '',
-	component: SignComponent
-}];
+const routes: Routes = [
+	{
+		path: '',
+		component: SignComponent
+	}
+];
 
 @NgModule({
-	imports: [
-		RouterModule.forChild(routes),
-		CoreModule
-	],
-	declarations: [
-		SignComponent
-	],
+	imports: [RouterModule.forChild(routes), CoreModule],
+	declarations: [SignComponent],
 	providers: []
 })
-
-export class SignModule { }
+export class SignModule {}
