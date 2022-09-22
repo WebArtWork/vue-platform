@@ -1,19 +1,61 @@
-// colors 
-$wtable-color-1: #334d6e;
-$wtable-color-2: #bdbdbd;
-$wtable-color-3: #e0e0e0;
-$wtable-color-4: #9f9f9f;
-$wtable-color-5: #fff;
-$wtable-color-6: #53a1d6;
+// colors
+:root {
+	  // const
+	  --c-white: #fff;
+	  --c-black: #000;
+	  --c-grey: #e7e7e7;
+	  --c-grey-dark: #bfbfbf;
+
+    // theme
+    --c-basic: #3558ae;
+    --c-primary: #256eff;
+    --c-primary-hover: #0051f1;
+    --c-secondary: red;
+    --c-bg-primary: #f3f4f7;
+    --c-bg-secondary: #ffffff;
+    --c-bg-tertiary: #fcfdfe;
+    --c-border: #f0f1f7;
+    --c-shadow: #f3f3f3;
+    --c-text-primary: #666666;
+    --c-text-secondary: #19235c;
+    --c-placeholder: #adb8c6;
+
+    // classic
+    --c-warn: #e67e22;
+    --c-error: #e74c3c;
+    --c-error-hover: #d62c1a;
+    --c-success: #14c76e;
+    --c-info: #17a2b8;
+}
+
+html.dark:root {
+	--c-basic: #333;
+	--c-bg-primary: #282828;
+	--c-bg-secondary: #343434;
+	--c-bg-tertiary: #404040;
+	--c-border: #404040;
+	--c-shadow: #444444;
+	--c-text-primary: #ffffff;
+	--c-text-secondary: #ffffff;
+	--c-placeholder: #7a7a7a;
+}
+
+// $wtable-color-1: #334d6e;
+// $wtable-color-2: #bdbdbd;
+// $wtable-color-3: #e0e0e0;
+// $wtable-color-4: #9f9f9f;
+// $wtable-color-5: #fff;
+// $wtable-color-6: #53a1d6;
+// $wtable-color-7: #f0f1f7;
 
 .wtable {
-	background: $wtable-color-5;
-	box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+	background: var(--c-bg-secondary);
+	box-shadow: var(--c-shadow);
 	border-radius: 10px;
 	padding: 20px;
 	padding-bottom: 70px;
 	width: 100%;
-	height: 100%;
+	height: auto;
 	position: relative;
 	@media screen and (max-width: 599px) {
 		padding-bottom: 80px;
@@ -43,8 +85,8 @@ $wtable-color-6: #53a1d6;
 			width: 30px;
 			height: 30px;
 			border-radius: 50%;
-			background-color: $wtable-color-6;
-			color: $wtable-color-5;
+			background-color: #53a1d6;
+			color: var(--c-bg-secondary);
 		}
 		// search 
 		&-search {
@@ -58,17 +100,17 @@ $wtable-color-6: #53a1d6;
 					opacity: 1;
 				}
 				.table-search__icon::before {
-					background: $wtable-color-1;
+					background: #334d6e;
 				}
 				.table-search__icon::after {
-					border-color: $wtable-color-1;
+					border-color: #334d6e;
 				}
 			}
 			&__input {
 				max-width: 0;
 				transition: .5s all ease-in-out;
 				border: 0;
-				border-bottom: 1px solid $wtable-color-1;
+				border-bottom: 1px solid #334d6e;
 				opacity: 0;
 			}
 			&__icon {
@@ -88,7 +130,7 @@ $wtable-color-6: #53a1d6;
 					left: 15px;
 					width: 8px;
 					height: 2px;
-					background: $wtable-color-4;
+					background: #9f9f9f;
 					transform: rotate(45deg);
 					transition: .5s;
 				}
@@ -103,7 +145,7 @@ $wtable-color-6: #53a1d6;
 					width: 15px;
 					height: 15px;
 					border-radius: 50%;
-					border: 2px solid $wtable-color-4;
+					border: 2px solid #9f9f9f;
 					transition: all .5s;
 				}
 			}
@@ -114,7 +156,7 @@ $wtable-color-6: #53a1d6;
 			cursor: pointer;
 			.icon-arrow {
 				transform: rotate(90deg);
-				font-size: 16px;
+				font-size: var(--fs);
 				position: absolute;
 				top: 3px;
 				cursor: pointer;
@@ -124,14 +166,14 @@ $wtable-color-6: #53a1d6;
 			position: relative;
 			padding: 15px 10px;
 			text-align: center;
-			border-right: 2px solid $wtable-color-2;
-			border-bottom: 0.5px solid $wtable-color-1;
+			border-right: 2px solid var(--c-border);
+			border-bottom: 0.5px solid var(--c-border);
 			font-weight: 500;
-			font-size: 16px;
-			line-height: 24px;
-			letter-spacing: 0.01em;
-			text-transform: uppercase;
-			color: $wtable-color-1;
+			font-size: var(--fs); 
+			line-height: calc(var(--fs) + 8px);
+			letter-spacing: var(--letter-spacing);
+			text-transform: capitalize;
+			color: var(--c-text-primary);
 			overflow: hidden;
 			text-overflow: ellipsis;
 			.icon-arrow {
@@ -161,12 +203,12 @@ $wtable-color-6: #53a1d6;
 			padding: 15px 10px;
 			text-align: center;
 			vertical-align: middle;
-			border-right: 2px solid $wtable-color-2;
-			border-bottom: 2px dashed $wtable-color-3;
-			font-size: 14px;
-			line-height: 24px;
-			letter-spacing: 0.01em;
-			color: $wtable-color-1;
+			border-right: 2px solid var(--c-border);
+			border-bottom: 2px dashed var(--c-border);
+			font-size: calc(var(--fs) - 2px);
+			line-height: calc(var(--fs) + 8px);
+			letter-spacing: var(--letter-spacing);
+			color: var(--c-text-primary);
 			word-break: break-word;
 		}
 		tr {
@@ -226,7 +268,7 @@ $wtable-color-6: #53a1d6;
 						position: absolute;
 						width: 2px;
 						height: 90%;
-						background-color: $wtable-color-1;
+						background-color: #334d6e;
 						top: 8%;
 					}
 					&::after {
@@ -236,8 +278,8 @@ $wtable-color-6: #53a1d6;
 						position: absolute;
 						width: 10px;
 						height: 10px;
-						border-bottom: 2px solid $wtable-color-1;
-						border-right: 2px solid $wtable-color-1;
+						border-bottom: 2px solid #334d6e;
+						border-right: 2px solid #334d6e;
 						transform: rotate(135deg);
 						left: 2px;
 						top: 2px
@@ -245,10 +287,10 @@ $wtable-color-6: #53a1d6;
 				}
 				&:disabled {
 					i::after {
-						border-color: $wtable-color-4;
+						border-color: #9f9f9f;
 					}
 					i::before {
-						background: $wtable-color-4;
+						background: #9f9f9f;
 					}
 				}
 
@@ -293,7 +335,7 @@ $wtable-color-6: #53a1d6;
 
 			.item-page {
 				font-size: 12px;
-				color: $wtable-color-4;
+				color: #9f9f9f;
 				letter-spacing: 1px;
 				display: flex;
 				align-items: center;
@@ -301,7 +343,7 @@ $wtable-color-6: #53a1d6;
 				&__dropdown {
 					position: relative;
 					margin: 0 10px;
-					color: $wtable-color-1;
+					color: #334d6e;
 					font-weight: bold;
 					.caption {
 						background-color: #f2f2f2;
@@ -310,12 +352,12 @@ $wtable-color-6: #53a1d6;
 						cursor: pointer;
 						&:hover {
 							background-color: rgb(83, 161, 214);
-							color: $wtable-color-5;
+							color: var(--c-bg-secondary);
 						}
 					}
 					.list {
 						position: absolute;
-						background-color: $wtable-color-5;
+						background-color: var(--c-bg-secondary);
 						width: 100%;
 						bottom: 100%;
 						flex-direction: column;
@@ -329,7 +371,7 @@ $wtable-color-6: #53a1d6;
 							}
 							&:hover {
 								background-color: rgb(83, 161, 214);
-								color: $wtable-color-5;
+								color: var(--c-bg-secondary);
 							}
 						}
 						.item.selected {
@@ -339,7 +381,7 @@ $wtable-color-6: #53a1d6;
 					&.open {
 						.caption {
 							border-radius: 0 0 3px 3px;
-							border-top: solid 1px $wtable-color-4;
+							border-top: solid 1px #9f9f9f;
 						}
 						.list {
 							display: flex;
@@ -359,7 +401,7 @@ $wtable-color-6: #53a1d6;
 		height: 100%;
 		left: 0;
 		top: 0;
-		background-color: $wtable-color-5;
+		background-color: var(--c-bg-secondary);
 		z-index: 11;
 		display: flex;
 		flex-direction: column;
@@ -372,7 +414,7 @@ $wtable-color-6: #53a1d6;
 			flex-grow: 1;
 		}
 		&__item {
-			color: white;
+			color: var(--c-bg-secondary);
 			border-radius: 5px;
 			margin: 5px;
 			flex-basis: calc(20% - 10px);
@@ -385,15 +427,15 @@ $wtable-color-6: #53a1d6;
 		}
 		&__span {	
 			display: block;
-			color: $wtable-color-4;
+			color: #9f9f9f;
 			font-weight: bold;
 			margin-bottom: 5px;
 		}
 		&__input {
 			width: 100%;
 			padding: 10px;
-			color: $wtable-color-1;
-			border: 1px solid $wtable-color-4;
+			color:  #334d6e;
+			border: 1px solid #9f9f9f;
 			border-radius: 10px;
 			&::placeholder {
 				text-transform: capitalize;
@@ -405,7 +447,7 @@ $wtable-color-6: #53a1d6;
 			align-items: center;
 			flex-wrap: wrap;
 			padding: 20px;
-			background-color: $wtable-color-3;
+			background-color: #e0e0e0;
 			button  {
 				cursor: pointer;
 				margin-right: 20px;
@@ -413,15 +455,15 @@ $wtable-color-6: #53a1d6;
 				border: 0;
 				outline: 0;
 				border-radius: 10px;
-				color: $wtable-color-5;
+				color: var(--c-bg-secondary);
 				&._cancel {
-					background-color: $wtable-color-4;
+					background-color: #9f9f9f;
 				}
 				&._create {
-					background-color: $wtable-color-6;
+					background-color: #53a1d6;
 				}
 				&:disabled {
-					background-color: $wtable-color-4;
+					background-color: #9f9f9f;
 				}
 				&:last-child 	 {
 					margin-right: 0;

@@ -63,12 +63,12 @@
 					<ng-container *ngIf="custom_cell[column.field]; then customRows; else defaultRows"></ng-container>
 				</ng-container>
 				<td *ngIf="config.delete||config.update">
-					<button *ngIf="config.formUpdate" (click)="edit(row)">
-						Edit
-					</button>
-					<button *ngIf="config.delete" (click)="config.delete(row)">
-						Delete
-					</button>
+					<i class="material-icons" *ngIf="config.formUpdate" (click)="edit(row)" title="Edit">
+						edit
+					</i>
+					<i class="material-icons" *ngIf="config.delete" (click)="config.delete(row)" title="Delete">
+						delete
+					</i>
 				</td>
 			</tr>
 		</tbody>
