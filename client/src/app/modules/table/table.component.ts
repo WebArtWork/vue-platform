@@ -88,17 +88,17 @@ export class TableComponent implements OnInit, AfterContentInit {
 	}
 
 	ngAfterContentInit(): void {
-		for (let i = 0; i < this.sortHeaders.toArray().length; i++) {
-			this.sortable[this.sortHeaders.toArray()[i].cell] = true;
-		}
+		// for (let i = 0; i < this.sortHeaders.toArray().length; i++) {
+		// 	this.sortable[this.sortHeaders.toArray()[i].cell] = true;
+		// }
 
-		for (let i = 0; i < this.cell.toArray().length; i++) {
-			const cell = this.cell.toArray()[i];
+		// for (let i = 0; i < this.cell.toArray().length; i++) {
+		// 	const cell = this.cell.toArray()[i];
 
-			this.custom_cell[cell.cell] = cell.template;
+		// 	this.custom_cell[cell.cell] = cell.template;
 
-			console.log('WE GOT IT');
-		}
+		// 	console.log('WE GOT IT');
+		// }
 
 		console.log(this.cell, this.custom_cell);
 	}
