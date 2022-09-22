@@ -38,7 +38,12 @@ export interface FormConfig {
 export class FormService {
 	constructor(private _modal: ModalService) {}
 
-	modal(config: FormConfig, doc: any, submit = () => {}, change = () => {}) {
+	modal(
+		config: FormConfig,
+		doc: any,
+		submit = (): void => {},
+		change = (): void => {}
+	): void {
 		this._modal.show({
 			component: ModalComponent,
 			class: 'forms_modal',

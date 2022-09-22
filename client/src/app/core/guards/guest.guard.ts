@@ -5,9 +5,11 @@ import { CanActivate, Router } from '@angular/router';
 export class GuestGuard implements CanActivate {
 	constructor(private router: Router) {}
 
-	canActivate() {
+	canActivate(): boolean {
 		if (localStorage.getItem('waw_user')) {
-			return this.router.navigate(['/profile']);
+			this.router.navigate(['/profile']);
+
+			return false;
 		} else {
 			return true;
 		}

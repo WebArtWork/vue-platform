@@ -6,7 +6,7 @@ import {
 	transition
 } from '@angular/animations';
 
-export const CoreAnimation = [
+export const coreAnimation = [
 	trigger('flyInOut', [
 		state('in', style({ transform: 'translateX(0)' })),
 		transition('void => *', [

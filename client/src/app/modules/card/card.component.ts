@@ -17,6 +17,4 @@ export class CardComponent {
 	@Input() subtitle: string;
 
 	@Input() text: string;
-
-	constructor() {}
 }

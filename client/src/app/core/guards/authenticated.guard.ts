@@ -5,11 +5,13 @@ import { CanActivate, Router } from '@angular/router';
 export class AuthenticatedGuard implements CanActivate {
 	constructor(private router: Router) {}
 
-	canActivate() {
+	canActivate(): boolean {
 		if (localStorage.getItem('waw_user')) {
 			return true;
 		} else {
-			return this.router.navigate(['/']);
+			this.router.navigate(['/']);
+
+			return false;
 		}
 	}
 }

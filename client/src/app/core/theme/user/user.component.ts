@@ -1,5 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
-import { CoreAnimation } from 'src/app/core';
+import { coreAnimation } from 'src/app/core';
 import { UserService } from 'src/app/core';
 import { StoreService } from 'wacom';
 
@@ -7,7 +7,7 @@ import { StoreService } from 'wacom';
 	selector: 'app-user',
 	templateUrl: './user.component.html',
 	styleUrls: ['./user.component.scss'],
-	animations: [CoreAnimation]
+	animations: [coreAnimation]
 })
 export class UserComponent {
 	show = false;
@@ -28,7 +28,7 @@ export class UserComponent {
 		});
 	}
 
-	set(mode = '') {
+	set(mode = ''): void {
 		if (mode) {
 			this.store.set('mode', mode);
 

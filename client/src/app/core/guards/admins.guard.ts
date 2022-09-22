@@ -5,7 +5,7 @@ import { CanActivate, Router } from '@angular/router';
 export class AdminsGuard implements CanActivate {
 	constructor(private router: Router) {}
 
-	canActivate() {
+	canActivate(): boolean {
 		if (localStorage.getItem('waw_user')) {
 			const user = JSON.parse(localStorage.getItem('waw_user') as string);
 

@@ -9,20 +9,21 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/core';
 
+interface AnyUser {
+	[key: string]: User;
+}
+
 @Injectable({
 	providedIn: 'root'
 })
 export class UserService {
-	/*
-	 *	Declarations
-	 */
 	user: User = this.new();
 
 	roles = ['admin'];
 
 	users: User[] = [];
 
-	_users: Any = {};
+	_users: AnyUser = {};
 
 	constructor(
 		private alert: AlertService,
@@ -71,14 +72,11 @@ export class UserService {
 			);
 		}
 
-		this.users = this.mongo.get('user', (users: User[], obj: Any) => {
+		this.users = this.mongo.get('user', (users: User[], obj: AnyUser) => {
 			this._users = obj;
 		});
 	}
 
-	/*
-	 *	User Management
-	 */
 	new(): User {
 		return {
 			name: '',
@@ -89,11 +87,11 @@ export class UserService {
 		};
 	}
 
-	create(user: User) {
+	create(user: User): void {
 		this.mongo.create('user', user);
 	}
 
-	doc(userId: string) {
+	doc(userId: string): User {
 		if (!this._users[userId]) {
 			this._users[userId] = this.mongo.fetch('user', {
 				query: { _id: userId }
@@ -103,13 +101,13 @@ export class UserService {
 		return this._users[userId];
 	}
 
-	update() {
+	update(): void {
 		this.mongo.afterWhile(this, () => {
 			this.mongo.update('user', this.user);
 		});
 	}
 
-	save(user: User) {
+	save(user: User): void {
 		this.mongo.afterWhile(this, () => {
 			this.mongo.update('user', user, {
 				name: 'admin'
@@ -117,13 +115,13 @@ export class UserService {
 		});
 	}
 
-	delete(user: User) {
+	delete(user: User): void {
 		this.mongo.delete('user', user, {
 			name: 'admin'
 		});
 	}
 
-	change_password(oldPass: string, newPass: string) {
+	change_password(oldPass: string, newPass: string): void {
 		this.http.post(
 			'/api/user/changePassword',
 			{
@@ -144,7 +142,7 @@ export class UserService {
 		);
 	}
 
-	logout() {
+	logout(): void {
 		this.user = this.new();
 
 		localStorage.removeItem('waw_user');
@@ -153,7 +151,4 @@ export class UserService {
 
 		this.http.remove('token');
 	}
-	/*
-	 *	End of
-	 */
 }
