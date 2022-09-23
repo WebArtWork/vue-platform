@@ -190,6 +190,9 @@ html.dark:root {
 					opacity: 1;
 				}
 			}
+			@media all and (max-width: 991px) {
+				display: none;
+			}
 		}
 		td {
 			cursor: pointer;
@@ -203,6 +206,24 @@ html.dark:root {
 			letter-spacing: var(--letter-spacing);
 			color: var(--c-text-primary);
 			word-break: break-word;
+			display: table-cell;
+			@media all and (max-width: 991px) {
+				display: block;
+			}
+			&:before {
+				content: attr(data-label)": ";
+				display: inline-block;
+				font-weight: 500;
+				font-size: var(--fs); 
+				line-height: calc(var(--fs) + 8px);
+				letter-spacing: var(--letter-spacing);
+				text-transform: capitalize;
+				color: var(--c-text-primary);
+				text-overflow: ellipsis;
+				@media (min-width: 992px) {
+					display: none;
+				}
+			}
 		}
 		tr {
 			&:last-child {
@@ -466,9 +487,6 @@ html.dark:root {
 	}
 
 	@media all and (max-width: 991px) {
-		.email,
-		.role {
-			display: none;
-		}
+		width: 90%;
 	}
 }
