@@ -47,8 +47,7 @@
 		</thead>
 		<tbody class="table-body">
 			<tr
-				*ngFor="let row of rows|search: searching_text: (config.searchBy||'title')|page: config: sort_type index as i;"
-			>
+				*ngFor="let row of rows|search: searching_text: (config.searchBy||'title')|page: config: sort_type index as i;">
 				<td *ngIf="config.num">{{row.num}}</td>
 				<ng-container *ngFor="let column of columns">
 					<ng-template #defaultRows>
@@ -74,8 +73,7 @@
 		</tbody>
 		<tfoot
 			class="table-footer"
-			*ngIf="config.perPage || (config.formCreate && config.create)"
-		>
+			*ngIf="config.perPage || (config.formCreate && config.create)">
 			<button
 				*ngIf="config.formCreate && config.create"
 				class="table-plus-btn"

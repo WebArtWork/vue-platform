@@ -40,22 +40,15 @@ html.dark:root {
 	--c-placeholder: #7a7a7a;
 }
 
-// $wtable-color-1: #334d6e;
-// $wtable-color-2: #bdbdbd;
-// $wtable-color-3: #e0e0e0;
-// $wtable-color-4: #9f9f9f;
-// $wtable-color-5: #fff;
-// $wtable-color-6: #53a1d6;
-// $wtable-color-7: #f0f1f7;
-
 .wtable {
 	background: var(--c-bg-secondary);
 	box-shadow: var(--c-shadow);
 	border-radius: 10px;
 	padding: 20px;
 	padding-bottom: 70px;
-	width: 100%;
+	max-width: 1210px;
 	height: auto;
+	margin: 0px auto;
 	position: relative;
 	@media screen and (max-width: 599px) {
 		padding-bottom: 80px;
@@ -469,6 +462,13 @@ html.dark:root {
 					margin-right: 0;
 				}
 			}
+		}
+	}
+
+	@media all and (max-width: 991px) {
+		.email,
+		.role {
+			display: none;
 		}
 	}
 }
