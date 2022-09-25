@@ -12,8 +12,8 @@ import { UserComponent } from './selectors/user/user.component';
 
 @NgModule({
 	declarations: [UserComponent],
-	exports: [
-		/* exports */ CommonModule,
+	exports: [ /* exports */
+		CommonModule,
 		FormsModule,
 		WacomModule,
 		ButtonModule,

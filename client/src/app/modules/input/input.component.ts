@@ -9,7 +9,7 @@ import { InputTypes } from './input.interface';
 export class InputComponent {
 	@Input() type: InputTypes = InputTypes.TEXT;
 
-	@Input() wngModel: unknown;
+	@Input() wngModel: any;
 
 	@Input() label = '';
 

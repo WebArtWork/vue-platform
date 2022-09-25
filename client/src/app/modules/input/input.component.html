@@ -1,4 +1,12 @@
 <label class="w-input">
 	<span class="w-input__title" *ngIf="label">{{label}}</span>
-	<input class="w-input__field" [type]="type" [name]="name" [disabled]="disabled" [placeholder]="placeholder" [(ngModel)]="wngModel" (ngModelChange)="wngModelChange.emit(wngModel)">
+	<input
+		(ngModelChange)="wngModelChange.emit(wngModel)"
+		[placeholder]="placeholder"
+		[(ngModel)]="wngModel"
+		class="w-input__field"
+		[disabled]="disabled"
+		[type]="type"
+		[name]="name"
+	/>
 </label>
