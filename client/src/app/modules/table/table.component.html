@@ -52,7 +52,7 @@
 				<ng-container *ngFor="let column of columns">
 					<ng-template #defaultRows>
 						<!-- *ngIf="row[column.field]" -->
-						<td [attr.data-label]="column.title">{{row[column.field]}}</td>
+						<td [attr.data-label]="column.title + ': '">{{row[column.field]}}</td>
 					</ng-template>
 					<ng-template #customRows>
 						<td>
@@ -61,7 +61,7 @@
 					</ng-template>
 					<ng-container *ngIf="custom_cell[column.field]; then customRows; else defaultRows"></ng-container>
 				</ng-container>
-				<td *ngIf="config.delete||config.update">
+				<td *ngIf="config.delete||config.update" attr.data-label="Actions: ">
 					<i class="material-icons" *ngIf="config.formUpdate" (click)="edit(row)" title="Edit">
 						edit
 					</i>
