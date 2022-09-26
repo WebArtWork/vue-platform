@@ -1,4 +1,5 @@
 <div class="wtable">
+	<div class="users__header w-card__header">Users (Admin)</div>
 	<div class="table-flex _jc-sb _ai-c">
 		<div
 			*ngIf="config.searchable"
@@ -52,16 +53,16 @@
 				<ng-container *ngFor="let column of columns">
 					<ng-template #defaultRows>
 						<!-- *ngIf="row[column.field]" -->
-						<td [attr.data-label]="column.title + ': '">{{row[column.field]}}</td>
+						<td [attr.data-label]="column.title + ':&nbsp;'">{{row[column.field]}}</td>
 					</ng-template>
 					<ng-template #customRows>
-						<td>
+						<td [attr.data-label]="column.title + ':&nbsp;'">
 							<ng-container *ngTemplateOutlet="custom_cell[column.field]; context: {$implicit: row}"></ng-container>
 						</td>
 					</ng-template>
 					<ng-container *ngIf="custom_cell[column.field]; then customRows; else defaultRows"></ng-container>
 				</ng-container>
-				<td *ngIf="config.delete||config.update" attr.data-label="Actions: ">
+				<td class="table-body__last-td" *ngIf="config.delete||config.update" data-label="Actions:&nbsp;">
 					<i class="material-icons" *ngIf="config.formUpdate" (click)="edit(row)" title="Edit">
 						edit
 					</i>
@@ -69,6 +70,7 @@
 						delete
 					</i>
 				</td>
+
 			</tr>
 		</tbody>
 		<tfoot
