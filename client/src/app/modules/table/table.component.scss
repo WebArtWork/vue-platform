@@ -192,6 +192,7 @@ html.dark:root {
 			}
 			@media all and (max-width: 991px) {
 				display: none;
+				text-align: left;
 			}
 		}
 		td {
@@ -209,6 +210,7 @@ html.dark:root {
 			display: table-cell;
 			@media all and (max-width: 991px) {
 				display: block;
+				text-align: left;
 			}
 			&:before {
 				content: attr(data-label)": ";
