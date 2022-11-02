@@ -1,8 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import {
 	FormConfig,
-	FormModules,
-	FormOutputs
+	FormModules
 } from 'src/app/modules/form/form.service';
 import { HashService, HttpService, AlertService, UiService } from 'wacom';
 import { UserService } from 'src/app/core';
@@ -33,6 +32,7 @@ export class SignComponent {
 		title: 'Sign In / Sign Up',
 		components: [
 			{
+				set: 'ceo@webart.work',
 				module: FormModules.INPUT,
 				type: InputTypes.EMAIL,
 				placeholder: 'fill your email',
@@ -40,6 +40,7 @@ export class SignComponent {
 				input: 'email'
 			},
 			{
+				set: 'asdasdasdasd',
 				module: FormModules.INPUT,
 				type: InputTypes.PASSWORD,
 				placeholder: 'fill your password',

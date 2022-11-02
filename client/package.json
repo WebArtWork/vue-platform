@@ -9,7 +9,7 @@
     "fix": "eslint -v",
     "fix1": "eslint . --ext .ts --fix",
     "prepush": "npm run lint",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install client/.husky"
   },
   "private": true,
   "dependencies": {
