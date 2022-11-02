@@ -3,8 +3,7 @@
 	<form-component
 		*ngFor="let component of config.components; index as i"
 		[component]="component"
-		[doc]="doc"
-		(submit)="submit.emit()"
+		(submit)="wSubmit.emit()"
 		(change)="change.emit()"
 	></form-component>
 </div>

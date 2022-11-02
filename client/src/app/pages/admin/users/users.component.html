@@ -3,7 +3,7 @@
 	<ng-template #admin cell="admin" let-element>
 		<winput
 			(ngModelChange)="element.is.admin = $event"
-			[wngModel]="element.is.admin"
+			[set]="element.is.admin"
 			[type]="inputTypes.CHECKBOX"
 		></winput>
 	</ng-template>

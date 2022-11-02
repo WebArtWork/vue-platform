@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ButtonTypes } from 'src/app/modules/button/button.interface';
 import { InputTypes } from 'src/app/modules/input/input.interface';
-import { UiService } from 'wacom';
 import { FormComponent, FormModules } from '../../form.service';
+import { FormGroup } from '@angular/forms';
+import { UiService } from 'wacom';
 
 @Component({
 	selector: 'form-component',
@@ -14,7 +15,7 @@ export class ComponentComponent implements OnInit {
 
 	readonly inputTypes = InputTypes;
 
-	@Input() doc: any = {};
+	@Input() form: FormGroup;
 
 	@Input() component: FormComponent;
 
@@ -22,36 +23,16 @@ export class ComponentComponent implements OnInit {
 
 	@Output() change = new EventEmitter();
 
-	use_doc: any = {};
-
-	input: any = {};
-
-	ngOnInit(): void {
-		this.input = this.component.input;
-
-		this.use_doc = this.doc;
-
-		if (this.input && this.input.split('.').length > 1) {
-			const deep = this.input.split('.');
-
-			while (deep.length > 1) {
-				console.log(deep.length, this.use_doc);
-
-				const put = deep.shift();
-
-				this.use_doc = this.use_doc[put];
-
-				console.log(deep.length, this.use_doc, put, this.doc[put]);
-			}
-
-			this.input = deep[0];
-		}
-	}
+	ngOnInit(): void {}
 
 	inputType(): InputTypes {
 		return (
 			(this.component.type as unknown as InputTypes) || InputTypes.TEXT
 		);
+	}
+
+	items(): string[] {
+		return (this.component.items as unknown as string[]) || [];
 	}
 
 	disabled(): boolean {
@@ -60,6 +41,10 @@ export class ComponentComponent implements OnInit {
 		} else {
 			return false;
 		}
+	}
+
+	setWinput(): string | number {
+		return this.component.set as unknown as string | number;
 	}
 
 	buttonType(): ButtonTypes {
@@ -78,6 +63,10 @@ export class ComponentComponent implements OnInit {
 
 			this.component.type = InputTypes.TEXT;
 		}
+	}
+
+	next() {
+		this.submit.emit();
 	}
 
 	constructor(public ui: UiService) {}

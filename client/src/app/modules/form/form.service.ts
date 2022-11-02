@@ -1,3 +1,4 @@
+import { Directive, TemplateRef, Input } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { ModalService } from 'wacom';
 import { ButtonTypes } from '../button/button.interface';
@@ -7,7 +8,8 @@ import { ModalComponent } from './modal/modal.component';
 export enum FormModules {
 	INPUT = 'winput',
 	BUTTON = 'wbutton',
-	TEXTAREA = 'wtextarea'
+	TEXTAREA = 'wtextarea',
+	SELECT = 'wselect'
 }
 
 export enum FormOutputs {
@@ -16,19 +18,28 @@ export enum FormOutputs {
 }
 
 export interface FormComponent {
-	module: FormModules;
+	id?: number;
+	input?: string; // required if you need to keep info on this component
+	custom?: string;
+	set?: string | number | Date | object;
+	module?: FormModules;
 	type?: InputTypes | ButtonTypes;
 	label?: string;
 	hidden?: boolean;
 	placeholder?: string;
-	input?: string;
-	output?: FormOutputs;
 	disabled?: () => boolean;
+	focused?: boolean;
+	required?: boolean;
+	class?: string;
+	items?: object[] | string[];
+	name?: string;
+	click?: ()=>void;
 }
 
 export interface FormConfig {
 	title?: string;
 	class?: string;
+	output?: FormOutputs;
 	components: FormComponent[];
 }
 
@@ -53,4 +64,14 @@ export class FormService {
 			doc
 		});
 	}
+}
+
+
+@Directive({
+	selector: 'ng-template[formcomponent]'
+})
+export class FormComponentDirective {
+	@Input() formcomponent: any;
+
+	constructor(public template: TemplateRef<any>) { }
 }

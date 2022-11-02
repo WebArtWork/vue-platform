@@ -1,7 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { CoreService } from 'wacom';
 import {
 	FormConfig,
-	FormComponent as FormComponentInterface
+	FormComponent as FormComponentInterface,
+	FormComponentDirective
 } from '../form.service';
 
 @Component({
@@ -9,24 +12,58 @@ import {
 	templateUrl: './form.component.html',
 	styleUrls: ['./form.component.scss']
 })
-export class FormComponent {
+export class FormComponent implements OnInit, AfterContentInit {
+	@ContentChildren(FormComponentDirective) formComponents: QueryList<FormComponentDirective>;
+
+	customComponents: any = {};
+
+	ngAfterContentInit(): void {
+		for (const comp of this.formComponents.toArray()) {
+			this.customComponents[comp.formcomponent] = comp.template;
+		}
+	}
+
 	@Input() config: FormConfig;
 
-	@Input() doc: any = {};
-
-	@Output() submit = new EventEmitter();
+	@Input() form = this._fb.group({});
 
 	@Output() change = new EventEmitter();
 
-	focus(component: FormComponentInterface): void {
-		console.log(component);
+	@Output() wSubmit = new EventEmitter();
+
+	constructor(
+		private _core: CoreService,
+		private _fb: FormBuilder
+	) {}
+
+	ngOnInit(): void {
+		for (const component of this.config.components) {
+			if (!component.input) {
+				continue;
+			}
+
+			const validators = [];
+
+			if (component.required) {
+				validators.push(Validators.required);
+			}
+
+			this.form.addControl(
+				component.input,
+				new FormControl(component.set, validators)
+			);
+		}
 	}
 
-	show(component: FormComponentInterface): void {
-		console.log(component);
-	}
+	onSubmit(): void {
+		this._core.afterWhile(this, ()=>{
+			const values: any = {};
 
-	hide(component: FormComponentInterface): void {
-		console.log(component);
+			for (const field in this.form.controls) {
+				values[field] = this.form.get(field)?.value;
+			}
+
+			this.wSubmit.emit(values);
+		})
 	}
 }

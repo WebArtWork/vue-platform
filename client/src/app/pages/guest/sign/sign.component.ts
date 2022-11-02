@@ -55,7 +55,6 @@ export class SignComponent {
 			},
 			{
 				module: FormModules.BUTTON,
-				output: FormOutputs.SUBMIT,
 				type: ButtonTypes.PRIMARY,
 				label: "Let's go"
 			}

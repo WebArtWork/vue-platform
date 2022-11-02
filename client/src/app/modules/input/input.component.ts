@@ -10,8 +10,6 @@ import { InputTypes } from './input.interface';
 export class InputComponent implements OnInit {
 	@Input() type: InputTypes | string = InputTypes.TEXT;
 
-	@Input() wngModel: any; 
-
 	@Input() label = '';
 
 	@Input() items: string[] = [];
@@ -20,21 +18,19 @@ export class InputComponent implements OnInit {
 
 	@Input() formControl: FormControl;
 
-	@Input() focused = false;
-
-	@Input() set: string | number = '';
-
 	@Input() name = 'name';
 
 	@Input() placeholder = '';
 
+	@Input() set: string | number = '';
+
 	@Input() disabled: boolean;
+
+	@Input() focused = false;
 
 	@Output() change = new EventEmitter();
 
 	@Output() submit = new EventEmitter();
-
-	@Output() wngModelChange = new EventEmitter();
 
 	@ViewChild('inputEl') inputEl: ElementRef;
 
