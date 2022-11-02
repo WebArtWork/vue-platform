@@ -9,5 +9,17 @@ import { ButtonTypes } from './button.interface';
 export class ButtonComponent {
 	@Input() type: ButtonTypes = ButtonTypes.PRIMARY;
 
+	@Input() disabled = false;
+
+	@Input() disableSubmit = false;
+
+	@Input() click: (() => void) | undefined;
+
 	readonly types = ButtonTypes;
+
+	clicked(): void {
+		if (typeof this.click === 'function') {
+			this.click();
+		}
+	}
 }
