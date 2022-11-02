@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { InputTypes } from './input.interface';
 
 @Component({
@@ -6,12 +7,22 @@ import { InputTypes } from './input.interface';
 	templateUrl: './input.component.html',
 	styleUrls: ['./input.component.scss']
 })
-export class InputComponent {
-	@Input() type: InputTypes = InputTypes.TEXT;
+export class InputComponent implements OnInit {
+	@Input() type: InputTypes | string = InputTypes.TEXT;
 
-	@Input() wngModel: any;
+	@Input() wngModel: any; 
 
 	@Input() label = '';
+
+	@Input() items: string[] = [];
+
+	@Input() wClass: string;
+
+	@Input() formControl: FormControl;
+
+	@Input() focused = false;
+
+	@Input() set: string | number = '';
 
 	@Input() name = 'name';
 
@@ -19,5 +30,22 @@ export class InputComponent {
 
 	@Input() disabled: boolean;
 
+	@Output() change = new EventEmitter();
+
+	@Output() submit = new EventEmitter();
+
 	@Output() wngModelChange = new EventEmitter();
+
+	@ViewChild('inputEl') inputEl: ElementRef;
+
+	ngOnInit() {
+		if (!this.formControl) {
+			this.formControl = new FormControl(this.set);
+		}
+		if (this.focused) {
+			setTimeout(() => {
+				this.inputEl.nativeElement.focus();
+			}, 100);
+		}
+	}
 }
