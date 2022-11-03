@@ -1,5 +1,5 @@
-<label class="form-box" *ngIf="type !== 'radio'">
-	<span class="form-label" *ngIf="label">{{label}}</span>
+<div class="w-forms" *ngIf="type !== 'radio'">
+	<span class="w-forms__title" *ngIf="label">{{label}}</span>
 	<input
 		(keyup.enter)="submit.emit(formControl.value)"
 		[class]="type === 'checkbox' ? '' : 'input'"
@@ -14,7 +14,7 @@
 		class="w-input__field"
 	/>
 	<ng-content></ng-content>
-</label>
+</div>
 
 <ng-container *ngIf="type === 'radio'">
 	<label class="check-lebel" *ngFor="let item of items">

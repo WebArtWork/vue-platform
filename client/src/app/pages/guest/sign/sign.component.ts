@@ -37,7 +37,8 @@ export class SignComponent {
 				type: InputTypes.EMAIL,
 				placeholder: 'fill your email',
 				label: 'E-mail',
-				input: 'email'
+				input: 'email',
+				focused: true
 			},
 			{
 				set: 'asdasdasdasd',
