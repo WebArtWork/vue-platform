@@ -2,7 +2,7 @@
 <wtable [columns]="columns" [config]="config" [rows]="us.users">
 	<ng-template #admin cell="admin" let-element>
 		<winput
-			(ngModelChange)="element.is.admin = $event"
+			(ngModelChange)="element.is.admin = $event; us.save(element)"
 			[set]="element.is.admin"
 			[type]="inputTypes.CHECKBOX"
 		></winput>

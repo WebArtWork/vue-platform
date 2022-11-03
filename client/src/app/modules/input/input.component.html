@@ -6,7 +6,6 @@
 		(keyup)="change.emit(formControl.value)"
 		[formControl]="formControl"
 		[placeholder]="placeholder"
-		[disabled]="disabled"
 		[ngClass]="wClass"
 		[type]="type"
 		[name]="name"
@@ -15,13 +14,13 @@
 	/>
 	<ng-content></ng-content>
 </div>
+<!-- [disabled]="disabled" -->
 
 <ng-container *ngIf="type === 'radio'">
 	<label class="check-lebel" *ngFor="let item of items">
 		<span class="form-label">{{item}}</span>
 		<input
 			[formControl]="formControl"
-			[disabled]="disabled"
 			[ngClass]="wClass"
 			[name]="name"
 			type="radio"

@@ -1,11 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CoreService } from 'wacom';
-import {
-	FormConfig,
-	FormComponent as FormComponentInterface,
-	FormComponentDirective
-} from '../form.service';
+import { FormConfig, FormComponentDirective } from '../form.service';
 
 @Component({
 	selector: 'wform',

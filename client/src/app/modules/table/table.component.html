@@ -25,8 +25,8 @@
 				<th *ngIf="config.num">No.</th>
 				<th scope="col" *ngFor="let column of columns">
 					<div
-						[class._sortActiveDown]="sort_type.direction == 'desc' && column.field == sort_type.title"
-						[class._sortActiveUp]="sort_type.direction == 'asc' && column.field == sort_type.title"
+						[class._sortActiveDown]="sort_type.direction === 'desc' && column.field === sort_type.title"
+						[class._sortActiveUp]="sort_type.direction === 'asc' && column.field === sort_type.title"
 						class="table-header__sort"
 						(click)="sort(column)"
 					>
@@ -34,52 +34,79 @@
 						<span
 							*ngIf="sortable[column.field]"
 							class="material-icons icon-arrow"
-						>keyboard_backspace</span>
+						>
+							keyboard_backspace
+						</span>
 					</div>
 				</th>
 				<th *ngIf="config.delete||config.update">
 					<ng-template #customAction>
-						<ng-container *ngTemplateOutlet="action.template"></ng-container>
+						<ng-container
+							*ngTemplateOutlet="action.template"
+						></ng-container>
 					</ng-template>
 					<ng-template #defaultAction>Actions</ng-template>
-					<ng-container *ngIf="action; then customAction; else defaultAction"></ng-container>
+					<ng-container
+						*ngIf="action; then customAction; else defaultAction"
+					></ng-container>
 				</th>
 			</tr>
 		</thead>
 		<tbody class="table-body">
 			<tr
-				*ngFor="let row of rows|search: searching_text: (config.searchBy||'title')|page: config: sort_type index as i;">
+				*ngFor="let row of rows|search: searching_text: (config.searchBy||'title')|page: config: sort_type index as i;"
+			>
 				<td *ngIf="config.num">{{row.num}}</td>
 				<ng-container *ngFor="let column of columns">
 					<ng-template #defaultRows>
 						<!-- *ngIf="row[column.field]" -->
-						<td [attr.data-label]="column.title + ':&nbsp;'">{{row[column.field]}}</td>
+						<td [attr.data-label]="column.title + ':&nbsp;'">
+							{{row[column.field]}}
+						</td>
 					</ng-template>
 					<ng-template #customRows>
 						<td [attr.data-label]="column.title + ':&nbsp;'">
-							<ng-container *ngTemplateOutlet="custom_cell[column.field]; context: {$implicit: row}"></ng-container>
+							<ng-container
+								*ngTemplateOutlet="custom_cell[column.field]; context: {$implicit: row}"
+							></ng-container>
 						</td>
 					</ng-template>
-					<ng-container *ngIf="custom_cell[column.field]; then customRows; else defaultRows"></ng-container>
+					<ng-container
+						*ngIf="custom_cell[column.field]; then customRows; else defaultRows"
+					></ng-container>
 				</ng-container>
-				<td class="table-body__last-td" *ngIf="config.delete||config.update" data-label="Actions:&nbsp;">
-					<i class="material-icons" *ngIf="config.formUpdate" (click)="edit(row)" title="Edit">
+				<td
+					class="table-body__last-td"
+					*ngIf="config.delete||config.update"
+					data-label="Actions:&nbsp;"
+				>
+					<i
+						class="material-icons"
+						*ngIf="config.update"
+						(click)="config.update(row)"
+						title="Edit"
+					>
 						edit
 					</i>
-					<i class="material-icons" *ngIf="config.delete" (click)="config.delete(row)" title="Delete">
+					<i
+						class="material-icons"
+						*ngIf="config.delete"
+						(click)="config.delete(row)"
+						title="Delete"
+					>
 						delete
 					</i>
 				</td>
-
 			</tr>
 		</tbody>
 		<tfoot
 			class="table-footer"
-			*ngIf="config.perPage || (config.formCreate && config.create)">
+			*ngIf="config.perPage || (config.formCreate && config.create)"
+		>
 			<button
-				*ngIf="config.formCreate && config.create"
+				*ngIf="config.create"
 				class="table-plus-btn"
-				(click)="edit()"
+				(click)="config.create()"
 			>
 				+
 			</button>
@@ -155,22 +182,4 @@
 			</div>
 		</tfoot>
 	</table>
-	<ng-container *ngIf="(config.formCreate || config.formUpdate) && doc">
-		<ng-template #defaultEdit>
-			<wform
-				[config]="doc[value] ? config.formUpdate : config.formCreate"
-				(submit)="submit()"
-				class="field-form"
-				#form
-			></wform>
-		</ng-template>
-		<ng-template #customEdit>
-			<ng-container
-				*ngTemplateOutlet="editForm.template; context: {doc: doc}"
-			></ng-container>
-		</ng-template>
-		<ng-container
-			*ngIf="editForm && editForm.template; then customEdit; else defaultEdit"
-		></ng-container>
-	</ng-container>
 </div>

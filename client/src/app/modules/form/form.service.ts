@@ -51,8 +51,7 @@ export class FormService {
 
 	modal(
 		config: FormConfig,
-		doc: any,
-		submit = (): void => {},
+		submit = (form: any): void => {},
 		change = (): void => {}
 	): void {
 		this._modal.show({
@@ -60,8 +59,7 @@ export class FormService {
 			class: 'forms_modal',
 			config,
 			submit,
-			change,
-			doc
+			change
 		});
 	}
 }

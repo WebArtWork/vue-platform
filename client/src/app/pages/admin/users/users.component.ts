@@ -3,7 +3,7 @@ import { User } from 'src/app/core';
 import { InputTypes } from 'src/app/modules/input/input.interface';
 import { UserService } from 'src/app/core';
 import { UiService } from 'wacom';
-import { FormModules, FormOutputs } from 'src/app/modules/form/form.service';
+import { FormConfig, FormModules, FormOutputs, FormService } from 'src/app/modules/form/form.service';
 import { ButtonTypes } from 'src/app/modules/button/button.interface';
 
 @Component({
@@ -14,68 +14,93 @@ import { ButtonTypes } from 'src/app/modules/button/button.interface';
 export class UsersComponent {
 	readonly inputTypes = InputTypes;
 
+	formCreate: FormConfig = {
+		title: 'Create New User',
+		components: [
+			{
+				module: FormModules.INPUT,
+				type: InputTypes.EMAIL,
+				placeholder: 'fill email',
+				label: 'E-mail',
+				input: 'email',
+				focused: true
+			},
+			{
+				module: FormModules.INPUT,
+				placeholder: 'fill name',
+				label: 'Name',
+				input: 'name'
+			},
+			{
+				module: FormModules.BUTTON,
+				type: ButtonTypes.PRIMARY,
+				label: 'Create'
+			}
+		]
+	};
+
+	formUpdate: FormConfig = {
+		title: 'Update User',
+		components: [
+			{
+				module: FormModules.INPUT,
+				type: InputTypes.EMAIL,
+				placeholder: 'fill email',
+				label: 'E-mail',
+				input: 'email',
+				focused: true
+			},
+			{
+				module: FormModules.INPUT,
+				placeholder: 'fill name',
+				label: 'Name',
+				input: 'name'
+			},
+			{
+				module: FormModules.BUTTON,
+				type: ButtonTypes.PRIMARY,
+				label: 'Update'
+			}
+		]
+	};
+
+	formVerify: FormConfig = {
+		title: 'Are you sure you want to delete this user?',
+		components: [
+			{
+				module: FormModules.BUTTON,
+				type: ButtonTypes.PRIMARY,
+				label: 'Yes'
+			}
+		]
+	};
+
 	config = {
-		formCreate: {
-			title: 'Create New User',
-			components: [
-				{
-					module: FormModules.INPUT,
-					type: InputTypes.EMAIL,
-					placeholder: 'fill email',
-					label: 'E-mail',
-					input: 'email'
-				},
-				{
-					module: FormModules.INPUT,
-					placeholder: 'fill name',
-					label: 'Name',
-					input: 'name'
-				},
-				{
-					module: FormModules.BUTTON,
-					output: FormOutputs.SUBMIT,
-					type: ButtonTypes.PRIMARY,
-					label: 'Create'
-				}
-			]
+		create: ()=>{
+			this._form.modal(this.formCreate, (user: User) => {
+				this.us.create(user);
+			});
 		},
-		formUpdate: {
-			title: 'Update User',
-			components: [
-				{
-					module: FormModules.INPUT,
-					type: InputTypes.EMAIL,
-					placeholder: 'fill email',
-					label: 'E-mail',
-					input: 'email'
-				},
-				{
-					module: FormModules.INPUT,
-					placeholder: 'fill name',
-					label: 'Name',
-					input: 'name'
-				},
-				{
-					module: FormModules.BUTTON,
-					output: FormOutputs.SUBMIT,
-					type: ButtonTypes.PRIMARY,
-					label: 'Update'
-				}
-			]
+		update: (user: User)=>{
+			this.formUpdate.components[0].set = user.email;
+			this.formUpdate.components[1].set = user.name;
+			this._form.modal(this.formUpdate, (user: User) => {
+				this.us.save(user);
+			});
 		},
-		new: this.us.new.bind(this.us),
-		create: this.us.create.bind(this.us),
-		update: this.us.save.bind(this.us),
-		delete: this.us.delete.bind(this.us)
+		delete: (user: User)=>{
+			this._form.modal(this.formVerify, () => {
+				this.us.delete(user);
+			});
+		}
 	};
 
 	columns = ['name', 'email'];
 
-	new_user: User = this.us.new();
-
-	search = '';
-
-	constructor(public us: UserService, public ui: UiService) {
+	constructor(
+		private _form: FormService,
+		public us: UserService
+	) {
 		for (const role of this.us.roles) {
 			this.columns.push(role);
 		}

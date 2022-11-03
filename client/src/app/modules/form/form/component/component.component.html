@@ -6,7 +6,7 @@
 		[focused]="!!component.focused"
 		[items]="items()"
 		[label]="component.label || ''"
-		(change)="change.emit($event)"
+		(change)="update($event)"
 		[disabled]="disabled()"
 		[type]="inputType()"
 		[set]="setWinput()"
@@ -31,7 +31,6 @@
 	[ngClass]="component.class || ''"
 	[label]="component.label || ''"
 	[items]="component.items || []"
-	[disabled]="disabled()"
 ></wselect>
 
 <!-- <wtextarea

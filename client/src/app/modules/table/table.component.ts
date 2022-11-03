@@ -52,8 +52,6 @@ export class TableComponent implements OnInit, AfterContentInit {
 
 	searchShow: any;
 
-	doc: any;
-
 	ngOnInit(): void {
 		this.default_config();
 
@@ -65,8 +63,6 @@ export class TableComponent implements OnInit, AfterContentInit {
 				};
 			}
 		}
-
-		this.init_doc_config();
 	}
 
 	default_config(): void {
@@ -96,11 +92,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 			const cell = this.cell.toArray()[i];
 
 			this.custom_cell[cell.cell] = cell.template;
-
-			console.log('WE GOT IT');
 		}
-
-		console.log(this.cell, this.custom_cell);
 	}
 
 	next(): void {
@@ -152,35 +144,5 @@ export class TableComponent implements OnInit, AfterContentInit {
 					undefined
 			};
 		}
-	}
-
-	init_doc_config(): void {
-		if (typeof this.config.doc == 'string') {
-			this.config.doc = this.config.doc.split(' ');
-		}
-
-		if (Array.isArray(this.config.doc)) {
-			for (let i = 0; i < this.config.doc.length; i++) {
-				if (typeof this.config.doc[i] == 'string') {
-					this.config.doc[i] = {
-						name: this.config.doc[i]
-					};
-				}
-			}
-		}
-	}
-
-	edit(doc: any = {}): void {
-		this.doc = doc || {};
-	}
-
-	submit(): void {
-		if (this.doc[this.value] && typeof this.config.update === 'function') {
-			this.config.update(this.doc);
-		} else if (typeof this.config.create === 'function') {
-			this.config.create(this.doc);
-		}
-
-		this.doc = null;
 	}
 }

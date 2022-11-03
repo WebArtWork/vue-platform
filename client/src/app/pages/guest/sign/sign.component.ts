@@ -14,20 +14,17 @@ interface RespStatus {
 	email: string;
 	pass: string;
 }
+interface Form {
+	email: string;
+	password: string;
+	code: string;
+}
 
 @Component({
 	templateUrl: './sign.component.html',
 	styleUrls: ['./sign.component.scss']
 })
 export class SignComponent {
-	user = {
-		email: this.hash.get('email') || 'ceo@webart.work',
-		password: this.hash.get('password') || 'asdasdasdasd',
-		code: ''
-	};
-
-	@ViewChild('form') form: ElementRef;
-
 	formConfig: FormConfig = {
 		title: 'Sign In / Sign Up',
 		components: [
@@ -63,7 +60,86 @@ export class SignComponent {
 		]
 	};
 
-	set(user: User): void {
+	constructor(
+		private alert: AlertService,
+		private http: HttpService,
+		private hash: HashService,
+		private us: UserService,
+		private router: Router,
+		public ui: UiService
+	) {}
+
+	submit(form: Form): void {
+		if (!this.formConfig.components[2].hidden && form.code) {
+			return this.save();
+		}
+
+		if (!form.email) {
+			this.alert.error({
+				text: 'Enter your email'
+			});
+
+			return;
+			//return this.email_focus();
+		}
+
+		this.hash.set('email', form.email);
+
+		if (!form.password) {
+			this.alert.error({
+				text: 'Enter your password'
+			});
+
+			return;
+			// return this.password_focus();
+		}
+
+		this.http.post('/api/user/status', form, (resp: RespStatus) => {
+			if (resp.email && resp.pass) {
+				this.login(form);
+			} else if (resp.email) {
+				this.reset(form);
+			} else {
+				this.sign(form);
+			}
+		});
+	}
+
+	login(user: Form): void {
+		this.http.post('/api/user/login', user, this._set.bind(this));
+	}
+
+	sign(user: Form): void {
+		this.http.post('/api/user/sign', user, this._set.bind(this));
+	}
+
+	reset(user: Form): void {
+		this.http.post('/api/user/request', user, () => {
+			this.formConfig.components[2].hidden = false;
+		});
+
+		this.alert.info({
+			text: 'Mail will sent to your email'
+		});
+	}
+
+	save(): void {
+		// this.http.post('/api/user/change', this.user, (resp: boolean) => {
+		// 	if (resp) {
+		// 		this.alert.info({
+		// 			text: 'Password successfully changed'
+		// 		});
+		// 	} else {
+		// 		this.alert.error({
+		// 			text: 'Wrong Code'
+		// 		});
+		// 	}
+
+		// 	this.login();
+		// });
+	}
+
+	private _set = (user: User): void => {
 		if (!user) {
 			return this.alert.error({
 				text: 'Something went wrong'
@@ -77,84 +153,5 @@ export class SignComponent {
 		this.us.user = user;
 
 		this.router.navigate(['/profile']);
-	}
-
-	constructor(
-		private alert: AlertService,
-		private http: HttpService,
-		private hash: HashService,
-		private us: UserService,
-		private router: Router,
-		public ui: UiService
-	) {}
-
-	submit(): void {
-		if (!this.formConfig.components[2].hidden && this.user.code) {
-			return this.save();
-		}
-
-		if (!this.user.email) {
-			this.alert.error({
-				text: 'Enter your email'
-			});
-
-			return;
-			//return this.email_focus();
-		}
-
-		this.hash.set('email', this.user.email);
-
-		if (!this.user.password) {
-			this.alert.error({
-				text: 'Enter your password'
-			});
-
-			return;
-			// return this.password_focus();
-		}
-
-		this.http.post('/api/user/status', this.user, (resp: RespStatus) => {
-			if (resp.email && resp.pass) {
-				this.login();
-			} else if (resp.email) {
-				this.reset();
-			} else {
-				this.sign();
-			}
-		});
-	}
-
-	login(): void {
-		this.http.post('/api/user/login', this.user, this.set.bind(this));
-	}
-
-	sign(): void {
-		this.http.post('/api/user/sign', this.user, this.set.bind(this));
-	}
-
-	reset(): void {
-		this.http.post('/api/user/request', this.user, () => {
-			this.formConfig.components[2].hidden = false;
-		});
-
-		this.alert.info({
-			text: 'Mail will sent to your email'
-		});
-	}
-
-	save(): void {
-		this.http.post('/api/user/change', this.user, (resp: boolean) => {
-			if (resp) {
-				this.alert.info({
-					text: 'Password successfully changed'
-				});
-			} else {
-				this.alert.error({
-					text: 'Wrong Code'
-				});
-			}
-
-			this.login();
-		});
 	}
 }

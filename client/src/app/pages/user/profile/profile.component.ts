@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { ButtonTypes } from 'src/app/modules/button/button.interface';
-import { FormConfig, FormModules } from 'src/app/modules/form/form.service';
+import { FormConfig, FormModules, FormService } from 'src/app/modules/form/form.service';
 import { InputTypes } from 'src/app/modules/input/input.interface';
 import { UserService } from 'src/app/core';
-import { ModalService } from 'wacom';
-import { SecurityComponent } from './security/security.component';
 
 @Component({
 	selector: 'app-profile',
@@ -15,6 +13,32 @@ export class ProfileComponent {
 	readonly buttonTypes = ButtonTypes;
 
 	readonly inputTypes = InputTypes;
+
+	formPassword: FormConfig = {
+		title: 'Change password',
+		components: [
+			{
+				module: FormModules.INPUT,
+				type: InputTypes.PASSWORD,
+				placeholder: 'Type password',
+				label: 'Current',
+				input: 'oldPass',
+				focused: true
+			},
+			{
+				module: FormModules.INPUT,
+				type: InputTypes.PASSWORD,
+				placeholder: 'Type password',
+				label: 'New',
+				input: 'newPass'
+			},
+			{
+				module: FormModules.BUTTON,
+				type: ButtonTypes.PRIMARY,
+				label: 'Change'
+			}
+		]
+	}
 
 	formConfig: FormConfig = {
 		components: [
@@ -39,11 +63,14 @@ export class ProfileComponent {
 		]
 	};
 
-	constructor(public us: UserService, private modal: ModalService) {}
+	constructor(
+		private _form: FormService,
+		public us: UserService
+	) {}
 
 	change_password(): void {
-		this.modal.show({
-			component: SecurityComponent
+		this._form.modal(this.formPassword, form => {
+			this.us.change_password(form.oldPass, form.newPass)
 		});
 	}
 }

@@ -23,6 +23,14 @@ export class ComponentComponent implements OnInit {
 
 	@Output() change = new EventEmitter();
 
+	update($event: any): void {
+		if (typeof $event !== 'object') {
+			this.form.get(this.component.input as string)?.setValue($event);
+
+			this.change.emit($event);
+		}
+	}
+
 	ngOnInit(): void {}
 
 	inputType(): InputTypes {

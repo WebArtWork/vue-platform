@@ -1,9 +1,5 @@
 <div class="auth-wrapper">
 	<div class="auth">
-		<wform
-			[config]="formConfig"
-			(submit)="submit()"
-			#form
-		></wform>
+		<wform [config]="formConfig" (wSubmit)="submit($event)"></wform>
 	</div>
 </div>
