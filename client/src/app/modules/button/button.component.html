@@ -10,7 +10,10 @@
 		'_dark' : type === types.DARK,
 		'_link' : type === types.LINK
 	}"
-	class="w-btn"
+	[type]="click || disableSubmit ? 'button' : 'submit'"
+	[disabled]="disabled"
+	(click)="clicked()"
+	class="btn"
 >
 	<ng-content></ng-content>
 </button>
