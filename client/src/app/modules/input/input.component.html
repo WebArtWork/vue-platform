@@ -10,7 +10,8 @@
 		[type]="type"
 		[name]="name"
 		#inputEl
-		class="w-input__field"
+		[class.w-input__field]="type !== 'checkbox'"
+		[class.w-input__checkbox]="type === 'checkbox'"
 	/>
 	<ng-content></ng-content>
 </div>
