@@ -147,7 +147,7 @@ export class UserService {
 
 		localStorage.removeItem('waw_user');
 
-		this.router.navigate(['/']);
+		this.router.navigateByUrl('/sign');
 
 		this.http.remove('token');
 	}

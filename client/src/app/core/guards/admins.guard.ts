@@ -15,7 +15,7 @@ export class AdminsGuard implements CanActivate {
 
 			return false;
 		} else {
-			this.router.navigate(['/']);
+			this.router.navigate(['/sign']);
 
 			return false;
 		}

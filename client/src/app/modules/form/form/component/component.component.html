@@ -6,7 +6,7 @@
 		[focused]="!!component.focused"
 		[items]="items()"
 		[label]="component.label || ''"
-		(change)="update($event)"
+		(change)="component.value = $event; update($event)"
 		[disabled]="disabled()"
 		[type]="inputType()"
 		[set]="setWinput()"
@@ -14,13 +14,22 @@
 	></winput>
 
 	<!-- ==== Password ==== -->
-	<i
-		*ngIf="component.type === inputTypes.PASSWORD || password"
-		[class.icon-eye-off]="password"
-		[class.icon-eye]="!password"
-		(click)="togglePassword()"
-		class="form-toggle-pass"
-	></i>
+	<ng-container *ngIf="component.type === inputTypes.PASSWORD || password">
+		<div class="w-forms__input-block">
+			<span class="w-forms__toggle" (click)="togglePassword()">
+				<i *ngIf="password" class="icon-visibility">visibility</i>
+				<i *ngIf="!password">visibility_off</i>
+			</span>
+		</div>
+		<span
+			class="w-forms__level"
+			[class._sky]="ui.level(value) === 1"
+			[class._orange]="ui.level(value) === 2"
+			[class._green]="ui.level(value) === 3"
+		>
+			Level: {{ui.level(value)}}
+		</span>
+	</ng-container>
 	<!-- ========================= -->
 </ng-container>
 
@@ -33,11 +42,17 @@
 	[items]="component.items || []"
 ></wselect>
 
-<!-- <wtextarea
+<wtextarea
 	*ngIf="component.module === modules.TEXTAREA"
-	[label]="component.label || ''"
 	[placeholder]="component.placeholder || ''"
-></wtextarea> -->
+	[ngClass]="component.class || ''"
+	[focused]="!!component.focused"
+	[label]="component.label || ''"
+	(change)="update($event)"
+	[disabled]="disabled()"
+	[set]="setWtextarea()"
+	(submit)="next()"
+></wtextarea>
 
 <wbutton
 	*ngIf="component.module === modules.BUTTON"
@@ -48,3 +63,17 @@
 >
 	{{component.label}}
 </wbutton>
+
+<ng-container *ngIf="component.components?.length && !component.hidden">
+	<ng-container *ngFor="let component of component.components">
+		<form-component
+			*ngIf="!component.custom && !component.hidden"
+			[ngClass]="component.boxclass || ''"
+			(change)="change.emit()"
+			[component]="component"
+			(submit)="submit.emit()"
+			class="form-box"
+			[form]="form"
+		></form-component>
+	</ng-container>
+</ng-container>

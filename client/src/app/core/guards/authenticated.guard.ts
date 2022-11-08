@@ -9,7 +9,7 @@ export class AuthenticatedGuard implements CanActivate {
 		if (localStorage.getItem('waw_user')) {
 			return true;
 		} else {
-			this.router.navigate(['/']);
+			this.router.navigateByUrl('/sign');
 
 			return false;
 		}

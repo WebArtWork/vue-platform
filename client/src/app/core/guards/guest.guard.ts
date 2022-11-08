@@ -7,7 +7,7 @@ export class GuestGuard implements CanActivate {
 
 	canActivate(): boolean {
 		if (localStorage.getItem('waw_user')) {
-			this.router.navigate(['/profile']);
+			this.router.navigateByUrl('/profile');
 
 			return false;
 		} else {

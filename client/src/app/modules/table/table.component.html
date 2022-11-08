@@ -59,7 +59,6 @@
 				<td *ngIf="config.num">{{row.num}}</td>
 				<ng-container *ngFor="let column of columns">
 					<ng-template #defaultRows>
-						
 						<td [attr.data-label]="column.title + ':&nbsp;'">
 							{{row[column.field]}}
 						</td>

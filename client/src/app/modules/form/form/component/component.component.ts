@@ -23,6 +23,10 @@ export class ComponentComponent implements OnInit {
 
 	@Output() change = new EventEmitter();
 
+	get value(): string {
+		return this.component.value as string;
+	}
+
 	update($event: any): void {
 		if (typeof $event !== 'object') {
 			this.form.get(this.component.input as string)?.setValue($event);
@@ -31,7 +35,11 @@ export class ComponentComponent implements OnInit {
 		}
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		if (this.component.set) {
+			this.component.value = this.component.set;
+		}
+	}
 
 	inputType(): InputTypes {
 		return (
@@ -53,6 +61,10 @@ export class ComponentComponent implements OnInit {
 
 	setWinput(): string | number {
 		return this.component.set as unknown as string | number;
+	}
+
+	setWtextarea(): string {
+		return this.component.set as unknown as string;
 	}
 
 	buttonType(): ButtonTypes {

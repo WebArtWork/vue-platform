@@ -18,6 +18,7 @@
 			</ng-container>
 			<form-component
 				*ngIf="!component.custom && !component.hidden"
+				[ngClass]="component.boxclass || ''"
 				(change)="change.emit()"
 				[component]="component"
 				(submit)="onSubmit()"

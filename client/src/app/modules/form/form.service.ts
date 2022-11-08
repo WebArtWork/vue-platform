@@ -22,6 +22,7 @@ export interface FormComponent {
 	input?: string; // required if you need to keep info on this component
 	custom?: string;
 	set?: string | number | Date | object;
+	value?: string | number | Date | object;
 	module?: FormModules;
 	type?: InputTypes | ButtonTypes;
 	label?: string;
@@ -31,9 +32,11 @@ export interface FormComponent {
 	focused?: boolean;
 	required?: boolean;
 	class?: string;
+	boxclass?: string;
 	items?: object[] | string[];
 	name?: string;
 	click?: ()=>void;
+	components?: FormComponent[];
 }
 
 export interface FormConfig {

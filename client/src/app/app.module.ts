@@ -19,7 +19,7 @@ const routes: Routes = [
 		component: GuestComponent,
 		children: [
 			/* guest */ {
-				path: '',
+				path: 'sign',
 				canActivate: [MetaGuard],
 				data: {
 					meta: {
