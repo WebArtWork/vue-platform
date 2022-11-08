@@ -1,5 +1,5 @@
 <div class="wtable">
-	<div class="users__header w-card__header">Users (Admin)</div>
+	<div class="users__header w-card__header" *ngIf="title">{{title}}</div>
 	<div class="table-flex _jc-sb _ai-c">
 		<div
 			*ngIf="config.searchable"

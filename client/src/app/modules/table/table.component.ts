@@ -30,6 +30,8 @@ export class TableComponent implements OnInit, AfterContentInit {
 
 	@Input() value = '_id';
 
+	@Input() title = '';
+
 	@ContentChildren(CellDirective) cell: QueryList<CellDirective>;
 
 	@ContentChildren(SortDirective) sortHeaders: QueryList<SortDirective>;

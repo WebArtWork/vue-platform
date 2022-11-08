@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@agm/core": "1.1.0"
-  },
-  "repo": "https://github.com/WebArtWork/ngx-map.git"
-}
