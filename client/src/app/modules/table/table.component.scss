@@ -264,7 +264,10 @@ html.dark:root {
 
 		.table-body {
 			&__last-td {
-				margin-bottom: 30px; 
+				margin-bottom: 30px;
+				& i + i {
+					margin-left: 15px;
+				}
 			}
 		}
 		&-footer {

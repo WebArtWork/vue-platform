@@ -64,7 +64,10 @@
     &:hover {
         color: var(--c-error);
     }
-}
+    & i + i {
+        margin-left: 15px;
+    }
+}   
 
 .users {
     &__header {
