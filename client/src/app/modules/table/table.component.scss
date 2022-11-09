@@ -196,6 +196,9 @@ html.dark:root {
 				display: none;
 				text-align: left;
 			}
+			&:last-child {
+				width: 160px;
+			}
 		}
 		td {
 			cursor: pointer;
@@ -261,7 +264,7 @@ html.dark:root {
 
 		.table-body {
 			&__last-td {
-				// margin-bottom: 30px; 
+				margin-bottom: 30px; 
 			}
 		}
 		&-footer {

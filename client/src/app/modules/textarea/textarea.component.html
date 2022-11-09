@@ -3,7 +3,7 @@
 	<textarea
 		#inputEl
 		class="w-forms__textarea"
-		[attr.disabled]="disabled"
+		[disabled]="disabled"
 		[placeholder]="placeholder"
 		[(ngModel)]="set"
 		(ngModelChange)="change.emit(set)"

@@ -15,6 +15,11 @@ import { environment } from 'src/environments/environment';
 const routes: Routes = [
 	{
 		path: '',
+		redirectTo: '/sign',
+		pathMatch: 'full'
+	},
+	{
+		path: '',
 		canActivate: [GuestGuard],
 		component: GuestComponent,
 		children: [
