@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { User } from 'src/app/core';
 import { InputTypes } from 'src/app/modules/input/input.interface';
 import { UserService } from 'src/app/core';
-import { UiService } from 'wacom';
-import { FormConfig, FormModules, FormOutputs, FormService } from 'src/app/modules/form/form.service';
+import { FormConfig, FormModules, FormService } from 'src/app/modules/form/form.service';
 import { ButtonTypes } from 'src/app/modules/button/button.interface';
 
 @Component({
