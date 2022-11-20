@@ -22,8 +22,8 @@ const routes: Routes = [
 		path: '',
 		canActivate: [GuestGuard],
 		component: GuestComponent,
-		children: [
-			/* guest */ {
+		children: [/* guest */
+			{
 				path: 'sign',
 				canActivate: [MetaGuard],
 				data: {
@@ -42,8 +42,8 @@ const routes: Routes = [
 		path: '',
 		canActivate: [AuthenticatedGuard],
 		component: UserComponent,
-		children: [
-			/* user */ {
+		children: [/* user */
+			{
 				path: 'profile',
 				canActivate: [MetaGuard],
 				data: {
@@ -62,8 +62,8 @@ const routes: Routes = [
 		path: 'admin',
 		canActivate: [AdminsGuard],
 		component: UserComponent,
-		children: [
-			/* admin */ {
+		children: [/* admin */
+			{
 				path: 'users',
 				canActivate: [MetaGuard],
 				data: {
@@ -102,15 +102,13 @@ const routes: Routes = [
 				}
 			},
 			modal: {
-				modals: {
-					/* modals */
+				modals: {/* modals */
 				}
 			}
 		}),
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'enabled',
-			preloadingStrategy: PreloadAllModules,
-			relativeLinkResolution: 'legacy'
+			preloadingStrategy: PreloadAllModules
 		})
 	],
 	providers: [AuthenticatedGuard, GuestGuard, AdminsGuard],
