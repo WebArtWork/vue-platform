@@ -240,7 +240,7 @@ module.exports = async waw => {
 	});
 
 	router.post('/sign', async (req, res) => {
-		const user = await User.findOne({
+		let user = await User.findOne({
 			email: req.body.email.toLowerCase(),
 			blocked: {
 				$ne: true

@@ -67,7 +67,7 @@ export class SignComponent {
 		private us: UserService,
 		private router: Router,
 		public ui: UiService
-	) {}
+	) { }
 
 	submit(form: Form): void {
 		if (!this.formConfig.components[2].hidden && form.code) {
@@ -77,6 +77,15 @@ export class SignComponent {
 		if (!form.email) {
 			this.alert.error({
 				text: 'Enter your email'
+			});
+
+			return;
+			//return this.email_focus();
+		}
+
+		if (!this.ui.valid(form.email)) {
+			this.alert.error({
+				text: 'Enter proper email'
 			});
 
 			return;
@@ -151,6 +160,8 @@ export class SignComponent {
 		this.http.set('token', user.token);
 
 		this.us.user = user;
+
+		this.us.load();
 
 		this.router.navigate(['/profile']);
 	}

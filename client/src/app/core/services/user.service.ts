@@ -55,22 +55,26 @@ export class UserService {
 		});
 
 		if (localStorage.getItem('waw_user')) {
-			this.user = this.mongo.fetch(
-				'user',
-				{
-					name: 'me'
-				},
-				(user: User) => {
-					if (user) {
-						this.user = user;
-
-						localStorage.setItem('waw_user', JSON.stringify(user));
-					} else {
-						this.logout();
-					}
-				}
-			);
+			this.load();
 		}
+	}
+
+	load(): void {
+		this.user = this.mongo.fetch(
+			'user',
+			{
+				name: 'me'
+			},
+			(user: User) => {
+				if (user) {
+					this.user = user;
+
+					localStorage.setItem('waw_user', JSON.stringify(user));
+				} else {
+					this.logout();
+				}
+			}
+		);
 
 		this.users = this.mongo.get('user', (users: User[], obj: AnyUser) => {
 			this._users = obj;

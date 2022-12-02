@@ -92,6 +92,9 @@ const routes: Routes = [
 		BrowserModule,
 		BrowserAnimationsModule,
 		WacomModule.forRoot({
+			http: {
+				url: environment.url
+			},
 			socket: environment.production,
 			meta: {
 				useTitleSuffix: true,
