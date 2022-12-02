@@ -4,6 +4,9 @@
     padding: 20px;
 }
 /*  PROFILE STYLE  */
+.container {
+    padding: unset;
+}
 .profile {
     &__header {
         @include text-default(0, 23px, 500, 20px, var(--c-text-primary));

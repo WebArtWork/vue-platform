@@ -1,4 +1,5 @@
 import { Any } from 'wacom';
+
 export interface User {
 	token?: string;
 	name: string;

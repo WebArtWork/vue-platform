@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { UserService } from 'src/app/services';
-import { ModalService } from 'wacom';
-import { SecurityComponent } from './security/security.component';
+import { ButtonTypes } from 'src/app/modules/button/button.interface';
+import { FormConfig, FormModules, FormService } from 'src/app/modules/form/form.service';
+import { InputTypes } from 'src/app/modules/input/input.interface';
+import { UserService } from 'src/app/core';
 
 @Component({
 	selector: 'app-profile',
@@ -9,13 +10,67 @@ import { SecurityComponent } from './security/security.component';
 	styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
+	readonly buttonTypes = ButtonTypes;
+
+	readonly inputTypes = InputTypes;
+
+	formPassword: FormConfig = {
+		title: 'Change password',
+		components: [
+			{
+				module: FormModules.INPUT,
+				type: InputTypes.PASSWORD,
+				placeholder: 'Type password',
+				label: 'Current',
+				input: 'oldPass',
+				focused: true
+			},
+			{
+				module: FormModules.INPUT,
+				type: InputTypes.PASSWORD,
+				placeholder: 'Type password',
+				label: 'New',
+				input: 'newPass'
+			},
+			{
+				module: FormModules.BUTTON,
+				type: ButtonTypes.PRIMARY,
+				label: 'Change'
+			}
+		]
+	}
+
+	formConfig: FormConfig = {
+		components: [
+			{
+				module: FormModules.INPUT,
+				placeholder: 'fill your name',
+				label: 'Name',
+				input: 'name'
+			},
+			{
+				module: FormModules.INPUT,
+				placeholder: 'fill your phone',
+				label: 'Phone',
+				input: 'data.phone'
+			},
+			{
+				module: FormModules.TEXTAREA,
+				placeholder: 'fill your bio',
+				label: 'Biography',
+				input: 'data.bio'
+			}
+		]
+	};
+
 	constructor(
-		public us: UserService,
-		private modal: ModalService
+		private _form: FormService,
+		public us: UserService
 	) {}
-	change_password(){
-		this.modal.show({
-			component: SecurityComponent
+
+	change_password(): void {
+		this._form.modal(this.formPassword, form => {
+			this.us.change_password(form.oldPass, form.newPass)
 		});
 	}
 }

@@ -1,0 +1,33 @@
+<div class="w-forms" *ngIf="type !== 'radio'">
+	<span class="w-forms__title" *ngIf="label">{{label}}</span>
+	<input
+		(keyup.enter)="submit.emit(formControl.value)"
+		[class]="type === 'checkbox' ? '' : 'input'"
+		(keyup)="change.emit(formControl.value)"
+		[formControl]="formControl"
+		[placeholder]="placeholder"
+		[ngClass]="wClass"
+		[type]="type"
+		[name]="name"
+		#inputEl
+		[class.w-input__field]="type !== 'checkbox'"
+		[class.w-input__checkbox]="type === 'checkbox'"
+	/>
+	<ng-content></ng-content>
+</div>
+<!-- [disabled]="disabled" -->
+
+<ng-container *ngIf="type === 'radio'">
+	<label class="check-lebel" *ngFor="let item of items">
+		<span class="form-label">{{item}}</span>
+		<input
+			[formControl]="formControl"
+			[ngClass]="wClass"
+			[name]="name"
+			type="radio"
+			#inputEl
+		/>
+		<span class="checkbox _radio"></span>
+		<ng-content></ng-content>
+	</label>
+</ng-container>

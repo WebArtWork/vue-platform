@@ -48,6 +48,7 @@
     .forms {
         width: 100%;
     }
+    
     @include bp-max(xs) {
         flex-direction: column;
 		align-items: center;
@@ -63,7 +64,10 @@
     &:hover {
         color: var(--c-error);
     }
-}
+    & i + i {
+        margin-left: 15px;
+    }
+}   
 
 .users {
     &__header {

@@ -1,26 +1,65 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
+import {
+	FormConfig,
+	FormModules
+} from 'src/app/modules/form/form.service';
 import { HashService, HttpService, AlertService, UiService } from 'wacom';
-import { UserService } from 'src/app/services';
+import { UserService } from 'src/app/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core';
+import { InputTypes } from 'src/app/modules/input/input.interface';
+import { ButtonTypes } from 'src/app/modules/button/button.interface';
 
-interface Status {
+interface RespStatus {
 	email: string;
-	pass: string
+	pass: string;
 }
+interface Form {
+	email: string;
+	password: string;
+	code: string;
+}
+
 @Component({
-	selector: 'app-sign',
 	templateUrl: './sign.component.html',
 	styleUrls: ['./sign.component.scss']
 })
-
 export class SignComponent {
-	public user = {
-		email: this.hash.get('email') || 'ceo@webart.work',
-		password: this.hash.get('password') || 'asdasdasdasd',
-		code: ''
+	formConfig: FormConfig = {
+		title: 'Sign In / Sign Up',
+		components: [
+			{
+				set: 'ceo@webart.work',
+				module: FormModules.INPUT,
+				type: InputTypes.EMAIL,
+				placeholder: 'fill your email',
+				label: 'E-mail',
+				input: 'email',
+				focused: true
+			},
+			{
+				set: 'asdasdasdasd',
+				module: FormModules.INPUT,
+				type: InputTypes.PASSWORD,
+				placeholder: 'fill your password',
+				label: 'Password',
+				input: 'password'
+			},
+			{
+				module: FormModules.INPUT,
+				placeholder: 'fill code from email',
+				hidden: true,
+				label: 'Code',
+				input: 'code'
+			},
+			{
+				module: FormModules.BUTTON,
+				type: ButtonTypes.PRIMARY,
+				label: "Let's go"
+			}
+		]
 	};
-	public show_password = false;
+
 	constructor(
 		private alert: AlertService,
 		private http: HttpService,
@@ -29,102 +68,90 @@ export class SignComponent {
 		private router: Router,
 		public ui: UiService
 	) {}
-	@ViewChild('email', { static: false }) email!: ElementRef;
-	email_focus() {
-		setTimeout(() => {
-			this.email.nativeElement.focus();
-		}, 100);
-	}
-	@ViewChild('password', { static: false }) password!: ElementRef;
-	password_focus() {
-		setTimeout(() => {
-			this.password.nativeElement.focus();
-		}, 100);
-	}
-	submit() {
-		if (this.reseting && this.user.code) {
+
+	submit(form: Form): void {
+		if (!this.formConfig.components[2].hidden && form.code) {
 			return this.save();
 		}
-		if (!this.user.email) {
+
+		if (!form.email) {
 			this.alert.error({
-				text: 'Enter your email',
+				text: 'Enter your email'
 			});
-			return this.email_focus();
+
+			return;
+			//return this.email_focus();
 		}
-		this.hash.set('email', this.user.email);
-		if (!this.user.password) {
+
+		this.hash.set('email', form.email);
+
+		if (!form.password) {
 			this.alert.error({
-				text: 'Enter your password',
+				text: 'Enter your password'
 			});
-			return this.password_focus();
+
+			return;
+			// return this.password_focus();
 		}
-		this.http.post('/api/user/status', this.user, (resp: Status) => {
+
+		this.http.post('/api/user/status', form, (resp: RespStatus) => {
 			if (resp.email && resp.pass) {
-				this.login();
+				this.login(form);
 			} else if (resp.email) {
-				this.reset();
+				this.reset(form);
 			} else {
-				this.sign();
+				this.sign(form);
 			}
 		});
 	}
-	login() {
-		this.http.post('/api/user/login', this.user, (user: User) => {
-			if (!user) {
-				return this.alert.error({
-					text: "Something went wrong",
-				});
-			}
-			localStorage.setItem('waw_user', JSON.stringify(user));
-			this.http.set('token', user.token);
-			this.router.navigate(['/profile']);
-			this.us.user = user;
-		});
+
+	login(user: Form): void {
+		this.http.post('/api/user/login', user, this._set.bind(this));
 	}
-	sign() {
-		this.http.post('/api/user/sign', this.user, (user: User) => {
-			if (!user) {
-				return this.alert.error({
-					text: "Something went wrong",
-				});
-			}
-			localStorage.setItem('waw_user', JSON.stringify(user));
-			this.http.set('token', user.token);
-			this.router.navigate(['/profile']);
-			this.us.user = user;
-		});
+
+	sign(user: Form): void {
+		this.http.post('/api/user/sign', user, this._set.bind(this));
 	}
-	public reseting = false;
-	reset() {
-		this.http.post('/api/user/request', this.user, () => {
-			this.reseting = true;
+
+	reset(user: Form): void {
+		this.http.post('/api/user/request', user, () => {
+			this.formConfig.components[2].hidden = false;
 		});
+
 		this.alert.info({
-			text: "Mail will sent to your email"
+			text: 'Mail will sent to your email'
 		});
 	}
-	save() {
-		this.http.post('/api/user/change', this.user, (resp: boolean) => {
-			if (resp) {
-				this.alert.info({
-					text: 'Password successfully changed'
-				});
-			} else {
-				this.alert.error({
-					text: 'Wrong Code'
-				});
-			}
-			this.http.post('/api/user/login', this.user, (user: User) => {
-				if (!user) {
-					return this.alert.error({
-						text: "Something went wrong",
-					});
-				}
-				this.us.user = user;
-				this.http.set('token', user.token);
-				localStorage.setItem('waw_user', JSON.stringify(user));
-				this.router.navigate(['/profile']);
+
+	save(): void {
+		// this.http.post('/api/user/change', this.user, (resp: boolean) => {
+		// 	if (resp) {
+		// 		this.alert.info({
+		// 			text: 'Password successfully changed'
+		// 		});
+		// 	} else {
+		// 		this.alert.error({
+		// 			text: 'Wrong Code'
+		// 		});
+		// 	}
+
+		// 	this.login();
+		// });
+	}
+
+	private _set = (user: User): void => {
+		if (!user) {
+			return this.alert.error({
+				text: 'Something went wrong'
 			});
-		});
+		}
+
+		localStorage.setItem('waw_user', JSON.stringify(user));
+
+		this.http.set('token', user.token);
+
+		this.us.user = user;
+
+		this.router.navigate(['/profile']);
 	}
 }
