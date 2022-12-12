@@ -3,6 +3,7 @@ import { ButtonTypes } from 'src/app/modules/button/button.interface';
 import { FormConfig, FormModules, FormService } from 'src/app/modules/form/form.service';
 import { InputTypes } from 'src/app/modules/input/input.interface';
 import { UserService } from 'src/app/core';
+import { CoreService } from 'wacom';
 
 @Component({
 	selector: 'app-profile',
@@ -43,30 +44,50 @@ export class ProfileComponent {
 	formConfig: FormConfig = {
 		components: [
 			{
+				set: this.us.user.name,
 				module: FormModules.INPUT,
 				placeholder: 'fill your name',
 				label: 'Name',
 				input: 'name'
 			},
 			{
+				set: this.us.user.data['phone'],
 				module: FormModules.INPUT,
 				placeholder: 'fill your phone',
 				label: 'Phone',
-				input: 'data.phone'
+				input: 'phone'
 			},
 			{
+				set: this.us.user.data['bio'],
 				module: FormModules.TEXTAREA,
 				placeholder: 'fill your bio',
 				label: 'Biography',
-				input: 'data.bio'
+				input: 'bio'
 			}
 		]
 	};
 
+	showForm = false;
+
+	update(data: any): void {
+		this.us.user.name = data.name;
+		this.us.user.data['phone'] = data.phone;
+		this.us.user.data['bio'] = data.bio;
+		this.us.update();
+	}
+
 	constructor(
 		private _form: FormService,
+		private _core: CoreService,
 		public us: UserService
-	) {}
+	) {
+		this._core.on('us.user', ()=>{
+			this.formConfig.components[0].set = this.us.user.name;
+			this.formConfig.components[1].set = this.us.user.data['phone'];
+			this.formConfig.components[2].set = this.us.user.data['bio'];
+			this.showForm = true;
+		});
+	}
 
 	change_password(): void {
 		this._form.modal(this.formPassword, form => {

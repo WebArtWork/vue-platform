@@ -3,7 +3,8 @@ import {
 	MongoService,
 	FileService,
 	HttpService,
-	AlertService
+	AlertService,
+	CoreService
 } from 'wacom';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -26,13 +27,14 @@ export class UserService {
 	_users: AnyUser = {};
 
 	constructor(
-		private alert: AlertService,
-		private mongo: MongoService,
-		private http: HttpService,
-		private file: FileService,
-		private router: Router
+		private _alert: AlertService,
+		private _mongo: MongoService,
+		private _http: HttpService,
+		private _file: FileService,
+		private _core: CoreService,
+		private _router: Router
 	) {
-		this.file.add({
+		this._file.add({
 			id: 'userAvatarUrl',
 			resize: 256,
 			part: 'user',
@@ -43,24 +45,28 @@ export class UserService {
 			}
 		});
 
-		this.mongo.config('user', {
+		this._mongo.config('user', {
 			replace: {
 				data: (data: Any, cb: (data: Any) => Any) => {
 					if (typeof data != 'object') data = {};
 
 					cb(data);
 				},
-				is: this.mongo.beObj
+				is: this._mongo.beObj
 			}
 		});
 
 		if (localStorage.getItem('waw_user')) {
+			this.user = JSON.parse(localStorage.getItem('waw_user') as string);
+
+			this._core.emit('us.user');
+
 			this.load();
 		}
 	}
 
 	load(): void {
-		this.user = this.mongo.fetch(
+		this.user = this._mongo.fetch(
 			'user',
 			{
 				name: 'me'
@@ -69,6 +75,8 @@ export class UserService {
 				if (user) {
 					this.user = user;
 
+					this._core.emit('us.user');
+
 					localStorage.setItem('waw_user', JSON.stringify(user));
 				} else {
 					this.logout();
@@ -76,7 +84,7 @@ export class UserService {
 			}
 		);
 
-		this.users = this.mongo.get('user', (users: User[], obj: AnyUser) => {
+		this.users = this._mongo.get('user', (users: User[], obj: AnyUser) => {
 			this._users = obj;
 		});
 	}
@@ -92,12 +100,12 @@ export class UserService {
 	}
 
 	create(user: User): void {
-		this.mongo.create('user', user);
+		this._mongo.create('user', user);
 	}
 
 	doc(userId: string): User {
 		if (!this._users[userId]) {
-			this._users[userId] = this.mongo.fetch('user', {
+			this._users[userId] = this._mongo.fetch('user', {
 				query: { _id: userId }
 			});
 		}
@@ -106,39 +114,41 @@ export class UserService {
 	}
 
 	update(): void {
-		this.mongo.afterWhile(this, () => {
-			this.mongo.update('user', this.user);
+		this._mongo.afterWhile(this, () => {
+			localStorage.setItem('waw_user', JSON.stringify(this.user));
+
+			this._mongo.update('user', this.user);
 		});
 	}
 
 	save(user: User): void {
-		this.mongo.afterWhile(this, () => {
-			this.mongo.update('user', user, {
+		this._mongo.afterWhile(this, () => {
+			this._mongo.update('user', user, {
 				name: 'admin'
 			});
 		});
 	}
 
 	delete(user: User): void {
-		this.mongo.delete('user', user, {
+		this._mongo.delete('user', user, {
 			name: 'admin'
 		});
 	}
 
 	change_password(oldPass: string, newPass: string): void {
-		this.http.post(
+		this._http.post(
 			'/api/user/changePassword',
 			{
 				newPass: newPass,
 				oldPass: oldPass
 			},
-			(resp) => {
+			(resp: boolean) => {
 				if (resp) {
-					this.alert.info({
+					this._alert.info({
 						text: 'Successfully changed password'
 					});
 				} else {
-					this.alert.error({
+					this._alert.error({
 						text: 'Failed to change password'
 					});
 				}
@@ -151,8 +161,8 @@ export class UserService {
 
 		localStorage.removeItem('waw_user');
 
-		this.router.navigateByUrl('/sign');
+		this._router.navigateByUrl('/sign');
 
-		this.http.remove('token');
+		this._http.remove('token');
 	}
 }

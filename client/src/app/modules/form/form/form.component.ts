@@ -9,7 +9,8 @@ import { FormConfig, FormComponentDirective } from '../form.service';
 	styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit, AfterContentInit {
-	@ContentChildren(FormComponentDirective) formComponents: QueryList<FormComponentDirective>;
+	@ContentChildren(FormComponentDirective)
+	formComponents: QueryList<FormComponentDirective>;
 
 	customComponents: any = {};
 
@@ -23,7 +24,7 @@ export class FormComponent implements OnInit, AfterContentInit {
 
 	@Input() form = this._fb.group({});
 
-	@Output() change = new EventEmitter();
+	@Output() wChange = new EventEmitter();
 
 	@Output() wSubmit = new EventEmitter();
 
@@ -60,6 +61,18 @@ export class FormComponent implements OnInit, AfterContentInit {
 			}
 
 			this.wSubmit.emit(values);
-		})
+		});
+	}
+
+	onChange(): void {
+		this._core.afterWhile(this, ()=>{
+			const values: any = {};
+
+			for (const field in this.form.controls) {
+				values[field] = this.form.get(field)?.value;
+			}
+
+			this.wChange.emit(values);
+		});
 	}
 }

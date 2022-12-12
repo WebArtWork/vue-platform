@@ -18,13 +18,21 @@
 			</div>
 		</div>
 		<div class="profile__body">
-			<wform [config]="formConfig" (change)="us.update()" #form></wform>
+			<wform
+				*ngIf="showForm"
+				[config]="formConfig"
+				(wChange)="update($event)"
+				#form
+			></wform>
+
 			<div class="profile__footer">
 				<div class="profile__logout">
 					<wbutton (click)="us.logout()" [type]="buttonTypes.DANGER">
-						<span class="material-icons">logout</span>Logout
+						<span class="material-icons">logout</span>
+						Logout
 					</wbutton>
 				</div>
+
 				<div class="profile__password">
 					<wbutton
 						(click)="change_password()"

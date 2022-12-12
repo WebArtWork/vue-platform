@@ -9,7 +9,7 @@
 							$implicit: {
 								component: component,
 								submit: onSubmit,
-								change: change.emit,
+								change: onChange,
 								form: form
 							}
 						}
@@ -19,7 +19,7 @@
 			<form-component
 				*ngIf="!component.custom && !component.hidden"
 				[ngClass]="component.boxclass || ''"
-				(change)="change.emit()"
+				(change)="onChange()"
 				[component]="component"
 				(submit)="onSubmit()"
 				class="form-box"
