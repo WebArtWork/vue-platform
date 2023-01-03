@@ -6,11 +6,11 @@
 		[focused]="!!component.focused"
 		[items]="items()"
 		[label]="component.label || ''"
-		(change)="component.value = $event; update($event)"
+		(wChange)="component.value = $event; update($event)"
 		[disabled]="disabled()"
 		[type]="inputType()"
 		[set]="setWinput()"
-		(submit)="next()"
+		(wSubmit)="next()"
 	></winput>
 
 	<!-- ==== Password ==== -->
@@ -36,23 +36,11 @@
 <wselect
 	*ngIf="component.module === modules.SELECT"
 	[placeholder]="component.placeholder || ''"
-	(modelChange)="change.emit($event)"
+	(modelChange)="wChange.emit($event)"
 	[ngClass]="component.class || ''"
 	[label]="component.label || ''"
 	[items]="component.items || []"
 ></wselect>
-
-<wtextarea
-	*ngIf="component.module === modules.TEXTAREA"
-	[placeholder]="component.placeholder || ''"
-	[ngClass]="component.class || ''"
-	[focused]="!!component.focused"
-	[label]="component.label || ''"
-	(change)="update($event)"
-	[disabled]="disabled()"
-	[set]="setWtextarea()"
-	(submit)="next()"
-></wtextarea>
 
 <wbutton
 	*ngIf="component.module === modules.BUTTON"
@@ -69,9 +57,9 @@
 		<form-component
 			*ngIf="!component.custom && !component.hidden"
 			[ngClass]="component.boxclass || ''"
-			(change)="change.emit()"
+			(wchange)="wChange.emit()"
 			[component]="component"
-			(submit)="submit.emit()"
+			(wsubmit)="wSubmit.emit()"
 			class="form-box"
 			[form]="form"
 		></form-component>

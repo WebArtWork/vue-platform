@@ -43,14 +43,6 @@ export class UsersComponent {
 		components: [
 			{
 				module: FormModules.INPUT,
-				type: InputTypes.EMAIL,
-				placeholder: 'fill email',
-				label: 'E-mail',
-				input: 'email',
-				focused: true
-			},
-			{
-				module: FormModules.INPUT,
 				placeholder: 'fill name',
 				label: 'Name',
 				input: 'name'
@@ -81,9 +73,9 @@ export class UsersComponent {
 			});
 		},
 		update: (user: User)=>{
-			this.formUpdate.components[0].set = user.email;
-			this.formUpdate.components[1].set = user.name;
-			this._form.modal(this.formUpdate, (user: User) => {
+			this.formUpdate.components[0].set = user.name;
+			this._form.modal(this.formUpdate, (data: User) => {
+				user.name = data.name;
 				this.us.save(user);
 			});
 		},

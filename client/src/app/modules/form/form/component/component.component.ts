@@ -19,9 +19,9 @@ export class ComponentComponent implements OnInit {
 
 	@Input() component: FormComponent;
 
-	@Output() submit = new EventEmitter();
+	@Output() wSubmit = new EventEmitter();
 
-	@Output() change = new EventEmitter();
+	@Output() wChange = new EventEmitter();
 
 	get value(): string {
 		return this.component.value as string;
@@ -31,7 +31,7 @@ export class ComponentComponent implements OnInit {
 		if (typeof $event !== 'object') {
 			this.form.get(this.component.input as string)?.setValue($event);
 
-			this.change.emit($event);
+			this.wChange.emit($event);
 		}
 	}
 
@@ -86,7 +86,7 @@ export class ComponentComponent implements OnInit {
 	}
 
 	next() {
-		this.submit.emit();
+		this.wSubmit.emit();
 	}
 
 	constructor(public ui: UiService) {}

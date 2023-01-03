@@ -19,9 +19,9 @@
 			<form-component
 				*ngIf="!component.custom && !component.hidden"
 				[ngClass]="component.boxclass || ''"
-				(change)="onChange()"
+				(wChange)="onChange()"
 				[component]="component"
-				(submit)="onSubmit()"
+				(wSubmit)="onSubmit()"
 				class="form-box"
 				[form]="form"
 			></form-component>

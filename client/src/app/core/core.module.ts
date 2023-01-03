@@ -5,7 +5,6 @@ import { WacomModule } from 'wacom';
 import { ButtonModule } from 'src/app/modules/button/button.module';
 import { InputModule } from 'src/app/modules/input/input.module';
 import { CardModule } from 'src/app/modules/card/card.module';
-import { TextareaModule } from 'src/app/modules/textarea/textarea.module';
 import { FormModule } from 'src/app/modules/form/form.module';
 import { TableModule } from '../modules/table/table.module';
 import { UserComponent } from './selectors/user/user.component';
@@ -19,7 +18,6 @@ import { UserComponent } from './selectors/user/user.component';
 		ButtonModule,
 		InputModule,
 		CardModule,
-		TextareaModule,
 		FormModule,
 		TableModule
 	],

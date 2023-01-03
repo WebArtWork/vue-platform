@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
 import { ButtonModule } from '../button/button.module';
 import { InputModule } from '../input/input.module';
-import { TextareaModule } from '../textarea/textarea.module';
 import { FormComponent } from './form/form.component';
 import { ModalComponent } from './modal/modal.component';
 import { ComponentComponent } from './form/component/component.component';
@@ -23,7 +22,6 @@ export const DEFAULT_FORM_CONFIG: FormConfig = {
 		ReactiveFormsModule,
 		InputModule,
 		ButtonModule,
-		TextareaModule,
 		SelectModule
 	],
 	declarations: [

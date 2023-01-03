@@ -19,9 +19,9 @@
 		</div>
 		<div class="profile__body">
 			<wform
-				*ngIf="showForm"
-				[config]="formConfig"
 				(wChange)="update($event)"
+				[config]="formProfile"
+				*ngIf="showForm"
 				#form
 			></wform>
 

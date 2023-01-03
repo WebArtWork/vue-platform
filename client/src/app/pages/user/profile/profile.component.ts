@@ -41,7 +41,7 @@ export class ProfileComponent {
 		]
 	}
 
-	formConfig: FormConfig = {
+	formProfile: FormConfig = {
 		components: [
 			{
 				set: this.us.user.name,
@@ -59,7 +59,8 @@ export class ProfileComponent {
 			},
 			{
 				set: this.us.user.data['bio'],
-				module: FormModules.TEXTAREA,
+				module: FormModules.INPUT,
+				type: InputTypes.TEXTAREA,
 				placeholder: 'fill your bio',
 				label: 'Biography',
 				input: 'bio'
@@ -71,8 +72,11 @@ export class ProfileComponent {
 
 	update(data: any): void {
 		this.us.user.name = data.name;
+
 		this.us.user.data['phone'] = data.phone;
+
 		this.us.user.data['bio'] = data.bio;
+
 		this.us.update();
 	}
 
@@ -82,9 +86,9 @@ export class ProfileComponent {
 		public us: UserService
 	) {
 		this._core.on('us.user', ()=>{
-			this.formConfig.components[0].set = this.us.user.name;
-			this.formConfig.components[1].set = this.us.user.data['phone'];
-			this.formConfig.components[2].set = this.us.user.data['bio'];
+			this.formProfile.components[0].set = this.us.user.name;
+			this.formProfile.components[1].set = this.us.user.data['phone'];
+			this.formProfile.components[2].set = this.us.user.data['bio'];
 			this.showForm = true;
 		});
 	}
