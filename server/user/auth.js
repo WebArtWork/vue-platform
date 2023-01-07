@@ -2,7 +2,6 @@ const User = require('./schema');
 const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
 const nJwt = require('njwt');
-const fs = require('fs');
 module.exports = async waw => {
 	if (!waw.config.signingKey) {
 		waw.config.signingKey = uuidv4();
@@ -46,35 +45,6 @@ module.exports = async waw => {
 
 		mongoose.Promise = global.Promise;
 	}
-
-	/*
-	*	Serve Client
-	*/
-	waw.serve(process.cwd() + '/client/dist/app');
-
-	const client = process.cwd() + '/client/dist/app/index.html';
-
-	if (fs.existsSync(client)) {
-		waw.url(client, '/admin/users /profile /auth');
-	} else {
-		console.log("You don't have client build, careful with committing without that");
-	}
-
-	/*
-	*	Serve Template
-	*/
-	waw.serve(process.cwd() + '/template', {
-		prefix: '/template'
-	});
-
-	waw.build(process.cwd() + '/template', 'index');
-
-	waw.url(process.cwd() + '/template/dist/index.html', '/', {
-		title: waw.config.name,
-		description: waw.config.description,
-		keywords: waw.config.keywords,
-		image: 'https://webart.work/template/img/spider.svg'
-	});
 
 	/*
 	*	Set is on users from config

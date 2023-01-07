@@ -1,11 +1,10 @@
 <!--==== Table Module ====-->
 <wtable [columns]="columns" [config]="config" [rows]="us.users">
-	<ng-template #admin cell="admin" let-element>
+	<ng-template *ngFor="let role of us.roles" [cell]="role" let-element>
 		<winput
-			(wChange)="element.is.admin = $event; us.save(element)"
-			*ngIf="us.user._id !== element._id"
+			(wChange)="element.is[role] = $event; us.save(element)"
 			[type]="inputTypes.CHECKBOX"
-			[set]="element.is.admin"
+			[set]="element.is[role]"
 		></winput>
 	</ng-template>
 </wtable>
