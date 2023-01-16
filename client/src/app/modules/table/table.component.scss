@@ -285,6 +285,15 @@ html.dark:root {
 				height: 80px;
 				padding: 10px 20px;
 				flex-direction: column;
+				position: static;
+				display: flex;
+				.table-plus-btn{
+					position: absolute;
+					top: 9px;
+					font-size: 32px;
+					width: 32px;
+					height: 32px;
+				}
 			}
 			&__pagination {
 				grid-column: 12;

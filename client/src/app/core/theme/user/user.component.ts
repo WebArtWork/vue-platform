@@ -9,11 +9,12 @@ import { StoreService } from 'wacom';
 	styleUrls: ['./user.component.scss'],
 	animations: [coreAnimation]
 })
+
 export class UserComponent {
 	show = false;
 
 	mode = '';
-
+	showDesktop = false;
 	constructor(
 		private renderer: Renderer2,
 		private store: StoreService,
