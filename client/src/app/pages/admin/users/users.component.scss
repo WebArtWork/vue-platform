@@ -2,7 +2,17 @@
 :host {
     flex-grow: 1;
     @include flexBox(flex, column, null, null, null);
-    padding: 20px;
+    padding: 20px 260px 0 20px;
+    flex: 1 0;
+    transition: all .3s;
+    @media screen and (max-width: 767px) {
+        padding: 20px;
+    }
+}
+.showTable{
+    :host {
+        padding: 20px !important;
+    }
 }
 .w-table-user {
     @include flexBox(flex, null, null, center, wrap);
