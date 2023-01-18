@@ -46,12 +46,12 @@ html.dark:root {
 	border-radius: 10px;
 	padding: 20px;
 	padding-bottom: 70px;
-	max-width: 1210px;
+	max-width: 100%;
 	height: auto;
 	margin: 0px auto;
 	position: relative;
 	@media screen and (max-width: 599px) {
-		padding-bottom: 80px;
+		padding-bottom: 30px;
 	}
 	.table {
 		border-collapse: collapse;
@@ -291,8 +291,9 @@ html.dark:root {
 					position: absolute;
 					top: 9px;
 					font-size: 32px;
-					width: 32px;
-					height: 32px;
+					left: 25px;
+					width: 30px;
+					height: 30px;
 				}
 			}
 			&__pagination {
