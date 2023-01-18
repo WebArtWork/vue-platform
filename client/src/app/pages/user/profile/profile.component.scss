@@ -1,17 +1,22 @@
 @import 'angular';
 
 :host {
-    padding: 20px;
     width: 100%;
-    padding: 20px 260px 0px 20px;
-    transition: all .3s;
-    @media screen and (max-width: 767px) {
-        padding: 20px;
+    wcard{
+        width: 100%;
+        padding: 20px 260px 0px 20px;
+        transition: all .3s;
+        display: block;
+        @media screen and (max-width: 767px) {
+            padding: 20px;
+        }
     }
 }
 .showTable{
     :host {
-        padding: 20px !important;
+        wcard{
+            padding: 20px !important;
+        }
     }
 }
 /*  PROFILE STYLE  */
