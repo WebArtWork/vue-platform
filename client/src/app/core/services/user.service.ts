@@ -59,7 +59,7 @@ export class UserService {
 		if (localStorage.getItem('waw_user')) {
 			this.user = JSON.parse(localStorage.getItem('waw_user') as string);
 
-			this._core.emit('us.user');
+			this._core.done('us.user');
 
 			this.load();
 		}
@@ -75,7 +75,7 @@ export class UserService {
 				if (user) {
 					this.user = user;
 
-					this._core.emit('us.user');
+					this._core.done('us.user');
 
 					localStorage.setItem('waw_user', JSON.stringify(user));
 				} else {

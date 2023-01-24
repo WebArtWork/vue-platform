@@ -1,4 +1,4 @@
-import { Directive, TemplateRef, Input } from '@angular/core';
+import { Directive, TemplateRef, Input, ElementRef } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { ModalService } from 'wacom';
 import { ButtonTypes } from '../button/button.interface';
@@ -21,6 +21,7 @@ export interface FormComponent {
 	id?: number;
 	input?: string; // required if you need to keep info on this component
 	custom?: string;
+	customRef?: ElementRef;
 	set?: string | number | Date | object;
 	value?: string | number | Date | object;
 	module?: FormModules;

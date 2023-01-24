@@ -92,6 +92,8 @@ const routes: Routes = [
 		BrowserModule,
 		BrowserAnimationsModule,
 		WacomModule.forRoot({
+			store: {
+			},
 			http: {
 				url: environment.url
 			},

@@ -85,10 +85,13 @@ export class ProfileComponent {
 		private _core: CoreService,
 		public us: UserService
 	) {
-		this._core.on('us.user', ()=>{
+		this._core.next('us.user', ()=>{
 			this.formProfile.components[0].set = this.us.user.name;
+
 			this.formProfile.components[1].set = this.us.user.data['phone'];
+
 			this.formProfile.components[2].set = this.us.user.data['bio'];
+
 			this.showForm = true;
 		});
 	}
