@@ -49,6 +49,9 @@
 		transition: var(--transition);
 		@include flexBox(flex, null, null, center, null);
 		width: 100%;
+		@media screen and (max-width: 767px) {
+			justify-content: end !important;
+		}
 	}
 	&__li {
 		display: inline-block;
@@ -115,6 +118,7 @@
 		position: relative;
 		order: 3;
 		cursor: pointer;
+		justify-content: center;
 		&-line,
 		&-line:before,
 		&-line:after {
@@ -267,7 +271,7 @@
 .theme-switch {
 	display: flex;
 	justify-content: flex-end;
-	margin-right: 18px;
+	margin-right: 10px;
 	.material-icons {
 		cursor: pointer;
 	}

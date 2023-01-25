@@ -52,6 +52,9 @@ html.dark:root {
 	position: relative;
 	@media screen and (max-width: 599px) {
 		padding-bottom: 30px;
+		.item-page__text{
+			display: none;
+		}
 	}
 	.table {
 		border-collapse: collapse;
@@ -402,6 +405,9 @@ html.dark:root {
 					margin: 0 10px;
 					color: #334d6e;
 					font-weight: bold;
+					@media screen and (max-width: 599px) {
+						margin: 0 10px 0 0;
+					}
 					.caption {
 						background-color: #f2f2f2;
 						padding: 11px 24px;
@@ -410,6 +416,9 @@ html.dark:root {
 						&:hover {
 							background-color: rgb(83, 161, 214);
 							color: var(--c-bg-secondary);
+						}
+						@media screen and (max-width: 599px) {
+							padding: 8px 10px;
 						}
 					}
 					.list {
@@ -425,6 +434,9 @@ html.dark:root {
 							>div {
 								padding: 11px 24px;
 								cursor: pointer;
+								@media screen and (max-width: 599px) {
+									padding: 10px 10px;
+								}
 							}
 							&:hover {
 								background-color: rgb(83, 161, 214);
@@ -530,6 +542,7 @@ html.dark:root {
 	}
 
 	@media all and (max-width: 991px) {
-		width: 90%;
+		width: 100%;
 	}
+	
 }

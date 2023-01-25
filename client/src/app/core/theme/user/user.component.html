@@ -11,17 +11,6 @@
 					<span class="material-icons">home</span>
 				</a>
 			</li>
-			<li class="nav__li" *ngIf="us.user.is['admin']">
-				<a
-					[routerLinkActiveOptions]="{ exact: true }"
-					routerLinkActive="_activeLink"
-					routerLink="/admin/users"
-					(click)="show = false"
-					class="nav__a"
-				>
-					<span class="material-icons">people</span>
-				</a>
-			</li>
 			<li class="nav__li _burger" (click)="showDesktop = !showDesktop">
 				<a
 					class="nav__toggle"
@@ -64,14 +53,15 @@
 					/>
 					<div class="name">{{us.user.name || "Profile"}}</div>
 				</a>
-	
 				<a
-					routerLinkActive="_activeLink"
-					class="nav__burger-link"
-					routerLink="/profile"
-				>
-					<span class="material-icons">home</span>
-					<span>Home</span>
+						[routerLinkActiveOptions]="{ exact: true }"
+						routerLinkActive="_activeLink"
+						routerLink="/admin/users"
+						(click)="show = false"
+						class="nav__burger-link"
+					>
+						<span class="material-icons">people</span>
+						<span>Users</span>
 				</a>
 			</div>
 		</div>
