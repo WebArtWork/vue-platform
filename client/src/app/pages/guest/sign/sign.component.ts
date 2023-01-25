@@ -4,6 +4,8 @@ import {
 	FormModules
 } from 'src/app/modules/form/form.service';
 import { HashService, HttpService, AlertService, UiService } from 'wacom';
+import { Renderer2 } from '@angular/core';
+import { StoreService } from 'wacom';
 import { UserService } from 'src/app/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core';
@@ -25,6 +27,8 @@ interface Form {
 	styleUrls: ['./sign.component.scss']
 })
 export class SignComponent {
+	mode = '';
+
 	formConfig: FormConfig = {
 		title: 'Sign In / Sign Up',
 		components: [
@@ -66,8 +70,18 @@ export class SignComponent {
 		private hash: HashService,
 		private us: UserService,
 		private router: Router,
+		private renderer: Renderer2,
+		private store: StoreService,
 		public ui: UiService
-	) { }
+	) {
+		this.store.get('mode', (mode: string) => {
+			if (mode) {
+				this.mode = mode;
+
+				this.renderer.addClass(document.body.parentNode, mode);
+			}
+		});
+	 }
 
 	submit(form: Form): void {
 		if (!this.formConfig.components[2].hidden && form.code) {
@@ -164,5 +178,21 @@ export class SignComponent {
 		this.us.load();
 
 		this.router.navigate(['/profile']);
+	}
+
+
+
+	set(mode = ''): void {
+		if (mode) {
+			this.store.set('mode', mode);
+
+			this.renderer.addClass(document.body.parentNode, mode);
+		} else {
+			this.store.remove('mode');
+
+			this.renderer.removeClass(document.body.parentNode, 'dark');
+		}
+
+		this.mode = mode;
 	}
 }
