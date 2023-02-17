@@ -21,7 +21,6 @@
 				</a>
 			</li>
 		</ul>
-
 	</nav>
 
 	<div class="main" [class.showTable]="showDesktop">
@@ -54,18 +53,18 @@
 					<div class="name">{{us.user.name || "Profile"}}</div>
 				</a>
 				<a
-						[routerLinkActiveOptions]="{ exact: true }"
-						routerLinkActive="_activeLink"
-						routerLink="/admin/users"
-						(click)="show = false"
-						class="nav__burger-link"
-					>
-						<span class="material-icons">people</span>
-						<span>Users</span>
+					[routerLinkActiveOptions]="{ exact: true }"
+					routerLinkActive="_activeLink"
+					routerLink="/admin/users"
+					class="nav__burger-link"
+					*ngIf="us.role('admin')"
+					(click)="show = false"
+				>
+					<span class="material-icons">people</span>
+					<span>Users</span>
 				</a>
 			</div>
 		</div>
 		<router-outlet></router-outlet>
-
 	</div>
 </div>

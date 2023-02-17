@@ -22,6 +22,10 @@ export class UserService {
 
 	roles = ['admin'];
 
+	role(role: string): boolean {
+		return !!this.user.is[role];
+	}
+
 	users: User[] = [];
 
 	_users: AnyUser = {};

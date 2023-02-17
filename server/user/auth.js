@@ -81,15 +81,18 @@ module.exports = async waw => {
 	*	Initialize User and Mongoose
 	*/
 	const router = waw.router('/api/user');
-
-	router.post("/status", async (req, res) => {
-		const user = await User.findOne({
+	const findUser = async (email) => {
+		return await User.findOne({
 			$or: [{
-				reg_email: req.body.email.toLowerCase()
+				reg_email: email.toLowerCase()
 			}, {
-				email: req.body.email.toLowerCase()
+				email: email.toLowerCase()
 			}]
 		});
+	}
+
+	router.post("/status", async (req, res) => {
+		const user = await findUser(req.body.email);
 
 		const json = {};
 
@@ -104,9 +107,13 @@ module.exports = async waw => {
 
 	const new_pin = async (user, cb = ()=>{}) => {
 		user.resetPin = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+
 		console.log(user.resetPin);
+
 		user.markModified('data');
+
 		await user.save();
+
 		waw.send({
 			to: user.email,
 			subject: 'Code: ' + user.resetPin,
@@ -115,20 +122,17 @@ module.exports = async waw => {
 	}
 
 	router.post("/request", async (req, res) => {
-		const user = await User.findOne({
-			email: req.body.email.toLowerCase()
-		});
+		const user = await findUser(req.body.email);
 
 		if (user) {
 			new_pin(user);
 		}
+
 		res.json(true);
 	});
 
 	router.post("/change", async (req, res) => {
-		const user = await User.findOne({
-			email: req.body.email.toLowerCase()
-		});
+		const user = await findUser(req.body.email);
 
 		if (user && user.resetPin === req.body.pin) {
 			user.password = user.generateHash(req.body.password);
@@ -195,12 +199,7 @@ module.exports = async waw => {
 	}
 
 	router.post('/login', async (req, res) => {
-		const user = await User.findOne({
-			email: req.body.email.toLowerCase(),
-			blocked: {
-				$ne: true
-			}
-		});
+		const user = await findUser(req.body.email);
 
 		if (!user || !user.validPassword(req.body.password)) {
 			return res.json(false);
@@ -210,34 +209,25 @@ module.exports = async waw => {
 	});
 
 	router.post('/sign', async (req, res) => {
-		let user = await User.findOne({
-			email: req.body.email.toLowerCase(),
-			blocked: {
-				$ne: true
-			}
-		});
+		const userExists = await findUser(req.body.email);
 
-		if (user) {
-			return res.json(false);
+		if (userExists) {
+			res.json(false);
+		} else {
+
 		}
 
-		user = new User();
-
-		user.is = {
-			admin: false
-		};
-
-		user.email = req.body.email.toLowerCase();
-
-		user.reg_email = req.body.email.toLowerCase();
+		const user = new User({
+			reg_email: req.body.email.toLowerCase(),
+			email: req.body.email.toLowerCase(),
+			data: req.body.data || {},
+			is: {}
+		});
 
 		user.password = user.generateHash(req.body.password);
-
-		user.data = req.body.data || {};
 
 		await user.save();
 
 		res.json(clearUser(user));
 	});
-	// End of Crud
 };

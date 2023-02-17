@@ -8,10 +8,10 @@ const client = path.join(process.cwd(), 'client', 'dist', 'app');
 
 module.exports = function(waw) {
 	const seo = {
-		title: waw.config.name,
+		image: 'https://webart.work/template/img/spider.svg',
 		description: waw.config.description,
 		keywords: waw.config.keywords,
-		image: 'https://webart.work/template/img/spider.svg'
+		title: waw.config.name
 	};
 
 	waw.serve(client);
