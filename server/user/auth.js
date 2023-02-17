@@ -40,7 +40,8 @@ module.exports = async waw => {
 	if (mongoose.connection.readyState == 0) {
 		mongoose.connect(waw.mongoUrl, {
 			useUnifiedTopology: true,
-			useNewUrlParser: true
+			useNewUrlParser: true,
+			useCreateIndex: true
 		});
 
 		mongoose.Promise = global.Promise;
