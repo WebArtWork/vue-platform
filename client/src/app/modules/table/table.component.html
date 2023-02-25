@@ -1,5 +1,14 @@
 <div class="wtable">
-	<div class="users__header w-card__header" *ngIf="title">{{title}}</div>
+	<div class="users__header w-card__header" *ngIf="title">{{title}}
+		<button
+				*ngIf="config.create"
+				class="table-plus-btn"
+				(click)="config.create()"
+				type="button"
+			>
+				+ <span>Add new</span>
+			</button>
+	</div>
 	<div class="table-flex _jc-sb _ai-c">
 		<div
 			*ngIf="config.searchable"
@@ -93,7 +102,7 @@
 						(click)="config.delete(row)"
 						title="Delete"
 					>
-						delete
+						delete_outline
 					</i>
 				</td>
 			</tr>
@@ -102,15 +111,15 @@
 			class="table-footer"
 			*ngIf="config.perPage || (config.formCreate && config.create)"
 		>
-			<button
+			<!-- <button
 				*ngIf="config.create"
 				class="table-plus-btn"
 				(click)="config.create()"
 			>
 				+
-			</button>
+			</button> -->
 			<div class="item-page" *ngIf="config.perPage">
-				<div class="item-page__text">Items per page</div>
+				<div class="item-page__text">Showing items per page</div>
 				<div
 					class="item-page__dropdown"
 					(clickOutside)="select_page_size = false"

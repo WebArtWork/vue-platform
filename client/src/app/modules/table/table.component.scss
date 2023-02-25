@@ -44,17 +44,14 @@ html.dark:root {
 	background: var(--c-bg-secondary);
 	box-shadow: var(--c-shadow);
 	border-radius: 10px;
-	padding: 20px;
+	// padding: 20px;
 	padding-bottom: 70px;
-	max-width: 100%;
+	max-width: 1210px;
 	height: auto;
 	margin: 0px auto;
 	position: relative;
 	@media screen and (max-width: 599px) {
-		padding-bottom: 30px;
-		.item-page__text{
-			display: none;
-		}
+		padding-bottom: 90px;
 	}
 	.table {
 		border-collapse: collapse;
@@ -72,19 +69,37 @@ html.dark:root {
 			}
 		}
 		&-plus-btn {
-			grid-column: 1;
-			justify-self: start;
+			// grid-column: 1;
+			// justify-self: start;
 			cursor: pointer;
-			font-size: 40px;
+			font-size: 16px;
+			font-weight: 500;
 			border: 0;
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			width: 40px;
-			height: 40px;
-			border-radius: 50%;
-			background-color: #53a1d6;
-			color: var(--c-bg-secondary);
+			// width: 40px;
+			// height: 40px;
+			border-radius: 4px;
+			padding: 5px 12px;
+			background-color: transparent;
+			color: var(--c-primary);
+			border: 1px solid var(--c-primary);
+			&:hover{
+				// box-shadow: 0 0 3px 0px var(--c-primary);
+				background-color: var(--c-primary);
+				color: var(--c-bg-secondary);
+			}
+			span {
+				margin-left: 5px;
+				@media screen and (max-width: 599px) {
+					display: none;
+				}
+			}
+			@media screen and (max-width: 599px) {
+				position: absolute;
+    			right: 15px;
+			}
 		}
 		// search 
 		&-search {
@@ -162,16 +177,19 @@ html.dark:root {
 		}
 		th {
 			position: relative;
-			padding: 10px;
-			text-align: center;
-			border-right: 2px solid var(--c-border);
-			border-bottom: 0.5px solid var(--c-border);
+			padding: 0 16px;
+			height: 48px;
+			text-align: left;
+			// border-right: 2px solid var(--c-border);
+			// border-bottom: 0.5px solid var(--c-border);
 			font-weight: 500;
-			font-size: var(--fs); 
-			line-height: calc(var(--fs) + 8px);
-			letter-spacing: var(--letter-spacing);
-			text-transform: capitalize;
-			color: var(--c-text-primary);
+			font-size: calc(var(--fs) - 2px);
+			// font-size: var(--fs); 
+			// line-height: calc(var(--fs) + 8px);
+			// letter-spacing: var(--letter-spacing);
+			text-transform: uppercase;
+			color: var(--c-text-secondary);
+			border-bottom: 1px solid var(--c-border);
 			overflow: hidden;
 			text-overflow: ellipsis;
 			.icon-arrow {
@@ -195,31 +213,35 @@ html.dark:root {
 					opacity: 1;
 				}
 			}
-			@media all and (max-width: 991px) {
+			@media all and (max-width: 991.9px) {
 				display: none;
 				text-align: left;
 			}
 			&:last-child {
-				width: 160px;
+				width: 140px;
 			}
 		}
 		td {
 			cursor: pointer;
-			padding: 10px;
-			text-align: center;
+			padding: 0 16px;
+			height: 60px;
+			text-align: left;
 			vertical-align: middle;
-			border-right: 2px solid var(--c-border);
-			border-bottom: 2px dashed var(--c-border);
+			// border-right: 2px solid var(--c-border);
+			// border-bottom: 2px dashed var(--c-border);
 			font-size: calc(var(--fs) - 2px);
-			line-height: calc(var(--fs) + 8px);
-			letter-spacing: var(--letter-spacing);
-			color: var(--c-text-primary);
+			// line-height: calc(var(--fs) + 8px);
+			// letter-spacing: var(--letter-spacing);
+			// color: var(--c-text-primary);
 			word-break: break-word;
 			display: table-cell;
-			@media all and (max-width: 991px) {
-				display: block;
-				text-align: left;
-				border: 2px solid var(--c-border);
+			border-bottom: 1px solid var(--c-border);
+			@media all and (max-width: 991.9px) {
+				display: flex;
+				align-items: center;
+				column-gap: 5px;
+				border-bottom: 0;
+				// border: 2px solid var(--c-border);
 			}
 			&:before {
 				content: attr(data-label);
@@ -237,26 +259,26 @@ html.dark:root {
 			}
 		}
 		tr {
-			&:last-child {
-				td {
-					border-bottom: none;
-					@media (max-width: 992px) {
-						border-bottom: 2px solid var(--c-border);
-					}
-				}
-			}
+			// &:last-child {
+			// 	td {
+			// 		border-bottom: none;
+			// 		@media (max-width: 991.9px) {
+			// 			border-bottom: 2px solid var(--c-border);
+			// 		}
+			// 	}
+			// }
 			td {
 				&:last-child {
 					border-right: none;
-					@media (max-width: 992px) {
-						border-right: 2px solid var(--c-border);
-					}
+					// @media (max-width: 992px) {
+					// 	border-right: 2px solid var(--c-border);
+					// }
 				}
-				&:first-child {
-					@media (max-width: 992px) {
-						margin-top: 30px;
-					}
-				}
+				// &:first-child {
+				// 	@media (max-width: 992px) {
+				// 		margin-top: 20px;
+				// 	}
+				// }
 			}
 			th {
 				&:last-child {
@@ -267,37 +289,39 @@ html.dark:root {
 
 		.table-body {
 			&__last-td {
-				margin-bottom: 30px;
+				@media (max-width: 991.9px) {
+					margin-bottom: 20px;
+					border-bottom: 3px solid var(--c-border);
+				}
+				
 				& i + i {
 					margin-left: 15px;
+				}
+				i {
+					font-size: 22px;
+					width: 22px;
+					&:hover {
+						color: var(--c-primary);
+					}
 				}
 			}
 		}
 		&-footer {
 			height: 65px;
-			display: grid;
-			grid-template-columns: repeat(12, 1fr);
-			gap: 10px;
+			display: flex;
+			// grid-template-columns: repeat(12, 1fr);
+			// gap: 10px;
 			position: absolute;
 			width: 100%;
 			left: 0;
 			bottom: 0;
-			padding: 0 20px;
+			padding: 0 8px 0 15px;
 			align-items: center;
+			justify-content: space-between;
 			@media screen and (max-width: 599px) {
-				height: 80px;
+				height: 90px;
 				padding: 10px 20px;
 				flex-direction: column;
-				position: static;
-				display: flex;
-				.table-plus-btn{
-					position: absolute;
-					top: 9px;
-					font-size: 32px;
-					left: 25px;
-					width: 30px;
-					height: 30px;
-				}
 			}
 			&__pagination {
 				grid-column: 12;
@@ -326,7 +350,7 @@ html.dark:root {
 						position: absolute;
 						width: 2px;
 						height: 90%;
-						background-color: #334d6e;
+						background-color: var(--c-primary);
 						top: 8%;
 					}
 					&::after {
@@ -336,8 +360,8 @@ html.dark:root {
 						position: absolute;
 						width: 10px;
 						height: 10px;
-						border-bottom: 2px solid #334d6e;
-						border-right: 2px solid #334d6e;
+						border-bottom: 2px solid var(--c-primary);
+						border-right: 2px solid var(--c-primary);
 						transform: rotate(135deg);
 						left: 2px;
 						top: 2px
@@ -403,22 +427,17 @@ html.dark:root {
 				&__dropdown {
 					position: relative;
 					margin: 0 10px;
-					color: #334d6e;
+					// color: #334d6e;
 					font-weight: bold;
-					@media screen and (max-width: 599px) {
-						margin: 0 10px 0 0;
-					}
 					.caption {
-						background-color: #f2f2f2;
+						background-color: transparent;
 						padding: 11px 24px;
-						border-radius: 3px;
+						border-radius: 4px;
+						border:1px solid #555;
 						cursor: pointer;
 						&:hover {
 							background-color: rgb(83, 161, 214);
 							color: var(--c-bg-secondary);
-						}
-						@media screen and (max-width: 599px) {
-							padding: 8px 10px;
 						}
 					}
 					.list {
@@ -427,16 +446,14 @@ html.dark:root {
 						width: 100%;
 						bottom: 100%;
 						flex-direction: column;
-						border-radius: 0 0 3px 3px;
+						border-radius: 4px 4px 0 0;
 						display: none;
 						z-index: 999;
 						.item {
 							>div {
-								padding: 11px 24px;
+								padding: 11px 20px;
 								cursor: pointer;
-								@media screen and (max-width: 599px) {
-									padding: 10px 10px;
-								}
+								text-align: center;
 							}
 							&:hover {
 								background-color: rgb(83, 161, 214);
@@ -449,18 +466,20 @@ html.dark:root {
 					}
 					&.open {
 						.caption {
-							border-radius: 0 0 3px 3px;
-							border-top: solid 1px #9f9f9f;
+							border-radius: 0 0 4px 4px;
+							// border-top: solid 1px #9f9f9f;
 						}
 						.list {
 							display: flex;
 							flex-direction: column-reverse;
+							border: 1px solid #555;
+    						border-bottom: 0;
 						}
 					}
 				}
-				&__result {
-					// margin-right: 20px;
-				}
+				// &__result {
+				// 	margin-right: 20px;
+				// }
 			}
 		}
 	}
@@ -541,8 +560,17 @@ html.dark:root {
 		}
 	}
 
-	@media all and (max-width: 991px) {
+	@media all and (max-width: 991.9px) {
 		width: 100%;
+		border-radius: 0;
 	}
-	
 }
+
+.modal-table .wtable {
+	border: 1px solid var(--c-border);
+	border-radius: 4px;
+	background: transparent;
+}
+
+
+
