@@ -1,6 +1,13 @@
 .w-forms {
   position: relative;
   margin: 0;
+  form-component{
+    margin-bottom: 20px;
+    display: block;
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
   &__title {
     display: block;
     font-size: var(--fs)8px;

@@ -1,0 +1,29 @@
+<wform
+	#formRef
+	[config]="form"
+	[submition]="submition"
+	(wSubmit)="submit($event); close()"
+	(wChange)="change($event)"
+></wform>
+
+<!-- <div *ngIf="!buttonRef"> -->
+<div>
+	<button
+		(click)="button.click(formRef._values(), close)"
+		*ngFor="let button of buttons"
+		[ngClass]="button.class"
+	>
+		{{button.label}}
+	</button>
+</div>
+
+<!-- <div *ngIf="buttonRef">
+	<app-modal-form-button
+		(clicked)="button.click(formRef._values(), close)"
+		*ngFor="let button of buttons"
+		[ngClass]="button.class"
+		[buttonRef]="buttonRef"
+		[button]="button"
+	>
+	</app-modal-form-button>
+</div> -->

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/core';
-import { InputTypes } from 'src/app/modules/input/input.interface';
 import { UserService } from 'src/app/core';
-import { FormConfig, FormModules, FormService } from 'src/app/modules/form/form.service';
-import { ButtonTypes } from 'src/app/modules/button/button.interface';
+import { FormService } from 'src/app/modules/form/form.service';
+import { FormInterface } from 'src/app/modules/form/interfaces/form.interface';
+import { AlertService, CoreService } from 'wacom';
 
 @Component({
 	selector: 'app-users',
@@ -11,77 +11,40 @@ import { ButtonTypes } from 'src/app/modules/button/button.interface';
 	styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
-	readonly inputTypes = InputTypes;
-
-	formCreate: FormConfig = {
-		title: 'Create New User',
-		components: [
-			{
-				module: FormModules.INPUT,
-				type: InputTypes.EMAIL,
-				placeholder: 'fill email',
-				label: 'E-mail',
-				input: 'email',
-				focused: true
-			},
-			{
-				module: FormModules.INPUT,
-				placeholder: 'fill name',
-				label: 'Name',
-				input: 'name'
-			},
-			{
-				module: FormModules.BUTTON,
-				type: ButtonTypes.PRIMARY,
-				label: 'Create'
-			}
-		]
-	};
-
-	formUpdate: FormConfig = {
-		title: 'Update User',
-		components: [
-			{
-				module: FormModules.INPUT,
-				placeholder: 'fill name',
-				label: 'Name',
-				input: 'name'
-			},
-			{
-				module: FormModules.BUTTON,
-				type: ButtonTypes.PRIMARY,
-				label: 'Update'
-			}
-		]
-	};
-
-	formVerify: FormConfig = {
-		title: 'Are you sure you want to delete this user?',
-		components: [
-			{
-				module: FormModules.BUTTON,
-				type: ButtonTypes.PRIMARY,
-				label: 'Yes'
-			}
-		]
-	};
+	form: FormInterface = this._form.getForm('user');
 
 	config = {
-		create: ()=>{
-			this._form.modal(this.formCreate, (user: User) => {
-				this.us.create(user);
+		create: () => {
+			this._form
+				.modal<User>(this.form, {
+					label: 'Create',
+					click: (created: unknown, close: () => void) => {
+						this.us.create(created as User);
+						close();
+					}
+				})
+				.then(this.us.create.bind(this));
+		},
+		update: (doc: User) => {
+			this._form.modal<User>(this.form, [], doc).then((updated: User) => {
+				this._core.copy(updated, doc);
+				this.us.save(doc);
 			});
 		},
-		update: (user: User)=>{
-			this.formUpdate.components[0].set = user.name;
-			this._form.modal(this.formUpdate, (data: User) => {
-				user.name = data.name;
-				this.us.save(user);
-			});
-		},
-		delete: (user: User)=>{
-			this._form.modal(this.formVerify, () => {
-				this.us.delete(user);
+		delete: (user: User) => {
+			this._alert.question({
+				text: 'Are you sure you want to delete this user?',
+				buttons: [
+					{
+						text: 'No'
+					},
+					{
+						text: 'Yes',
+						callback: () => {
+							this.us.delete(user);
+						}
+					}
+				]
 			});
 		}
 	};
@@ -90,7 +53,9 @@ export class UsersComponent {
 
 	constructor(
 		private _form: FormService,
-		public us: UserService
+		public us: UserService,
+		private _alert: AlertService,
+		private _core: CoreService
 	) {
 		for (const role of this.us.roles) {
 			this.columns.push(role);

@@ -1,6 +1,6 @@
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Renderer2 } from '@angular/core';
 // Core
 import { GuestComponent } from './core/theme/guest/guest.component';
 import { UserComponent } from './core/theme/user/user.component';
@@ -8,6 +8,7 @@ import { AuthenticatedGuard, GuestGuard, AdminsGuard } from 'src/app/core';
 import { AppComponent } from './app.component';
 import { CoreModule } from 'src/app/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 // config
 import { WacomModule, MetaGuard } from 'wacom';
 import { environment } from 'src/environments/environment';
@@ -22,7 +23,8 @@ const routes: Routes = [
 		path: '',
 		canActivate: [GuestGuard],
 		component: GuestComponent,
-		children: [/* guest */
+		children: [
+			/* guest */
 			{
 				path: 'sign',
 				canActivate: [MetaGuard],
@@ -42,7 +44,8 @@ const routes: Routes = [
 		path: '',
 		canActivate: [AuthenticatedGuard],
 		component: UserComponent,
-		children: [/* user */
+		children: [
+			/* user */
 			{
 				path: 'profile',
 				canActivate: [MetaGuard],
@@ -62,7 +65,8 @@ const routes: Routes = [
 		path: 'admin',
 		canActivate: [AdminsGuard],
 		component: UserComponent,
-		children: [/* admin */
+		children: [
+			/* admin */
 			{
 				path: 'users',
 				canActivate: [MetaGuard],
@@ -74,6 +78,19 @@ const routes: Routes = [
 				loadChildren: () =>
 					import('./pages/admin/users/users.module').then(
 						(m) => m.UsersModule
+					)
+			},
+			{
+				path: 'forms',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Forms'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/form/pages/forms/forms.module').then(
+						(m) => m.FormsModule
 					)
 			}
 		]
@@ -90,10 +107,10 @@ const routes: Routes = [
 	imports: [
 		CoreModule,
 		BrowserModule,
+		ReactiveFormsModule,
 		BrowserAnimationsModule,
 		WacomModule.forRoot({
-			store: {
-			},
+			store: {},
 			http: {
 				url: environment.url
 			},
@@ -107,7 +124,8 @@ const routes: Routes = [
 				}
 			},
 			modal: {
-				modals: {/* modals */
+				modals: {
+					/* modals */
 				}
 			}
 		}),

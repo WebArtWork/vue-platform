@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WacomModule } from 'wacom';
@@ -8,6 +8,7 @@ import { CardModule } from 'src/app/modules/card/card.module';
 import { FormModule } from 'src/app/modules/form/form.module';
 import { TableModule } from '../modules/table/table.module';
 import { UserComponent } from './selectors/user/user.component';
+import { IconModule } from '../modules/icon/icon.module';
 
 @NgModule({
 	declarations: [UserComponent],
@@ -19,8 +20,10 @@ import { UserComponent } from './selectors/user/user.component';
 		InputModule,
 		CardModule,
 		FormModule,
-		TableModule
+		TableModule,
+		IconModule
 	],
-	imports: [CommonModule, FormsModule, WacomModule]
+	imports: [CommonModule, FormsModule, WacomModule],
+	providers: []
 })
 export class CoreModule {}

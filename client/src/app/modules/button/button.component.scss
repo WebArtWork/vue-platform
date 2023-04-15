@@ -2,33 +2,24 @@
     font-size: var(--fs);
     font-weight: 500;
     font-family: var(--ff-base);
-    background-color: var(--c-primary);
-    border-radius: var(--b-radius);
+    background-color: var(--c-blue);
+    border-radius: var(--b-radius-btn);
     transition: var(--transition);
-    // color: var(--c-white);
+    color: var(--c-white);
 	position: relative;
-    padding: 8px 15px;
+    padding: 11px 25px;
 	line-height: 19px;
     text-align: center;
     white-space: nowrap;
     user-select: none;
+    width: 100%;
     border: none;
     cursor: pointer;
-    // =============
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    // TODO LORDIK. I put these styles in order to align the material log out icon with the inscription: "log out". For some reason they were not aligned.
-
-    margin: 0 auto;
-    width: 100%;
-    // TODO LORDIK. I had to put these properties in order to match the style of the primary btn on the sign-in page (Arsen)
-
+    margin: 5px;
     &._primary {
-        background-color: var(--c-primary);
+        background-color: var(--c-blue);
         &:hover {
-            // background-color: var(--c-primary-hover);
-            box-shadow: var(--c-long-shadow);
+            background-color: var(--c-primary-hover);
         }
     }
     &._second {
@@ -49,7 +40,7 @@
 		font-size: 14px;
 		font-weight: 400;
 		&:hover {
-			color: var(--c-primary);
+			color: var(--c-text-secondary);
 		}
 	}
     &:disabled {

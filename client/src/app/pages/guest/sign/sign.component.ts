@@ -1,21 +1,16 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import {
-	FormConfig,
-	FormModules
-} from 'src/app/modules/form/form.service';
 import { HashService, HttpService, AlertService, UiService } from 'wacom';
-import { Renderer2 } from '@angular/core';
-import { StoreService } from 'wacom';
 import { UserService } from 'src/app/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core';
-import { InputTypes } from 'src/app/modules/input/input.interface';
-import { ButtonTypes } from 'src/app/modules/button/button.interface';
+import { FormInterface } from 'src/app/modules/form/interfaces/form.interface';
+import { FormService } from 'src/app/modules/form/form.service';
 
 interface RespStatus {
 	email: string;
 	pass: string;
 }
+
 interface Form {
 	email: string;
 	password: string;
@@ -27,69 +22,32 @@ interface Form {
 	styleUrls: ['./sign.component.scss']
 })
 export class SignComponent {
-	mode = '';
+	form: FormInterface = this._form.getForm('sign');
 
-	formConfig: FormConfig = {
-		title: 'Sign In / Sign Up',
-		components: [
-			{
-				set: 'ceo@webart.work',
-				module: FormModules.INPUT,
-				type: InputTypes.EMAIL,
-				placeholder: 'fill your email',
-				label: 'E-mail',
-				input: 'email',
-				focused: true
-			},
-			{
-				set: 'asdasdasdasd',
-				module: FormModules.INPUT,
-				type: InputTypes.PASSWORD,
-				placeholder: 'fill your password',
-				label: 'Password',
-				input: 'password'
-			},
-			{
-				module: FormModules.INPUT,
-				placeholder: 'fill code from email',
-				hidden: true,
-				label: 'Code',
-				input: 'code'
-			},
-			{
-				module: FormModules.BUTTON,
-				type: ButtonTypes.PRIMARY,
-				label: "Let's go"
-			}
-		]
+	user = {
+		email: 'ceo@webart.work',
+		password: 'asdasdasdasd'
 	};
 
 	constructor(
-		private alert: AlertService,
-		private http: HttpService,
-		private hash: HashService,
-		private us: UserService,
-		private router: Router,
-		private renderer: Renderer2,
-		private store: StoreService,
-		public ui: UiService
+		public us: UserService,
+		public ui: UiService,
+		private _alert: AlertService,
+		private _http: HttpService,
+		private _hash: HashService,
+		private _router: Router,
+		private _form: FormService
 	) {
-		this.store.get('mode', (mode: string) => {
-			if (mode) {
-				this.mode = mode;
-
-				this.renderer.addClass(document.body.parentNode, mode);
-			}
-		});
-	 }
+		console.log(this.form);
+	}
 
 	submit(form: Form): void {
-		if (!this.formConfig.components[2].hidden && form.code) {
+		if (!this.form.components[2].hidden && form.code) {
 			return this.save();
 		}
 
 		if (!form.email) {
-			this.alert.error({
+			this._alert.error({
 				text: 'Enter your email'
 			});
 
@@ -98,7 +56,7 @@ export class SignComponent {
 		}
 
 		if (!this.ui.valid(form.email)) {
-			this.alert.error({
+			this._alert.error({
 				text: 'Enter proper email'
 			});
 
@@ -106,10 +64,10 @@ export class SignComponent {
 			//return this.email_focus();
 		}
 
-		this.hash.set('email', form.email);
+		this._hash.set('email', form.email);
 
 		if (!form.password) {
-			this.alert.error({
+			this._alert.error({
 				text: 'Enter your password'
 			});
 
@@ -117,7 +75,7 @@ export class SignComponent {
 			// return this.password_focus();
 		}
 
-		this.http.post('/api/user/status', form, (resp: RespStatus) => {
+		this._http.post('/api/user/status', form, (resp: RespStatus) => {
 			if (resp.email && resp.pass) {
 				this.login(form);
 			} else if (resp.email) {
@@ -129,31 +87,31 @@ export class SignComponent {
 	}
 
 	login(user: Form): void {
-		this.http.post('/api/user/login', user, this._set.bind(this));
+		this._http.post('/api/user/login', user, this._set.bind(this));
 	}
 
 	sign(user: Form): void {
-		this.http.post('/api/user/sign', user, this._set.bind(this));
+		this._http.post('/api/user/sign', user, this._set.bind(this));
 	}
 
 	reset(user: Form): void {
-		this.http.post('/api/user/request', user, () => {
-			this.formConfig.components[2].hidden = false;
+		this._http.post('/api/user/request', user, () => {
+			this.form.components[2].hidden = false;
 		});
 
-		this.alert.info({
+		this._alert.info({
 			text: 'Mail will sent to your email'
 		});
 	}
 
 	save(): void {
-		// this.http.post('/api/user/change', this.user, (resp: boolean) => {
+		// this._http.post('/api/user/change', this.user, (resp: boolean) => {
 		// 	if (resp) {
-		// 		this.alert.info({
+		// 		this._alert.info({
 		// 			text: 'Password successfully changed'
 		// 		});
 		// 	} else {
-		// 		this.alert.error({
+		// 		this._alert.error({
 		// 			text: 'Wrong Code'
 		// 		});
 		// 	}
@@ -164,35 +122,19 @@ export class SignComponent {
 
 	private _set = (user: User): void => {
 		if (!user) {
-			return this.alert.error({
+			return this._alert.error({
 				text: 'Something went wrong'
 			});
 		}
 
 		localStorage.setItem('waw_user', JSON.stringify(user));
 
-		this.http.set('token', user.token);
+		this._http.set('token', user.token);
 
 		this.us.user = user;
 
 		this.us.load();
 
-		this.router.navigate(['/profile']);
-	}
-
-
-
-	set(mode = ''): void {
-		if (mode) {
-			this.store.set('mode', mode);
-
-			this.renderer.addClass(document.body.parentNode, mode);
-		} else {
-			this.store.remove('mode');
-
-			this.renderer.removeClass(document.body.parentNode, 'dark');
-		}
-
-		this.mode = mode;
+		this._router.navigate(['/profile']);
 	}
 }

@@ -1,13 +1,14 @@
 <div class="wtable">
-	<div class="users__header w-card__header" *ngIf="title">{{title}}
+	<div class="users__header w-card__header" *ngIf="title">
+		{{title}}
 		<button
-				*ngIf="config.create"
-				class="table-plus-btn"
-				(click)="config.create()"
-				type="button"
-			>
-				+ <span>Add new</span>
-			</button>
+			*ngIf="config.create"
+			class="table-plus-btn"
+			(click)="config.create()"
+			type="button"
+		>
+			+ <span>Add new</span>
+		</button>
 	</div>
 	<div class="table-flex _jc-sb _ai-c">
 		<div

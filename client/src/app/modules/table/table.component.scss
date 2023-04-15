@@ -46,7 +46,7 @@ html.dark:root {
 	border-radius: 10px;
 	// padding: 20px;
 	padding-bottom: 70px;
-	max-width: 1210px;
+	max-width: 100%;
 	height: auto;
 	margin: 0px auto;
 	position: relative;
@@ -83,11 +83,11 @@ html.dark:root {
 			border-radius: 4px;
 			padding: 5px 12px;
 			background-color: transparent;
-			color: var(--c-primary);
-			border: 1px solid var(--c-primary);
+			color: var(--c-blue);
+			border: 1px solid var(--c-blue);
 			&:hover{
 				// box-shadow: 0 0 3px 0px var(--c-primary);
-				background-color: var(--c-primary);
+				background-color: var(--c-blue);
 				color: var(--c-bg-secondary);
 			}
 			span {
@@ -350,7 +350,7 @@ html.dark:root {
 						position: absolute;
 						width: 2px;
 						height: 90%;
-						background-color: var(--c-primary);
+						background-color: var(--c-blue);
 						top: 8%;
 					}
 					&::after {
@@ -360,8 +360,8 @@ html.dark:root {
 						position: absolute;
 						width: 10px;
 						height: 10px;
-						border-bottom: 2px solid var(--c-primary);
-						border-right: 2px solid var(--c-primary);
+						border-bottom: 2px solid var(--c-blue);
+						border-right: 2px solid var(--c-blue);
 						transform: rotate(135deg);
 						left: 2px;
 						top: 2px
@@ -566,11 +566,32 @@ html.dark:root {
 	}
 }
 
+.users__header{
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    font-weight: 900;
+	button{
+		transition: all .3s;
+	}
+}
+
 .modal-table .wtable {
 	border: 1px solid var(--c-border);
 	border-radius: 4px;
 	background: transparent;
 }
 
-
+@media screen and (max-width: 479px) {
+	.item-page__text{
+		display: none;
+	}
+	.wtable .table-footer .item-page__dropdown{
+		margin: 0 10px 0 0;
+	}
+	.wtable .table-footer .item-page__dropdown .caption{
+		padding: 6px 12px;
+	}
+}
 

@@ -14,6 +14,20 @@
 					<label class="avatar__upload" for="userAvatarUrl">
 						<i class="material-icons avatar__icon">edit</i>
 					</label>
+					<span
+						class="material-icons"
+						*ngIf="!us.mode"
+						(click)="us.set('dark')"
+					>
+						dark_mode
+					</span>
+					<span
+						class="material-icons"
+						*ngIf="us.mode"
+						(click)="us.set()"
+					>
+						light_mode
+					</span>
 				</div>
 			</div>
 		</div>
@@ -21,23 +35,19 @@
 			<wform
 				(wChange)="update($event)"
 				[config]="formProfile"
-				*ngIf="showForm"
-				#form
+				[submition]="user"
 			></wform>
 
 			<div class="profile__footer">
 				<div class="profile__logout">
-					<wbutton (click)="us.logout()" [type]="buttonTypes.DANGER">
+					<wbutton (click)="us.logout()" type="danger">
 						<span class="material-icons">logout</span>
 						Logout
 					</wbutton>
 				</div>
 
 				<div class="profile__password">
-					<wbutton
-						(click)="change_password()"
-						[type]="buttonTypes.LINK"
-					>
+					<wbutton (click)="change_password()" type="link">
 						Change Password
 					</wbutton>
 				</div>
