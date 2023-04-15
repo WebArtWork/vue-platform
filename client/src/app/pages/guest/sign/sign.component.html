@@ -25,7 +25,12 @@
 				<span class="material-icons" *ngIf="us.mode" (click)="us.set()">
 					light_mode
 				</span>
-				<wform [config]="form" (wSubmit)="submit($event)"> </wform>
+				<wform
+					[config]="form"
+					[submition]="user"
+					(wSubmit)="submit($event)"
+				>
+				</wform>
 			</div>
 		</div>
 	</div>

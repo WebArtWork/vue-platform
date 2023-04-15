@@ -19,14 +19,22 @@ export class ProfileComponent {
 		private _form: FormService,
 		private _core: CoreService,
 		public us: UserService
-	) {}
+	) {
+		this._core.next('us.user', () => {
+			const user = {};
+
+			this._core.copy(this.us.user, user);
+
+			console.log(user, this.us.user);
+
+			this.user = user;
+		});
+	}
 
 	// Update user profile
 	formProfile: FormInterface = this._form.getForm('profile');
 
-	get user(): Record<string, unknown> {
-		return (this.us.user as unknown as Record<string, unknown>);
-	}
+	user: Record<string, unknown>;
 
 	update(submition: User): void {
 		this._core.copy(submition, this.us.user);

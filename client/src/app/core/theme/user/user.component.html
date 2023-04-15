@@ -30,12 +30,16 @@
 				<div class="theme-switch">
 					<span
 						class="material-icons"
-						*ngIf="!mode"
-						(click)="set('dark')"
+						*ngIf="!us.mode"
+						(click)="us.set('dark')"
 					>
 						dark_mode
 					</span>
-					<span class="material-icons" *ngIf="mode" (click)="set()">
+					<span
+						class="material-icons"
+						*ngIf="us.mode"
+						(click)="us.set()"
+					>
 						light_mode
 					</span>
 				</div>

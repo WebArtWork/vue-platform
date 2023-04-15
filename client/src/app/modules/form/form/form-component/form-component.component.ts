@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormComponentInterface } from '../../interfaces/component.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormService } from '../../form.service';
@@ -48,7 +48,11 @@ export class FormComponentComponent implements OnInit {
 		}
 
 		if (this.component.key && this.submition !== undefined) {
-			data.value = this.submition[this.component.key];
+			if (this.component.root && this.submition['data']) {
+				data.value = (this.submition['data'] as Record<string, unknown>)[this.component.key];
+			} else {
+				data.value = this.submition[this.component.key];
+			}
 		}
 
 		if (this.component.key && !this.control) {
