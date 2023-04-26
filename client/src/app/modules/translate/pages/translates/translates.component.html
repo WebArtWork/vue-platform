@@ -4,7 +4,7 @@
 			<div class="translate__inner">
 				<label class="formboxs" for="">
 					<div class="formboxs_title" translate>
-						Menu.Select language
+						Common.Select language
 					</div>
 					<select
 						[(ngModel)]="lang"
@@ -18,13 +18,15 @@
 					</select>
 				</label>
 				<label class="formboxs" for="">
-					<div class="formboxs_title" translate>Menu.Select page</div>
+					<div class="formboxs_title" translate>
+						Common.Select page
+					</div>
 					<select
 						[(ngModel)]="page"
 						class="translate__select"
 						placeholder="Translate"
 					>
-						<option [value]="''" translate>Menu.All</option>
+						<option [value]="''" translate>Common.All</option>
 						<option *ngFor="let p of ts.pages" [value]="p">
 							{{p}}
 						</option>
@@ -36,7 +38,7 @@
 				(click)="ts.download_json()"
 				translate
 			>
-				Menu.Download JSON
+				Common.Download JSON
 			</button>
 		</div>
 		<div class="main__sub-inner translate__main-wrap">

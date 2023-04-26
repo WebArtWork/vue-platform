@@ -3,6 +3,7 @@ import { User } from 'src/app/core/interfaces/user';
 import { UserService } from 'src/app/core/services/user.service';
 import { FormService } from 'src/app/modules/form/form.service';
 import { FormInterface } from 'src/app/modules/form/interfaces/form.interface';
+import { TranslateService } from 'src/app/modules/translate/translate.service';
 import { AlertService, CoreService } from 'wacom';
 
 @Component({
@@ -33,13 +34,13 @@ export class UsersComponent {
 		},
 		delete: (user: User) => {
 			this._alert.question({
-				text: 'Are you sure you want to delete this user?',
+				text: this._translate.translate('Users.Are you sure you want to delete this user?'),
 				buttons: [
 					{
-						text: 'No'
+						text: this._translate.translate('Common.No')
 					},
 					{
-						text: 'Yes',
+						text: this._translate.translate('Common.Yes'),
 						callback: () => {
 							this.us.delete(user);
 						}
@@ -55,7 +56,8 @@ export class UsersComponent {
 		private _form: FormService,
 		public us: UserService,
 		private _alert: AlertService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _translate: TranslateService
 	) {
 		for (const role of this.us.roles) {
 			this.columns.push(role);
