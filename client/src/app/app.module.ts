@@ -4,14 +4,16 @@ import { NgModule, Renderer2 } from '@angular/core';
 // Core
 import { GuestComponent } from './core/theme/guest/guest.component';
 import { UserComponent } from './core/theme/user/user.component';
-import { AuthenticatedGuard, GuestGuard, AdminsGuard } from 'src/app/core';
 import { AppComponent } from './app.component';
-import { CoreModule } from 'src/app/core';
+import { CoreModule } from 'src/app/core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 // config
 import { WacomModule, MetaGuard } from 'wacom';
 import { environment } from 'src/environments/environment';
+import { AuthenticatedGuard } from './core/guards/authenticated.guard';
+import { GuestGuard } from './core/guards/guest.guard';
+import { AdminsGuard } from './core/guards/admins.guard';
 
 const routes: Routes = [
 	{
@@ -91,6 +93,19 @@ const routes: Routes = [
 				loadChildren: () =>
 					import('./modules/form/pages/forms/forms.module').then(
 						(m) => m.FormsModule
+					)
+			},
+			{
+				path: 'translates',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Translates'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/translate/pages/translates/translates.module').then(
+						(m) => m.TranslatesModule
 					)
 			}
 		]

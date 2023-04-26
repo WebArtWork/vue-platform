@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { User } from 'src/app/core';
-import { UserService } from 'src/app/core';
+import { User } from 'src/app/core/interfaces/user';
+import { UserService } from 'src/app/core/services/user.service';
 import { FormService } from 'src/app/modules/form/form.service';
 import { FormInterface } from 'src/app/modules/form/interfaces/form.interface';
 import { AlertService, CoreService } from 'wacom';

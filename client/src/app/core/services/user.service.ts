@@ -9,7 +9,7 @@ import {
 } from 'wacom';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/core';
+import { User } from '../interfaces/user';
 
 interface AnyUser {
 	[key: string]: User;

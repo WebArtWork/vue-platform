@@ -9,10 +9,12 @@ import { FormModule } from 'src/app/modules/form/form.module';
 import { TableModule } from '../modules/table/table.module';
 import { UserComponent } from './selectors/user/user.component';
 import { IconModule } from '../modules/icon/icon.module';
+import { TranslateModule } from '../modules/translate/translate.module';
 
 @NgModule({
 	declarations: [UserComponent],
 	exports: [ /* exports */
+		TranslateModule,
 		CommonModule,
 		FormsModule,
 		WacomModule,

@@ -1,5 +1,6 @@
 import { Component, TemplateRef, OnInit, ViewChild } from '@angular/core';
 import { FormService } from './modules/form/form.service';
+import { TranslateService } from './modules/translate/translate.service';
 
 @Component({
 	selector: 'app-root',
@@ -54,7 +55,12 @@ export class AppComponent implements OnInit {
 		this._form.inited = true;
 	}
 
-	constructor(private _form: FormService) {
+	constructor(
+		private _form: FormService,
+		private _translate: TranslateService
+	) {
+		this._form.setTranslate(this._translate.translate);
+
 		this._form.addForm({
 			formId: 'sign',
 			title: 'Sign In / Sign Up',
@@ -157,7 +163,7 @@ export class AppComponent implements OnInit {
 					fields: [
 						{
 							name: 'Label',
-							value: "Change"
+							value: 'Change'
 						}
 					]
 				}

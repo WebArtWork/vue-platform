@@ -39,6 +39,12 @@ export class FormService {
 		});
 	}
 
+	private _translate: (slug: string, reset?: (translate: string) => void) => void;
+
+	setTranslate(_translate: (slug: string, reset?: (translate: string) => void) => void) {
+		this._translate = _translate;
+	}
+
 	components: TemplateComponentInterface[] = [];
 
 	addComponent(component: TemplateComponentInterface) {
@@ -313,14 +319,4 @@ export class FormService {
 			if (text) this._alert.show({ text });
 		});
 	}
-}
-
-// deprecated
-@Directive({
-	selector: 'ng-template[formcomponent]'
-})
-export class FormComponentDirective {
-	@Input() formcomponent: any;
-
-	constructor(public template: TemplateRef<any>) {}
 }

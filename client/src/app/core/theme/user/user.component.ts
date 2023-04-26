@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { coreAnimation } from 'src/app/core';
-import { UserService } from 'src/app/core';
+import { coreAnimation } from '../../animations/core.animations';
+import { UserService } from '../../services/user.service';
 
 @Component({
 	selector: 'app-user',
