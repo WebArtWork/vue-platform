@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
 		private _form: FormService,
 		private _translate: TranslateService
 	) {
-		this._form.setTranslate(this._translate.translate);
+		this._form.setTranslate(this._translate.translate.bind(this._translate));
 
 		this._form.addForm({
 			formId: 'sign',

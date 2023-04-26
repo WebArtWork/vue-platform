@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { AlertService, ModalService, MongoService, StoreService } from 'wacom';
 import {
 	FormComponentInterface,
-	TemplateComponentInterface
+	TemplateComponentInterface,
+	TemplateFieldInterface
 } from './interfaces/component.interface';
 import { FormInterface } from './interfaces/form.interface';
 import { ModalFormComponent } from './modals/modal-form/modal-form.component';
@@ -39,10 +40,36 @@ export class FormService {
 		});
 	}
 
-	private _translate: (slug: string, reset?: (translate: string) => void) => void;
+	private _translate: (slug: string, reset?: (translate: string) => void) => string;
 
-	setTranslate(_translate: (slug: string, reset?: (translate: string) => void) => void) {
+	setTranslate(_translate: (slug: string, reset?: (translate: string) => void) => string) {
 		this._translate = _translate;
+	}
+
+	translateForm(form: FormInterface) {
+		if (!!this._translate) {
+			if (form.title) {
+				form.title = this._translate(`Form_${form.formId}.${form.title}`, (title: string) => {
+					form.title = title;
+				});
+
+				for (const component of form.components) {
+					for (const field of component.fields) {
+						this.translateFormComponent(form, field);
+					}
+				}
+			}
+		}
+	}
+
+	translateFormComponent(form: FormInterface, field: TemplateFieldInterface) {
+		field.name = this._translate(`Form_${form.formId}.${field.name}`, (name: string) => {
+			field.name = name;
+		});
+
+		field.value = this._translate(`Form_${form.formId}.${field.value}`, (value: string) => {
+			field.value = value;
+		});
 	}
 
 	components: TemplateComponentInterface[] = [];
@@ -206,9 +233,13 @@ export class FormService {
 			(f) => f.formId === formId && f.active
 		);
 
-		const form = this.forms.find((f) => f.formId === formId);
+		const _form = this.forms.find((f) => f.formId === formId);
 
-		return customForm || form || this.getDefaultForm(formId);
+		const form = customForm || _form || this.getDefaultForm(formId);
+
+		this.translateForm(form);
+
+		return form;
 	}
 
 	modal<T>(

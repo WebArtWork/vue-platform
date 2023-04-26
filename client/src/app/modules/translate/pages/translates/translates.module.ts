@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslatesComponent } from './translates.component';
 import { WacomModule } from 'wacom';
+import { TranslateModule } from '../../translate.module';
 
 const routes: Routes = [
 	{
@@ -15,6 +16,7 @@ const routes: Routes = [
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
+		TranslateModule,
 		CommonModule,
 		FormsModule,
 		WacomModule

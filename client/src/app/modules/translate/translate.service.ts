@@ -23,7 +23,9 @@ export class TranslateService {
 		private store: StoreService
 	) {
 		this.store.getJson('translates', (translates) => {
-			this.translates = translates || {};
+			if (translates) {
+				this.translates = translates || {};
+			}
 		});
 
 		this.store.get('language', (code) => {
@@ -34,23 +36,29 @@ export class TranslateService {
 		});
 
 		this.store.getJson('words', (words) => {
-			this.words = words || [];
+			if (words) {
+				this.words = words;
+			}
 		});
 
 		this.http.get('/api/translate/get', (obj) => {
-			this.translates = obj;
+			if (obj) {
+				this.translates = obj;
 
-			this.store.setJson('translates', this.translates);
+				this.store.setJson('translates', this.translates);
+			}
 		});
 
 		this.http.get('/api/word/get', (arr) => {
-			this.words = arr;
+			if (arr) {
+				this.words = arr;
 
-			this.store.setJson('words', this.words);
+				this.store.setJson('words', this.words);
 
-			for (let i = 0; i < arr.length; i++) {
-				if (this.pages.indexOf(arr[i].page) < 0) {
-					this.pages.push(arr[i].page);
+				for (let i = 0; i < arr.length; i++) {
+					if (this.pages.indexOf(arr[i].page) < 0) {
+						this.pages.push(arr[i].page);
+					}
 				}
 			}
 
@@ -66,8 +74,9 @@ export class TranslateService {
 
 	prepare_words(lang: string) {
 		for (let j = 0; j < this.words.length; j++) {
-			this.words[j].translate =
-				this.translates[lang][this.words[j].slug] || '';
+			this.words[j].translate = this.translates[lang]
+				? this.translates[lang][this.words[j].slug]
+				: '';
 		}
 	}
 
@@ -88,7 +97,7 @@ export class TranslateService {
 	/* Translate Use */
 
 	languages: Language[] = environment.hasOwnProperty('languages')
-		? (environment as unknown as { languages : []}).languages
+		? (environment as unknown as { languages: [] }).languages
 		: [
 				{
 					code: 'en',
@@ -105,7 +114,7 @@ export class TranslateService {
 
 	translates: any = {};
 
-	private resets: any = {};
+	resets: any = {};
 
 	reset() {
 		for (let slug in this.resets) {
@@ -126,7 +135,7 @@ export class TranslateService {
 		}
 	}
 
-	translate(slug: string, reset?: (translate: string)=>void) {
+	translate(slug: string, reset?: (translate: string) => void) {
 		if (!slug) return '';
 
 		if (slug.split('.').length < 2) return slug;
