@@ -36,7 +36,7 @@ export class SignComponent {
 				set: 'ceo@webart.work',
 				module: FormModules.INPUT,
 				type: InputTypes.EMAIL,
-				placeholder: 'fill your email',
+				placeholder: 'Enter your email',
 				label: 'E-mail',
 				input: 'email',
 				focused: true
@@ -45,13 +45,13 @@ export class SignComponent {
 				set: 'asdasdasdasd',
 				module: FormModules.INPUT,
 				type: InputTypes.PASSWORD,
-				placeholder: 'fill your password',
+				placeholder: 'Enter your password',
 				label: 'Password',
 				input: 'password'
 			},
 			{
 				module: FormModules.INPUT,
-				placeholder: 'fill code from email',
+				placeholder: 'Enter code from email',
 				hidden: true,
 				label: 'Code',
 				input: 'code'

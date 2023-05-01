@@ -1,11 +1,16 @@
-<!--==== Table Module ====-->
-<wtable [columns]="columns" [config]="config" [rows]="us.users">
-	<ng-template *ngFor="let role of us.roles" [cell]="role" let-element>
-		<winput
-			(wChange)="element.is[role] = $event; us.save(element)"
-			[type]="inputTypes.CHECKBOX"
-			[set]="element.is[role]"
-		></winput>
-	</ng-template>
-</wtable>
-<!-- ==================== -->
+<div class="container">
+  <wcard [padding]="true">
+    <div class="profile__header w-card__header">
+      <div>Users</div>
+    </div>
+    <div class="profile__body">
+      <!--==== Table Module ====-->
+      <wtable [columns]="columns" [config]="config" [rows]="us.users">
+        <ng-template *ngFor="let role of us.roles" [cell]="role" let-element>
+          <winput (wChange)="element.is[role] = $event; us.save(element)" [type]="inputTypes.CHECKBOX" [set]="element.is[role]"></winput>
+        </ng-template>
+      </wtable>
+      <!-- ==================== -->
+    </div>
+  </wcard>
+</div>
