@@ -26,6 +26,7 @@ export class ProfileComponent {
 
 			this._core.copy(this.us.user, user);
 
+			// eslint-disable-next-line no-console
 			console.log(user, this.us.user);
 
 			this.user = user;
@@ -55,6 +56,7 @@ export class ProfileComponent {
 						(submition as ChangePassword).oldPass,
 						(submition as ChangePassword).newPass
 					);
+
 					close();
 				}
 			})

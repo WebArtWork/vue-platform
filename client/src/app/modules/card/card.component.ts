@@ -10,7 +10,7 @@ export class CardComponent {
 
 	@Input() align = 'center';
 
-	@Input() image: boolean;
+	@Input() image: boolean = false;
 
 	@Input() title: string;
 

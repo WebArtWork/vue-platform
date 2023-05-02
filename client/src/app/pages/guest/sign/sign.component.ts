@@ -1,11 +1,11 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { HashService, HttpService, AlertService, UiService } from 'wacom';
 import { Router } from '@angular/router';
 import { FormInterface } from 'src/app/modules/form/interfaces/form.interface';
 import { FormService } from 'src/app/modules/form/form.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { User } from 'src/app/core/interfaces/user';
-import { FormComponent } from 'src/app/modules/form/form/form.component';
+import { TranslateService } from 'src/app/modules/translate/translate.service';
 
 interface RespStatus {
 	email: string;
@@ -37,7 +37,8 @@ export class SignComponent {
 		private _http: HttpService,
 		private _hash: HashService,
 		private _router: Router,
-		private _form: FormService
+		private _form: FormService,
+		private _translate: TranslateService
 	) {}
 
 	submit(form: Form): void {
@@ -45,15 +46,17 @@ export class SignComponent {
 			this.save();
 		} else if (!form.email) {
 			this._alert.error({
-				text: 'Enter your email'
+				text: this._translate.translate('Sign.Enter your email')
 			});
-		} if (!this.ui.valid(form.email)) {
+		}
+
+		if (!this.ui.valid(form.email)) {
 			this._alert.error({
-				text: 'Enter proper email'
+				text: this._translate.translate('Sign.Enter proper email')
 			});
 		} else if (!form.password) {
 			this._alert.error({
-				text: 'Enter your password'
+				text: this._translate.translate('Sign.Enter your password')
 			});
 		} else {
 			this._hash.set('email', form.email);
@@ -68,7 +71,6 @@ export class SignComponent {
 				}
 			});
 		}
-
 	}
 
 	login(user: Form): void {
@@ -100,7 +102,6 @@ export class SignComponent {
 		// 			text: 'Wrong Code'
 		// 		});
 		// 	}
-
 		// 	this.login();
 		// });
 	}
@@ -121,5 +122,5 @@ export class SignComponent {
 				text: 'Something went wrong'
 			});
 		}
-	}
+	};
 }
