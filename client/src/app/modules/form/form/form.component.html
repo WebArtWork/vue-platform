@@ -3,8 +3,8 @@
 	<form [formGroup]="form" (ngSubmit)="onSubmit()">
 		<ng-container *ngFor="let component of config.components">
 			<form-component
+				[class]="(component.class || '') + ' ' + config.formId"
 				*ngIf="!component.hidden"
-				[class]="component.class || ''"
 				class="w-forms__component"
 				[component]="component"
 				[submition]="submition"
