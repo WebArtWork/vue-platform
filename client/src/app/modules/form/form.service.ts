@@ -187,7 +187,7 @@ export class FormService {
 					fields: [
 						{
 							name: 'Placeholder',
-							value: 'fill your name'
+							value: 'Enter your name'
 						},
 						{
 							name: 'Label',
@@ -202,7 +202,7 @@ export class FormService {
 					fields: [
 						{
 							name: 'Placeholder',
-							value: 'fill your description'
+							value: 'Enter your description'
 						},
 						{
 							name: 'Label',

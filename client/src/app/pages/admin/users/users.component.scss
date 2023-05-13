@@ -12,11 +12,6 @@
   }
 }
 
-.showTable {
-  :host {
-    padding: 20px !important;
-  }
-}
 
 .w-table-user {
   @include flexBox(flex, null, null, center, wrap);
@@ -118,13 +113,6 @@
   }
 }
 
-.showTable {
-  :host {
-    wcard {
-      padding: 20px !important;
-    }
-  }
-}
 
 /*  PROFILE STYLE  */
 .container {

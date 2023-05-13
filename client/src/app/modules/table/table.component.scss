@@ -82,8 +82,8 @@ html.dark:root {
 			border-radius: 4px;
 			padding: 5px 12px;
 			background-color: transparent;
-			color: var(--c-blue);
-			border: 1px solid var(--c-blue);
+			color: var(--c-primary);
+			border: 1px solid var(--c-primary);
 			&:hover{
 				box-shadow: 0 0 3px 0px var(--c-primary);
 				background-color: var(--c-primary);
@@ -345,7 +345,7 @@ html.dark:root {
 						position: absolute;
 						width: 2px;
 						height: 90%;
-						background-color: var(--c-blue);
+						background-color: var(--c-primary);
 						top: 8%;
 					}
 					&::after {
@@ -355,8 +355,8 @@ html.dark:root {
 						position: absolute;
 						width: 10px;
 						height: 10px;
-						border-bottom: 2px solid var(--c-blue);
-						border-right: 2px solid var(--c-blue);
+						border-bottom: 2px solid var(--c-primary);
+						border-right: 2px solid var(--c-primary);
 						transform: rotate(135deg);
 						left: 2px;
 						top: 2px
