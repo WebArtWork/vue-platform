@@ -6,7 +6,10 @@
     border-radius: var(--b-radius);
     border: 1px solid var(--c-border);
   }
-
+  .close {
+    top: 13px;
+    right: 15px;
+  }
   .close:hover {
     color: var(--c-text-secondary);
   }

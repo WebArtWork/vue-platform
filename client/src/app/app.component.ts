@@ -88,7 +88,7 @@ export class AppComponent implements OnInit {
 					fields: [
 						{
 							name: 'Placeholder',
-							value: 'fill your email'
+							value: 'Enter your email'
 						},
 						{
 							name: 'Label',
@@ -103,7 +103,7 @@ export class AppComponent implements OnInit {
 					fields: [
 						{
 							name: 'Placeholder',
-							value: 'fill your password'
+							value: 'Enter your password'
 						},
 						{
 							name: 'Label',
@@ -118,7 +118,7 @@ export class AppComponent implements OnInit {
 					fields: [
 						{
 							name: 'Placeholder',
-							value: 'fill code from email'
+							value: 'Enter code from email'
 						},
 						{
 							name: 'Label',
@@ -151,7 +151,7 @@ export class AppComponent implements OnInit {
 					fields: [
 						{
 							name: 'Placeholder',
-							value: 'fill your old password'
+							value: 'Enter your old password'
 						},
 						{
 							name: 'Label',
@@ -166,7 +166,7 @@ export class AppComponent implements OnInit {
 					fields: [
 						{
 							name: 'Placeholder',
-							value: 'fill your new password'
+							value: 'Enter your new password'
 						},
 						{
 							name: 'Label',
@@ -189,7 +189,7 @@ export class AppComponent implements OnInit {
 					fields: [
 						{
 							name: 'Placeholder',
-							value: 'fill your name'
+							value: 'Enter your name'
 						},
 						{
 							name: 'Label',
@@ -203,7 +203,7 @@ export class AppComponent implements OnInit {
 					fields: [
 						{
 							name: 'Placeholder',
-							value: 'fill your phone'
+							value: 'Enter your phone'
 						},
 						{
 							name: 'Label',
@@ -217,7 +217,7 @@ export class AppComponent implements OnInit {
 					fields: [
 						{
 							name: 'Placeholder',
-							value: 'fill your bio'
+							value: 'Enter your bio'
 						},
 						{
 							name: 'Label',

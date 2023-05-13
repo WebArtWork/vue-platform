@@ -7,8 +7,9 @@
 ></wform>
 
 <!-- <div *ngIf="!buttonRef"> -->
-<div>
+<div class="btn-action">
 	<button
+    class="w-btn _primary"
 		(click)="button.click(formRef._values(), close)"
 		*ngFor="let button of buttons"
 		[ngClass]="button.class"
