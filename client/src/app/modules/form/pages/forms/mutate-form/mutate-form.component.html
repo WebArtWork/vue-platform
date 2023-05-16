@@ -29,13 +29,13 @@
 				</option>
 			</select>
 		</div>
-		<button
+		<wbutton
 			[disabled]="!addComponent"
 			(click)="addField()"
 			class="form__btn form__btn--add"
 		>
 			Add
-		</button>
+		</wbutton>
 	</div>
 
 	<div class="form__add-list">
@@ -63,26 +63,26 @@
 				</label>
 			</div>
 			<div class="form__add-btn">
-				<button (click)="form.components.splice(i, 1)">remove</button>
+				<wbutton (click)="form.components.splice(i, 1)">remove</wbutton>
 			</div>
 		</div>
 	</div>
 
 	<div class="form__btns">
-		<button
+		<wbutton
 			*ngIf="!form._id"
 			(click)="fs.create(form); close()"
 			class="form__btn form__btn--create"
 		>
 			Create
-		</button>
+		</wbutton>
 
-		<button
+		<wbutton
 			*ngIf="form._id"
 			(click)="fs.save(form); close()"
 			class="form__btn"
 		>
 			Update
-		</button>
+		</wbutton>
 	</div>
 </div>

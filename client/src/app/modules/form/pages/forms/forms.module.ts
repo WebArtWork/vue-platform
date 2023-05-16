@@ -5,6 +5,7 @@ import { MutateFormComponent } from './mutate-form/mutate-form.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule as CommonFormsModule } from '@angular/forms';
 import { TableModule } from 'src/app/modules/table/table.module';
+import { ButtonModule } from 'src/app/modules/button/button.module';
 
 const routes: Routes = [
 	{
@@ -16,8 +17,9 @@ const routes: Routes = [
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
-		CommonModule,
 		CommonFormsModule,
+		CommonModule,
+		ButtonModule,
 		TableModule
 	],
 	declarations: [FormsComponent, MutateFormComponent],

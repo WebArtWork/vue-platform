@@ -8,14 +8,14 @@
 
 <!-- <div *ngIf="!buttonRef"> -->
 <div class="btn-action">
-	<button
-    class="w-btn _primary"
+	<wbutton
+		class="w-btn _primary"
 		(click)="button.click(formRef._values(), close)"
 		*ngFor="let button of buttons"
 		[ngClass]="button.class"
 	>
 		{{button.label}}
-	</button>
+	</wbutton>
 </div>
 
 <!-- <div *ngIf="buttonRef">
