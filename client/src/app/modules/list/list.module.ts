@@ -4,19 +4,9 @@ import { ListComponent } from './list.component';
 import { ItemDirective } from './list.directive';
 
 @NgModule({
-	imports: [
-		CoreModule
-	],
-	declarations: [
-		ItemDirective,
-		ListComponent
-	],
-	exports: [
-		ItemDirective,
-		ListComponent
-	],
+	imports: [CoreModule],
+	declarations: [ItemDirective, ListComponent],
+	exports: [ItemDirective, ListComponent],
 	providers: []
-
 })
-
-export class ListModule { }
+export class ListModule {}

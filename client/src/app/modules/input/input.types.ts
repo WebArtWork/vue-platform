@@ -6,4 +6,4 @@ export const InputTypes = [
 	'email',
 	'text',
 	'tel'
-]
+];

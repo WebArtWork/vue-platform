@@ -1,10 +1,16 @@
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import {
+	Component,
+	EventEmitter,
+	Input,
+	Output,
+	TemplateRef
+} from '@angular/core';
 import { FormModalButton } from '../../../form.service';
 
 @Component({
-  selector: 'app-modal-form-button',
-  templateUrl: './modal-form-button.component.html',
-  styleUrls: ['./modal-form-button.component.scss']
+	selector: 'app-modal-form-button',
+	templateUrl: './modal-form-button.component.html',
+	styleUrls: ['./modal-form-button.component.scss']
 })
 export class ModalFormButtonComponent {
 	@Input() button: FormModalButton;
@@ -15,6 +21,5 @@ export class ModalFormButtonComponent {
 
 	clickedd() {
 		console.log('clicked');
-
 	}
 }

@@ -1,4 +1,4 @@
-import { FormComponentInterface } from "./component.interface";
+import { FormComponentInterface } from './component.interface';
 
 export interface FormInterface {
 	formId?: string; // developer id, usually name of where that form will be used

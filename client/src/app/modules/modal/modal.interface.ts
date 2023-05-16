@@ -17,6 +17,7 @@ export interface Modal {
 	unique?: string;
 	[x: string]: any;
 }
+
 export const DEFAULT_MODAL: Modal = {
 	size: 'mid',
 	timeout: 0,
@@ -25,7 +26,7 @@ export const DEFAULT_MODAL: Modal = {
 	modals: {},
 	position: 'tc',
 	closable: true
-}
+};
 
 export interface ModalConfig {
 	size?: any;
@@ -37,5 +38,9 @@ export interface ModalConfig {
 	closable?: boolean;
 	unique?: string;
 }
-export const MODAL_CONFIG_TOKEN = new InjectionToken<ModalConfig>('modalConfig');
-export const MODAL_DEFAULT_CONFIG: ModalConfig = {}
+
+export const MODAL_CONFIG_TOKEN = new InjectionToken<ModalConfig>(
+	'modalConfig'
+);
+
+export const MODAL_DEFAULT_CONFIG: ModalConfig = {};

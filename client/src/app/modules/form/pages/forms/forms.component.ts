@@ -1,4 +1,4 @@
-	import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormService } from 'src/app/modules/form/form.service';
 import { ModalService } from 'wacom';
 import { FormInterface } from '../../interfaces/form.interface';

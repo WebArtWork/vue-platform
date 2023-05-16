@@ -54,7 +54,7 @@ export class UserService {
 		private _file: FileService,
 		private _core: CoreService,
 		private _router: Router,
-		private _store: StoreService,
+		private _store: StoreService
 	) {
 		this._store.get('mode', (mode: string) => {
 			if (mode) {

@@ -32,7 +32,7 @@ export class InputComponent implements OnInit {
 
 	@Input() wClass: string;
 
-	@Input() formControlName: string = 'name';
+	@Input() formControlName = 'name';
 
 	@Input() formControl: FormControl;
 
@@ -74,8 +74,8 @@ export class InputComponent implements OnInit {
 	writeValue(value: string): void {
 		this.value = value;
 	}
-	onChange = (_: any) => { };
-	onTouched = () => { };
+	onChange = (_: any) => {};
+	onTouched = () => {};
 	registerOnChange(fn: (_: any) => void): void {
 		this.onChange = fn;
 	}

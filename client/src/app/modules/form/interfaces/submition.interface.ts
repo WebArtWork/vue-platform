@@ -1,4 +1,3 @@
-
 export interface ComponentSubmitionInterface {
 	name: string;
 	value: string;

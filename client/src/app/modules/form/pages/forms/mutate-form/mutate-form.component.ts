@@ -3,9 +3,9 @@ import { FormService } from '../../../form.service';
 import { FormInterface } from '../../../interfaces/form.interface';
 
 @Component({
-  selector: 'app-mutate-form',
-  templateUrl: './mutate-form.component.html',
-  styleUrls: ['./mutate-form.component.scss']
+	selector: 'app-mutate-form',
+	templateUrl: './mutate-form.component.html',
+	styleUrls: ['./mutate-form.component.scss']
 })
 export class MutateFormComponent {
 	close: () => void;
@@ -15,15 +15,17 @@ export class MutateFormComponent {
 	addComponent = '';
 
 	addField() {
-		const component = this.fs.components.filter(c => c.name === this.addComponent)[0];
+		const component = this.fs.components.filter(
+			(c) => c.name === this.addComponent
+		)[0];
 
 		this.form.components.push({
 			name: component.name,
-			fields: component.fields.map(f => {
+			fields: component.fields.map((f) => {
 				return {
 					name: f,
 					value: ''
-				}
+				};
 			})
 		});
 	}

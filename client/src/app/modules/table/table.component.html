@@ -2,9 +2,9 @@
 	<div class="users__header w-card__header" *ngIf="title">
 		{{title}}
 		<wbutton
-			*ngIf="config.create"
-			class="table-plus-btn"
 			(click)="config.create()"
+			class="table-plus-btn"
+			*ngIf="config.create"
 			type="button"
 		>
 			+ <span>Add new</span>
@@ -161,15 +161,15 @@
 			</div>
 			<div class="table-footer__pagination" *ngIf="config.perPage">
 				<wbutton
-					[disabled]="config.page === 1"
 					class="table-footer__arrow _start"
+					[disabled]="config.page === 1"
 					(click)="config.page = 1"
 				>
 					<i class="chevron"></i>
 				</wbutton>
 				<wbutton
-					[disabled]="config.page === 1"
 					class="table-footer__arrow _left"
+					[disabled]="config.page === 1"
 					(click)="previous()"
 				>
 					<i class="chevron"></i>
@@ -182,8 +182,8 @@
 					<i class="chevron"></i>
 				</wbutton>
 				<wbutton
-					[disabled]="isLast()"
 					class="table-footer__arrow _end"
+					[disabled]="isLast()"
 					(click)="lastPage()"
 				>
 					<i class="chevron"></i>

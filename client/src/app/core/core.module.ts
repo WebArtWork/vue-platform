@@ -13,8 +13,8 @@ import { TranslateModule } from '../modules/translate/translate.module';
 
 @NgModule({
 	declarations: [UserComponent],
-	exports: [ /* exports */
-		TranslateModule,
+	exports: [
+		/* exports */ TranslateModule,
 		CommonModule,
 		FormsModule,
 		WacomModule,

@@ -21,6 +21,7 @@ export class UsersComponent {
 					label: 'Create',
 					click: (created: unknown, close: () => void) => {
 						this.us.create(created as User);
+
 						close();
 					}
 				})
@@ -29,12 +30,15 @@ export class UsersComponent {
 		update: (doc: User) => {
 			this._form.modal<User>(this.form, [], doc).then((updated: User) => {
 				this._core.copy(updated, doc);
+
 				this.us.save(doc);
 			});
 		},
 		delete: (user: User) => {
 			this._alert.question({
-				text: this._translate.translate('Users.Are you sure you want to delete this user?'),
+				text: this._translate.translate(
+					'Users.Are you sure you want to delete this user?'
+				),
 				buttons: [
 					{
 						text: this._translate.translate('Common.No')

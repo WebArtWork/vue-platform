@@ -4,12 +4,30 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { WacomModule } from 'wacom';
-import { ActionsDirective, CellDirective, CustomEditDirective, SortDirective } from './table.directive';
+import {
+	ActionsDirective,
+	CellDirective,
+	CustomEditDirective,
+	SortDirective
+} from './table.directive';
+import { ButtonModule } from '../button/button.module';
 
 @NgModule({
-	imports: [CommonModule, FormsModule, WacomModule, FormModule],
-	declarations: [TableComponent, CellDirective, SortDirective, ActionsDirective, CustomEditDirective],
+	imports: [CommonModule, FormsModule, WacomModule, FormModule, ButtonModule],
+	declarations: [
+		TableComponent,
+		CellDirective,
+		SortDirective,
+		ActionsDirective,
+		CustomEditDirective
+	],
 	providers: [],
-	exports: [TableComponent, CellDirective, SortDirective, ActionsDirective, CustomEditDirective]
+	exports: [
+		TableComponent,
+		CellDirective,
+		SortDirective,
+		ActionsDirective,
+		CustomEditDirective
+	]
 })
 export class TableModule {}

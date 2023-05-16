@@ -104,9 +104,9 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () =>
-					import('./modules/translate/pages/translates/translates.module').then(
-						(m) => m.TranslatesModule
-					)
+					import(
+						'./modules/translate/pages/translates/translates.module'
+					).then((m) => m.TranslatesModule)
 			}
 		]
 	},

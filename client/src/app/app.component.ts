@@ -1,6 +1,5 @@
 import { Component, TemplateRef, OnInit, ViewChild } from '@angular/core';
 import { FormService } from './modules/form/form.service';
-import { TranslateService } from './modules/translate/translate.service';
 
 @Component({
 	selector: 'app-root',
@@ -18,7 +17,8 @@ export class AppComponent implements OnInit {
 
 	@ViewChild('emailRef', { static: true }) emailRef: TemplateRef<unknown>;
 
-	@ViewChild('passwordRef', { static: true }) passwordRef: TemplateRef<unknown>;
+	@ViewChild('passwordRef', { static: true })
+	passwordRef: TemplateRef<unknown>;
 
 	@ViewChild('buttonRef', { static: true }) buttonRef: TemplateRef<unknown>;
 
@@ -68,14 +68,7 @@ export class AppComponent implements OnInit {
 		this._form.inited = true;
 	}
 
-	constructor(
-		private _form: FormService,
-		private _translate: TranslateService
-	) {
-		this._form.setTranslate(
-			this._translate.translate.bind(this._translate)
-		);
-
+	constructor(private _form: FormService) {
 		this._form.addForm({
 			formId: 'sign',
 			title: 'Sign In / Sign Up',

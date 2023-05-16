@@ -128,7 +128,7 @@
     max-width: 50%;
     padding-left: 40px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 
     @include bp-max(sm) {
       flex: 0 0 100%;

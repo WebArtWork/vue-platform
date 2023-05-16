@@ -3,8 +3,8 @@ import { FormModalButton, FormService } from '../../form.service';
 import { FormInterface } from '../../interfaces/form.interface';
 
 @Component({
-  templateUrl: './modal-form.component.html',
-  styleUrls: ['./modal-form.component.scss']
+	templateUrl: './modal-form.component.html',
+	styleUrls: ['./modal-form.component.scss']
 })
 export class ModalFormComponent {
 	form: FormInterface;

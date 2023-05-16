@@ -1,7 +1,11 @@
 import { Injectable, Inject, Optional } from '@angular/core';
-import { Alert, AlertConfig, ALERT_CONFIG_TOKEN, ALERT_DEFAULT_CONFIG } from './alert.interface';
+import {
+	Alert,
+	AlertConfig,
+	ALERT_CONFIG_TOKEN,
+	ALERT_DEFAULT_CONFIG
+} from './alert.interface';
 import { CoreService, DomService, Any } from 'wacom';
-
 import { AlertComponent } from './alert.component';
 import { AlertWrapperComponent } from './alert-wrapper/alert-wrapper.component';
 
@@ -28,22 +32,22 @@ export class AlertService {
 	private uniques: Any = {};
 
 	private shortcuts: Any = {
-		tl: "topLeft",
-		tc: "topCenter",
-		tr: "topRight",
-		r: "right",
-		br: "bottomRight",
-		bc: "bottomCenter",
-		bl: "bottomLeft",
-		l: "left",
-		c: "center"
+		tl: 'topLeft',
+		tc: 'topCenter',
+		tr: 'topRight',
+		r: 'right',
+		br: 'bottomRight',
+		bc: 'bottomCenter',
+		bl: 'bottomLeft',
+		l: 'left',
+		c: 'center'
 	};
 
 	show(opts: Alert | string) {
 		if (typeof opts === 'string') {
 			opts = {
-				text: (opts as string)
-			}
+				text: opts
+			};
 		}
 
 		if (!opts) {
@@ -80,14 +84,20 @@ export class AlertService {
 			// if (typeof (opts as Alert).onClose == 'function') (opts as Alert).onClose();
 		};
 
-		let component = this._dom.appendById(AlertComponent, opts, opts.position);
+		const component = this._dom.appendById(
+			AlertComponent,
+			opts,
+			opts.position
+		);
 
 		// if (typeof opts.component == 'string' && this.config.alerts[opts.component]) {
 		// 	opts.component = this.config.alerts[opts.component];
 		// }
 
 		if (typeof opts.component == 'function') {
-			const el = component.nativeElement.children[0].children[0].children[0] as HTMLElement;
+			const el = component.nativeElement.children[0].children[0]
+				.children[0] as HTMLElement;
+
 			content = this._dom.appendComponent(opts.component, opts, el);
 		}
 
@@ -104,7 +114,7 @@ export class AlertService {
 	open(opts: Alert | string) {
 		if (typeof opts === 'string') {
 			this.show({
-				text: (opts as string)
+				text: opts
 			});
 		} else {
 			this.show(opts);
@@ -114,11 +124,12 @@ export class AlertService {
 	info(opts: Alert | string) {
 		if (typeof opts === 'string') {
 			this.show({
-				text: (opts as string),
+				text: opts,
 				type: 'info'
 			});
 		} else {
 			opts.type = 'info';
+
 			this.show(opts);
 		}
 	}
@@ -126,11 +137,12 @@ export class AlertService {
 	success(opts: Alert | string) {
 		if (typeof opts === 'string') {
 			this.show({
-				text: (opts as string),
+				text: opts,
 				type: 'success'
 			});
 		} else {
 			opts.type = 'success';
+
 			this.show(opts);
 		}
 	}
@@ -138,11 +150,12 @@ export class AlertService {
 	warning(opts: Alert | string) {
 		if (typeof opts === 'string') {
 			this.show({
-				text: (opts as string),
+				text: opts,
 				type: 'warning'
 			});
 		} else {
 			opts.type = 'warning';
+
 			this.show(opts);
 		}
 	}
@@ -150,11 +163,12 @@ export class AlertService {
 	error(opts: Alert | string) {
 		if (typeof opts === 'string') {
 			this.show({
-				text: (opts as string),
+				text: opts,
 				type: 'error'
 			});
 		} else {
 			opts.type = 'error';
+
 			this.show(opts);
 		}
 	}
@@ -162,28 +176,29 @@ export class AlertService {
 	question(opts: Alert | string) {
 		if (typeof opts === 'string') {
 			this.show({
-				text: (opts as string),
+				text: opts,
 				type: 'question'
 			});
 		} else {
 			opts.type = 'question';
+
 			this.show(opts);
 		}
 	}
 
 	destroy() {
-		this._core.document.getElementById("bottomRight").innerHTML = "";
+		this._core.document.getElementById('bottomRight').innerHTML = '';
 
-		this._core.document.getElementById("bottomLeft").innerHTML = "";
+		this._core.document.getElementById('bottomLeft').innerHTML = '';
 
-		this._core.document.getElementById("bottomCenter").innerHTML = "";
+		this._core.document.getElementById('bottomCenter').innerHTML = '';
 
-		this._core.document.getElementById("topRight").innerHTML = "";
+		this._core.document.getElementById('topRight').innerHTML = '';
 
-		this._core.document.getElementById("topLeft").innerHTML = "";
+		this._core.document.getElementById('topLeft').innerHTML = '';
 
-		this._core.document.getElementById("topCenter").innerHTML = "";
+		this._core.document.getElementById('topCenter').innerHTML = '';
 
-		this._core.document.getElementById("center").innerHTML = "";
+		this._core.document.getElementById('center').innerHTML = '';
 	}
 }

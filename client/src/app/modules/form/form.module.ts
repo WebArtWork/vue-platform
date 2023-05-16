@@ -21,11 +21,8 @@ import { ModalFormButtonComponent } from './modals/modal-form/modal-form-button/
 		FormComponentComponent,
 		ModalFormComponent,
 		FormComponent,
-  ModalFormButtonComponent
+		ModalFormButtonComponent
 	],
-	exports: [
-		FormComponent
-	]
+	exports: [FormComponent]
 })
-
 export class FormModule {}

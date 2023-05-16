@@ -27,7 +27,10 @@ export class FormComponent {
 
 	constructor(private _core: CoreService, private _fb: FormBuilder) {}
 
-	component(key: string, components = this.config.components): FormComponentInterface | false {
+	component(
+		key: string,
+		components = this.config.components
+	): FormComponentInterface | false {
 		for (const component of components) {
 			if (component.key === key) {
 				return component;
@@ -58,7 +61,6 @@ export class FormComponent {
 			} else {
 				submition.data[field] = this.form.get(field)?.value;
 			}
-
 		}
 
 		return submition;
