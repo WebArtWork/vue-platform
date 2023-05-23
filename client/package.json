@@ -24,7 +24,7 @@
     "rxjs": "~7.5.0",
     "socket.io-client": "^4.5.1",
     "tslib": "^2.3.0",
-    "wacom": "^16.0.0",
+    "wacom": "^16.0.1",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
