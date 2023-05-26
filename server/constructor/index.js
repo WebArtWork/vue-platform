@@ -2,22 +2,13 @@ const Cpages = require("./schema");
 const path = require("path");
 const fs = require("fs");
 module.exports = async (waw) => {
-	// Templates
-	waw.app.get("/api/constructor/templates", (req, res) => {
-		// list of templates
-		res.json({});
-	});
-
-	// Components
-	waw.app.get("/api/constructor/components", (req, res) => {
-		// list of components
-		res.json({});
-	});
-
-	// Sections
-	waw.app.get("/api/constructor/sections", (req, res) => {
-		// list of sections
-		res.json({});
+	waw.app.get("/api/constructor", (req, res) => {
+		const templates = [];
+		const pathJson = path.join(process.cwd(), "template", "template.json");
+		if (fs.existsSync(pathJson)) {
+			templates.push(waw.readJson(pathJson));
+		}
+		res.json({ templates });
 	});
 
 	// Pages
