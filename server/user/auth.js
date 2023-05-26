@@ -41,7 +41,7 @@ module.exports = async waw => {
 		mongoose.connect(waw.mongoUrl, {
 			useUnifiedTopology: true,
 			useNewUrlParser: true,
-			useCreateIndex: true
+			// useCreateIndex: true
 		});
 
 		mongoose.Promise = global.Promise;
@@ -63,9 +63,7 @@ module.exports = async waw => {
 
 		user.markModified('is');
 
-		user.save((err) => {
-			if (err) console.log(err);
-		});
+		await user.save();
 	}
 
 	if (waw.config.user && waw.config.user.is) {
