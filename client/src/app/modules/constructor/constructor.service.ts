@@ -22,6 +22,7 @@ export interface Constructor {
 
 export interface Template {
 	name: string;
+	sections: Section[];
 }
 
 @Injectable({

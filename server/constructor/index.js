@@ -1,4 +1,4 @@
-const Cpages = require("./schema");
+const Constructor = require("./schema");
 const path = require("path");
 const fs = require("fs");
 const templatesPath = path.join(process.cwd(), "templates");
@@ -12,7 +12,9 @@ module.exports = async (waw) => {
 		template.path = templatePath;
 		template.name = path.basename(templatePath);
 		template.componnets = [];
-		const componnets = waw.getDirectories(path.join(templatePath, 'components'));
+		const componnets = waw.getDirectories(
+			path.join(templatePath, "components")
+		);
 		for (const component of componnets) {
 			const componentJson = path.join(component, "component.json");
 			if (fs.existsSync(componentJson)) {
@@ -24,7 +26,9 @@ module.exports = async (waw) => {
 		}
 
 		template.sections = [];
-		const sections = waw.getDirectories(path.join(templatePath, 'sections'));
+		const sections = waw.getDirectories(
+			path.join(templatePath, "sections")
+		);
 		for (const section of sections) {
 			const sectionJson = path.join(section, "section.json");
 			if (fs.existsSync(sectionJson)) {
@@ -38,17 +42,9 @@ module.exports = async (waw) => {
 		return template;
 	};
 
-
-
-
 	waw.app.get("/api/constructor", (req, res) => {
 		const templates = [];
-		const template = getTemplate(
-			path.join(
-				process.cwd(),
-				'template'
-			)
-		);
+		const template = getTemplate(path.join(process.cwd(), "template"));
 		if (template) {
 			templates.push(template);
 		}
@@ -65,8 +61,37 @@ module.exports = async (waw) => {
 	});
 
 	// Pages
+
+	const build = (root, constructor) => {
+		if (!fs.existsSync(path.join(root, "index.html"))) {
+			return console.log("Missing index.html in template root folder");
+		}
+
+		fs.mkdirSync(path.join(root, "dist", "constructor"), {
+			recursive: true,
+		});
+
+		let code = fs.readFileSync(path.join(root, "index.html"), "utf8");
+
+		const json = waw.readJson(path.join(root, 'template.json'))
+
+		const html = constructor.sections.map(s => {
+			return `{{{'/${json.prefix}/sections/${s.folder}'|c({translate: translate})|safe}}}`;
+		}).join('\n\t');
+
+		code = code.replace(
+			"<!-- HTML -->",
+			html
+		);
+
+		fs.writeFileSync(
+			path.join(root, "dist", "constructor", constructor.id + ".html"),
+			code,
+			"utf8"
+		);
+	};
 	const serve = async (page) => {
-		const pages = await Cpages.find(
+		const constructors = await Constructor.find(
 			page
 				? {
 						_id: page._id,
@@ -74,20 +99,23 @@ module.exports = async (waw) => {
 				: {}
 		);
 
-		for (const page of pages) {
-			const template = path.join(
+		for (const constructor of constructors) {
+			if (!constructor.url || !constructor.domain) continue;
+
+			const templatePath = path.join(
 				process.cwd(),
-				page.template
-					? path.join("templates", page.template)
-					: "template"
+				constructor.template === "template"
+					? "template"
+					: path.join("templates", constructor.template)
 			);
-			// waw.build(template, `_${page.page}`); // here we need to use content from page, not to look for the page it self
-			// waw.url(
-			// 	path.join(template, "dist", `_${page.page}.html`),
-			// 	page.url,
-			// 	page,
-			// 	page.domain || undefined
-			// );
+			build(templatePath, constructor);
+
+			waw.url(
+				path.join(templatePath, "dist", "constructor", constructor.id + '.html'),
+				constructor.url,
+				constructor,
+				constructor.domain || undefined
+			);
 		}
 	};
 	serve();

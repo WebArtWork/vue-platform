@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConstructorService } from './constructor.service';
+import { ConstructorService, Template } from './constructor.service';
 
 @Component({
 	templateUrl: './constructor.component.html',
@@ -9,7 +9,8 @@ export class ConstructorComponent {
 	template(name: string) {
 		return this.cs.templates[
 			this.cs.templates.map((t) => t.name).indexOf(name)
-		];
+		] || {} as Template;
 	}
+
 	constructor(public cs: ConstructorService) {}
 }

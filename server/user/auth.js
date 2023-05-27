@@ -41,7 +41,7 @@ module.exports = async waw => {
 		mongoose.connect(waw.mongoUrl, {
 			useUnifiedTopology: true,
 			useNewUrlParser: true,
-			useCreateIndex: true
+			// useCreateIndex: true
 		});
 
 		mongoose.Promise = global.Promise;

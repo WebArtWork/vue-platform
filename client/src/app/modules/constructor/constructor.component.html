@@ -28,6 +28,7 @@
 		(modelChange)="constructor.template = $event.name; cs.update(constructor)"
 		[select]="constructor.template"
 		placeholder="Select template"
+		*ngIf="cs.templates.length"
 		[items]="cs.templates"
 		value="name"
 	></wselect>
@@ -36,10 +37,10 @@
 			>Add section</wbutton
 		>
 		<div *ngFor="let section of constructor.sections">
-			{{template(constructor.template).name}}
 			<wselect
 				(modelChange)="section.folder = $event.name; cs.update(constructor)"
-				[items]="template(constructor.template)"
+				*ngIf="template(constructor.template).sections?.length"
+				[items]="template(constructor.template).sections"
 				placeholder="Select section"
 				[select]="section.folder"
 				value="name"
@@ -48,7 +49,7 @@
 	</div>
 	<a
 		*ngIf="constructor.domain && constructor.url"
-		[href]="constructor.domain + constructor.url"
+		[href]="'https://' + constructor.domain + constructor.url"
 		target="_blank"
 		>Preview</a
 	>

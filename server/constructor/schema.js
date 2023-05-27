@@ -30,4 +30,4 @@ Schema.methods.create = function(obj, user, sd) {
 	this.description = obj.description;
 }
 
-module.exports = mongoose.model('Cpage', Schema);
+module.exports = mongoose.model('Constructor', Schema);
