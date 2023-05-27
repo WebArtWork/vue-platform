@@ -6,8 +6,10 @@ import { ConstructorService } from './constructor.service';
 	styleUrls: ['./constructor.component.scss']
 })
 export class ConstructorComponent {
-	get templates() {
-		return this._cs.templates;
+	template(name: string) {
+		return this.cs.templates[
+			this.cs.templates.map((t) => t.name).indexOf(name)
+		];
 	}
-	constructor(private _cs: ConstructorService) {}
+	constructor(public cs: ConstructorService) {}
 }

@@ -4,8 +4,11 @@ var Schema = mongoose.Schema({
 	description: String,
 	author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 	moderators: [{type: mongoose.Schema.Types.ObjectId, sparse: true, ref: 'User'}],
+	template: {type: String, sparse: true, trim: true},
 	domain: {type: String, sparse: true, trim: true},
 	url: {type: String, sparse: true, trim: true},
+
+	field: {},
 	components: [{
 		folder: String,
 		field: {}

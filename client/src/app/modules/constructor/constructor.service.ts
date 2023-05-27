@@ -1,28 +1,51 @@
 import { Injectable } from '@angular/core';
 import { MongoService, AlertService, HttpService } from 'wacom';
 
+export interface Section {
+	folder: string;
+	field: Record<string, string>;
+	components: {
+		folder: string;
+		field: Record<string, string>;
+	}[];
+}
+
 export interface Constructor {
 	_id: string;
 	name: string;
+	template: string;
+	domain: string;
+	url: string;
 	description: string;
+	sections: Section[];
+}
+
+export interface Template {
+	name: string;
 }
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ConstructorService {
-	templates = [];
-	components = [];
-	sections = [];
+	templates: Template[] = [];
 	constructors: Constructor[] = [];
 	_constructors: any = {};
 
 	new(): Constructor {
+		const constructor = {} as Constructor;
+
+		constructor.sections = [];
+
+		return constructor;
+	}
+
+	new_section(): Section {
 		return {
-			_id: '',
-			name: '',
-			description: ''
-		};
+			folder: '',
+			field: {},
+			components: []
+		} as Section;
 	}
 
 	constructor(
@@ -32,7 +55,11 @@ export class ConstructorService {
 	) {
 		this.constructors = mongo.get(
 			'constructor',
-			{},
+			{
+				replace: {
+					sections: mongo.beArr
+				}
+			},
 			(arr: any, obj: any) => {
 				this._constructors = obj;
 			}
@@ -40,7 +67,7 @@ export class ConstructorService {
 
 		this._http.get(
 			'/api/constructor',
-			(resp) => (this.templates = resp.templates)
+			(templates) => (this.templates = templates)
 		);
 	}
 

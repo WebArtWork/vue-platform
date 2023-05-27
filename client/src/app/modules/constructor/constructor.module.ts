@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { ConstructorComponent } from './constructor.component';
 import { WacomModule } from 'wacom';
 import { ButtonModule } from 'src/app/modules/button/button.module';
+import { InputModule } from '../input/input.module';
+import { SelectModule } from '../select/select.module';
 
 const routes: Routes = [
 	{
@@ -19,7 +21,9 @@ const routes: Routes = [
 		CommonModule,
 		ButtonModule,
 		FormsModule,
-		WacomModule
+		WacomModule,
+		InputModule,
+		SelectModule
 	],
 	declarations: [ConstructorComponent],
 	providers: []

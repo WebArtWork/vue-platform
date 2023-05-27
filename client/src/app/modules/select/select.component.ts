@@ -80,6 +80,15 @@ export class SelectComponent implements OnInit {
 
 			this._items[this.items[i].id] = this.items[i];
 		}
+
+		if (this.multiple) {
+			this._selected =
+				this._names.length == 0
+					? this.placeholder
+					: this._names.join(', ');
+		} else {
+			this._selected = this.select;
+		}
 	}
 
 	item_onclick(item: any): void {

@@ -3,7 +3,16 @@
 	"router": "index.js",
 	"crud": {
 		"update": {
-			"keys": ["name", "description", "data"]
+			"keys": [
+				"name",
+				"description",
+				"template",
+				"domain",
+				"url",
+				"field",
+				"components",
+				"sections"
+			]
 		},
 		"delete": [""]
 	},

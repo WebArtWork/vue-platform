@@ -1,2 +1,56 @@
-<p>Module Constructor is connected</p>
-<div *ngFor="let template of templates">{{template|json}}</div>
+<wbutton (click)="cs.create()">Create</wbutton>
+<div *ngFor="let constructor of cs.constructors">
+	<winput
+		(wChange)="constructor.name = $event; cs.update(constructor)"
+		placeholder="fill name of the constructor"
+		[value]="constructor.name"
+		label="Name"
+	></winput>
+	<winput
+		(wChange)="constructor.domain = $event; cs.update(constructor)"
+		placeholder="fill domain of the constructor"
+		[value]="constructor.domain"
+		label="Domain"
+	></winput>
+	<winput
+		(wChange)="constructor.url = $event; cs.update(constructor)"
+		placeholder="fill url of the constructor"
+		[value]="constructor.url"
+		label="Url"
+	></winput>
+	<winput
+		(wChange)="constructor.description = $event; cs.update(constructor)"
+		placeholder="fill description of the constructor"
+		[value]="constructor.description"
+		label="Description"
+	></winput>
+	<wselect
+		(modelChange)="constructor.template = $event.name; cs.update(constructor)"
+		[select]="constructor.template"
+		placeholder="Select template"
+		[items]="cs.templates"
+		value="name"
+	></wselect>
+	<div *ngIf="constructor.template">
+		<wbutton (click)="constructor.sections.push(cs.new_section())"
+			>Add section</wbutton
+		>
+		<div *ngFor="let section of constructor.sections">
+			{{template(constructor.template).name}}
+			<wselect
+				(modelChange)="section.folder = $event.name; cs.update(constructor)"
+				[items]="template(constructor.template)"
+				placeholder="Select section"
+				[select]="section.folder"
+				value="name"
+			></wselect>
+		</div>
+	</div>
+	<a
+		*ngIf="constructor.domain && constructor.url"
+		[href]="constructor.domain + constructor.url"
+		target="_blank"
+		>Preview</a
+	>
+	<wbutton (click)="cs.delete(constructor)">Delete</wbutton>
+</div>
