@@ -83,6 +83,8 @@ module.exports = async (waw) => {
 			"<!-- HTML -->",
 			html
 		);
+		code = code.replace("<!-- CSS -->", "");
+		code = code.replace("<!-- JS -->", "");
 
 		fs.writeFileSync(
 			path.join(root, "dist", "constructor", constructor.id + ".html"),
