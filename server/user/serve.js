@@ -21,8 +21,10 @@ module.exports = function(waw) {
 			path.join(client, 'index.html'),
 			[
 				'/admin/users',
+				'/admin/forms',
+				'/admin/translates',
 				'/profile',
-				'/auth'
+				'/sign'
 			]
 		);
 	} else {
