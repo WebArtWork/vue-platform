@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { MongoService, AlertService, HttpService } from 'wacom';
 
-export interface Section {
+export interface ConstructorComponent {
 	folder: string;
 	field: Record<string, string>;
-	components: {
-		folder: string;
-		field: Record<string, string>;
-	}[];
+}
+
+export interface ConstructorSection {
+	folder: string;
+	field: Record<string, string>;
+	components: ConstructorComponent[];
 }
 
 export interface Constructor {
@@ -17,12 +19,32 @@ export interface Constructor {
 	domain: string;
 	url: string;
 	description: string;
-	sections: Section[];
+	field: Record<string, string>;
+	components: ConstructorComponent[];
+	sections: ConstructorSection[];
 }
 
+export interface TemplateField {
+	name: string;
+	default: string;
+}
+export interface TemplateComponent {
+	name: string;
+	folder: string;
+	fields: TemplateField[];
+}
+
+export interface TemplateSection {
+	name: string;
+	folder: string;
+	fields: TemplateField[];
+	components: TemplateComponent[];
+}
 export interface Template {
 	name: string;
-	sections: Section[];
+	fields: TemplateField[];
+	components: TemplateComponent[];
+	sections: TemplateSection[];
 }
 
 @Injectable({
@@ -41,12 +63,19 @@ export class ConstructorService {
 		return constructor;
 	}
 
-	new_section(): Section {
+	new_section(): ConstructorSection {
 		return {
 			folder: '',
 			field: {},
 			components: []
-		} as Section;
+		} as ConstructorSection;
+	}
+
+	new_component(): ConstructorComponent {
+		return {
+			folder: '',
+			field: {}
+		} as ConstructorComponent;
 	}
 
 	constructor(
@@ -58,7 +87,47 @@ export class ConstructorService {
 			'constructor',
 			{
 				replace: {
-					sections: mongo.beArr
+					components: (
+						components: ConstructorComponent[],
+						cb: (components: ConstructorComponent[]) => void
+					) => {
+						if (!components) {
+							components = [];
+						}
+
+						for (const component of components) {
+							if (!component.field) {
+								component.field = {};
+							}
+						}
+
+						cb(components);
+					},
+					sections: (
+						sections: ConstructorSection[],
+						cb: (sections: ConstructorSection[]) => void
+					) => {
+						if (!sections) {
+							sections = [];
+						}
+
+						for (const section of sections) {
+							if (!section.field) {
+								section.field = {};
+							}
+							if (!section.components) {
+								section.components = [];
+							}
+							for (const component of section.components) {
+								if (!component.field) {
+									component.field = {};
+								}
+							}
+						}
+
+						cb(sections);
+					},
+					field: mongo.beObj
 				}
 			},
 			(arr: any, obj: any) => {
@@ -70,6 +139,9 @@ export class ConstructorService {
 			'/api/constructor',
 			(templates) => (this.templates = templates)
 		);
+		setTimeout(() => {
+			console.log(this.templates);
+		}, 1000);
 	}
 
 	create(

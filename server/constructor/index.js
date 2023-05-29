@@ -11,17 +11,17 @@ module.exports = async (waw) => {
 		const template = waw.readJson(jsonPath);
 		template.path = templatePath;
 		template.name = path.basename(templatePath);
-		template.componnets = [];
-		const componnets = waw.getDirectories(
+		template.components = [];
+		const components = waw.getDirectories(
 			path.join(templatePath, "components")
 		);
-		for (const component of componnets) {
+		for (const component of components) {
 			const componentJson = path.join(component, "component.json");
 			if (fs.existsSync(componentJson)) {
 				const json = waw.readJson(componentJson);
 				json.path = component;
 				json.name = path.basename(component);
-				template.componnets.push(json);
+				template.components.push(json);
 			}
 		}
 
@@ -73,11 +73,17 @@ module.exports = async (waw) => {
 
 		let code = fs.readFileSync(path.join(root, "index.html"), "utf8");
 
-		const json = waw.readJson(path.join(root, 'template.json'))
-
-		const html = constructor.sections.map(s => {
-			return `{{{'/${json.prefix}/sections/${s.folder}'|c({translate: translate})|safe}}}`;
+		let html = constructor.components.map(c => {
+			return waw.derer.compileFile(
+				path.join(root, 'components', c.folder, 'index.html')
+			)({
+				field: c.field
+			});
 		}).join('\n\t');
+
+		// html += constructor.sections.map(s => {
+		// 	return `{{{'/${json.prefix}/sections/${s.folder}'|c({translate: translate})|safe}}}`;
+		// }).join('\n\t');
 
 		code = code.replace(
 			"<!-- HTML -->",

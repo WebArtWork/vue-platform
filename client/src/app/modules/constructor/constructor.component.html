@@ -1,4 +1,4 @@
-<wbutton (click)="cs.create()">Create</wbutton>
+<wbutton (click)="cs.create()">Create construction</wbutton>
 <div *ngFor="let constructor of cs.constructors">
 	<winput
 		(wChange)="constructor.name = $event; cs.update(constructor)"
@@ -32,11 +32,68 @@
 		[items]="cs.templates"
 		value="name"
 	></wselect>
+
 	<div *ngIf="constructor.template">
-		<wbutton (click)="constructor.sections.push(cs.new_section())"
+		<constructor-field
+			[fields]="template(constructor.template).fields"
+			(update)="cs.update(constructor)"
+			[field]="constructor.field"
+		></constructor-field>
+
+		<wbutton
+			(click)="
+				constructor.components.push(cs.new_component());
+				cs.update(constructor)
+			"
+		>
+			Add component
+		</wbutton>
+		<div *ngFor="let component of constructor.components; index as i">
+			<wselect
+				(modelChange)="component.folder = $event.name; cs.update(constructor)"
+				*ngIf="template(constructor.template).components?.length"
+				[items]="template(constructor.template).components"
+				placeholder="Select component"
+				[select]="component.folder"
+				value="name"
+			></wselect>
+			<constructor-field
+				*ngIf="component.folder && templateComponent(constructor.template, component.folder)"
+				[fields]="templateComponent(constructor.template, component.folder).fields"
+				(update)="cs.update(constructor)"
+				[field]="component.field"
+			></constructor-field>
+			<wbutton
+				(click)="constructor.components.splice(i, 1); cs.update(constructor)"
+				>Delete component</wbutton
+			>
+		</div>
+
+		<wbutton
+			(click)="constructor.sections.push(cs.new_section()); cs.update(constructor)"
 			>Add section</wbutton
 		>
-		<div *ngFor="let section of constructor.sections">
+		<div *ngFor="let section of constructor.sections; index as i">
+			<div *ngFor="let component of section.components; index as j">
+				<wselect
+					(modelChange)="component.folder = $event.name; cs.update(constructor)"
+					*ngIf="template(constructor.template).components?.length"
+					[items]="template(constructor.template).components"
+					placeholder="Select section"
+					[select]="component.folder"
+					value="name"
+				></wselect>
+				<constructor-field
+					*ngIf="component.folder && templateComponent(constructor.template, component.folder)"
+					[fields]="templateComponent(constructor.template, component.folder).fields"
+					(update)="cs.update(constructor)"
+					[field]="component.field"
+				></constructor-field>
+				<wbutton
+					(click)="section.components.splice(j, 1); cs.update(constructor)"
+					>Delete component</wbutton
+				>
+			</div>
 			<wselect
 				(modelChange)="section.folder = $event.name; cs.update(constructor)"
 				*ngIf="template(constructor.template).sections?.length"
@@ -45,13 +102,27 @@
 				[select]="section.folder"
 				value="name"
 			></wselect>
+			<constructor-field
+				*ngIf="section.folder && templateSection(constructor.template, section.folder)"
+				[fields]="templateSection(constructor.template, section.folder).fields"
+				(update)="cs.update(constructor)"
+				[field]="section.field"
+			></constructor-field>
+			<wbutton
+				(click)="constructor.sections.splice(i, 1); cs.update(constructor)"
+				>Delete section</wbutton
+			>
 		</div>
 	</div>
 	<a
 		*ngIf="constructor.domain && constructor.url"
-		[href]="'https://' + constructor.domain + constructor.url"
+		[href]="
+			(constructor.domain.includes('localhost') ? 'http://' : 'https://') +
+			constructor.domain +
+			constructor.url
+		"
 		target="_blank"
 		>Preview</a
 	>
-	<wbutton (click)="cs.delete(constructor)">Delete</wbutton>
+	<wbutton (click)="cs.delete(constructor)">Delete construction</wbutton>
 </div>

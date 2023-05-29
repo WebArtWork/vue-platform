@@ -6,5 +6,11 @@
 	"picture": "picture",
 	"author": "author",
 	"moderators": [],
-	"scss": "scss/index.scss"
+	"scss": "scss/index.scss",
+	"fields": [
+		{
+			"name": "background",
+			"default": "red"
+		}
+	]
 }

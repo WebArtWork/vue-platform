@@ -7,6 +7,7 @@ import { WacomModule } from 'wacom';
 import { ButtonModule } from 'src/app/modules/button/button.module';
 import { InputModule } from '../input/input.module';
 import { SelectModule } from '../select/select.module';
+import { FieldComponent } from './field/field.component';
 
 const routes: Routes = [
 	{
@@ -25,7 +26,7 @@ const routes: Routes = [
 		InputModule,
 		SelectModule
 	],
-	declarations: [ConstructorComponent],
+	declarations: [ConstructorComponent, FieldComponent],
 	providers: []
 })
 export class ConstructorModule {}
