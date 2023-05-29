@@ -28,6 +28,7 @@ export interface TemplateField {
 	name: string;
 	default: string;
 }
+
 export interface TemplateComponent {
 	name: string;
 	folder: string;
@@ -40,6 +41,7 @@ export interface TemplateSection {
 	fields: TemplateField[];
 	components: TemplateComponent[];
 }
+
 export interface Template {
 	name: string;
 	fields: TemplateField[];
@@ -115,9 +117,11 @@ export class ConstructorService {
 							if (!section.field) {
 								section.field = {};
 							}
+
 							if (!section.components) {
 								section.components = [];
 							}
+
 							for (const component of section.components) {
 								if (!component.field) {
 									component.field = {};
@@ -139,6 +143,7 @@ export class ConstructorService {
 			'/api/constructor',
 			(templates) => (this.templates = templates)
 		);
+
 		setTimeout(() => {
 			console.log(this.templates);
 		}, 1000);

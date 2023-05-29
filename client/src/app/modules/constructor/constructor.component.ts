@@ -14,9 +14,11 @@ import {
 export class ConstructorComponent {
 	template(name: string): Template {
 		return (
-			this.cs.templates && this.cs.templates[
-				this.cs.templates?.map((t) => t.name).indexOf(name)
-			] || ({} as Template)
+			(this.cs.templates &&
+				this.cs.templates[
+					this.cs.templates?.map((t) => t.name).indexOf(name)
+				]) ||
+			({} as Template)
 		);
 	}
 
@@ -24,9 +26,11 @@ export class ConstructorComponent {
 		const _template = this.template(template);
 
 		return (
-			_template.components && _template.components[
-				_template.components?.map((t) => t.name).indexOf(name)
-			] || ({} as TemplateComponent)
+			(_template.components &&
+				_template.components[
+					_template.components?.map((t) => t.name).indexOf(name)
+				]) ||
+			({} as TemplateComponent)
 		);
 	}
 
