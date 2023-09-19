@@ -1,4 +1,3 @@
-const User = require('./schema');
 module.exports = async waw => {
 	waw.file('user', {
 		rename: req => req.user._id+'.jpg',

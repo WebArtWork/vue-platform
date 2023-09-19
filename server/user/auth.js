@@ -1,4 +1,3 @@
-const User = require('./schema');
 const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
 const nJwt = require('njwt');
@@ -51,7 +50,9 @@ module.exports = async waw => {
 	*	Set is on users from config
 	*/
 	const set_is = async (email, is) => {
-		const user = await User.findOne({
+		await waw.wait(300);
+		
+		const user = await waw.User.findOne({
 			email: email
 		});
 
@@ -81,7 +82,7 @@ module.exports = async waw => {
 	*/
 	const router = waw.router('/api/user');
 	const findUser = async (email) => {
-		return await User.findOne({
+		return await waw.User.findOne({
 			$or: [{
 				reg_email: email.toLowerCase()
 			}, {
@@ -149,7 +150,7 @@ module.exports = async waw => {
 	});
 
 	router.post("/changePassword", waw.ensure, async (req, res) => {
-		const user = await User.findOne({ _id: req.user._id });
+		const user = await waw.User.findOne({ _id: req.user._id });
 
 		if (user.validPassword(req.body.oldPass)) {
 			user.password = user.generateHash(req.body.newPass);
@@ -216,7 +217,7 @@ module.exports = async waw => {
 
 		}
 
-		const user = new User({
+		const user = new waw.User({
 			reg_email: req.body.email.toLowerCase(),
 			email: req.body.email.toLowerCase(),
 			data: req.body.data || {},
