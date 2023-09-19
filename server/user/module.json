@@ -1,7 +1,6 @@
 {
 	"priority": 800,
 	"name": "User",
-	"router": "auth.js serve.js",
 	"crud": {
 		"create": ["admin"],
 		"update": [{
