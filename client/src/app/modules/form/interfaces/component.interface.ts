@@ -2,7 +2,7 @@ import { TemplateRef } from '@angular/core';
 
 export interface TemplateFieldInterface {
 	name: string;
-	value: string;
+	value: unknown;
 }
 
 export interface TemplateComponentInterface {
@@ -12,7 +12,7 @@ export interface TemplateComponentInterface {
 }
 
 export interface FormComponentInterface {
-	name: string; // template name
+	name?: string; // template name
 	templateRef?: TemplateRef<any>;
 
 	key?: string; // submition location

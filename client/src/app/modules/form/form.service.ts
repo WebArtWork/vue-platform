@@ -1,4 +1,3 @@
-import { Directive, TemplateRef, Input } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { AlertService, ModalService, MongoService, StoreService } from 'wacom';
 import {
@@ -21,11 +20,11 @@ export interface FormModalButton {
 })
 export class FormService {
 	constructor(
+		private _translate: TranslateService,
 		private _modal: ModalService,
 		private _mongo: MongoService,
 		private _store: StoreService,
-		private _alert: AlertService,
-		private _translate: TranslateService
+		private _alert: AlertService
 	) {
 		this.customForms = _mongo.get('form', {}, (arr: any, obj: any) => {
 			this._forms = obj;
@@ -67,12 +66,14 @@ export class FormService {
 			}
 		);
 
-		field.value = this._translate.translate(
-			`Form_${form.formId}.${field.value}`,
-			(value: string) => {
-				field.value = value;
-			}
-		);
+		if (typeof field.value === 'string') {
+			field.value = this._translate.translate(
+				`Form_${form.formId}.${field.value}`,
+				(value: string) => {
+					field.value = value;
+				}
+			);
+		}
 	}
 
 	components: TemplateComponentInterface[] = [];
@@ -169,6 +170,8 @@ export class FormService {
 	addForm(form: FormInterface) {
 		if (this.forms.map((c) => c.formId).indexOf(form.formId) === -1) {
 			for (const component of form.components) {
+				component.root = true;
+
 				this.addRef(component);
 			}
 
@@ -225,20 +228,53 @@ export class FormService {
 
 	formIds: string[] = [];
 
-	getForm(formId: string): FormInterface {
+	getForm(formId: string, form?: FormInterface): FormInterface {
+		if (
+			form &&
+			this.forms.map((c) => c.formId).indexOf(form?.formId) === -1
+		) {
+			this.forms.push(form);
+		}
+
 		if (this.formIds.indexOf(formId) === -1) {
 			this.formIds.push(formId);
 
 			this._store.setJson('formIds', this.formIds);
 		}
 
+		const devForm = this.forms.find((f) => f.formId === formId);
+
 		const customForm = this.customForms.find(
 			(f) => f.formId === formId && f.active
 		);
 
-		const _form = this.forms.find((f) => f.formId === formId);
+		const defaultForm = this.getDefaultForm(formId);
 
-		const form = customForm || _form || this.getDefaultForm(formId);
+		if (form) {
+			for (const component of form.components) {
+				component.root = true;
+			}
+		}
+
+		if (!form) {
+			form = devForm
+				? { ...devForm }
+				: customForm
+				? { ...customForm }
+				: defaultForm;
+		}
+
+		form.formId = formId;
+
+		form.title = form.title || devForm?.title || customForm?.title;
+
+		form.class = form.class || devForm?.class || customForm?.class;
+
+		if ((form || devForm) && customForm) {
+			for (const component of customForm.components) {
+				form.components.push(component);
+			}
+		}
 
 		this.translateForm(form);
 
@@ -258,9 +294,17 @@ export class FormService {
 				form,
 				buttons: Array.isArray(buttons) ? buttons : [buttons],
 				submition,
-				onClose: reject.bind(this),
-				submit: resolve.bind(this),
-				change: change.bind(this)
+				onClose: function () {
+					resolve(this.submition);
+				},
+				submit: (update: T) => {
+					resolve(update);
+				},
+				change: (update: T) => {
+					if (typeof change === 'function') {
+						change(update);
+					}
+				}
 			});
 		});
 	}

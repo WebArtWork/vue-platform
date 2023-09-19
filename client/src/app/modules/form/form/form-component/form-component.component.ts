@@ -1,17 +1,11 @@
-import {
-	Component,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	SimpleChanges
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormComponentInterface } from '../../interfaces/component.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormService } from '../../form.service';
+import { FormInterface } from '../../interfaces/form.interface';
 
 interface Data {
-	field: Record<string, string>;
+	field: Record<string, unknown>;
 	value: unknown;
 }
 
@@ -22,6 +16,8 @@ interface Data {
 })
 export class FormComponentComponent implements OnInit {
 	@Input() component: FormComponentInterface;
+
+	@Input() config: FormInterface;
 
 	@Input() form: FormGroup;
 
@@ -43,6 +39,23 @@ export class FormComponentComponent implements OnInit {
 
 	constructor(private _form: FormService) {}
 
+	value(key: string, doc: Record<string, unknown>): unknown {
+		if (key.indexOf('.') > -1) {
+			const local_key: string = key.slice(0, key.indexOf('.'));
+
+			if (!doc[local_key]) {
+				doc[local_key] = {};
+			}
+
+			return this.value(
+				key.slice(key.indexOf('.') + 1),
+				doc[local_key] as Record<string, unknown>
+			);
+		} else {
+			return doc[key];
+		}
+	}
+
 	ngOnInit(): void {
 		const data: Data = {
 			field: {}
@@ -55,12 +68,17 @@ export class FormComponentComponent implements OnInit {
 		}
 
 		if (this.component.key && this.submition !== undefined) {
-			if (this.component.root && this.submition['data']) {
-				data.value = (
-					this.submition['data'] as Record<string, unknown>
-				)[this.component.key];
+			if (this.component.root) {
+				data.value = this.value(this.component.key, this.submition);
 			} else {
-				data.value = this.submition[this.component.key];
+				if (!this.submition['data']) {
+					this.submition['data'] = {};
+				}
+
+				data.value = this.value(
+					this.component.key,
+					this.submition['data'] as Record<string, unknown>
+				);
 			}
 		}
 

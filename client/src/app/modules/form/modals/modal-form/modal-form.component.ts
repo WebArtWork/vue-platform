@@ -1,6 +1,7 @@
 import { Component, TemplateRef } from '@angular/core';
 import { FormModalButton, FormService } from '../../form.service';
 import { FormInterface } from '../../interfaces/form.interface';
+import { CoreService } from 'wacom';
 
 @Component({
 	templateUrl: './modal-form.component.html',
@@ -10,6 +11,12 @@ export class ModalFormComponent {
 	form: FormInterface;
 
 	submition: Record<string, unknown>;
+
+	set(submition: Record<string, unknown>) {
+		this._core.copy(submition, this.submition);
+
+		this._core.copy(submition['data'], this.submition['data']);
+	}
 
 	close: () => void;
 
@@ -21,7 +28,7 @@ export class ModalFormComponent {
 
 	buttonRef: TemplateRef<any>;
 
-	constructor(private _fs: FormService) {
+	constructor(private _fs: FormService, private _core: CoreService) {
 		const button = this._fs.getComponent('Button');
 
 		if (button?.ref) {

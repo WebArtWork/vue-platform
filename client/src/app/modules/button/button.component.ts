@@ -20,6 +20,10 @@ export class ButtonComponent {
 	@Output() wClick = new EventEmitter();
 
 	clicked(): void {
+		if (this.disabled) {
+			return;
+		}
+
 		if (typeof this.click === 'function') {
 			this.click();
 		}

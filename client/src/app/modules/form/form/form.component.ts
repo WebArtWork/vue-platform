@@ -48,6 +48,28 @@ export class FormComponent {
 		return false;
 	}
 
+	fill(
+		key: string,
+		submition: Record<string, unknown>,
+		value: unknown
+	): void {
+		if (key.indexOf('.') > -1) {
+			const local_key: string = key.slice(0, key.indexOf('.'));
+
+			if (!submition[local_key]) {
+				submition[local_key] = {};
+			}
+
+			return this.fill(
+				key.slice(key.indexOf('.') + 1),
+				submition[local_key] as Record<string, unknown>,
+				value
+			);
+		} else {
+			submition[key] = value;
+		}
+	}
+
 	_values() {
 		const submition: Submission = {
 			data: {}
@@ -56,10 +78,16 @@ export class FormComponent {
 		for (const field in this.form.controls) {
 			const component = this.component(field);
 
+			const value = (this.form.value as Record<string, unknown>)[field];
+
 			if (component && component.root) {
-				submition[field] = this.form.get(field)?.value;
+				this.fill(field, submition, value);
 			} else {
-				submition.data[field] = this.form.get(field)?.value;
+				if (!submition.data) {
+					submition.data = {};
+				}
+
+				this.fill(field, submition.data, value);
 			}
 		}
 
