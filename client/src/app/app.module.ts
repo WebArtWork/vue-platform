@@ -107,19 +107,6 @@ const routes: Routes = [
 					import(
 						'./modules/translate/pages/translates/translates.module'
 					).then((m) => m.TranslatesModule)
-			},
-			{
-				path: 'constructor',
-				canActivate: [MetaGuard],
-				data: {
-					meta: {
-						title: 'Constructor'
-					}
-				},
-				loadChildren: () =>
-					import('./modules/constructor/constructor.module').then(
-						(m) => m.ConstructorModule
-					)
 			}
 		]
 	},
