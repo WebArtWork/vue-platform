@@ -15,7 +15,9 @@
 	"modules": {
 		"template": "waw",
 		"core": "waw",
-		"sem": "waw"
+		"sem": "waw",
+		"form":"waw",
+		"translate":"waw"
 	},
 	"dependencies": {
 		"mongoose": "*"
