@@ -34,7 +34,56 @@ export class ProfileComponent {
 	}
 
 	// Update user profile
-	formProfile: FormInterface = this._form.getForm('profile');
+	formProfile: FormInterface = this._form.getForm('profile', {
+		formId: 'profile',
+		title: 'Profile Settings',
+		components: [
+			{
+				name: 'Text',
+				key: 'name',
+				root: true,
+				focused: true,
+				fields: [
+					{
+						name: 'Placeholder',
+						value: 'Enter your name'
+					},
+					{
+						name: 'Label',
+						value: 'Name'
+					}
+				]
+			},
+			{
+				name: 'Text',
+				key: 'phone',
+				fields: [
+					{
+						name: 'Placeholder',
+						value: 'Enter your phone'
+					},
+					{
+						name: 'Label',
+						value: 'Phone'
+					}
+				]
+			},
+			{
+				name: 'Text',
+				key: 'bio',
+				fields: [
+					{
+						name: 'Placeholder',
+						value: 'Enter your bio'
+					},
+					{
+						name: 'Label',
+						value: 'Bio'
+					}
+				]
+			}
+		]
+	});
 
 	user: Record<string, unknown>;
 
@@ -45,7 +94,43 @@ export class ProfileComponent {
 	}
 
 	// Update user password
-	formPassword: FormInterface = this._form.getForm('change password');
+	formPassword: FormInterface = this._form.getForm('change password', {
+		formId: 'change password',
+		title: 'Change password',
+		components: [
+			{
+				name: 'Password',
+				key: 'oldPass',
+				root: true,
+				focused: true,
+				fields: [
+					{
+						name: 'Placeholder',
+						value: 'Enter your old password'
+					},
+					{
+						name: 'Label',
+						value: 'Old Password'
+					}
+				]
+			},
+			{
+				name: 'Password',
+				key: 'newPass',
+				root: true,
+				fields: [
+					{
+						name: 'Placeholder',
+						value: 'Enter your new password'
+					},
+					{
+						name: 'Label',
+						value: 'New Password'
+					}
+				]
+			}
+		]
+	});
 
 	change_password(): void {
 		this._form

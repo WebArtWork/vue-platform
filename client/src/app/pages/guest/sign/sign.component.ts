@@ -23,7 +23,68 @@ interface Form {
 	styleUrls: ['./sign.component.scss']
 })
 export class SignComponent {
-	form: FormInterface = this._form.getForm('sign');
+	form: FormInterface = this._form.getForm('sign', {
+		formId: 'sign',
+		title: 'Sign In / Sign Up',
+		components: [
+			{
+				name: 'Email',
+				key: 'email',
+				root: true,
+				focused: true,
+				fields: [
+					{
+						name: 'Placeholder',
+						value: 'Enter your email'
+					},
+					{
+						name: 'Label',
+						value: 'Email'
+					}
+				]
+			},
+			{
+				name: 'Password',
+				key: 'password',
+				root: true,
+				fields: [
+					{
+						name: 'Placeholder',
+						value: 'Enter your password'
+					},
+					{
+						name: 'Label',
+						value: 'Password'
+					}
+				]
+			},
+			{
+				name: 'Number',
+				key: 'code',
+				root: true,
+				fields: [
+					{
+						name: 'Placeholder',
+						value: 'Enter code from email'
+					},
+					{
+						name: 'Label',
+						value: 'code'
+					}
+				],
+				hidden: true
+			},
+			{
+				name: 'Button',
+				fields: [
+					{
+						name: 'Label',
+						value: "Let's go"
+					}
+				]
+			}
+		]
+	});
 
 	user = {
 		email: 'ceo@webart.work',

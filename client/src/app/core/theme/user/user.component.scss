@@ -7,17 +7,25 @@
 	overflow: hidden;
 	@include flexBox(flex, column, null, null, null);
 	background: var(--c-bg-primary);
-	transition: var(--transition);
+	transition: all 0.5s ease-in-out;
 	.main {
 		flex-grow: 1;
 		overflow-y: auto;
 		@include flexBox(flex, column, null, null, null);
 		position: relative;
-		display: flex;
-		flex-flow: row wrap;
+		// display: flex;
+		// flex-flow: row wrap;
 		max-width: 2000px;
 		margin: 0 auto;
 		width: 100%;
+		padding: 20px 270px 0 20px;
+
+		transition: all 0.5s ease-in-out;
+
+		@media screen and (max-width: 991px) {
+			padding: 20px;
+		  }
+
 		.fade {
 			display: none;
 			position: fixed;
@@ -25,15 +33,21 @@
 			height: 100%;
 			z-index: 9;
 			background: rgba(0, 0, 0, 0.3);
-			@media screen and (max-width: 767px) {
+			@media screen and (max-width: 991px) {
 				display: block;
 			}
 		}
 	}
 }
+
+.showTable {
+	padding: 20px !important;
+}
+
+
 /*  NAV STYLE  */
 .nav {
-	transition: var(--transition);
+	transition: all 0.5s ease-in-out;
 	background: var(--c-basic);
 	width: 100%;
 	@include flexBox(flex, null, space-between, center, null);
@@ -46,7 +60,7 @@
 		margin-top: 0;
 		margin-bottom: 0;
 		padding: 0 20px;
-		transition: var(--transition);
+		transition: all 0.5s ease-in-out;
 		@include flexBox(flex, null, null, center, null);
 		width: 100%;
 		@media screen and (max-width: 767px) {
@@ -72,7 +86,7 @@
 		font-size: var(--fs) - 2px;
 		padding: 5px 10px;
 		border-radius: var(--b-radius);
-		transition: var(--transition);
+		transition: all 0.5s ease-in-out;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -129,7 +143,7 @@
 			position: absolute;
 			display: block;
 			content: '';
-			transition: var(--transition);
+			transition: all 0.5s ease-in-out;
 			background-color: transparent;
 		}
 		&-line:before {
@@ -206,7 +220,7 @@
 			transform: translateX(120%) !important;
 		}
 		@include flexBox(flex, column, null, null, null);
-		transition: var(--transition);
+		transition: all 0.5s ease-in-out;
 		box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024,
 			0 1px 18px #0000001f;
 		&._active {

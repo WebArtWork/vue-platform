@@ -14,7 +14,6 @@ export class ModalFormComponent {
 
 	set(submition: Record<string, unknown>) {
 		this._core.copy(submition, this.submition);
-
 		this._core.copy(submition['data'], this.submition['data']);
 	}
 

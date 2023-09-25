@@ -6,10 +6,10 @@
   &__title {
     display: inline-block;
     color: var(--c-text-primary);
-    font-size: calc(#{var(--fs)} - 4px);
+    // font-size: calc(#{var(--fs)} - 4px);
     line-height: calc(#{var(--fs)} + 2px);
     letter-spacing: var(--letter-spacing);
-    margin-bottom: 6px;
+    // margin-bottom: 6px;
     font-weight: 500;
   }
 

@@ -8,6 +8,11 @@
 >
 	<span class="w-forms__title" *ngIf="label">{{label}}</span>
 	<input
+        type="text"
+		mask
+		[endWith]="endWith"
+		[regex]="regex"
+		placeholder="Enter text..."
 		(keyup.enter)="wSubmit.emit(formControl.value)"
 		[formControl]="formControl"
 		class="input w-input__field"
@@ -26,6 +31,9 @@
 		<span class="form-label">{{item}}</span>
 		<!-- [formControlName]="formControlName || name" -->
 		<input
+			mask
+			[endWith]="endWith"
+			[regex]="regex"
 			[formControl]="formControl"
 			[ngClass]="wClass"
 			[name]="name"
@@ -41,6 +49,9 @@
 	<label class="container-box">
 		<!-- [formControlName]="formControlName || name" -->
 		<input
+			mask
+			[endWith]="endWith"
+			[regex]="regex"
 			[formControl]="formControl"
 			class="w-input__checkbox"
 			[disabled]="disabled"
@@ -59,6 +70,9 @@
 		<span class="w-forms__title">{{label}}</span>
 		<!-- [formControlName]="formControlName || name" -->
 		<textarea
+			mask
+			[endWith]="endWith"
+			[regex]="regex"
 			(keyup.enter)="wSubmit.emit(formControl.value)"
 			[formControl]="formControl"
 			[placeholder]="placeholder"

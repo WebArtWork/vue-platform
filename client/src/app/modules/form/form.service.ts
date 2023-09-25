@@ -233,7 +233,7 @@ export class FormService {
 			form &&
 			this.forms.map((c) => c.formId).indexOf(form?.formId) === -1
 		) {
-			this.forms.push(form);
+			this.forms.push(form as FormInterface);
 		}
 
 		if (this.formIds.indexOf(formId) === -1) {
@@ -265,9 +265,7 @@ export class FormService {
 		}
 
 		form.formId = formId;
-
 		form.title = form.title || devForm?.title || customForm?.title;
-
 		form.class = form.class || devForm?.class || customForm?.class;
 
 		if ((form || devForm) && customForm) {
@@ -294,13 +292,13 @@ export class FormService {
 				form,
 				buttons: Array.isArray(buttons) ? buttons : [buttons],
 				submition,
-				onClose: function () {
+				onClose: function() {
 					resolve(this.submition);
 				},
-				submit: (update: T) => {
+				submit: (update: T)=>{
 					resolve(update);
 				},
-				change: (update: T) => {
+				change: (update: T)=>{
 					if (typeof change === 'function') {
 						change(update);
 					}

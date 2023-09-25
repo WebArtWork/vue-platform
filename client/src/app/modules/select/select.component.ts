@@ -74,8 +74,7 @@ export class SelectComponent implements OnInit {
 			if (typeof this.items[i] === 'string') {
 				this.items[i] = {
 					name: this.items[i]
-				};
-
+				}
 				this.items[i][this.value] = this.items[i].name;
 			}
 

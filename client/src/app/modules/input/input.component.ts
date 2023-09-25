@@ -6,7 +6,9 @@ import {
 	OnInit,
 	ElementRef,
 	ViewChild,
-	forwardRef
+	forwardRef,
+	OnChanges,
+	SimpleChanges
 } from '@angular/core';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputTypes } from './input.types';
@@ -23,10 +25,14 @@ import { InputTypes } from './input.types';
 		}
 	]
 })
-export class InputComponent implements OnInit {
+export class InputComponent implements OnInit, OnChanges {
 	@Input() type = InputTypes[0];
 
 	@Input() label = '';
+
+	@Input() endWith = '';
+
+	@Input() regex = '';
 
 	@Input() items: string[] = [];
 
@@ -53,6 +59,12 @@ export class InputComponent implements OnInit {
 	@Output() wSubmit = new EventEmitter();
 
 	@ViewChild('inputEl') inputEl: ElementRef;
+
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes['endWith']) {
+			this.endWith = changes['endWith'].currentValue;
+		}
+	}
 
 	ngOnInit() {
 		if (!this.formControl) {

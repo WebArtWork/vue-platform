@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output
+} from '@angular/core';
 import { FormComponentInterface } from '../../interfaces/component.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormService } from '../../form.service';
@@ -40,7 +46,7 @@ export class FormComponentComponent implements OnInit {
 	constructor(private _form: FormService) {}
 
 	value(key: string, doc: Record<string, unknown>): unknown {
-		if (key.indexOf('.') > -1) {
+		if(key.indexOf('.') > -1) {
 			const local_key: string = key.slice(0, key.indexOf('.'));
 
 			if (!doc[local_key]) {
@@ -74,11 +80,8 @@ export class FormComponentComponent implements OnInit {
 				if (!this.submition['data']) {
 					this.submition['data'] = {};
 				}
+				data.value = this.value(this.component.key, this.submition['data'] as Record<string, unknown>);
 
-				data.value = this.value(
-					this.component.key,
-					this.submition['data'] as Record<string, unknown>
-				);
 			}
 		}
 

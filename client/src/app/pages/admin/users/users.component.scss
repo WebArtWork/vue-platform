@@ -3,14 +3,15 @@
 :host {
   flex-grow: 1;
   @include flexBox(flex, column, null, null, null);
-  padding: 20px 260px 0 20px;
+  // padding: 20px 260px 0 20px;
   flex: 1 0;
   transition: all .3s;
 
   @media screen and (max-width: 767px) {
-    padding: 20px;
+    // padding: 20px;
   }
 }
+
 
 
 .w-table-user {
@@ -91,7 +92,7 @@
 
 .users {
   &__header {
-    @include text-default(0, 23px, 500, 20px, var(--c-text-primary));
+    // @include text-default(0, 23px, 500, 20px, var(--c-text-primary));
     @include flexBox(flex, null, space-between, center, null);
     border-radius: var(--b-radius);
   }
@@ -108,7 +109,7 @@
     display: block;
 
     @media screen and (max-width: 767px) {
-      padding: 20px;
+      // padding: 20px;
     }
   }
 }
@@ -121,8 +122,9 @@
 
 .profile {
   &__header {
-    @include text-default(0, 23px, 500, 20px, var(--c-text-primary));
+    // @include text-default(0, 23px, 500, 20px, var(--c-text-primary));
     @include flexBox(flex, null, space-between, center, null);
     border-radius: var(--b-radius);
+    padding: 0 15px;
   }
 }

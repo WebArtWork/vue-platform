@@ -48,11 +48,7 @@ export class FormComponent {
 		return false;
 	}
 
-	fill(
-		key: string,
-		submition: Record<string, unknown>,
-		value: unknown
-	): void {
+	fill(key: string, submition: Record<string, unknown>, value: unknown): void {
 		if (key.indexOf('.') > -1) {
 			const local_key: string = key.slice(0, key.indexOf('.'));
 
@@ -89,6 +85,7 @@ export class FormComponent {
 
 				this.fill(field, submition.data, value);
 			}
+
 		}
 
 		return submition;
