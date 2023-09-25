@@ -344,11 +344,11 @@ html.dark:root {
 					border: 2px solid transparent;
 					border-radius: 100px;
 					&::before {
-
 						position: absolute;
 						width: 2px;
 						height: 90%;
-						background-color: var(--c-primary);
+						background-color: var(--c-grey);
+						mix-blend-mode: overlay;
 						top: 8%;
 					}
 					&::after {
@@ -358,8 +358,9 @@ html.dark:root {
 						position: absolute;
 						width: 10px;
 						height: 10px;
-						border-bottom: 2px solid var(--c-primary);
-						border-right: 2px solid var(--c-primary);
+						border-bottom: 2px solid var(--c-grey);
+						border-right: 2px solid var(--c-grey);
+						mix-blend-mode: overlay;
 						transform: rotate(135deg);
 						left: 2px;
 						top: 2px
