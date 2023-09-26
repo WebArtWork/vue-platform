@@ -1,6 +1,7 @@
 {
 	"name": "wawNgx",
 	"description": "Default waw project with Angular client and Template landing",
+	"image": "https://webart.work/template/img/spider.svg",
 	"keywords": "Default Project",
 	"license": "MIT",
 	"icon": "/client/src/favicon.ico",

@@ -7,13 +7,6 @@ const template = path.join(process.cwd(), 'template');
 const client = path.join(process.cwd(), 'client', 'dist', 'app');
 
 module.exports = function(waw) {
-	const seo = {
-		image: 'https://webart.work/template/img/spider.svg',
-		description: waw.config.description,
-		keywords: waw.config.keywords,
-		title: waw.config.name
-	};
-
 	waw.serve(client);
 
 	if (fs.existsSync(client)) {
@@ -40,6 +33,8 @@ module.exports = function(waw) {
 	waw.url(
 		path.join(template, 'dist', 'index.html'),
 		'/',
-		seo
+		{
+			...waw.config
+		}
 	);
 };
