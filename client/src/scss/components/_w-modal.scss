@@ -5,10 +5,11 @@
     background: var(--c-bg-secondary);
     border-radius: var(--b-radius);
     border: 1px solid var(--c-border);
+    max-width: 700px;
   }
   .close {
-    top: 13px;
-    right: 15px;
+    top: -3px;
+    right: 3px;
   }
   .close:hover {
     color: var(--c-text-secondary);

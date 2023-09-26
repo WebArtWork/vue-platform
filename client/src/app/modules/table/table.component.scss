@@ -337,10 +337,9 @@ html.dark:root {
 
 				.chevron {
 					position: relative;
-					right: 6px;
 					display: block;
-					width: 22px;
-					height: 22px;
+					min-width: 22px;
+					min-height: 22px;
 					border: 2px solid transparent;
 					border-radius: 100px;
 					&::before {
@@ -377,6 +376,11 @@ html.dark:root {
 
 
 				&._start {
+					.chevron {
+						position: relative;
+						left: 1px;
+					}
+				
 					.chevron::after	{
 						left: 8px;
 						top: 4px;
@@ -388,12 +392,19 @@ html.dark:root {
 					}
 				}
 				&._left {
+					.chevron {
+						position: relative;
+						left: 4px;
+					}
+
 					.chevron::after	{
 						top: 4px;
 					}
 
 				}
 				&._right {
+
+
 					.chevron::after	{
 						transform: rotate(315deg);
 						top: 4px;
@@ -401,6 +412,11 @@ html.dark:root {
 
 				}
 				&._end {
+					.chevron {
+						position: relative;
+						left: 2px;
+					}
+
 					.chevron::after	{
 						left: -3px;
 						top: 4px;

@@ -10,7 +10,8 @@
     position: absolute;
     display: inline-block;
     color: var(--c-text-secondary);
-    font-size: calc(#{var(--fs)} - 6px);
+    // font-size: calc(#{var(--fs)} - 6px);
+    font-size: 20px;
     line-height: calc(#{var(--fs)} + 4px);
     letter-spacing: var(--letter-spacing);
     transition: var(--transition);
