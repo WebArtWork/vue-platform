@@ -89,7 +89,8 @@
 					*ngIf="config.delete || config.update || config.buttons"
 					data-label="Actions:&nbsp;"
 				>
-					<ng-container *ngIf="config.buttons">
+				<div class="table__actions">
+						<ng-container *ngIf="config.buttons">
 						<i
 							*ngFor="let button of config.buttons"
 							(click)="button.click(row)"
@@ -99,6 +100,7 @@
 							{{button.icon}}
 						</i>
 					</ng-container>
+				
 					<i
 						class="material-icons"
 						*ngIf="config.update"
@@ -115,6 +117,8 @@
 					>
 						delete_outline
 					</i>
+				</div>
+				
 				</td>
 			</tr>
 		</tbody>
