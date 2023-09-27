@@ -86,9 +86,19 @@
 				</ng-container>
 				<td
 					class="table-body__last-td"
-					*ngIf="config.delete||config.update"
+					*ngIf="config.delete || config.update || config.buttons"
 					data-label="Actions:&nbsp;"
 				>
+					<ng-container *ngIf="config.buttons">
+						<i
+							*ngFor="let button of config.buttons"
+							(click)="button.click(row)"
+							class="material-icons"
+							[title]="button.icon"
+						>
+							{{button.icon}}
+						</i>
+					</ng-container>
 					<i
 						class="material-icons"
 						*ngIf="config.update"
