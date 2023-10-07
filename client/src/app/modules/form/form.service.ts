@@ -228,6 +228,8 @@ export class FormService {
 
 	formIds: string[] = [];
 
+	private _activeForm: FormInterface;
+
 	getForm(formId: string, form?: FormInterface): FormInterface {
 		if (
 			form &&
@@ -276,6 +278,25 @@ export class FormService {
 
 		this.translateForm(form);
 
+		this._mongo.get('form', () => {
+			const forms = this.customForms.filter(
+				(c) => c.formId === (form as FormInterface).formId
+			);
+
+			for (const _form of forms) {
+				for (const component of _form.components) {
+					if (
+						form?.components &&
+						!form?.components.filter(
+							(c) => !c.root && c.key === component.key
+						).length
+					) {
+						form?.components.push(component);
+					}
+				}
+			}
+		});
+
 		return form;
 	}
 
@@ -292,13 +313,13 @@ export class FormService {
 				form,
 				buttons: Array.isArray(buttons) ? buttons : [buttons],
 				submition,
-				onClose: function() {
+				onClose: function () {
 					resolve(this.submition);
 				},
-				submit: (update: T)=>{
+				submit: (update: T) => {
 					resolve(update);
 				},
-				change: (update: T)=>{
+				change: (update: T) => {
 					if (typeof change === 'function') {
 						change(update);
 					}
