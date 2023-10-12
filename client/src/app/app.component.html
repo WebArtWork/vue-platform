@@ -72,7 +72,7 @@
 <ng-template #passwordRef let-element>
 	<winput
 		type="password"
-		[placeholder]="element.field.Placeholder"
+		[type]="element.field.Show ? 'text' : 'password'"
 		[name]="element.field.Label || 'name'"
 		[focused]="element.component.focused"
 		[ngClass]="element.component.class"
@@ -81,6 +81,15 @@
 		[form]="element.form"
 		[value]="element.value"
 	></winput>
+	<div>
+		<span
+			(click)="element.field.Show = !element.field.Show"
+			class="material-icons"
+			style="position: absolute; left:245px; top: 40px; font-size: 22px; color: white"
+		>
+			visibility
+		</span>
+	</div>
 </ng-template>
 
 <ng-template #buttonRef let-element>
