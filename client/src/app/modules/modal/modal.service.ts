@@ -33,9 +33,10 @@ export class ModalService {
 
 		if (
 			typeof opts.component == 'string' &&
-			(this.config.modals as Object)[(opts.component as string)]
+			this.config.modals &&
+			this.config.modals[(opts.component as string)]
 		) {
-			opts.component = (this.config.modals as Object)[(opts.component as string)];
+			opts.component = this.config.modals[(opts.component as string)];
 		}
 
 		if (typeof opts.component != 'function') {
@@ -47,9 +48,9 @@ export class ModalService {
 		if (!opts.class) opts.class = '';
 
 		for (const each in this.config) {
-			if (each == 'class')
+			if (each == 'class') {
 				opts.class += ((opts.class && ' ') || '') + this.config.class;
-			else if (!opts[each]) opts[each] = this.config[each];
+			}
 		}
 
 		opts.id = Math.floor(Math.random() * Date.now()) + Date.now();
