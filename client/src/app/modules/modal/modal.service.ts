@@ -33,9 +33,9 @@ export class ModalService {
 
 		if (
 			typeof opts.component == 'string' &&
-			this.config.modals[opts.component]
+			(this.config.modals as Object)[(opts.component as string)]
 		) {
-			opts.component = this.config.modals[opts.component];
+			opts.component = (this.config.modals as Object)[(opts.component as string)];
 		}
 
 		if (typeof opts.component != 'function') {

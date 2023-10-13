@@ -11,6 +11,8 @@ import { UserComponent } from './selectors/user/user.component';
 import { IconModule } from '../modules/icon/icon.module';
 import { TranslateModule } from '../modules/translate/translate.module';
 import { AlertModule } from '../modules/alert/alert.module';
+import { ModalModule } from '../modules/modal/modal.module';
+
 
 @NgModule({
 	declarations: [UserComponent],
@@ -25,6 +27,7 @@ import { AlertModule } from '../modules/alert/alert.module';
 		CardModule,
 		FormModule,
 		AlertModule,
+		ModalModule,
 		TableModule,
 		IconModule
 	],

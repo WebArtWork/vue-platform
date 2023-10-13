@@ -11,7 +11,7 @@ export interface Modal {
 	timeout?: any;
 	timestart?: any;
 	class?: string;
-	modals?: object;
+	modals?: Record<string, any>;
 	position?: string;
 	closable?: boolean;
 	unique?: string;
