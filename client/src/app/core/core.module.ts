@@ -10,11 +10,13 @@ import { TableModule } from '../modules/table/table.module';
 import { UserComponent } from './selectors/user/user.component';
 import { IconModule } from '../modules/icon/icon.module';
 import { TranslateModule } from '../modules/translate/translate.module';
+import { AlertModule } from '../modules/alert/alert.module';
 
 @NgModule({
 	declarations: [UserComponent],
 	exports: [
-		/* exports */ TranslateModule,
+		/* exports */
+		TranslateModule,
 		CommonModule,
 		FormsModule,
 		WacomModule,
@@ -22,6 +24,7 @@ import { TranslateModule } from '../modules/translate/translate.module';
 		InputModule,
 		CardModule,
 		FormModule,
+		AlertModule,
 		TableModule,
 		IconModule
 	],

@@ -44,18 +44,10 @@ export class AlertService {
 	};
 
 	show(opts: Alert | string) {
-		if (typeof opts === 'string') {
-			opts = {
-				text: opts
-			};
-		}
+		const options: Alert = (typeof opts === 'string' ? { text: opts } : opts || {}) as Alert;
 
-		if (!opts) {
-			opts = {};
-		}
-
-		if (!opts.type) {
-			opts.type = 'info';
+		if (!options.type) {
+			options.type = 'info';
 		}
 
 		// for (let each in this.config) {
@@ -70,13 +62,13 @@ export class AlertService {
 		// 	opts.position = this.shortcuts[opts.position];
 		// }
 
-		if (!opts.position) {
-			opts.position = 'bottomRight';
+		if (!options.position) {
+			options.position = 'bottomRight';
 		}
 
 		let content: any;
 
-		opts.close = () => {
+		options.close = () => {
 			if (content) content.componentRef.destroy();
 
 			component.nativeElement.remove();
@@ -86,19 +78,19 @@ export class AlertService {
 
 		const component = this._dom.appendById(
 			AlertComponent,
-			opts,
-			opts.position
+			options,
+			options.position
 		);
 
 		// if (typeof opts.component == 'string' && this.config.alerts[opts.component]) {
 		// 	opts.component = this.config.alerts[opts.component];
 		// }
 
-		if (typeof opts.component == 'function') {
+		if (typeof options.component == 'function') {
 			const el = component.nativeElement.children[0].children[0]
 				.children[0] as HTMLElement;
 
-			content = this._dom.appendComponent(opts.component, opts, el);
+			content = this._dom.appendComponent(options.component, opts, el);
 		}
 
 		// if (opts.unique) {
@@ -112,13 +104,7 @@ export class AlertService {
 	}
 
 	open(opts: Alert | string) {
-		if (typeof opts === 'string') {
-			this.show({
-				text: opts
-			});
-		} else {
-			this.show(opts);
-		}
+		this.show(opts);
 	}
 
 	info(opts: Alert | string) {
@@ -126,7 +112,7 @@ export class AlertService {
 			this.show({
 				text: opts,
 				type: 'info'
-			});
+			} as Alert);
 		} else {
 			opts.type = 'info';
 
@@ -139,7 +125,7 @@ export class AlertService {
 			this.show({
 				text: opts,
 				type: 'success'
-			});
+			} as Alert);
 		} else {
 			opts.type = 'success';
 
@@ -152,7 +138,7 @@ export class AlertService {
 			this.show({
 				text: opts,
 				type: 'warning'
-			});
+			} as Alert);
 		} else {
 			opts.type = 'warning';
 
@@ -165,7 +151,7 @@ export class AlertService {
 			this.show({
 				text: opts,
 				type: 'error'
-			});
+			} as Alert);
 		} else {
 			opts.type = 'error';
 
@@ -178,7 +164,7 @@ export class AlertService {
 			this.show({
 				text: opts,
 				type: 'question'
-			});
+			} as Alert);
 		} else {
 			opts.type = 'question';
 

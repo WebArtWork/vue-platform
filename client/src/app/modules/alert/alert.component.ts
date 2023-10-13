@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CoreService } from 'wacom';
 
 @Component({
@@ -20,7 +20,7 @@ export class AlertComponent {
 	closable: any = true;
 	buttons: any = []; /*[{text, callback}]*/
 
-	constructor(private elementRef: ElementRef, public core: CoreService) {
+	constructor(public core: CoreService) {
 		setTimeout(() => {
 			if (this.timeout) {
 				let remaining = JSON.parse(JSON.stringify(this.timeout));

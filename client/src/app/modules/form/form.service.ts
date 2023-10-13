@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AlertService, ModalService, MongoService, StoreService } from 'wacom';
+import { ModalService, MongoService, StoreService } from 'wacom';
 import {
 	FormComponentInterface,
 	TemplateComponentInterface,
 	TemplateFieldInterface
 } from './interfaces/component.interface';
+import { AlertService } from 'src/app/modules/alert/alert.service';
 import { FormInterface } from './interfaces/form.interface';
 import { ModalFormComponent } from './modals/modal-form/modal-form.component';
 import { TranslateService } from '../translate/translate.service';

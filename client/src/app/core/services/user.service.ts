@@ -3,10 +3,10 @@ import {
 	MongoService,
 	FileService,
 	HttpService,
-	AlertService,
 	CoreService,
 	StoreService
 } from 'wacom';
+import { AlertService } from 'src/app/modules/alert/alert.service';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
