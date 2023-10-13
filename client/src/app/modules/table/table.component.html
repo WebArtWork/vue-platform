@@ -90,17 +90,35 @@
 					data-label="Actions:&nbsp;"
 				>
 				<div class="table__actions">
-						<ng-container *ngIf="config.buttons">
-						<i
-							*ngFor="let button of config.buttons"
-							(click)="button.click(row)"
-							class="material-icons"
-							[title]="button.icon"
-						>
-							{{button.icon}}
-						</i>
+					<ng-container *ngIf="config.buttons">
+						<ng-container *ngFor="let button of config.buttons">
+							<i
+								(click)="button.click(row)"
+								class="material-icons"
+								[title]="button.icon"
+								*ngIf="!button.href && !button.hrefFunc"
+							>
+								{{button.icon}}
+							</i>
+							<a routerLink="{{button.href}}" *ngIf="button.href">
+								<i
+									class="material-icons"
+									[title]="button.icon"
+								>
+									{{button.icon}}
+								</i>
+							</a>
+							<a routerLink="{{button.hrefFunc(row)}}" *ngIf="button.hrefFunc">
+								<i
+									class="material-icons"
+									[title]="button.icon"
+								>
+									{{button.icon}}
+								</i>
+							</a>
+						</ng-container>
 					</ng-container>
-				
+
 					<i
 						class="material-icons"
 						*ngIf="config.update"
@@ -118,7 +136,7 @@
 						delete_outline
 					</i>
 				</div>
-				
+
 				</td>
 			</tr>
 		</tbody>

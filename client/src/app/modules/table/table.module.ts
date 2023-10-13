@@ -11,9 +11,10 @@ import {
 	SortDirective
 } from './table.directive';
 import { ButtonModule } from '../button/button.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-	imports: [CommonModule, FormsModule, WacomModule, FormModule, ButtonModule],
+	imports: [CommonModule, FormsModule, WacomModule, FormModule, ButtonModule, RouterModule],
 	declarations: [
 		TableComponent,
 		CellDirective,
