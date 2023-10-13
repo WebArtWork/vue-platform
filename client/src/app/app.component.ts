@@ -1,5 +1,6 @@
 import { Component, TemplateRef, OnInit, ViewChild } from '@angular/core';
 import { FormService } from './modules/form/form.service';
+import { UiService } from 'wacom';
 
 @Component({
 	selector: 'app-root',
@@ -68,5 +69,5 @@ export class AppComponent implements OnInit {
 		this._form.inited = true;
 	}
 
-	constructor(private _form: FormService) {}
+	constructor(private _form: FormService, public ui: UiService) {}
 }
