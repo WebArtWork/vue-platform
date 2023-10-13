@@ -8,7 +8,7 @@ import { CardModule } from 'src/app/modules/card/card.module';
 import { FormModule } from 'src/app/modules/form/form.module';
 import { TableModule } from '../modules/table/table.module';
 import { UserComponent } from './selectors/user/user.component';
-import { IconModule } from './icons/icon.module';
+import { IconsModule } from './icons/icons.module';
 import { TranslateModule } from '../modules/translate/translate.module';
 import { AlertModule } from '../modules/alert/alert.module';
 import { ModalModule } from '../modules/modal/modal.module';
@@ -29,7 +29,7 @@ import { ModalModule } from '../modules/modal/modal.module';
 		AlertModule,
 		ModalModule,
 		TableModule,
-		IconModule
+		IconsModule
 	],
 	imports: [CommonModule, FormsModule, WacomModule],
 	providers: []
