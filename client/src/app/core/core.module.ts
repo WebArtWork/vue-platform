@@ -12,6 +12,7 @@ import { IconsModule } from './icons/icons.module';
 import { TranslateModule } from '../modules/translate/translate.module';
 import { AlertModule } from '../modules/alert/alert.module';
 import { ModalModule } from '../modules/modal/modal.module';
+import { FormcomponentsModule } from './formcomponents/formcomponents.module';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { ModalModule } from '../modules/modal/modal.module';
 		TableModule,
 		IconsModule
 	],
-	imports: [CommonModule, FormsModule, WacomModule],
+	imports: [CommonModule, FormsModule, WacomModule, FormcomponentsModule],
 	providers: []
 })
 export class CoreModule {}
