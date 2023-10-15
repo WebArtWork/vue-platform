@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { SpiderComponent } from './spider/spider.component';
-import { WawifyComponent } from './wawify/wawify.component';
 
+const icons = [
+	/* icons */
+	SpiderComponent
+]
 
 @NgModule({
-	declarations: [SpiderComponent, WawifyComponent],
-	exports: [SpiderComponent, WawifyComponent]
+	declarations: icons,
+	exports: icons
 })
 export class IconsModule {}
