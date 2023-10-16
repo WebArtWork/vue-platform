@@ -1,21 +1,23 @@
 import { FormService } from 'src/app/modules/form/form.service';
 import { NgModule, Type } from '@angular/core';
 import { TextComponent } from './text/text.component';
-
-const formcomponents: Type<unknown>[] = [
-	/* formcomponents */
-	TextComponent,
-]
+import { InputModule } from 'src/app/modules/input/input.module';
 
 @NgModule({
-	declarations: formcomponents
+	imports: [
+		InputModule
+	]
+	declarations: [
+		/* formcomponents */
+		TextComponent,
+	]
 })
 export class FormcomponentsModule {
 	constructor(private _form: FormService) {
-		/*  */
-		// formcomponents.forEach(formcomponent => {});
-		// _form.addComponentTemp({
-
-		// })
+		console.log(TextComponent);
+		_form.addComponentTemp({
+			component: TextComponent,
+			name: 'Text'
+		});
 	}
 }

@@ -88,6 +88,17 @@ export class FormService {
 		}
 	}
 
+	componentsTemp: any[] = [];
+
+	addComponentTemp(component: any) {
+		if (
+			this.componentsTemp.map((c) => c.name).indexOf(component.name) ===
+			-1
+		) {
+			this.componentsTemp.push(component);
+		}
+	}
+
 	getComponent(name: string) {
 		const index = this.components.map((c) => c.name).indexOf(name);
 
@@ -100,11 +111,11 @@ export class FormService {
 		return index === -1
 			? null
 			: {
-					templateRef: this.components[index].ref,
-					components: [],
-					fields: [],
-					name
-			  };
+				templateRef: this.components[index].ref,
+				components: [],
+				fields: [],
+				name
+			};
 	}
 
 	inited = false;
@@ -264,8 +275,8 @@ export class FormService {
 			form = devForm
 				? { ...devForm }
 				: customForm
-				? { ...customForm }
-				: defaultForm;
+					? { ...customForm }
+					: defaultForm;
 		}
 
 		form.formId = formId;
@@ -306,7 +317,7 @@ export class FormService {
 		form: FormInterface | FormInterface[],
 		buttons: FormModalButton | FormModalButton[] = [],
 		submition: unknown = {},
-		change = (doc: T) => {}
+		change = (doc: T) => { }
 	): Promise<T> {
 		return new Promise((resolve, reject) => {
 			this._modal.show({
@@ -345,7 +356,7 @@ export class FormService {
 
 	create(
 		form: FormInterface = this.new(),
-		callback = (created: FormInterface) => {},
+		callback = (created: FormInterface) => { },
 		text = 'form has been created.'
 	) {
 		if (form._id) {
@@ -373,7 +384,7 @@ export class FormService {
 
 	update(
 		form: FormInterface,
-		callback = () => {},
+		callback = () => { },
 		text = 'form has been updated.'
 	): void {
 		this._mongo.afterWhile(form, () => {
@@ -383,7 +394,7 @@ export class FormService {
 
 	save(
 		form: FormInterface,
-		callback = () => {},
+		callback = () => { },
 		text = 'form has been updated.'
 	): void {
 		this._mongo.update(
@@ -413,7 +424,7 @@ export class FormService {
 
 	delete(
 		form: FormInterface,
-		callback = () => {},
+		callback = () => { },
 		text = 'form has been deleted.'
 	): void {
 		this._mongo.delete('form', form, () => {
