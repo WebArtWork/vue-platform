@@ -46,8 +46,7 @@ export class SignComponent {
 				]
 			},
 			{
-				// name: 'Password',
-				name: 'Text',
+				name: 'Password',
 				key: 'password',
 				root: true,
 				fields: [

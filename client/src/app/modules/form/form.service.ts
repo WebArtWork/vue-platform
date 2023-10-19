@@ -141,6 +141,31 @@ export class FormService {
 
 				component.templateRef = this.components[index].ref;
 
+
+
+
+
+
+				const indexTemp = this.componentsTemp
+					.map((c) => c.name)
+					.indexOf(component.name);
+
+
+
+				if (indexTemp >= 0) {
+					component.templateRef = this.componentsTemp[indexTemp].component;
+				}
+
+
+
+
+
+
+
+
+
+
+
 				for (const field of this.components[index].fields) {
 					if (
 						component.fields.map((f) => f.name).indexOf(field) ===
@@ -241,8 +266,6 @@ export class FormService {
 
 	formIds: string[] = [];
 
-	private _activeForm: FormInterface;
-
 	getForm(formId: string, form?: FormInterface): FormInterface {
 		if (
 			form &&
@@ -291,7 +314,7 @@ export class FormService {
 
 		this.translateForm(form);
 
-		this._mongo.get('form', () => {
+		this._mongo.on('form', () => {
 			const forms = this.customForms.filter(
 				(c) => c.formId === (form as FormInterface).formId
 			);
