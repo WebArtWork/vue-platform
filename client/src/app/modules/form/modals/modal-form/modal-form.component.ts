@@ -25,13 +25,5 @@ export class ModalFormComponent {
 
 	buttons: FormModalButton[];
 
-	buttonRef: TemplateRef<any>;
-
-	constructor(private _fs: FormService, private _core: CoreService) {
-		const button = this._fs.getComponent('Button');
-
-		if (button?.ref) {
-			this.buttonRef = button.ref;
-		}
-	}
+	constructor(private _core: CoreService) {}
 }

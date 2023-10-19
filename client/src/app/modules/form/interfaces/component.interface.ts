@@ -6,14 +6,14 @@ export interface TemplateFieldInterface {
 }
 
 export interface TemplateComponentInterface {
-	name: string;
-	ref: TemplateRef<any>;
+	component: unknown;
 	fields: string[];
+	name: string;
 }
 
 export interface FormComponentInterface {
 	name?: string; // template name
-	templateRef?: TemplateRef<any>;
+	component?: unknown;
 
 	key?: string; // submition location
 	root?: boolean; // if key should be applied to data or root document

@@ -78,24 +78,24 @@ export class FormService {
 		}
 	}
 
+	// components: TemplateComponentInterface[] = [];
+
+	// addComponent(component: TemplateComponentInterface) {
+	// 	if (this.components.map((c) => c.name).indexOf(component.name) === -1) {
+	// 		this.components.push(component);
+	// 	} else {
+	// 		throw 'Component name is unique';
+	// 	}
+	// }
+
 	components: TemplateComponentInterface[] = [];
 
 	addComponent(component: TemplateComponentInterface) {
-		if (this.components.map((c) => c.name).indexOf(component.name) === -1) {
-			this.components.push(component);
-		} else {
-			throw 'Component name is unique';
-		}
-	}
-
-	componentsTemp: any[] = [];
-
-	addComponentTemp(component: any) {
 		if (
-			this.componentsTemp.map((c) => c.name).indexOf(component.name) ===
+			this.components.map((c) => c.name).indexOf(component.name) ===
 			-1
 		) {
-			this.componentsTemp.push(component);
+			this.components.push(component);
 		}
 	}
 
@@ -111,7 +111,7 @@ export class FormService {
 		return index === -1
 			? null
 			: {
-				templateRef: this.components[index].ref,
+				component: this.components[index].component,
 				components: [],
 				fields: [],
 				name
@@ -139,32 +139,7 @@ export class FormService {
 					return;
 				}
 
-				component.templateRef = this.components[index].ref;
-
-
-
-
-
-
-				const indexTemp = this.componentsTemp
-					.map((c) => c.name)
-					.indexOf(component.name);
-
-
-
-				if (indexTemp >= 0) {
-					component.templateRef = this.componentsTemp[indexTemp].component;
-				}
-
-
-
-
-
-
-
-
-
-
+				component.component = this.components[index].component;
 
 				for (const field of this.components[index].fields) {
 					if (

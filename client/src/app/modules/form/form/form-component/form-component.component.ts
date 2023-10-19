@@ -106,11 +106,11 @@ export class FormComponentComponent implements OnInit {
 
 		this.data = data;
 
-		if (!this.component.templateRef) {
+		if (!this.component.component) {
 			this._form.addRef(this.component);
 		}
 
-		this._viewContainerRef.insert(this._dom.getComponentRef(this.component.templateRef, {
+		this._viewContainerRef.insert(this._dom.getComponentRef(this.component.component, {
 			component: this.component,
 			config: this.config,
 			field: this.data.field,

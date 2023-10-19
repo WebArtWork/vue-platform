@@ -1,10 +1,13 @@
+import { ButtonModule } from 'src/app/modules/button/button.module';
+import { InputModule } from 'src/app/modules/input/input.module';
 import { FormService } from 'src/app/modules/form/form.service';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-/* modules */
-import { InputModule } from 'src/app/modules/input/input.module';
-import { ButtonModule } from 'src/app/modules/button/button.module';
 /* componnets */
+import { EmailComponent } from './email/email.component';
+import { NumberComponent } from './number/number.component';
+import { TimeComponent } from './time/time.component';
+import { DateComponent } from './date/date.component';
 import { TextComponent } from './text/text.component';
 import { ButtonComponent } from './button/button.component';
 import { PasswordComponent } from './password/password.component';
@@ -17,6 +20,10 @@ import { PasswordComponent } from './password/password.component';
 	],
 	declarations: [
 		/* declarations */
+		EmailComponent,
+		NumberComponent,
+		TimeComponent,
+		DateComponent,
 		PasswordComponent,
 		TextComponent,
   		ButtonComponent
@@ -25,17 +32,41 @@ import { PasswordComponent } from './password/password.component';
 export class FormcomponentsModule {
 	constructor(private _form: FormService) {
 		/* addComponents */
-		this._form.addComponentTemp({
+		this._form.addComponent({
+			component: EmailComponent,
+			name: 'Email',
+			fields: []
+		});
+		this._form.addComponent({
+			component: NumberComponent,
+			name: 'Number',
+			fields: []
+		});
+		this._form.addComponent({
+			component: TimeComponent,
+			name: 'Time',
+			fields: []
+		});
+		this._form.addComponent({
+			component: DateComponent,
+			name: 'Date',
+			fields: []
+		});
+		this._form.addComponent({
 			component: TextComponent,
-			name: 'Text'
+			name: 'Text',
+			fields: []
 		});
-		this._form.addComponentTemp({
+		this._form.addComponent({
 			component: ButtonComponent,
-			name: 'Button'
+			name: 'Button',
+			fields: []
 		});
-		this._form.addComponentTemp({
+		this._form.addComponent({
 			component: PasswordComponent,
-			name: 'Password'
+			name: 'Password',
+			fields: []
 		});
+		this._form.inited = true;
 	}
 }
