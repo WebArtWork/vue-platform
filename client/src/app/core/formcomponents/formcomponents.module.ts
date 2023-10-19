@@ -35,37 +35,37 @@ export class FormcomponentsModule {
 		this._form.addComponent({
 			component: EmailComponent,
 			name: 'Email',
-			fields: []
+			fields: ['Placeholder', 'Label']
 		});
 		this._form.addComponent({
 			component: NumberComponent,
 			name: 'Number',
-			fields: []
+			fields: ['Placeholder', 'Label']
 		});
 		this._form.addComponent({
 			component: TimeComponent,
 			name: 'Time',
-			fields: []
+			fields: ['Placeholder', 'Label']
 		});
 		this._form.addComponent({
 			component: DateComponent,
 			name: 'Date',
-			fields: []
+			fields: ['Placeholder', 'Label']
 		});
 		this._form.addComponent({
 			component: TextComponent,
 			name: 'Text',
-			fields: []
-		});
-		this._form.addComponent({
-			component: ButtonComponent,
-			name: 'Button',
-			fields: []
+			fields: ['Placeholder', 'Label']
 		});
 		this._form.addComponent({
 			component: PasswordComponent,
 			name: 'Password',
-			fields: []
+			fields: ['Placeholder', 'Label']
+		});
+		this._form.addComponent({
+			component: ButtonComponent,
+			name: 'Button',
+			fields: ['Label']
 		});
 		this._form.inited = true;
 	}

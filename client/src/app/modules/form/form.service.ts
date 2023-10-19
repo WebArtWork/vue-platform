@@ -202,7 +202,6 @@ export class FormService {
 					name: 'Text',
 					key: 'name',
 					focused: true,
-					root: true,
 					fields: [
 						{
 							name: 'Placeholder',
@@ -217,7 +216,6 @@ export class FormService {
 				{
 					name: 'Text',
 					key: 'description',
-					root: true,
 					fields: [
 						{
 							name: 'Placeholder',
