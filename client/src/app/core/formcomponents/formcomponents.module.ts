@@ -1,5 +1,6 @@
 import { ButtonModule } from 'src/app/modules/button/button.module';
 import { InputModule } from 'src/app/modules/input/input.module';
+import { FileModule } from 'src/app/modules/file/file.module';
 import { FormService } from 'src/app/modules/form/form.service';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -7,16 +8,20 @@ import { NgModule } from '@angular/core';
 import { EmailComponent } from './email/email.component';
 import { NumberComponent } from './number/number.component';
 import { TimeComponent } from './time/time.component';
+import { PhotoComponent } from './photo/photo.components';
+import { PhotosComponent } from './photos/photos.component';
 import { DateComponent } from './date/date.component';
 import { TextComponent } from './text/text.component';
 import { ButtonComponent } from './button/button.component';
 import { PasswordComponent } from './password/password.component';
 
+
 @NgModule({
 	imports: [
 		InputModule,
 		ButtonModule,
-		CommonModule
+		CommonModule,
+		FileModule
 	],
 	declarations: [
 		/* declarations */
@@ -24,6 +29,8 @@ import { PasswordComponent } from './password/password.component';
 		NumberComponent,
 		TimeComponent,
 		DateComponent,
+		PhotoComponent,
+		PhotosComponent,
 		PasswordComponent,
 		TextComponent,
   		ButtonComponent
@@ -66,6 +73,16 @@ export class FormcomponentsModule {
 			component: ButtonComponent,
 			name: 'Button',
 			fields: ['Label']
+		});
+		this._form.addComponent({
+			component: PhotoComponent,
+			name: 'Photo',
+			fields: ['Placeholder', 'Label']
+		});
+		this._form.addComponent({
+			component: PhotosComponent,
+			name: 'Photos',
+			fields: ['Placeholder', 'Label']
 		});
 		this._form.inited = true;
 	}

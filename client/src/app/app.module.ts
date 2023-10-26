@@ -14,6 +14,8 @@ import { environment } from 'src/environments/environment';
 import { AuthenticatedGuard } from './core/guards/authenticated.guard';
 import { GuestGuard } from './core/guards/guest.guard';
 import { AdminsGuard } from './core/guards/admins.guard';
+import { AlertModule } from './modules/alert/alert.module';
+import { ModalModule } from './modules/modal/modal.module';
 
 const routes: Routes = [
 	{
@@ -120,6 +122,8 @@ const routes: Routes = [
 @NgModule({
 	declarations: [AppComponent, GuestComponent, UserComponent],
 	imports: [
+		AlertModule,
+		ModalModule,
 		CoreModule,
 		BrowserModule,
 		ReactiveFormsModule,
