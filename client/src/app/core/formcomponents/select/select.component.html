@@ -1,0 +1,10 @@
+    <wselect
+        [select]="value?.name || value || ''"
+        (modelChange)="control.setValue($event)"
+        [multiple]="field.Multiple || false"
+        [placeholder]="field.Placeholder"
+        [value]="field.Value || '_id'"
+        [name]="field.Name || 'name'"
+        [ngClass]="component.class"
+        [items]="field.Items"
+    ></wselect>

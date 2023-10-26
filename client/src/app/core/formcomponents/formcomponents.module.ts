@@ -2,6 +2,7 @@ import { ButtonModule } from 'src/app/modules/button/button.module';
 import { InputModule } from 'src/app/modules/input/input.module';
 import { FileModule } from 'src/app/modules/file/file.module';
 import { FormService } from 'src/app/modules/form/form.service';
+import { SelectModule } from 'src/app/modules/select/select.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 /* componnets */
@@ -14,6 +15,7 @@ import { DateComponent } from './date/date.component';
 import { TextComponent } from './text/text.component';
 import { ButtonComponent } from './button/button.component';
 import { PasswordComponent } from './password/password.component';
+import { SelectComponent } from './select/select.component';
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import { PasswordComponent } from './password/password.component';
 		InputModule,
 		ButtonModule,
 		CommonModule,
-		FileModule
+		FileModule,
+		SelectModule
 	],
 	declarations: [
 		/* declarations */
@@ -32,6 +35,7 @@ import { PasswordComponent } from './password/password.component';
 		PhotoComponent,
 		PhotosComponent,
 		PasswordComponent,
+		SelectComponent,
 		TextComponent,
   		ButtonComponent
 	]
@@ -52,6 +56,11 @@ export class FormcomponentsModule {
 		this._form.addComponent({
 			component: TimeComponent,
 			name: 'Time',
+			fields: ['Placeholder', 'Label']
+		});
+		this._form.addComponent({
+			component: SelectComponent,
+			name: 'Select',
 			fields: ['Placeholder', 'Label']
 		});
 		this._form.addComponent({
