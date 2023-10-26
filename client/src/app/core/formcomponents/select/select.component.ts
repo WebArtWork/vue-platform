@@ -12,4 +12,7 @@ export class SelectComponent {
 	control: FormControl;
 	form: FormGroup;
 	value: { name: string } = { name: '' };
+	get select(): string {
+		return this.value?.name || (this.value as unknown as string) || '';
+	}
 }
