@@ -13,6 +13,7 @@ import { TranslateModule } from '../modules/translate/translate.module';
 import { AlertModule } from '../modules/alert/alert.module';
 import { ModalModule } from '../modules/modal/modal.module';
 import { FormcomponentsModule } from './formcomponents/formcomponents.module';
+import { SelectModule } from '../modules/select/select.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { FormcomponentsModule } from './formcomponents/formcomponents.module';
 	exports: [
 		/* exports */
 		TranslateModule,
+		SelectModule,
 		CommonModule,
 		FormsModule,
 		WacomModule,
