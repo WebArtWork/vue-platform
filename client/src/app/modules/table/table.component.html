@@ -1,6 +1,20 @@
 <div class="wtable">
 	<div class="users__header w-card__header" *ngIf="title">
 		<h3 class="w-forms__title">{{title}}</h3>
+		<ng-container *ngIf="config.headerButtons">
+			<ng-container *ngFor="let button of config.headerButtons">
+				<wbutton (click)="button.click()" class="table-plus-btn" *ngIf="config.create" type="button">
+					<i
+						class="material-icons"
+						[title]="button.icon"
+						*ngIf="button.icon"
+					>
+						{{button.icon}}
+					</i>
+					<span *ngIf="button.text">{{button.text}}</span>
+				</wbutton>
+			</ng-container>
+		</ng-container>
 		<wbutton
 			(click)="config.create()"
 			class="table-plus-btn"
@@ -93,7 +107,7 @@
 					<ng-container *ngIf="config.buttons">
 						<ng-container *ngFor="let button of config.buttons">
 							<i
-								(click)="button.click(row)"
+								(click)="button.click()"
 								class="material-icons"
 								[title]="button.icon"
 								*ngIf="!button.href && !button.hrefFunc"
