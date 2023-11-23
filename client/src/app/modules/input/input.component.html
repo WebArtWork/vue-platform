@@ -1,5 +1,6 @@
 <label
 	class="w-forms"
+	[class.static]="static"
 	*ngIf="
 		type !== 'radio' &&
 		type !== 'checkbox' &&
@@ -10,6 +11,8 @@
 	<input
         type="text"
 		mask
+		(blur)="static = false"
+		(focus)="static = true"
 		[endWith]="endWith"
 		[regex]="regex"
 		placeholder="Enter text..."
@@ -27,11 +30,13 @@
 <!-- [disabled]="disabled" -->
 
 <ng-container *ngIf="type === 'radio'">
-	<label class="check-lebel" *ngFor="let item of items">
+	<label class="check-lebel" *ngFor="let item of items" [class.static]="static">
 		<span class="form-label">{{item}}</span>
 		<!-- [formControlName]="formControlName || name" -->
 		<input
 			mask
+			(blur)="static = false"
+			(focus)="static = true"
 			[endWith]="endWith"
 			[regex]="regex"
 			[formControl]="formControl"
@@ -46,10 +51,12 @@
 </ng-container>
 
 <ng-container *ngIf="type === 'checkbox'">
-	<label class="container-box">
+	<label class="container-box" [class.static]="static">
 		<!-- [formControlName]="formControlName || name" -->
 		<input
 			mask
+			(blur)="static = false"
+			(focus)="static = true"
 			[endWith]="endWith"
 			[regex]="regex"
 			[formControl]="formControl"
@@ -66,11 +73,13 @@
 </ng-container>
 
 <ng-container *ngIf="type === 'textarea'">
-	<label class="w-forms">
+	<label class="w-forms" [class.static]="static">
 		<span class="w-forms__title">{{label}}</span>
 		<!-- [formControlName]="formControlName || name" -->
 		<textarea
 			mask
+			(blur)="static = false" 
+			(focus)="static = true"
 			[endWith]="endWith"
 			[regex]="regex"
 			(keyup.enter)="wSubmit.emit(formControl.value)"

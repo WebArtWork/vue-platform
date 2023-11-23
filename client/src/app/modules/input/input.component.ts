@@ -25,7 +25,10 @@ import { InputTypes } from './input.types';
 		}
 	]
 })
+
 export class InputComponent implements OnInit, OnChanges {
+	static = false;
+
 	@Input() type = InputTypes[0];
 
 	@Input() label = '';

@@ -99,69 +99,90 @@
     }
   }
 }
+
 .container-box {
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-   }
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 
-   .container-box input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-   }
+.container-box input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
 
-   .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 32px;
-    width: 32px;
-    background-color: #12677a6e;
-    border-radius: 50%;
-    transition: all .3s;
-   }
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 32px;
+  width: 32px;
+  background-color: #12677a6e;
+  border-radius: 50%;
+  transition: all .3s;
+}
 
-   .container-box:hover input~.checkmark {
-    background-color: #0f353d60;
-   }
-   .container-box input:checked~.checkmark {
-    background-color: var(--c-primary);
-   }
-   .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-   }
-   .checkmark:before {
-    content: "";
-    position: absolute;
-    display: none;
-   }
-   .container-box input:checked~.checkmark:after {
-    display: block;
-   }
-   .container-box input:checked~.checkmark:before {
-    display: block;
-   }
-   .container-box .checkmark:after {
-    left: 10px;
-    top: 47%;
-    width: 8px;
-    height: 14px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    transform: rotate(45deg) translate(-50%, -50%);
-   }
-   .check{
-    max-width: 100px;
-   }
+.container-box:hover input~.checkmark {
+  background-color: #0f353d60;
+}
+
+.container-box input:checked~.checkmark {
+  background-color: var(--c-primary);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkmark:before {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container-box input:checked~.checkmark:after {
+  display: block;
+}
+
+.container-box input:checked~.checkmark:before {
+  display: block;
+}
+
+.container-box .checkmark:after {
+  left: 10px;
+  top: 47%;
+  width: 8px;
+  height: 14px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg) translate(-50%, -50%);
+}
+
+.check {
+  max-width: 100px;
+}
+@media screen and (max-width: 768px) {
+.static {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  border-radius: 0px 0px 9px 9px;
+  width: 400px;
+  height: 200px;
+  z-index: 9999;
+  background-color: rgb(59, 59, 59);
+}
+}
