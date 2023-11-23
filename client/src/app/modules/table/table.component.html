@@ -107,7 +107,7 @@
 					<ng-container *ngIf="config.buttons">
 						<ng-container *ngFor="let button of config.buttons">
 							<i
-								(click)="button.click()"
+								(click)="button.click(row)"
 								class="material-icons"
 								[title]="button.icon"
 								*ngIf="!button.href && !button.hrefFunc"
