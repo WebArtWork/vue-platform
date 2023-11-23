@@ -11,8 +11,6 @@
 	<input
         type="text"
 		mask
-		(blur)="static = false"
-		(focus)="static = true"
 		(click)="toggleWindow()"
 		[endWith]="endWith"
 		[regex]="regex"
@@ -72,21 +70,21 @@
 </ng-container>
 
 <ng-container *ngIf="type === 'textarea'">
-	<label class="w-forms" [class.static]="static">
-		<span class="w-forms__title">{{label}}</span>
-		<!-- [formControlName]="formControlName || name" -->
-		<textarea
-			mask
-			(click)="toggleWindow()"
-			[endWith]="endWith"
-			[regex]="regex"
-			(keyup.enter)="wSubmit.emit(formControl.value)"
-			[formControl]="formControl"
-			[placeholder]="placeholder"
-			class="w-forms__textarea"
-			[ngClass]="wClass"
-			[name]="name"
-			#inputEl
-		></textarea>
-	</label>
+    <label class="w-forms" [class.static]="static">
+        <span class="w-forms__title">{{label}}</span>
+        <!-- [formControlName]="formControlName || name" -->
+        <textarea
+            mask
+            (click)="toggleWindow()"
+            [endWith]="endWith"
+            [regex]="regex"
+            (keyup.enter)="wSubmit.emit(formControl.value)"
+            [formControl]="formControl"
+            [placeholder]="placeholder"
+            class="w-forms__textarea"
+            [ngClass]="wClass"
+            [name]="name"
+            #inputEl
+        ></textarea>
+    </label>
 </ng-container>
