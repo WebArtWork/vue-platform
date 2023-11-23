@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 @Component({
-	selector: 'number-formcomponents',
-	templateUrl: './number.component.html',
-	styleUrls: ['./number.component.scss']
+	selector: 'photo-formcomponents',
+	templateUrl: './photo.component.html',
+	styleUrls: ['./photo.component.scss']
 })
-export class NumberComponent {
+export class PhotoComponent {
 	field: any = {};
+	config: any = {};
 	component: any = {};
 	control: FormControl;
 	form: FormGroup;
-	value: unknown;
+	value: string;
 }

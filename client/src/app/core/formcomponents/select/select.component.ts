@@ -13,6 +13,6 @@ export class SelectComponent {
 	form: FormGroup;
 	value: { name: string } = { name: '' };
 	get select(): string {
-		return this.value?.name || (this.value as unknown as string) || '';
+		return this.value?.name || (this.value as unknown as string) || ''
 	}
 }

@@ -208,3 +208,8 @@ wform {
     color: var(--c-primary);
   }
 }
+@media screen and (max-width: 768px) {
+.auth__img{
+  display: none;
+}
+}

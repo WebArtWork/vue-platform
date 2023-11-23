@@ -6,4 +6,11 @@ import { Component } from '@angular/core';
 })
 export class ButtonComponent {
 	field: any = {};
+	click() {
+		console.log('clicked', this.field);
+
+		if (typeof this.field.Click === 'function') {
+			this.field.Click();
+		}
+	}
 }
