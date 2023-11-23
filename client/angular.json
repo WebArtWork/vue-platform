@@ -91,19 +91,19 @@
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
-						"production": {
-							"browserTarget": "client:build:production"
+            "production": {
+              "buildTarget": "client:build:production"
 						},
-						"development": {
-							"browserTarget": "client:build:development"
+            "development": {
+              "buildTarget": "client:build:development"
 						}
 					},
 					"defaultConfiguration": "development"
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "client:build"
+          "options": {
+            "buildTarget": "client:build"
 					}
 				},
 				"test": {
