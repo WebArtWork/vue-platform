@@ -15,6 +15,18 @@ import {
 	styleUrls: ['./select.component.scss']
 })
 export class SelectComponent implements OnInit {
+
+	toggleWindow(): void {
+		this.static = !this.static;
+	}
+
+	closeWindow(): void {
+		// Логіка закриття вікна
+		this.static = false;
+	}
+
+	static = false;
+	
 	@Output() update: EventEmitter<any> = new EventEmitter<any>();
 
 	@Input() placeholder = '';
