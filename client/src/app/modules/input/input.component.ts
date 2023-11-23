@@ -25,8 +25,16 @@ import { InputTypes } from './input.types';
 		}
 	]
 })
-
 export class InputComponent implements OnInit, OnChanges {
+	toggleWindow(): void {
+		this.static = !this.static;
+	}
+
+	closeWindow(): void {
+		// Логіка закриття вікна
+		this.static = false;
+	}
+
 	static = false;
 
 	@Input() type = InputTypes[0];

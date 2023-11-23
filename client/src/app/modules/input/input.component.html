@@ -13,6 +13,7 @@
 		mask
 		(blur)="static = false"
 		(focus)="static = true"
+		(click)="toggleWindow()"
 		[endWith]="endWith"
 		[regex]="regex"
 		placeholder="Enter text..."
@@ -35,8 +36,7 @@
 		<!-- [formControlName]="formControlName || name" -->
 		<input
 			mask
-			(blur)="static = false"
-			(focus)="static = true"
+			(click)="toggleWindow()"
 			[endWith]="endWith"
 			[regex]="regex"
 			[formControl]="formControl"
@@ -55,8 +55,7 @@
 		<!-- [formControlName]="formControlName || name" -->
 		<input
 			mask
-			(blur)="static = false"
-			(focus)="static = true"
+			(click)="toggleWindow()"
 			[endWith]="endWith"
 			[regex]="regex"
 			[formControl]="formControl"
@@ -78,8 +77,7 @@
 		<!-- [formControlName]="formControlName || name" -->
 		<textarea
 			mask
-			(blur)="static = false" 
-			(focus)="static = true"
+			(click)="toggleWindow()"
 			[endWith]="endWith"
 			[regex]="regex"
 			(keyup.enter)="wSubmit.emit(formControl.value)"
