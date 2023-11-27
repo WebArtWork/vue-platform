@@ -259,16 +259,3 @@ $c-white: #ffffff;
 .material-icons {
     font-size: 14px;
 }
-@media screen and (max-width: 768px) {
-    .static {
-      position: fixed;
-      top: 0;
-      left: 0;
-      padding: 5px;
-      border-radius: 0px 0px 9px 9px;
-      width: 100%;
-      height: 100%;
-      z-index: 9999;
-      background-color: rgb(59, 59, 59);
-    }
-    }

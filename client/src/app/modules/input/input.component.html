@@ -1,6 +1,5 @@
 <label
 	class="w-forms"
-	[class.static]="static"
 	*ngIf="
 		type !== 'radio' &&
 		type !== 'checkbox' &&
@@ -11,7 +10,6 @@
 	<input
         type="text"
 		mask
-		(click)="toggleWindow()"
 		[endWith]="endWith"
 		[regex]="regex"
 		placeholder="Enter text..."
@@ -29,12 +27,11 @@
 <!-- [disabled]="disabled" -->
 
 <ng-container *ngIf="type === 'radio'">
-	<label class="check-lebel" *ngFor="let item of items" [class.static]="static">
+	<label class="check-lebel" *ngFor="let item of items">
 		<span class="form-label">{{item}}</span>
 		<!-- [formControlName]="formControlName || name" -->
 		<input
 			mask
-			(click)="toggleWindow()"
 			[endWith]="endWith"
 			[regex]="regex"
 			[formControl]="formControl"
@@ -49,11 +46,10 @@
 </ng-container>
 
 <ng-container *ngIf="type === 'checkbox'">
-	<label class="container-box" [class.static]="static">
+	<label class="container-box">
 		<!-- [formControlName]="formControlName || name" -->
 		<input
 			mask
-			(click)="toggleWindow()"
 			[endWith]="endWith"
 			[regex]="regex"
 			[formControl]="formControl"
@@ -70,21 +66,20 @@
 </ng-container>
 
 <ng-container *ngIf="type === 'textarea'">
-    <label class="w-forms" [class.static]="static">
-        <span class="w-forms__title">{{label}}</span>
-        <!-- [formControlName]="formControlName || name" -->
-        <textarea
-            mask
-            (click)="toggleWindow()"
-            [endWith]="endWith"
-            [regex]="regex"
-            (keyup.enter)="wSubmit.emit(formControl.value)"
-            [formControl]="formControl"
-            [placeholder]="placeholder"
-            class="w-forms__textarea"
-            [ngClass]="wClass"
-            [name]="name"
-            #inputEl
-        ></textarea>
-    </label>
+	<label class="w-forms">
+		<span class="w-forms__title">{{label}}</span>
+		<!-- [formControlName]="formControlName || name" -->
+		<textarea
+			mask
+			[endWith]="endWith"
+			[regex]="regex"
+			(keyup.enter)="wSubmit.emit(formControl.value)"
+			[formControl]="formControl"
+			[placeholder]="placeholder"
+			class="w-forms__textarea"
+			[ngClass]="wClass"
+			[name]="name"
+			#inputEl
+		></textarea>
+	</label>
 </ng-container>

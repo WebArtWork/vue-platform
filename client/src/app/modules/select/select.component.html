@@ -74,9 +74,8 @@
 					[ngTemplateOutlet]="t_search?t_search:defaultSearch"
 				></ng-container>
 				<ng-template #defaultSearch>
-					<div class="w-select__search" [class.static]="static">  
+					<div class="w-select__search">
 						<input
-						  	(click)="toggleWindow()"
 							class="search-input"
 							type="search"
 							placeholder="Search"
