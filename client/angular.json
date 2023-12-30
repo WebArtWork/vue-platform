@@ -3,12 +3,13 @@
 	"version": 1,
 	"newProjectRoot": "projects",
 	"projects": {
-		"client": {
+		"app": {
 			"projectType": "application",
 			"schematics": {
 				"@schematics/angular:component": {
 					"style": "scss",
-					"skipTests": true
+					"skipTests": true,
+          			"standalone": false
 				},
 				"@schematics/angular:class": {
 					"skipTests": true
