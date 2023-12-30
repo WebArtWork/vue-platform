@@ -324,7 +324,8 @@ export class FormService {
 		module: string,
 		field: string,
 		doc: T,
-		component: string = ''
+		component: string = '',
+		onClose = ()=>{}
 	): void {
 		this._modal.show({
 			component: ModalUniqueComponent,
@@ -332,7 +333,8 @@ export class FormService {
 			module,
 			field,
 			doc,
-			class: 'forms_modal'
+			class: 'forms_modal',
+			onClose
 		});
 	}
 
