@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 const template = path.join(process.cwd(), 'template');
 const { v4: uuidv4 } = require('uuid');

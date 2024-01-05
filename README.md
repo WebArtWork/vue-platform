@@ -1,6 +1,6 @@
 ## pre-install:
 ```
-root: npm i
+root: npm i waw
 root/client: npm i
 ```
 ## run server:

@@ -20,9 +20,7 @@
 		"form":"waw",
 		"translate":"waw"
 	},
-	"dependencies": {
-		"mongoose": "*"
-	},
+	"dependencies": {},
 	"user": {
 		"is": {
 			"admin": "ceo@webart.work"
