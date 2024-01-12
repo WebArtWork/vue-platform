@@ -51,6 +51,16 @@ const routes: Routes = [
 		children: [
 			/* user */
 			{
+				path: 'test',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Test'
+					}
+				},
+				loadChildren: () => import('./pages/user/test/test.module').then(m => m.TestModule)
+			}, 
+			{
 				path: 'profile',
 				canActivate: [MetaGuard],
 				data: {
