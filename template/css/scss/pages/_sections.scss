@@ -1,11 +1,14 @@
 $yellow: #e0dc10;
 $dark: #1c1c1c;
 
-.body{
-    background-color: #242b36;;
+.body {
+    background-color: #242b36;
+    ;
 }
+
 .container {
-    background-color: #242b36;;
+    background-color: #242b36;
+    ;
     width: 100%;
     margin-right: auto;
     margin-left: auto;
@@ -38,20 +41,23 @@ $dark: #1c1c1c;
 }
 
 
-section{
+section {
     height: 100vh;
 }
 
-.waw_section{
+.waw_section {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.waw_section h1{
+
+.waw_section h1 {
     color: $yellow;
     font-size: 80px;
 }
+
 .section-container_text_img {
+    overflow: hidden;
     color: whitesmoke;
     font-size: 20px;
     display: flex;
@@ -64,9 +70,31 @@ section{
     padding-right: 20px;
 }
 
-.illustration-container_text_img {
-    padding-left: 20px;
+// .illustration-container_text_img {
+//     position: relative;
+//     top: 20px;
+//     right: -150px;
+//     transition: right 0.5s ease-in-out;
+// }
+
+
+.moved-image {
+    position: relative;
+    right: -410px;
+    animation: moveImage 2s ease forwards;
+    /* Animation duration, timing function, and fill mode */
 }
+
+@keyframes moveImage {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(-400px, -20px);
+    }
+}
+
 .illustration-container_text_img img {
     width: 400px;
     max-width: 100%;
@@ -105,11 +133,13 @@ section{
     color: black;
     background-color: $yellow;
 }
-.forms{
+
+.forms {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
 form {
     color: whitesmoke;
     max-width: 400px;
@@ -125,7 +155,8 @@ label {
     margin-bottom: 8px;
 }
 
-input, textarea {
+input,
+textarea {
     width: 100%;
     padding: 8px;
     margin-bottom: 16px;
@@ -133,7 +164,8 @@ input, textarea {
     border-radius: 4px;
     box-sizing: border-box;
 }
-.forms button{
+
+.forms button {
     padding: 10px 20px;
     font-size: 16px;
     color: $dark;
@@ -150,7 +182,7 @@ input, textarea {
     gap: 150px;
 }
 
-.plans{
+.plans {
     color: whitesmoke;
     display: flex;
     align-items: center;
@@ -179,13 +211,18 @@ input, textarea {
 .features {
     margin-top: 20px;
 }
-.plan button{
-        margin-top: 20px;
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: $yellow;
-        color: $dark;
-        border: none;
-        border-radius: 4px;
-    
+
+.plan button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: $yellow;
+    color: $dark;
+    border: none;
+    border-radius: 4px;
+
+}
+
+.name {
+    padding: 1 0px;
 }
