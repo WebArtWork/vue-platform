@@ -2,10 +2,10 @@ $yellow: #e0dc10;
 $dark: #1c1c1c;
 
 .body{
-    background-color: #a7a7a7;
+    background-color: #242b36;;
 }
 .container {
-    background-color: #fafafa;
+    background-color: #242b36;;
     width: 100%;
     margin-right: auto;
     margin-left: auto;
@@ -41,11 +41,19 @@ $dark: #1c1c1c;
 section{
     height: 100vh;
 }
-h1{
-    color: #000000;
-    text-align: center;
+
+.waw_section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.waw_section h1{
+    color: $yellow;
+    font-size: 80px;
 }
 .section-container_text_img {
+    color: whitesmoke;
+    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -59,7 +67,8 @@ h1{
 .illustration-container_text_img {
     padding-left: 20px;
 }
-img {
+.illustration-container_text_img img {
+    width: 400px;
     max-width: 100%;
     height: auto;
     display: block;
@@ -68,11 +77,13 @@ img {
 .section-container_text_img button {
     padding: 10px 20px;
     font-size: 16px;
-    color: $dark;
+    color: rgb(0, 0, 0);
     background-color: $yellow;
 }
 
 .section-container_img_text {
+    color: whitesmoke;
+    font-size: 20px;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -91,7 +102,7 @@ img {
 .section-container_img_text button {
     padding: 10px 20px;
     font-size: 16px;
-    color: $dark;
+    color: black;
     background-color: $yellow;
 }
 .forms{
@@ -100,6 +111,7 @@ img {
     justify-content: space-between;
 }
 form {
+    color: whitesmoke;
     max-width: 400px;
     margin: 50px auto;
     padding: 20px;
@@ -130,6 +142,7 @@ input, textarea {
 }
 
 .block {
+    color: whitesmoke;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -138,6 +151,7 @@ input, textarea {
 }
 
 .plans{
+    color: whitesmoke;
     display: flex;
     align-items: center;
     justify-content: space-between;
