@@ -1,44 +1,47 @@
+@import "variables";
 
 .body {
-    background-color: #242b36;
+  background-color: $body_color;
 }
 
 .container {
-    background-color: #242b36;
-    ;
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: 25px;
-    padding-left: 25px;
+  background-color: $body_color;
+  ;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 25px;
+  padding-left: 25px;
 }
 
 @media (min-width: 576px) {
-    .container {
-        max-width: 540px;
-    }
+  .container {
+    max-width: 540px;
+  }
 }
 
 @media (min-width: 768px) {
-    .container {
-        max-width: 720px;
-    }
+  .container {
+    max-width: 720px;
+  }
 }
 
 @media (min-width: 992px) {
-    .container {
-        max-width: 960px;
-    }
+  .container {
+    max-width: 960px;
+  }
 }
 
 @media (min-width: 1200px) {
-    .container {
-        max-width: 1140px;
-    }
+  .container {
+    max-width: 1140px;
+  }
 }
-.breadcrumb_container{
+
+.breadcrumb_container {
   text-align: center;
 }
+
 #breadcrumb {
   list-style: none;
   display: inline-block;
@@ -51,7 +54,7 @@
     float: left;
 
     a {
-      color: #161616;
+      color: $dark;
       display: block;
       background: $yellow;
       text-decoration: none;
@@ -158,11 +161,13 @@ section {
   height: 100vh;
 }
 
-.waw_components, h2{
+.waw_components,
+h2 {
   text-align: center;
-  color: whitesmoke;
+  color: $primary_color;
   padding: 20px;
 }
+
 .top_left img {
   position: absolute;
   top: 0;
@@ -176,16 +181,17 @@ section {
   right: 0;
   object-fit: cover;
 }
+
 .bottom_left img {
   position: absolute;
   bottom: 0;
   left: 0;
   object-fit: cover;
 }
+
 .bottom_right img {
   position: absolute;
   bottom: 0;
   right: 0;
   object-fit: cover;
 }
-

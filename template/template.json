@@ -7,6 +7,9 @@
 	"author": "author",
 	"moderators": [],
 	"scss": "scss/index.scss",
+	"variables": {
+		"primary_color": "#e0dc10"
+	},
 	"fields": [
 		{
 			"name": "background",

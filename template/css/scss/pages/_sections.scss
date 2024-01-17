@@ -1,12 +1,11 @@
-$yellow: #e0dc10;
-$dark: #1c1c1c;
+@import "variables";
 
 .body {
-    background-color: #242b36;
+    background-color: $body_color;
 }
 
 .container {
-    background-color: #242b36;
+    background-color: $body_color;
     ;
     width: 100%;
     margin-right: auto;
@@ -57,7 +56,7 @@ section {
 
 .section-container_text_img {
     overflow: hidden;
-    color: whitesmoke;
+    color: $white;
     font-size: 20px;
     display: flex;
     align-items: center;
@@ -109,7 +108,7 @@ section {
 }
 
 .section-container_img_text {
-    color: whitesmoke;
+    color: $white;
     font-size: 20px;
     height: 100vh;
     display: flex;
@@ -140,7 +139,7 @@ section {
 }
 
 form {
-    color: whitesmoke;
+    color: $white;
     max-width: 400px;
     margin: 50px auto;
     padding: 20px;
@@ -173,7 +172,7 @@ textarea {
 }
 
 .block {
-    color: whitesmoke;
+    color: $white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -182,7 +181,7 @@ textarea {
 }
 
 .plans {
-    color: whitesmoke;
+    color: $white;
     display: flex;
     align-items: center;
     justify-content: space-between;
