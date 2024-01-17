@@ -10,8 +10,8 @@
     width: 100%;
     margin-right: auto;
     margin-left: auto;
-    padding-right: $padding-value + 5;
-    padding-left: $padding-value + 5;
+    padding-right: $p5;
+    padding-left: $p5;
 }
 
 @media (min-width: 576px) {
@@ -61,11 +61,11 @@ section {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: $padding-value;
+    padding: $p4;
 }
 
 .text-container_text_img {
-    padding-right: $padding-value;
+    padding-right: $p4;
 }
 
 // .illustration-container_text_img {
@@ -101,7 +101,7 @@ section {
 }
 
 .section-container_text_img button {
-    padding: 10px 20px;
+    padding: $p2 $p4;
     font-size: 16px;
     color: rgb(0, 0, 0);
     background-color: $yellow;
@@ -114,19 +114,19 @@ section {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: $padding-value;
+    padding: $p4;
 }
 
 .text-container__img_text {
-    padding-right: $padding-value;
+    padding-right: $p4;
 }
 
 .illustration-container__img_text {
-    padding-left: $padding-value;
+    padding-left: $p4;
 }
 
 .section-container_img_text button {
-    padding: 10px 20px;
+    padding: $p2 $p4;
     font-size: 16px;
     color: black;
     background-color: $yellow;
@@ -141,8 +141,8 @@ section {
 form {
     color: $white;
     max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
+    margin: $m5 auto;
+    padding: $p4;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -150,21 +150,21 @@ form {
 
 label {
     display: block;
-    margin-bottom: $margin-value - 2;
+    margin-bottom: $m2;
 }
 
 input,
 textarea {
     width: 100%;
-    padding: 8px;
-    margin-bottom: $margin-value + 6;
+    padding: $p2;
+    margin-bottom: $m3;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
 }
 
 .forms button {
-    padding: 10px 20px;
+    padding: $p2 $p4;
     font-size: 16px;
     color: $dark;
     background-color: $yellow;
@@ -185,13 +185,13 @@ textarea {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: $padding-value;
+    padding: $p4;
 }
 
 .plan {
     height: 350px;
     text-align: center;
-    padding: $padding-value;
+    padding: $p4;
     border: 1px solid #ccc;
     border-radius: 8px;
     width: 30%;
@@ -203,16 +203,16 @@ textarea {
 
 .price {
     font-size: 24px;
-    margin-top: $margin-value;
+    margin-top: $m2;
 }
 
 .features {
-    margin-top: $margin-value * 2
+    margin-top: $m4;
 }
 
 .plan button {
-    margin-top: $margin-value * 2;
-    padding: 10px 20px;
+    margin-top: $m4;
+    padding: $p2 $p4;
     font-size: 16px;
     background-color: $yellow;
     color: $dark;
@@ -222,5 +222,5 @@ textarea {
 }
 
 .name {
-    padding: 1 0px;
+    padding: $p2;
 }

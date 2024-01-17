@@ -10,8 +10,8 @@
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-right: $padding-value;
-  padding-left: $padding-value;
+  padding-right: $p4;
+  padding-left: $p4;
 }
 
 @media (min-width: 576px) {
@@ -61,9 +61,9 @@
       position: relative;
       height: 40px;
       line-height: 40px;
-      padding: 0 10px 0 5px;
+      padding: $p1 $p2 $p1 $p2;
       text-align: center;
-      margin-right: $margin-value + 13;
+      margin-right: $m5;
     }
 
     &:nth-child(even) {
@@ -83,7 +83,7 @@
 
     &:first-child {
       a {
-        padding-left: $padding-value - 5;
+        padding-left: $p3;
         border-radius: 4px 0 0 4px;
 
         &:before {
@@ -94,7 +94,7 @@
 
     &:last-child {
       a {
-        padding-right: $padding-value - 5;
+        padding-right: $p3;
         border-radius: 4px 0 0 4px;
 
         &:after {
@@ -165,7 +165,7 @@ section {
 h2 {
   text-align: center;
   color: $primary_color;
-  padding: $padding-value;
+  padding: $p4;
 }
 
 .top_left img {
