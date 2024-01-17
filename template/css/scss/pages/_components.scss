@@ -1,4 +1,4 @@
-@import "variables";
+@import "./variables";
 
 .body {
   background-color: $body_color;
@@ -10,8 +10,8 @@
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-right: 25px;
-  padding-left: 25px;
+  padding-right: $padding-value;
+  padding-left: $padding-value;
 }
 
 @media (min-width: 576px) {
@@ -63,7 +63,7 @@
       line-height: 40px;
       padding: 0 10px 0 5px;
       text-align: center;
-      margin-right: 23px;
+      margin-right: $margin-value + 13;
     }
 
     &:nth-child(even) {
@@ -83,7 +83,7 @@
 
     &:first-child {
       a {
-        padding-left: 15px;
+        padding-left: $padding-value - 5;
         border-radius: 4px 0 0 4px;
 
         &:before {
@@ -94,7 +94,7 @@
 
     &:last-child {
       a {
-        padding-right: 15px;
+        padding-right: $padding-value - 5;
         border-radius: 4px 0 0 4px;
 
         &:after {
@@ -165,7 +165,7 @@ section {
 h2 {
   text-align: center;
   color: $primary_color;
-  padding: 20px;
+  padding: $padding-value;
 }
 
 .top_left img {
