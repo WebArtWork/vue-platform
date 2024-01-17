@@ -51,13 +51,13 @@ section {
 
 .waw_section h1 {
     color: $yellow;
-    font-size: 80px;
+    font-size: $fs4 * 4;
 }
 
 .section-container_text_img {
     overflow: hidden;
     color: $white;
-    font-size: 20px;
+    font-size: $fs3;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -102,7 +102,7 @@ section {
 
 .section-container_text_img button {
     padding: $p2 $p4;
-    font-size: 16px;
+    font-size: $fs2;
     color: rgb(0, 0, 0);
     background-color: $yellow;
 }
@@ -127,7 +127,7 @@ section {
 
 .section-container_img_text button {
     padding: $p2 $p4;
-    font-size: 16px;
+    font-size: $fs2;
     color: black;
     background-color: $yellow;
 }
@@ -165,7 +165,7 @@ textarea {
 
 .forms button {
     padding: $p2 $p4;
-    font-size: 16px;
+    font-size: $fs2;
     color: $dark;
     background-color: $yellow;
     border-radius: 4px;
@@ -202,7 +202,7 @@ textarea {
 }
 
 .price {
-    font-size: 24px;
+    font-size: $fs4;
     margin-top: $m2;
 }
 
@@ -213,7 +213,7 @@ textarea {
 .plan button {
     margin-top: $m4;
     padding: $p2 $p4;
-    font-size: 16px;
+    font-size: $fs2;
     background-color: $yellow;
     color: $dark;
     border: none;
