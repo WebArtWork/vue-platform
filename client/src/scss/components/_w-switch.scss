@@ -1,3 +1,4 @@
+@import '../../src/scss/utils/vars';
 // SWITCH
 .w-switch {
     display: flex;
@@ -19,13 +20,13 @@
         }
         &:checked+.w-switch__slider:before {
             transform: translate(15px, -50%);
-            background-color: var(--c-white);
+            background-color: $c-white;
         }
     }
     &__slider {
         position: absolute;
         inset: 0;
-        background-color: var(--c-grey);
+        background-color: $c-grey;
         border: 1px solid var(--c-border);
         outline: none;
         transition: var(--transition);
@@ -37,7 +38,7 @@
             left: 6px;
             top: 50%;
             transform: translateY(-50%);
-            background-color: var(--c-white);
+            background-color: $c-white;
             transition: var(--transition);
         }
         &._round {

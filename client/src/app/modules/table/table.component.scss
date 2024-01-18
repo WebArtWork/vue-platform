@@ -362,7 +362,7 @@ html.dark:root {
 						position: absolute;
 						width: 2px;
 						height: 90%;
-						background-color: var(--c-grey);
+						background-color: $c-grey;
 						mix-blend-mode: overlay;
 						top: 8%;
 					}
@@ -373,8 +373,8 @@ html.dark:root {
 						position: absolute;
 						width: 10px;
 						height: 10px;
-						border-bottom: 2px solid var(--c-grey);
-						border-right: 2px solid var(--c-grey);
+						border-bottom: 2px solid $c-grey;
+						border-right: 2px solid $c-grey;
 						mix-blend-mode: overlay;
 						transform: rotate(135deg);
 						left: 2px;
