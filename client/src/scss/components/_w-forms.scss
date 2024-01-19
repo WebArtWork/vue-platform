@@ -1,3 +1,5 @@
+@import '/src/scss/utils/vars';
+@import 'angular';
 // forms
 .w-forms {
 	position: relative;
@@ -41,7 +43,7 @@
 
 		&:focus {
 			transition: var(--transition);
-			border-color: var(--c-primary);
+			border-color: $c-primary;
 		}
 
 		&:disabled {
@@ -72,7 +74,7 @@
 		right: 12px;
 
 		&::before {
-			color: var(--c-primary);
+			color: $c-primary;
 		}
 	}
 

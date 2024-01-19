@@ -1,22 +1,22 @@
     $default-c-white: #fff;
-    $c-white: if(variable-exists(--c-white), $c-white, $default-c-white);
+    $c-white: if(variable-exists(--c-white), var(--c-white), $default-c-white);
 
     $default-c-black: #000;
     $c-black: if(variable-exists(--c-black), var(--c-black), $default-c-black);
 
     $default-c-grey: #e7e7e7;
-    $c-grey: if(variable-exists(--c-grey), $c-grey, $default-c-grey);
+    $c-grey: if(variable-exists(--c-grey), var(--c-grey), $default-c-grey);
 
     $default-c-grey-dark: #bfbfbf;
-    $c-grey-dark: if(variable-exists(--c-grey-dark), $c-grey-dark, $default-c-grey-dark);
+    $c-grey-dark: if(variable-exists(--c-grey-dark), var(--c-grey-dark), $default-c-grey-dark);
 
 
     // theme
     $default-c-basic: #3558ae;
-    $c-basic: if(variable-exists(--c-basic), $c-basic, $default-c-basic);
+    $c-basic: if(variable-exists(--c-basic), var(--c-basic), $default-c-basic);
 
     $default-c-primary: #256eff;
-    $c-grey: if(variable-exists(--c-grey), $c-grey, $default-c-grey);
+    $c-primary: if(variable-exists(--c-primary), var(--c-primary), $default-c-primary);
 
     $default-c-primary-hover: #0051f1;
     $c-primary-hover: if(variable-exists(--c-primary-hover), var(--c-primary-hover), $default-c-primary-hover);

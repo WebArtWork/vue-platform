@@ -1,11 +1,11 @@
-@import '../../src/scss/utils/vars';
+@import '/src/scss/utils/vars';
 
 .w-btn,
 button {
   font-size: var(--fs);
   font-weight: 500;
   font-family: var(--ff-base);
-  background-color: var(--c-primary);
+  background-color: $c-primary;
   border-radius: var(--b-radius);
   transition: var(--transition);
   color: $c-white;
@@ -19,10 +19,10 @@ button {
 
 
   &._primary {
-    background-color: var(--c-primary);
+    background-color: $c-primary;
 
     &:hover {
-      background-color: var(--c-primary-hover);
+      background-color: $c-primary-hover;
     }
   }
 

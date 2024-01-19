@@ -1,4 +1,4 @@
-@import '../../src/scss/utils/vars';
+@import '/src/scss/utils/vars';
 // SWITCH
 .w-switch {
     display: flex;
@@ -12,8 +12,8 @@
     &__input {
         display: none;
         &:checked+.w-switch__slider {
-            background-color: var(--c-primary);
-            border: 1px solid var(--c-primary);
+            background-color: $c-primary;
+            border: 1px solid $c-primary;
         }
         &:focus+.w-switch__slider {
             box-shadow: 0 0 1px var(--c-shadow);
