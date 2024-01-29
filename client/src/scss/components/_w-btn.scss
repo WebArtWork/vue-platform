@@ -1,13 +1,14 @@
 @import '/src/scss/utils/vars';
+  
 
 .w-btn,
 button {
-  font-size: var(--fs);
+  font-size: $fs;
   font-weight: 500;
-  font-family: var(--ff-base);
-  background-color: $c-primary;
-  border-radius: var(--b-radius);
-  transition: var(--transition);
+  font-family: $ff-base;
+  background-color: var(--c-primary);
+  border-radius: $b-radius;
+  transition: $transition;
   color: $c-white;
   position: relative;
   line-height: 19px;
@@ -19,10 +20,10 @@ button {
 
 
   &._primary {
-    background-color: $c-primary;
+    background-color: var(--c-primary);
 
     &:hover {
-      background-color: $c-primary-hover;
+      background-color: var(--c-primary-hover);
     }
   }
 
@@ -33,11 +34,11 @@ button {
   }
 
   &._danger {
-    background-color: var(--c-error);
+    background-color: $c-error;
     color: white;
 
     &:hover {
-      background: var(--c-error-hover);
+      background: $c-error-hover;
     }
   }
 
