@@ -103,6 +103,7 @@
 					*ngIf="config.delete || config.update || config.buttons"
 					data-label="Actions:&nbsp;"
 				>
+				
 				<div class="table__actions">
 					<ng-container *ngIf="config.buttons">
 						<ng-container *ngFor="let button of config.buttons">
@@ -114,6 +115,7 @@
 							>
 								{{button.icon}}
 							</i>
+							
 							<a routerLink="{{button.href}}" *ngIf="button.href">
 								<i
 									class="material-icons"
