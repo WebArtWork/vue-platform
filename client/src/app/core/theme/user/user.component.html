@@ -44,7 +44,8 @@
 					routerLink="/profile"
 				>
 					<img
-						[src]="us.user.thumb || 'assets/default.png'"
+						[src]="forceAvatarUrl || us.user.thumb || 'assets/default.png'"
+						(error)="forceAvatarUrl = 'assets/default.png'"
 						alt="Profile Picture"
 						class="avatar__img"
 						height="50"
@@ -52,6 +53,7 @@
 					/>
 					<div class="name">{{us.user.name || "Profile"}}</div>
 				</a>
+				<hr />
 				<a
 					[routerLinkActiveOptions]="{ exact: true }"
 					routerLinkActive="_activeLink"
@@ -85,6 +87,7 @@
 					<span class="material-icons">translate</span>
 					<span translate>Theme.Translates</span>
 				</a>
+				<hr />
 			</div>
 		</div>
 		<router-outlet></router-outlet>

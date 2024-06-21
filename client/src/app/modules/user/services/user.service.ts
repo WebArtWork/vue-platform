@@ -95,7 +95,10 @@ export class UserService extends CrudService<User> {
 		this.updateAfterWhile(this.user);
 	}
 
+	private _changingPassword = false;
 	changePassword(oldPass: string, newPass: string): void {
+		if (this._changingPassword) return;
+		this._changingPassword = true;
 		this.http.post(
 			'/api/user/changePassword',
 			{
@@ -103,13 +106,14 @@ export class UserService extends CrudService<User> {
 				oldPass: oldPass
 			},
 			(resp: boolean) => {
+				this._changingPassword = false;
 				if (resp) {
 					this.alert.info({
 						text: 'Successfully changed password'
 					});
 				} else {
 					this.alert.error({
-						text: 'Failed to change password'
+						text: 'Incorrect current password'
 					});
 				}
 			}

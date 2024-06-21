@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
 	animations: [coreAnimation]
 })
 export class UserComponent {
+	forceAvatarUrl = '';
 	showSidebar = false;
 	hideSidebar() {
 		if (!this._platform.ANDROID && !this._platform.IOS) {

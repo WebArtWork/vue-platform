@@ -2,8 +2,9 @@
 	<h3 *ngIf="label">{{label}}</h3>
 	<label *ngIf="!multiple" for="formPhoto">
 		<img
+			[src]="force || (value || '/assets/default.png')"
+			(error)="force = err"
 			[ngStyle]="imgStyle"
-			[src]="value || '/assets/default.png'"
 			class="file__img"
 			alt="Picture"
 		/>

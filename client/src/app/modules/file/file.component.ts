@@ -13,6 +13,7 @@ import { FileCropperComponent } from './file-cropper/file-cropper.component';
 export class FileComponent implements OnInit {
 	@Input() container = 'general';
 	@Input() name = '';
+	@Input() err = '';
 	@Input() label = '';
 	@Input() class = '';
 	@Input() imgStyle = {};
@@ -24,6 +25,7 @@ export class FileComponent implements OnInit {
 	@Input() height: number;
 	@Input() value: string | string[] = this.multiple ? [] : '';
 	@Output() update = new EventEmitter();
+	force = '';
 
 	get files(): string[] {
 		return this.value as string[];

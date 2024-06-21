@@ -7,8 +7,7 @@
 						(update)="us.user.thumb = $event; us.updateMe()"
 						[value]="us.user.thumb || 'assets/default.png'"
 						[name]="us.user._id + '.jpg'"
-						imgClass="imgClass"
-						class="avatar__img"
+						err="assets/default.png"
 						[isPhoto]="true"
 						[imgStyle]="{
 							'border-radius': 'var(--c-img-round)',

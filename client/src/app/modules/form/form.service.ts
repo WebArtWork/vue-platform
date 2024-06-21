@@ -41,7 +41,9 @@ export class FormService {
 		});
 
 		this._store.getJson('formIds', (formIds: string[]) => {
-			this.formIds = formIds || [];
+			if (Array.isArray(formIds)) {
+				this.formIds.push(...formIds);
+			}
 		});
 	}
 
