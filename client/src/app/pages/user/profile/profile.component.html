@@ -7,24 +7,18 @@
 						(update)="us.user.thumb = $event; us.updateMe()"
 						[value]="us.user.thumb || 'assets/default.png'"
 						[name]="us.user._id + '.jpg'"
+						imgClass="imgClass"
+						class="avatar__img"
 						[isPhoto]="true"
-						[isRound]="true"
+						[imgStyle]="{
+							'border-radius': 'var(--c-img-round)',
+							'width': '52px',
+							'height': '52px'
+						}"
 						container="user"
 						[height]="512"
 						[width]="512"
-						class="avatar__img"
 					></ngx-file>
-
-					<!-- <img
-						[src]="us.user.thumb || 'assets/default.png'"
-						class="avatar__img"
-						width="50"
-						height="50"
-						alt="User Avatar"
-					/> -->
-					<!-- <label class="avatar__upload" for="userAvatarUrl">
-						<i class="material-icons avatar__icon">edit</i>
-					</label> -->
 				</div>
 			</div>
 		</div>

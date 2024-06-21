@@ -15,6 +15,7 @@ export class FileComponent implements OnInit {
 	@Input() name = '';
 	@Input() label = '';
 	@Input() class = '';
+	@Input() imgStyle = {};
 	@Input() multiple = false;
 	@Input() isPhoto = false;
 	@Input() isRound = false;

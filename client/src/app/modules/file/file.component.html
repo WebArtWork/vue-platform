@@ -2,7 +2,7 @@
 	<h3 *ngIf="label">{{label}}</h3>
 	<label *ngIf="!multiple" for="formPhoto">
 		<img
-			[ngClass]="isRound ? 'file__img_round' : ''"
+			[ngStyle]="imgStyle"
 			[src]="value || '/assets/default.png'"
 			class="file__img"
 			alt="Picture"
