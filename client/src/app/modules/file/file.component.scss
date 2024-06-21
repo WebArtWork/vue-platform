@@ -1,0 +1,6 @@
+@import 'angular';
+@import '/src/scss/utils/vars';
+
+.file__img_round {
+	border-radius: $b-radius-img;
+}

@@ -1,10 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-/* To Do
-1) Delete temp files periodically
-2) Add support for aws and google files
-3) Add support for files directly
-*/
+
 module.exports = async waw => {
 	const router = waw.router('/api/file');
 
@@ -15,7 +11,7 @@ module.exports = async waw => {
 		const container = url.split('/')[2];
 		const file = url.split('/')[5].split('?')[0];
 		const tempFilePath = path.join(
-			__dirname,
+			process.cwd(),
 			'temp',
 			container,
 			file
@@ -23,7 +19,7 @@ module.exports = async waw => {
 
 		if (fs.existsSync(tempFilePath)) {
 			const filePath = path.join(
-				__dirname,
+				process.cwd(),
 				'files',
 				container,
 				file
@@ -40,7 +36,7 @@ module.exports = async waw => {
 		const container = url.split('/')[2];
 		const file = url.split('/')[5].split('?')[0];
 		const tempFilePath = path.join(
-			__dirname,
+			process.cwd(),
 			'temp',
 			container,
 			file
@@ -51,7 +47,7 @@ module.exports = async waw => {
 		}
 
 		const filePath = path.join(
-			__dirname,
+			process.cwd(),
 			'files',
 			container,
 			file
@@ -64,14 +60,14 @@ module.exports = async waw => {
 
 	router.get('/get/:container/:file', (req, res) => {
 		const tempFilePath = path.join(
-			__dirname,
+			process.cwd(),
 			'temp',
 			req.params.container,
 			req.params.file
 		);
 
 		const filePath = path.join(
-			__dirname,
+			process.cwd(),
 			'files',
 			req.params.container,
 			req.params.file
@@ -82,7 +78,7 @@ module.exports = async waw => {
 		} else if (fs.existsSync(filePath)) {
 			res.sendFile(filePath);
 		} else {
-			res.sendFile(__dirname + '/default.jpg');
+			res.sendFile(process.cwd() + '/default.jpg');
 		}
 	});
 
@@ -90,7 +86,7 @@ module.exports = async waw => {
 		const name = req.body.name || Date.now() + '.png';
 		const container = req.body.container || 'general';
 		const filePath = path.join(
-			__dirname,
+			process.cwd(),
 			'files',
 			container
 		);
@@ -103,7 +99,7 @@ module.exports = async waw => {
 		const name = req.body.name || Date.now() + '.png';
 		const container = req.body.container || 'general';
 		const filePath = path.join(
-			__dirname,
+			process.cwd(),
 			'files',
 			container
 		);
@@ -112,3 +108,28 @@ module.exports = async waw => {
 		});
 	});
 };
+
+/* generate folder to use files */
+const ignoreContent = `# Ignore everything in this directory
+*
+# Except this file
+!.gitignore`;
+const createFolder = (name) => {
+	const folderPath = path.join(
+		process.cwd(),
+		name
+	);
+	if (!fs.existsSync(folderPath)) {
+		fs.mkdirSync(folderPath);
+	}
+	const ignorePath = path.join(
+		process.cwd(),
+		name,
+		'.gitignore'
+	);
+	if (!fs.existsSync(ignorePath)) {
+		fs.writeFileSync(ignorePath, ignoreContent, 'utf-8')
+	}
+}
+createFolder('temp');
+createFolder('files');

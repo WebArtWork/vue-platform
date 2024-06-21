@@ -71,7 +71,7 @@ export class FormcomponentsModule {
 		this._form.addComponent({
 			component: TextComponent,
 			name: 'Text',
-			fields: ['Placeholder', 'Label']
+			fields: ['Placeholder', 'Label', 'Textarea']
 		});
 		this._form.addComponent({
 			component: PasswordComponent,

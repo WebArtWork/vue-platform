@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { FormService } from 'src/app/modules/form/form.service';
-import { CoreService } from 'wacom';
 import { FormInterface } from 'src/app/modules/form/interfaces/form.interface';
 import { UserService } from 'src/app/modules/user/services/user.service';
 import { User } from 'src/app/modules/user/interfaces/user.interface';
+import { FormService } from 'src/app/modules/form/form.service';
+import { Component } from '@angular/core';
+import { CoreService } from 'wacom';
 
 interface ChangePassword {
 	oldPass: string;
@@ -76,6 +76,10 @@ export class ProfileComponent {
 					{
 						name: 'Label',
 						value: 'Bio'
+					},
+					{
+						name: 'Textarea',
+						value: true
 					}
 				]
 			}

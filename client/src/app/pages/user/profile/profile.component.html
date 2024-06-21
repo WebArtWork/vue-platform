@@ -5,10 +5,14 @@
 				<div class="avatar _profile">
 					<ngx-file
 						(update)="us.user.thumb = $event; us.updateMe()"
-						[width]="512"
-						[height]="512"
-						[value]="'assets/default.png'"
+						[value]="us.user.thumb || 'assets/default.png'"
+						[name]="us.user._id + '.jpg'"
 						[isPhoto]="true"
+						[isRound]="true"
+						container="user"
+						[height]="512"
+						[width]="512"
+						class="avatar__img"
 					></ngx-file>
 
 					<!-- <img
@@ -26,10 +30,10 @@
 		</div>
 		<div class="profile__body">
 			<wform
-				*ngIf="user"
 				(wChange)="update($event)"
 				[config]="formProfile"
 				[submition]="user"
+				*ngIf="user"
 			></wform>
 
 			<div class="profile__footer">

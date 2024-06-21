@@ -9,6 +9,9 @@ module.exports = function(waw) {
 		reg_email: {type: String, unique: true, sparse: true, trim: true},
 		password: String,
 		name: String,
+		phone: String,
+		bio: String,
+		name: String,
 		resetPin: Number
 	}, {
 		minimize: false
@@ -27,9 +30,12 @@ module.exports = function(waw) {
 		this.reg_email = obj.email;
 		this.email = obj.email;
 		this.name = obj.name;
+		this.thumb = obj.thumb;
+		this.phone = obj.phone;
+		this.bio = obj.bio;
 		this.data = {};
 		this.is = {}
 	}
-	
+
 	return waw.User = waw.mongoose.model('User', schema);
 }

@@ -29,8 +29,7 @@ export class SignComponent {
 		title: 'Sign In / Sign Up',
 		components: [
 			{
-				// name: 'Email',
-				name: 'Text',
+				name: 'Email',
 				key: 'email',
 				root: true,
 				focused: true,

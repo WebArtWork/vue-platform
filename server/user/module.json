@@ -4,9 +4,9 @@
 	"crud": {
 		"create": ["admin"],
 		"update": [{
-			"keys": ["name", "data"]
+			"keys": ["name", "phone", "bio", "thumb", "data"]
 		}, {
-			"keys": ["name", "data", "is"],
+			"keys": ["name", "phone", "bio", "thumb", "data", "is"],
 			"name": "admin"
 		}],
 		"fetch": ["", "me"],

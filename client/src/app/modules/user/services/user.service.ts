@@ -8,6 +8,7 @@ import {
 } from 'wacom';
 import { User } from '../interfaces/user.interface';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,7 +17,8 @@ export class UserService extends CrudService<User> {
 	private http: HttpService;
 	private store: StoreService;
 	private alert: AlertService;
-	roles = ['admin'];
+	private core: CoreService;
+	roles = (environment as unknown as { roles: string[] }).roles || ['admin'];
 	mode = '';
 	users: User[] = [];
 	user: User = localStorage.getItem('waw_user')
@@ -42,6 +44,7 @@ export class UserService extends CrudService<User> {
 		this.store = _store;
 		this.http = _http;
 		this.alert = _alert;
+		this.core = _core;
 		if (this.http.header('token')) {
 			this.fetch({}, { name: 'me' }).subscribe(this.setUser.bind(this));
 			this.load();
@@ -75,10 +78,11 @@ export class UserService extends CrudService<User> {
 	setUser(user: User): void {
 		this.user = user;
 		localStorage.setItem('waw_user', JSON.stringify(user));
+		this.core.done('us.user');
 	}
 
 	role(role: string): boolean {
-		return !!this.user.is[role];
+		return !!(this.user?.is || {})[role];
 	}
 
 	updateMe(): void {
