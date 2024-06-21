@@ -3,16 +3,24 @@
 		<div class="profile__header w-card__header">
 			<div>
 				<div class="avatar _profile">
-					<img
+					<ngx-file
+						(update)="us.user.thumb = $event; us.updateMe()"
+						[width]="512"
+						[height]="512"
+						[value]="'assets/default.png'"
+						[isPhoto]="true"
+					></ngx-file>
+
+					<!-- <img
 						[src]="us.user.thumb || 'assets/default.png'"
 						class="avatar__img"
 						width="50"
 						height="50"
 						alt="User Avatar"
-					/>
-					<label class="avatar__upload" for="userAvatarUrl">
+					/> -->
+					<!-- <label class="avatar__upload" for="userAvatarUrl">
 						<i class="material-icons avatar__icon">edit</i>
-					</label>
+					</label> -->
 				</div>
 			</div>
 		</div>
@@ -33,7 +41,7 @@
 				</div>
 
 				<div class="profile__password">
-					<wbutton (click)="change_password()" type="link" translate>
+					<wbutton (click)="changePassword()" type="link" translate>
 						Profile.Change Password
 					</wbutton>
 				</div>

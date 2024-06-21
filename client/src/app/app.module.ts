@@ -80,7 +80,7 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () =>
-					import('./pages/admin/users/users.module').then(
+					import('./modules/user/pages/users/users.module').then(
 						(m) => m.UsersModule
 					)
 			},

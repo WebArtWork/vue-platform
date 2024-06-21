@@ -3,23 +3,6 @@ const template = path.join(process.cwd(), 'template');
 const { v4: uuidv4 } = require('uuid');
 const nJwt = require('njwt');
 module.exports = function(waw) {
-	/* remove support of waw.file */
-	waw.file('user', {
-		rename: req => req.user._id+'.jpg',
-		ensure: waw.ensure,
-		process: async (req, res) => {
-			const user = await User.findOne({
-				_id: req.user._id
-			});
-
-			user.thumb = req.files[0].url;
-
-			await user.save();
-
-			res.json(user.thumb);
-		}
-	});
-
 	/*
 	*	User configuration
 	*/

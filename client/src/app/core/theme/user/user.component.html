@@ -31,14 +31,14 @@
 					<span
 						class="material-icons"
 						*ngIf="!us.mode"
-						(click)="us.set('dark')"
+						(click)="us.setMode('dark')"
 					>
 						dark_mode
 					</span>
 					<span
 						class="material-icons"
 						*ngIf="us.mode"
-						(click)="us.set()"
+						(click)="us.setMode()"
 					>
 						light_mode
 					</span>

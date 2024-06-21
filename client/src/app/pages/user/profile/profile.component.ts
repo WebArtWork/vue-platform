@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormService } from 'src/app/modules/form/form.service';
 import { CoreService } from 'wacom';
 import { FormInterface } from 'src/app/modules/form/interfaces/form.interface';
-import { UserService } from 'src/app/core/services/user.service';
-import { User } from 'src/app/core/interfaces/user';
+import { UserService } from 'src/app/modules/user/services/user.service';
+import { User } from 'src/app/modules/user/interfaces/user.interface';
 
 interface ChangePassword {
 	oldPass: string;
@@ -25,9 +25,6 @@ export class ProfileComponent {
 			const user = {};
 
 			this._core.copy(this.us.user, user);
-
-			// eslint-disable-next-line no-console
-			console.log(user, this.us.user);
 
 			this.user = user;
 		});
@@ -90,7 +87,7 @@ export class ProfileComponent {
 	update(submition: User): void {
 		this._core.copy(submition, this.us.user);
 
-		this.us.update();
+		this.us.updateMe();
 	}
 
 	// Update user password
@@ -132,12 +129,12 @@ export class ProfileComponent {
 		]
 	});
 
-	change_password(): void {
+	changePassword(): void {
 		this._form
 			.modal<ChangePassword>(this.formPassword, {
 				label: 'Change',
 				click: (submition: unknown, close: () => void) => {
-					this.us.change_password(
+					this.us.changePassword(
 						(submition as ChangePassword).oldPass,
 						(submition as ChangePassword).newPass
 					);
@@ -146,7 +143,7 @@ export class ProfileComponent {
 				}
 			})
 			.then((submition: ChangePassword) => {
-				this.us.change_password(submition.oldPass, submition.newPass);
+				this.us.changePassword(submition.oldPass, submition.newPass);
 			});
 	}
 }

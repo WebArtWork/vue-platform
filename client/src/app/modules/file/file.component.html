@@ -1,5 +1,5 @@
 <div *ngIf="isPhoto" (click)="set()">
-	<h3>{{label}}</h3>
+	<h3 *ngIf="label">{{label}}</h3>
 	<label *ngIf="!multiple" for="formPhoto">
 		<img [src]="value || '/assets/default.png'" alt="Picture" />
 	</label>
@@ -23,7 +23,5 @@
 		[cropperStaticWidth]="width"
 		[cropperStaticHeight]="height"
 	></image-cropper>
-
-
 	<button (click)="uploadImage()">Cropper</button>
 </div>

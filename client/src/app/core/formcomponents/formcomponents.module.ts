@@ -61,7 +61,7 @@ export class FormcomponentsModule {
 		this._form.addComponent({
 			component: SelectComponent,
 			name: 'Select',
-			fields: ['Placeholder', 'Label']
+			fields: ['Placeholder', 'Label', 'Items', 'Multiple']
 		});
 		this._form.addComponent({
 			component: DateComponent,
