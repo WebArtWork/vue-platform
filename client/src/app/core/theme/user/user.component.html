@@ -87,7 +87,7 @@
 					<span class="material-icons">translate</span>
 					<span translate>Theme.Translates</span>
 				</a>
-				<hr />
+				<hr *ngIf="us.role('admin')" />
 			</div>
 		</div>
 		<router-outlet></router-outlet>

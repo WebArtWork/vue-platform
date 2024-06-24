@@ -140,9 +140,14 @@ export class FormsComponent {
 					console.clear();
 					console.log(doc);
 					this.components.splice(0, this.components.length);
-					for (const component of doc.components || []) {
+					const submition: Record<string, unknown> = {
+						addComponent: 'Text',
+						data: {}
+					};
+					(doc.components || []).forEach((component, index) => {
+						// submition.data['key' + index] = ''
 						this.components.push(
-							this.addCustomComponent(
+							this._addCustomComponent(
 								component.name as string,
 								component.fields?.map(
 									(f) => f.name
@@ -150,17 +155,14 @@ export class FormsComponent {
 								this.components.length
 							)
 						);
-					}
-					const submition: Record<string, unknown> = {
-						addComponent: 'Text'
-					};
+					});
 					this._form.modal<FormInterface>(
 						this.formComponents,
 						{
 							label: 'Add component',
 							click: () => {
 								this.components.push(
-									this.addCustomComponent(
+									this._addCustomComponent(
 										submition['addComponent'] as string,
 										this._form.components.find(
 											(c) =>
@@ -170,12 +172,18 @@ export class FormsComponent {
 										this.components.length
 									)
 								);
+								doc.components.push({
+									name: submition['addComponent'] as string,
+								});
 							}
 						},
 						submition,
 						() => {},
 						{ size: 'big' }
-					);
+					).then(() => {
+						console.log(submition, doc);
+						// this._form.save(doc);
+					});;
 				}
 			}
 		]
@@ -191,7 +199,7 @@ export class FormsComponent {
 		private _form: FormService
 	) {}
 
-	addCustomComponent(
+	private _addCustomComponent(
 		component: string,
 		fields: string[],
 		index: number
