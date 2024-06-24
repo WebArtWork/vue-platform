@@ -3,6 +3,7 @@ import { FormService } from 'src/app/modules/form/form.service';
 import { FormInterface } from '../../interfaces/form.interface';
 import { TranslateService } from 'src/app/modules/translate/translate.service';
 import { AlertService } from 'src/app/modules/alert/alert.service';
+import { FormComponentInterface } from '../../interfaces/component.interface';
 
 @Component({
 	templateUrl: './forms.component.html',
@@ -49,28 +50,39 @@ export class FormsComponent {
 			}
 		]
 	});
+	components: FormComponentInterface[] = [];
 	formComponents: FormInterface = this._form.getForm('formComponents', {
 		formId: 'formComponents',
 		title: 'Custom components',
 		components: [
 			{
-				name: 'Button',
+				components: this.components
+			},
+			{
+				name: 'Select',
+				key: 'addComponent',
 				fields: [
 					{
-						name: 'Label',
-						value: 'Add component'
+						name: 'Placeholder',
+						value: 'Select form componnet'
 					},
 					{
-						name: "Click",
-						value: () => {
-							console.log('clicked');
-						}
+						name: 'Label',
+						value: 'Form Component'
+					},
+					{
+						name: 'Value',
+						value: 'name',
+						skipTranslation: true
+					},
+					{
+						name: 'Items',
+						value: this._form.components
 					}
 				]
 			}
 		]
 	});
-
 
 	config = {
 		create: () => {
@@ -125,18 +137,45 @@ export class FormsComponent {
 			{
 				icon: 'text_fields',
 				click: (doc: FormInterface) => {
+					console.clear();
 					console.log(doc);
-					this._form
-						.modal<FormInterface>(
-							this.formComponents,
-							{
-								label: 'Update',
-								click: (updated: unknown, close: () => void) => {
-									console.log(updated);
-								}
+					this.components.splice(0, this.components.length);
+					for (const component of doc.components || []) {
+						this.components.push(
+							this.addCustomComponent(
+								component.name as string,
+								component.fields?.map(
+									(f) => f.name
+								) as string[],
+								this.components.length
+							)
+						);
+					}
+					const submition: Record<string, unknown> = {
+						addComponent: 'Text'
+					};
+					this._form.modal<FormInterface>(
+						this.formComponents,
+						{
+							label: 'Add component',
+							click: () => {
+								this.components.push(
+									this.addCustomComponent(
+										submition['addComponent'] as string,
+										this._form.components.find(
+											(c) =>
+												c.name ===
+												submition['addComponent']
+										)?.fields as string[],
+										this.components.length
+									)
+								);
 							}
-						)
-						.then(this._form.update.bind(this));
+						},
+						submition,
+						() => {},
+						{ size: 'big' }
+					);
 				}
 			}
 		]
@@ -144,6 +183,56 @@ export class FormsComponent {
 
 	get rows(): FormInterface[] {
 		return this._form.customForms;
+	}
+
+	constructor(
+		private _translate: TranslateService,
+		private _alert: AlertService,
+		private _form: FormService
+	) {}
+
+	addCustomComponent(
+		component: string,
+		fields: string[],
+		index: number
+	): FormComponentInterface {
+		const components = [
+			{
+				name: 'Text',
+				key: 'key' + index,
+				fields: [
+					{
+						name: 'Placeholder',
+						value: 'fill key'
+					},
+					{
+						name: 'Label',
+						value: 'Key'
+					}
+				]
+			},
+			...(fields || [])?.map((f) => {
+				return {
+					name: 'Text',
+					key: f + index,
+					fields: [
+						{
+							name: 'Placeholder',
+							value: 'fill ' + f
+						},
+						{
+							name: 'Label',
+							value:
+								f.charAt(0).toUpperCase() + f.slice(1, f.length)
+						}
+					]
+				};
+			})
+		];
+		return {
+			class: 'd-f mt10',
+			components
+		};
 	}
 
 	changeStatus(form: FormInterface) {
@@ -164,10 +253,4 @@ export class FormsComponent {
 			this._form.save(form);
 		});
 	}
-
-	constructor(
-		private _translate: TranslateService,
-		private _alert: AlertService,
-		private _form: FormService
-	) {}
 }
