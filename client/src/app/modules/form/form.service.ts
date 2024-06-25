@@ -78,10 +78,17 @@ export class FormService {
 	}
 
 	components: TemplateComponentInterface[] = [];
+	customFieldComponent: Record<string, string> = {};
 
 	addComponent(component: TemplateComponentInterface) {
 		if (this.components.map((c) => c.name).indexOf(component.name) === -1) {
 			this.components.push(component);
+
+			component.fieldComponent = component.fieldComponent || {};
+
+			for (const field in component.fieldComponent) {
+				this.customFieldComponent[component.name + field] = component.fieldComponent[field];
+			}
 		}
 	}
 

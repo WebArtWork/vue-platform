@@ -5,6 +5,24 @@ import { TranslateService } from 'src/app/modules/translate/translate.service';
 import { AlertService } from 'src/app/modules/alert/alert.service';
 import { FormComponentInterface } from '../../interfaces/component.interface';
 
+interface CustomformcomponnetfieldInterface {
+	name: string;
+	value: string;
+}
+interface CustomformcomponnetInterface {
+	name: string;
+	fields: CustomformcomponnetfieldInterface[];
+	key?: string;
+	components?: CustomformcomponnetInterface[];
+}
+interface CustomformInterface {
+	title: string;
+	formId: string;
+	active: boolean;
+	domain: string;
+	components: CustomformcomponnetInterface[];
+}
+
 @Component({
 	templateUrl: './forms.component.html',
 	styleUrls: ['./forms.component.scss']
@@ -136,54 +154,83 @@ export class FormsComponent {
 		buttons: [
 			{
 				icon: 'text_fields',
-				click: (doc: FormInterface) => {
-					console.clear();
-					console.log(doc);
+				click: (doc: CustomformInterface) => {
 					this.components.splice(0, this.components.length);
 					const submition: Record<string, unknown> = {
-						addComponent: 'Text',
-						data: {}
+						addComponent: 'Text'
 					};
+
+					for (let i = 0; i < doc.components.length; i++) {
+						submition['key' + i] = doc.components[i].key as string;
+						for (const field of doc.components[i].fields) {
+							submition[field.name + i] = field.value as string;
+						}
+					}
+					const remove = (i: number) => {
+						this.components.splice(i, 1);
+						doc.components.splice(i, 1);
+						this._form.save(doc);
+					}
 					(doc.components || []).forEach((component, index) => {
-						// submition.data['key' + index] = ''
 						this.components.push(
 							this._addCustomComponent(
 								component.name as string,
 								component.fields?.map(
 									(f) => f.name
 								) as string[],
-								this.components.length
+								this.components.length,
+								remove
 							)
 						);
 					});
-					this._form.modal<FormInterface>(
-						this.formComponents,
-						{
-							label: 'Add component',
-							click: () => {
-								this.components.push(
-									this._addCustomComponent(
-										submition['addComponent'] as string,
-										this._form.components.find(
-											(c) =>
-												c.name ===
-												submition['addComponent']
-										)?.fields as string[],
-										this.components.length
-									)
-								);
-								doc.components.push({
-									name: submition['addComponent'] as string,
-								});
+					this._form
+						.modal<CustomformInterface>(
+							this.formComponents,
+							{
+								label: 'Add component',
+								click: () => {
+									const fields = this._form.components.find(
+										(c) =>
+											c.name === submition['addComponent']
+									)?.fields as string[];
+									this.components.push(
+										this._addCustomComponent(
+											submition['addComponent'] as string,
+											fields,
+											this.components.length,
+											remove
+										)
+									);
+									doc.components.push({
+										name: submition[
+											'addComponent'
+										] as string,
+										fields: fields.map((name) => {
+											return {
+												value: '',
+												name
+											};
+										})
+									});
+								}
+							},
+							submition,
+							() => {},
+							{ size: 'big' }
+						)
+						.then(() => {
+							for (let i = 0; i < doc.components.length; i++) {
+								doc.components[i].key = submition[
+									'key' + i
+								] as string;
+								for (const field of doc.components[i].fields) {
+									field.value = submition[
+										field.name + i
+									] as string;
+								}
 							}
-						},
-						submition,
-						() => {},
-						{ size: 'big' }
-					).then(() => {
-						console.log(submition, doc);
-						// this._form.save(doc);
-					});;
+							this._form.save(doc);
+						});
 				}
 			}
 		]
@@ -202,12 +249,14 @@ export class FormsComponent {
 	private _addCustomComponent(
 		component: string,
 		fields: string[],
-		index: number
+		index: number,
+		remove: (i: number)=>void
 	): FormComponentInterface {
 		const components = [
 			{
 				name: 'Text',
 				key: 'key' + index,
+				root: true,
 				fields: [
 					{
 						name: 'Placeholder',
@@ -221,8 +270,9 @@ export class FormsComponent {
 			},
 			...(fields || [])?.map((f) => {
 				return {
-					name: 'Text',
+					name: this._form.customFieldComponent[component + f] || 'Text',
 					key: f + index,
+					root: true,
 					fields: [
 						{
 							name: 'Placeholder',
@@ -235,7 +285,22 @@ export class FormsComponent {
 						}
 					]
 				};
-			})
+			}),
+			{
+				name: 'Button',
+				fields: [
+					{
+						name: 'Label',
+						value: 'Remove'
+					},
+					{
+						name: 'Click',
+						value: () => {
+							remove(index);
+						}
+					}
+				]
+			},
 		];
 		return {
 			class: 'd-f mt10',

@@ -8,6 +8,7 @@ export interface TemplateComponentInterface {
 	name: string;
 	component: unknown;
 	fields?: string[];
+	fieldComponent?: Record<string, string>;
 }
 
 export interface FormComponentInterface {
