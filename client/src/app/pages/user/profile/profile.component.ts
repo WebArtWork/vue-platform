@@ -2,6 +2,7 @@ import { FormInterface } from 'src/app/modules/form/interfaces/form.interface';
 import { UserService } from 'src/app/modules/user/services/user.service';
 import { User } from 'src/app/modules/user/interfaces/user.interface';
 import { FormService } from 'src/app/modules/form/form.service';
+import { environment } from 'src/environments/environment';
 import { Component } from '@angular/core';
 import { CoreService } from 'wacom';
 
@@ -16,6 +17,8 @@ interface ChangePassword {
 	styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
+	readonly url = environment.url;
+
 	constructor(
 		private _form: FormService,
 		private _core: CoreService,
