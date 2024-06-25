@@ -60,7 +60,6 @@ export class SignComponent {
 				]
 			},
 			{
-				// name: 'Number',
 				name: 'Text',
 				key: 'code',
 				root: true,
@@ -82,6 +81,10 @@ export class SignComponent {
 					{
 						name: 'Label',
 						value: "Let's go"
+					},
+					{
+						name: 'Submit',
+						value: true
 					}
 				]
 			}

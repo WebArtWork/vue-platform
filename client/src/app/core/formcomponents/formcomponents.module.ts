@@ -102,7 +102,10 @@ export class FormcomponentsModule {
 		this._form.addComponent({
 			component: ButtonComponent,
 			name: 'Button',
-			fields: ['Label', 'Click']
+			fields: ['Label', 'Click', 'Submit'],
+			fieldComponent: {
+				Submit: 'Boolean'
+			}
 		});
 		this._form.addComponent({
 			component: PhotoComponent,
