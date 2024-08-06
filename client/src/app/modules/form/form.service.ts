@@ -210,9 +210,7 @@ export class FormService {
 						},
 						{
 							name: 'Label',
-							value: this._core.capitalizeFirstLetter(
-								key.split('.')[0]
-							)
+							value: key.split('.')[0].capitalize()
 						}
 					]
 				};
