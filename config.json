@@ -14,7 +14,7 @@
 		"db": "waw"
 	},
 	"modules": {
-		"template": "waw",
+		"wjst": "waw",
 		"core": "waw",
 		"sem": "waw",
 		"translate":"waw"
