@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { HashService, HttpService, UiService } from 'wacom';
-import { AlertService } from 'src/app/modules/alert/alert.service';
+import { AlertService } from 'src/app/core/modules/alert/alert.service';
 import { Router } from '@angular/router';
-import { FormInterface } from 'src/app/modules/form/interfaces/form.interface';
-import { FormService } from 'src/app/modules/form/form.service';
-import { TranslateService } from 'src/app/modules/translate/translate.service';
+import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
+import { FormService } from 'src/app/core/modules/form/form.service';
+import { TranslateService } from 'src/app/core/modules/translate/translate.service';
 import { UserService } from 'src/app/modules/user/services/user.service';
 import { User } from 'src/app/modules/user/interfaces/user.interface';
 

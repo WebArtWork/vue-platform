@@ -1,8 +1,8 @@
-import { ButtonModule } from 'src/app/modules/button/button.module';
-import { InputModule } from 'src/app/modules/input/input.module';
-import { FileModule } from 'src/app/modules/file/file.module';
-import { FormService } from 'src/app/modules/form/form.service';
-import { SelectModule } from 'src/app/modules/select/select.module';
+import { ButtonModule } from 'src/app/core/modules/button/button.module';
+import { InputModule } from 'src/app/core/modules/input/input.module';
+import { FileModule } from 'src/app/core/modules/file/file.module';
+import { FormService } from 'src/app/core/modules/form/form.service';
+import { SelectModule } from 'src/app/core/modules/select/select.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 /* componnets */

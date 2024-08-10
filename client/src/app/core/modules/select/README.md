@@ -7,7 +7,7 @@ waw add ngx-select
 # Step 2: Import SelectModule
 ### In your user/page.module.ts you must import SelectModule:
 ```
-import { SelectModule } from 'src/app/modules/select/select.module';
+import { SelectModule } from 'src/app/core/modules/select/select.module';
 
 @NgModule({
  imports: [
@@ -19,10 +19,10 @@ import { SelectModule } from 'src/app/modules/select/select.module';
 # Step 3.1: Single
 ### In order to use a single option, here is an example for you:
 ```
-<wselect 
+<wselect
   [items]="[
-    {name:'Item1', _id:'ItemA'}, 
-    {name:'Item2', _id:'ItemB'}, 
+    {name:'Item1', _id:'ItemA'},
+    {name:'Item2', _id:'ItemB'},
     {name:'Item3', _id:'ItemC'}
   ]">
 </wselect>
@@ -31,12 +31,12 @@ import { SelectModule } from 'src/app/modules/select/select.module';
 # Step 3.2: Multiple
 ### In order to use a multiple option, here is an example for you:
 ```
-<wselect 
+<wselect
   [items]="[
-    {name:'Item1', _id:'ItemA'}, 
-    {name:'Item2', _id:'ItemB'}, 
+    {name:'Item1', _id:'ItemA'},
+    {name:'Item2', _id:'ItemB'},
     {name:'Item3', _id:'ItemC'}]"
-  [select]="['ItemA','ItemC']" 
+  [select]="['ItemA','ItemC']"
   [multiple]="true">
 </wselect> -->
 ```
@@ -44,10 +44,10 @@ import { SelectModule } from 'src/app/modules/select/select.module';
 # Step 3.3: Multiple (obj)
 ### In order to use one option, from the finished object here is an example for you:
 ```
-<wselect 
-  *ngIf="vr.variables?.length" 
-  [items]="vr.variables" 
-  [select]="[vr.variables[0]]" 
+<wselect
+  *ngIf="vr.variables?.length"
+  [items]="vr.variables"
+  [select]="[vr.variables[0]]"
   [multiple]="true">
 </wselect>
 ```

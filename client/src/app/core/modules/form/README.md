@@ -9,7 +9,7 @@ waw add ngx-form
 ## Step 2: Import FormsService
 ### In page.module.ts you must imported:
 ```
-import { FormService } from 'src/app/modules/forms/form.service';
+import { FormService } from 'src/app/core/modules/forms/form.service';
 
 	constructor(public fm: FormService) {}
 }

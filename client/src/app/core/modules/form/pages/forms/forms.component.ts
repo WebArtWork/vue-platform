@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { FormService } from 'src/app/modules/form/form.service';
+import { FormService } from 'src/app/core/modules/form/form.service';
 import { FormInterface } from '../../interfaces/form.interface';
-import { TranslateService } from 'src/app/modules/translate/translate.service';
-import { AlertService } from 'src/app/modules/alert/alert.service';
+import { TranslateService } from 'src/app/core/modules/translate/translate.service';
+import { AlertService } from 'src/app/core/modules/alert/alert.service';
 import { FormComponentInterface } from '../../interfaces/component.interface';
 
 interface CustomformcomponnetfieldInterface {

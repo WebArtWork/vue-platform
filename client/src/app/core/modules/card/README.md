@@ -22,7 +22,7 @@ export class YourComponent {
 # Step 4: Importe StripeModule
 ### In your user/page.module.ts you must import CardModule:
 ```
-import { CardModule } from 'src/app/modules';
+import { CardModule } from 'src/app/core/modules';
 
 @NgModule({
  imports: [

@@ -14,8 +14,8 @@ import { environment } from 'src/environments/environment';
 import { AuthenticatedGuard } from './core/guards/authenticated.guard';
 import { GuestGuard } from './core/guards/guest.guard';
 import { AdminsGuard } from './core/guards/admins.guard';
-import { AlertModule } from './modules/alert/alert.module';
-import { ModalModule } from './modules/modal/modal.module';
+import { AlertModule } from './core/modules/alert/alert.module';
+import { ModalModule } from './core/modules/modal/modal.module';
 
 const routes: Routes = [
 	{
@@ -93,7 +93,7 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () =>
-					import('./modules/form/pages/forms/forms.module').then(
+					import('./core/modules/form/pages/forms/forms.module').then(
 						(m) => m.FormsModule
 					)
 			},
@@ -107,7 +107,7 @@ const routes: Routes = [
 				},
 				loadChildren: () =>
 					import(
-						'./modules/translate/pages/translates/translates.module'
+						'./core/modules/translate/pages/translates/translates.module'
 					).then((m) => m.TranslatesModule)
 			}
 		]

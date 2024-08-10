@@ -8,7 +8,7 @@ waw add ngx-input
 
 ## Usage
 ```
-import { InputModule } from 'src/app/modules';
+import { InputModule } from 'src/app/core/modules';
 @NgModule({
 	imports: [
 		InputModule

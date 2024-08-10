@@ -1,5 +1,5 @@
 import { OnInit, Directive, ElementRef } from '@angular/core';
-import { TranslateService } from 'src/app/modules/translate/translate.service';
+import { TranslateService } from 'src/app/core/modules/translate/translate.service';
 
 @Directive({
 	selector: '[translate]'

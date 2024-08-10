@@ -5,8 +5,8 @@ import {
 	TemplateComponentInterface,
 	TemplateFieldInterface
 } from './interfaces/component.interface';
-import { ModalService } from 'src/app/modules/modal/modal.service';
-import { AlertService } from 'src/app/modules/alert/alert.service';
+import { ModalService } from 'src/app/core/modules/modal/modal.service';
+import { AlertService } from 'src/app/core/modules/alert/alert.service';
 import { FormInterface } from './interfaces/form.interface';
 import { ModalFormComponent } from './modals/modal-form/modal-form.component';
 import { TranslateService } from '../translate/translate.service';
