@@ -17,7 +17,6 @@
 		"template": "waw",
 		"core": "waw",
 		"sem": "waw",
-		"form":"waw",
 		"translate":"waw"
 	},
 	"dependencies": {},

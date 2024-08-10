@@ -85,6 +85,12 @@ export class SignComponent {
 					{
 						name: 'Submit',
 						value: true
+					},
+					{
+						name: 'Click',
+						value: () => {
+							this.submit(this.user);
+						}
 					}
 				]
 			}
@@ -107,7 +113,7 @@ export class SignComponent {
 		private _translate: TranslateService
 	) {}
 
-	submit(form: Form): void {
+	submit(form: any): void {
 		if (!this.form.components[2].hidden && form.code) {
 			this.save();
 		} else if (!form.email) {
