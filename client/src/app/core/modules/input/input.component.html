@@ -1,43 +1,67 @@
+<!-- General Input -->
 <label
 	class="w-forms"
-	*ngIf="
-		type !== 'radio' &&
-		type !== 'checkbox' &&
-		type !== 'textarea'
-	"
+	*ngIf="type !== 'radio' && type !== 'checkbox' && type !== 'textarea'"
+	[for]="name"
 >
-	<span class="w-forms__title" *ngIf="label">{{label}}</span>
+	<span class="w-forms__title" *ngIf="label">{{ label }}</span>
 	<input
-		type="text"
-		mask
-		[endWith]="endWith"
-		[regex]="regex"
-		placeholder="Enter text..."
-		(keyup.enter)="wSubmit.emit(formControl.value)"
-		[formControl]="formControl"
-		class="input w-input__field"
-		[placeholder]="placeholder"
+		[type]="type || 'text'"
+		[placeholder]="placeholder || 'Enter text...'"
+		(keyup.enter)="onSubmit()"
+		[(ngModel)]="value"
+		(ngModelChange)="onChange(value)"
+		(blur)="wBlur.emit()"
+		[class.error]="error"
 		[ngClass]="wClass"
-		[type]="type"
 		[name]="name"
+		[disabled]="disabled"
 		#inputEl
 	/>
+	<!-- Error Message Display -->
+	<div *ngIf="error" class="error-message">
+		{{ label || placeholder }} is invalid.
+	</div>
 	<ng-content></ng-content>
 </label>
-<!-- [disabled]="disabled" -->
 
-<ng-container *ngIf="type === 'radio'">
-	<label class="check-lebel" *ngFor="let item of items">
-		<span class="form-label">{{item}}</span>
-		<!-- [formControlName]="formControlName || name" -->
-		<input
-			mask
-			[endWith]="endWith"
-			[regex]="regex"
-			[formControl]="formControl"
+<!-- Textarea -->
+<ng-container *ngIf="type === 'textarea'">
+	<label class="w-forms" [for]="name">
+		<span class="w-forms__title">{{ label }}</span>
+		<textarea
+			(keyup.enter)="onSubmit()"
+			[(ngModel)]="value"
+			(ngModelChange)="onChange(value)"
+			(blur)="wBlur.emit()"
+			[placeholder]="placeholder"
+			class="w-forms__textarea"
+			[class.error]="error"
 			[ngClass]="wClass"
 			[name]="name"
+			[disabled]="disabled"
+			#inputEl
+		></textarea>
+		<!-- Error Message Display -->
+		<div *ngIf="error" class="error-message">
+			{{ label || placeholder }} is invalid.
+		</div>
+	</label>
+</ng-container>
+
+<!-- Radio Buttons -->
+<ng-container *ngIf="type === 'radio'">
+	<label class="check-label" *ngFor="let item of items">
+		<span class="form-label">{{ item }}</span>
+		<input
+			[(ngModel)]="value"
+			(ngModelChange)="onChange(value)"
+			[ngClass]="wClass"
+			[class.error]="error"
+			[name]="name"
 			type="radio"
+			[value]="item"
+			[disabled]="disabled"
 			#inputEl
 		/>
 		<span class="checkbox _radio"></span>
@@ -45,41 +69,21 @@
 	</label>
 </ng-container>
 
+<!-- Checkboxes -->
 <ng-container *ngIf="type === 'checkbox'">
-	<label class="container-box">
-		<!-- [formControlName]="formControlName || name" -->
+	<label class="container-box" [for]="name">
 		<input
-			mask
-			[endWith]="endWith"
-			[regex]="regex"
-			[formControl]="formControl"
+			[(ngModel)]="value"
+			(ngModelChange)="onChange(value)"
 			class="w-input__checkbox"
 			[disabled]="disabled"
-			[checked]="value"
+			[ngClass]="wClass"
+			[class.error]="error"
 			[name]="name"
 			type="checkbox"
 			#inputEl
 		/>
 		<span class="checkmark"></span>
-		<span class="check-text" *ngIf="label">{{label}}</span>
-	</label>
-</ng-container>
-
-<ng-container *ngIf="type === 'textarea'">
-	<label class="w-forms">
-		<span class="w-forms__title">{{label}}</span>
-		<!-- [formControlName]="formControlName || name" -->
-		<textarea
-			mask
-			[endWith]="endWith"
-			[regex]="regex"
-			(keyup.enter)="wSubmit.emit(formControl.value)"
-			[formControl]="formControl"
-			[placeholder]="placeholder"
-			class="w-forms__textarea"
-			[ngClass]="wClass"
-			[name]="name"
-			#inputEl
-		></textarea>
+		<span class="check-text" *ngIf="label">{{ label }}</span>
 	</label>
 </ng-container>

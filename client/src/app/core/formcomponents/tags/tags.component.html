@@ -9,7 +9,7 @@
 		<span>{{tag}}</span>
 		<i (click)="tags.splice(i, 1)">X</i>
 	</ng-container>
-	<wbutton [disabled]="!inputRef.formControl.value" (click)="addTag()">
+	<wbutton [disabled]="!inputRef.value" (click)="addTag()">
 		{{field.Button || 'Add'}}
 	</wbutton>
 </div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 @Component({
 	selector: 'tags-formcomponents',

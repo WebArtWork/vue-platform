@@ -93,8 +93,8 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () =>
-					import('./core/modules/form/pages/forms/forms.module').then(
-						(m) => m.FormsModule
+					import('./modules/customform/pages/customforms/customforms.module').then(
+						(m) => m.CustomformsModule
 					)
 			},
 			{

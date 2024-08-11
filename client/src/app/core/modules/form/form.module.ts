@@ -23,7 +23,7 @@ import { ModalUniqueComponent } from './modals/modal-unique/modal-unique.compone
 		ModalFormComponent,
 		FormComponent,
 		ModalFormButtonComponent,
-  ModalUniqueComponent
+		ModalUniqueComponent
 	],
 	exports: [FormComponent]
 })

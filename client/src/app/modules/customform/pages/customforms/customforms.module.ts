@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CoreModule } from 'src/app/core/core.module';
-import { ComponentsComponent } from './components.component';
+import { CustomformsComponent } from './customforms.component';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [{
 	path: '',
-	component: ComponentsComponent
+	component: CustomformsComponent
 }];
 
 @NgModule({
@@ -14,10 +14,10 @@ const routes: Routes = [{
 		CoreModule
 	],
 	declarations: [
-		ComponentsComponent
+		CustomformsComponent
 	],
 	providers: []
 
 })
 
-export class ComponentsModule { }
+export class CustomformsModule { }

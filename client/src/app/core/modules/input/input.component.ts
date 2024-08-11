@@ -5,96 +5,166 @@ import {
 	EventEmitter,
 	OnInit,
 	ElementRef,
-	ViewChild,
-	forwardRef,
-	OnChanges,
-	SimpleChanges
+	ViewChild
 } from '@angular/core';
-import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputTypes } from './input.types';
 
+/**
+ * InputComponent is a customizable input component that supports various types of inputs,
+ * including text, radio buttons, checkboxes, and textareas. It also provides validation,
+ * custom value replacement, and event handling for changes, submissions, and blur events.
+ */
 @Component({
 	selector: 'winput',
 	templateUrl: './input.component.html',
-	styleUrls: ['./input.component.scss'],
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => InputComponent),
-			multi: true
-		}
-	]
+	styleUrls: ['./input.component.scss']
 })
-export class InputComponent implements OnInit, OnChanges {
-	@Input() type = InputTypes[0];
+export class InputComponent implements OnInit {
+	/**
+	 * The value of the input field.
+	 */
+	@Input() value: string | number | boolean = '';
 
-	@Input() label = '';
+	/**
+	 * A function to replace the input value before emitting changes.
+	 * This allows custom transformations of the input value.
+	 */
+	@Input() replace: (
+		value: string | number | boolean
+	) => string | number | boolean;
 
-	@Input() endWith = '';
+	/**
+	 * A function to validate the input value. The default implementation checks for a truthy value.
+	 */
+	@Input() valid: (value: string | number | boolean) => boolean = (
+		value: string | number | boolean
+	) => !!value;
 
-	@Input() regex = '';
-
+	/**
+	 * A list of items used for radio buttons or other list-based inputs.
+	 */
 	@Input() items: string[] = [];
 
-	@Input() wClass: string;
-
-	@Input() formControlName = 'name';
-
-	@Input() formControl: FormControl;
-
-	@Input() form: FormGroup;
-
-	@Input() name = 'name';
-
+	/**
+	 * The placeholder text for the input field.
+	 */
 	@Input() placeholder = '';
 
-	@Input() value: unknown = '';
+	/**
+	 * Whether the input field is disabled.
+	 */
+	@Input() disabled = false;
 
-	@Input() disabled: boolean;
-
+	/**
+	 * Whether the input field should be focused when the component initializes.
+	 */
 	@Input() focused = false;
 
-	@Output() wChange = new EventEmitter();
+	/**
+	 * Custom CSS classes for styling the input field.
+	 */
+	@Input() wClass: string;
 
-	@Output() wSubmit = new EventEmitter();
+	/**
+	 * The name attribute of the input field.
+	 */
+	@Input() name = 'name';
 
+	/**
+	 * The type of input.
+	 */
+	@Input() type:
+		| 'text'
+		| 'password'
+		| 'email'
+		| 'radio'
+		| 'checkbox'
+		| 'textarea'
+		| 'search'
+		| 'tel'
+		| 'url'
+		| 'number'
+		| 'range'
+		| 'color'
+		| 'date'
+		| 'month'
+		| 'week'
+		| 'time'
+		| 'datetime-local' = 'text';
+
+	/**
+	 * The label for the input field.
+	 */
+	@Input() label = '';
+
+	/**
+	 * Event emitted when the input value changes.
+	 */
+	@Output() wChange = new EventEmitter<string | number | boolean>();
+
+	/**
+	 * Event emitted when the form is submitted.
+	 */
+	@Output() wSubmit = new EventEmitter<string | number | boolean>();
+
+	/**
+	 * Event emitted when the input field loses focus.
+	 */
+	@Output() wBlur = new EventEmitter<void>();
+
+	/**
+	 * Reference to the input element in the template.
+	 */
 	@ViewChild('inputEl') inputEl: ElementRef;
 
-	ngOnChanges(changes: SimpleChanges) {
-		if (changes['endWith']) {
-			this.endWith = changes['endWith'].currentValue;
+	/**
+	 * Focuses the input field.
+	 */
+	focus(): void {
+		setTimeout(() => {
+			this.inputEl.nativeElement.focus();
+		}, 100);
+	}
+
+	/**
+	 * Handles the change event for the input field.
+	 * Applies the replace function if provided, and emits the new value.
+	 */
+	onChange(value: string | number | boolean): void {
+		this.value =
+			typeof this.replace === 'function' ? this.replace(value) : value;
+		this.wChange.emit(this.value);
+	}
+
+	/**
+	 * Error state of the input field, set to true if validation fails.
+	 */
+	error = false;
+
+	/**
+	 * Handles the submit event for the input field.
+	 * Validates the input value before emitting the submit event.
+	 */
+	onSubmit(): void {
+		if (this.valid(this.value)) {
+			this.wSubmit.emit(this.value);
+		} else {
+			this.error = true;
 		}
 	}
 
-	ngOnInit() {
-		if (!this.formControl) {
-			this.formControl = new FormControl(this.value);
-		}
-
-		this.formControl.valueChanges.subscribe((value) => {
-			this.wChange.emit(value);
-		});
-
+	/**
+	 * Initializes the component. Focuses the input field if the focused input is true.
+	 */
+	ngOnInit(): void {
 		if (this.focused) {
-			setTimeout(() => {
-				this.inputEl.nativeElement.focus();
-			}, 100);
+			this.focus();
 		}
 	}
 
-	// to fix name issue
-	writeValue(value: string): void {
-		this.value = value;
-	}
-	onChange = (_: any) => {};
-	onTouched = () => {};
-	registerOnChange(fn: (_: any) => void): void {
-		this.onChange = fn;
-	}
-	registerOnTouched(fn: () => void): void {
-		this.onTouched = fn;
-	}
-	setDisabledState(disabled: boolean): void {
+	/**
+	 * Sets the disabled state of the input field.
+	 */
+	setDisabled(disabled: boolean): void {
 		this.disabled = disabled;
 	}
 }

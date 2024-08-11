@@ -1,4 +1,9 @@
-<wtable title="Forms" [columns]="columns" [config]="config" [rows]="rows">
+<wtable
+	title="Custom Forms"
+	[columns]="columns"
+	[config]="config"
+	[rows]="rows"
+>
 	<ng-template cell="components" let-element>
 		{{element.components?.length}}
 	</ng-template>

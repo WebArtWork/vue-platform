@@ -1,34 +1,21 @@
-import { Component } from '@angular/core';
-import { FormService } from 'src/app/core/modules/form/form.service';
-import { FormInterface } from '../../interfaces/form.interface';
-import { TranslateService } from 'src/app/core/modules/translate/translate.service';
-import { AlertService } from 'src/app/core/modules/alert/alert.service';
-import { FormComponentInterface } from '../../interfaces/component.interface';
-
-interface CustomformcomponnetfieldInterface {
-	name: string;
-	value: string;
-}
-interface CustomformcomponnetInterface {
-	name: string;
-	fields: CustomformcomponnetfieldInterface[];
-	key?: string;
-	components?: CustomformcomponnetInterface[];
-}
-interface CustomformInterface {
-	title: string;
-	formId: string;
-	active: boolean;
-	domain: string;
-	components: CustomformcomponnetInterface[];
-}
+import { Component } from "@angular/core";
+import { FormService } from "src/app/core/modules/form/form.service";
+import {
+	CustomformService,
+	Customform,
+} from "../../services/customform.service";
+import { AlertService, CoreService } from "wacom";
+import { TranslateService } from "src/app/core/modules/translate/translate.service";
+import { FormInterface } from "src/app/core/modules/form/interfaces/form.interface";
+import { FormComponentInterface } from "src/app/core/modules/form/interfaces/component.interface";
 
 @Component({
-	templateUrl: './forms.component.html',
-	styleUrls: ['./forms.component.scss']
+	templateUrl: "./customforms.component.html",
+	styleUrls: ["./customforms.component.scss"],
 })
-export class FormsComponent {
+export class CustomformsComponent {
 	columns = ['title', 'components', 'formId', 'active'];
+
 	form: FormInterface = this._form.getForm('form', {
 		formId: 'form',
 		title: 'Custom form',
@@ -68,6 +55,7 @@ export class FormsComponent {
 			}
 		]
 	});
+
 	components: FormComponentInterface[] = [];
 	formComponents: FormInterface = this._form.getForm('formComponents', {
 		formId: 'formComponents',
@@ -154,11 +142,12 @@ export class FormsComponent {
 		buttons: [
 			{
 				icon: 'text_fields',
-				click: (doc: CustomformInterface) => {
+				click: (doc: Customform) => {
 					this.components.splice(0, this.components.length);
 					const submition: Record<string, unknown> = {
 						addComponent: 'Text'
 					};
+					doc.components = doc.components || [];
 
 					for (let i = 0; i < doc.components.length; i++) {
 						submition['key' + i] = doc.components[i].key as string;
@@ -169,7 +158,7 @@ export class FormsComponent {
 					const remove = (i: number) => {
 						this.components.splice(i, 1);
 						doc.components.splice(i, 1);
-						this._form.save(doc);
+						this._fs.updateAfterWhile(doc);
 					}
 					(doc.components || []).forEach((component, index) => {
 						this.components.push(
@@ -184,7 +173,7 @@ export class FormsComponent {
 						);
 					});
 					this._form
-						.modal<CustomformInterface>(
+						.modal<Customform>(
 							this.formComponents,
 							{
 								label: 'Add component',
@@ -215,7 +204,7 @@ export class FormsComponent {
 								}
 							},
 							submition,
-							() => {},
+							() => { },
 							{ size: 'big' }
 						)
 						.then(() => {
@@ -229,7 +218,7 @@ export class FormsComponent {
 									] as string;
 								}
 							}
-							this._form.save(doc);
+							this._fs.updateAfterWhile(doc);
 						});
 				}
 			}
@@ -242,15 +231,16 @@ export class FormsComponent {
 
 	constructor(
 		private _translate: TranslateService,
+		private _fs: CustomformService,
 		private _alert: AlertService,
 		private _form: FormService
-	) {}
+	) { }
 
 	private _addCustomComponent(
 		component: string,
 		fields: string[],
 		index: number,
-		remove: (i: number)=>void
+		remove: (i: number) => void
 	): FormComponentInterface {
 		const components = [
 			{
@@ -308,22 +298,22 @@ export class FormsComponent {
 		};
 	}
 
-	changeStatus(form: FormInterface) {
+	changeStatus(form: Customform) {
 		setTimeout(() => {
 			if (form.active) {
-				for (const _form of this._form.customForms) {
+				for (const _form of this._fs.customforms) {
 					if (_form._id === form._id || _form.formId !== form.formId)
 						continue;
 
 					if (_form.active) {
 						_form.active = false;
 
-						this._form.save(_form);
+						this._fs.updateAfterWhile(_form);
 					}
 				}
 			}
 
-			this._form.save(form);
+			this._fs.updateAfterWhile(form);
 		});
 	}
 }
