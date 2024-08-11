@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormService } from '../../../form.service';
-import { FormInterface } from '../../../interfaces/form.interface';
+import { FormService } from 'src/app/core/modules/form/form.service';
+import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
 
 @Component({
 	selector: 'app-mutate-form',

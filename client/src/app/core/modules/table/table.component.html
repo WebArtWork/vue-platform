@@ -34,10 +34,10 @@
 		<ng-container *ngIf="config.headerButtons">
 			<ng-container *ngFor="let button of config.headerButtons">
 				<wbutton
+					*ngIf="config.create && button"
 					(click)="button.click()"
 					class="table-plus-btn"
-					*ngIf="config.create && button"
-					type="button"
+					[disableSubmit]="true"
 				>
 					<i
 						class="material-icons"
@@ -55,7 +55,7 @@
 			(click)="config.create()"
 			class="table-plus-btn"
 			*ngIf="config.create"
-			type="button"
+			[disableSubmit]="true"
 		>
 			+ <span>Add new</span>
 		</wbutton>

@@ -13,7 +13,10 @@ export class FileService {
 			// accept: 'image/*',
 			resize: 1920,
 			cb: (file: any) => {
-				if (typeof file === 'string' && typeof this.setFile === 'function') {
+				if (
+					typeof file === 'string' &&
+					typeof this.setFile === 'function'
+				) {
 					this.setFile(file);
 				}
 			}
@@ -25,7 +28,10 @@ export class FileService {
 			multiple: true,
 			resize: 1920,
 			cb: (file: any) => {
-				if (typeof file === 'string' && typeof this.setFile === 'function') {
+				if (
+					typeof file === 'string' &&
+					typeof this.setFile === 'function'
+				) {
 					this.setFile(file);
 				}
 			}

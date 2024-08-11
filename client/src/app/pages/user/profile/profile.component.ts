@@ -153,4 +153,9 @@ export class ProfileComponent {
 				this.us.changePassword(submition.oldPass, submition.newPass);
 			});
 	}
+
+	updateThumb(thumb: string | string[]) {
+		this.us.user.thumb = Array.isArray(thumb) ? thumb[0] : thumb;
+		this.us.updateMe()
+	}
 }

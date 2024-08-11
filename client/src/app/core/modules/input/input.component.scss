@@ -9,7 +9,6 @@
 	padding: 10px 0;
 	display: block;
 
-	/* Label title styling */
 	&__title {
 		letter-spacing: 0;
 		line-height: 23px;
@@ -20,7 +19,7 @@
 		justify-content: space-between;
 		align-items: center;
 		border-radius: var(--b-radius);
-		margin-bottom: 25px;
+		margin-bottom: 10px; /* Adjusted margin */
 	}
 
 	/* Input and Textarea shared styling */
@@ -33,10 +32,10 @@
 		font-size: calc(#{var(--fs)} - 2px);
 		line-height: calc(#{var(--fs)} + 4px);
 		transition: var(--transition);
-		width: 100%;
+		width: 100%; /* Ensure input fields take full width of the container */
 		display: block;
 		letter-spacing: var(--letter-spacing);
-		padding: 10px;
+		padding: 8px 12px; /* Adjusted padding for better visual alignment */
 
 		/* Ensure compatibility across browsers */
 		appearance: textfield;
@@ -51,6 +50,7 @@
 		&:focus {
 			transition: var(--transition);
 			border-color: var(--c-primary);
+			outline: none; /* Remove default outline for better visual focus */
 		}
 
 		&:disabled {
