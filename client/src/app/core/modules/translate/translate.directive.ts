@@ -5,7 +5,12 @@ import { TranslateService } from 'src/app/core/modules/translate/translate.servi
 	selector: '[translate]'
 })
 export class TranslateDirective implements OnInit {
-	constructor(public elementRef: ElementRef, private tr: TranslateService) {}
+	constructor(public elementRef: ElementRef, private tr: TranslateService) { }
+
+	/**
+	 * On initialization, this directive replaces the innerHTML of the element
+	 * with the translated version of the text.
+	 */
 	ngOnInit() {
 		this.elementRef.nativeElement.innerHTML = this.tr.translate(
 			this.elementRef.nativeElement.innerHTML,
