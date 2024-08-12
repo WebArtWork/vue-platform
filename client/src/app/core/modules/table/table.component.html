@@ -1,7 +1,9 @@
 <div class="wtable">
 	<div class="users__header w-card__header">
-		<h3 class="w-forms__title">{{title}}</h3>
+		<!-- Table title -->
+		<h3 class="w-forms__title">{{ title }}</h3>
 
+		<!-- Search functionality -->
 		<div
 			*ngIf="config.searchable"
 			class="table-search"
@@ -31,6 +33,7 @@
 			</span>
 		</div>
 
+		<!-- Header buttons -->
 		<ng-container *ngIf="config.headerButtons">
 			<ng-container *ngFor="let button of config.headerButtons">
 				<wbutton
@@ -44,13 +47,14 @@
 						[title]="button.icon"
 						*ngIf="button.icon"
 					>
-						{{button.icon}}
+						{{ button.icon }}
 					</i>
-					<span *ngIf="button.text">{{button.text}}</span>
+					<span *ngIf="button.text">{{ button.text }}</span>
 				</wbutton>
 			</ng-container>
 		</ng-container>
 
+		<!-- Add new item button -->
 		<wbutton
 			(click)="config.create()"
 			class="table-plus-btn"
@@ -64,7 +68,10 @@
 	<table class="table" cellpadding="0" cellspacing="0">
 		<thead class="table-header">
 			<tr>
+				<!-- Column for row numbers -->
 				<th *ngIf="config.num">No.</th>
+
+				<!-- Column headers with sorting -->
 				<th scope="col" *ngFor="let column of columns">
 					<div
 						[class._sortActiveDown]="sort_type.direction === 'desc' && column.field === sort_type.title"
@@ -72,7 +79,7 @@
 						class="table-header__sort"
 						(click)="sort(column)"
 					>
-						<span>{{column.title}}</span>
+						<span>{{ column.title }}</span>
 						<span
 							*ngIf="sortable[column.field]"
 							class="material-icons icon-arrow"
@@ -81,7 +88,9 @@
 						</span>
 					</div>
 				</th>
-				<th *ngIf="config.delete||config.update">
+
+				<!-- Column for action buttons -->
+				<th *ngIf="config.delete || config.update">
 					<ng-template #customAction>
 						<ng-container
 							*ngTemplateOutlet="action.template"
@@ -96,19 +105,22 @@
 		</thead>
 		<tbody class="table-body">
 			<tr
-				*ngFor="let row of config.allDocs ? (rows|search: filter_filter: (config.searchBy||'title')|perPage: config: sort_type: filter_filter + now) : rows ; index as i; "
+				*ngFor="let row of config.allDocs ? (rows | search: filter_filter: (config.searchBy || 'title') | perPage: config: sort_type: filter_filter + now) : rows; index as i;"
 			>
-				<td *ngIf="config.num">{{row.num}}</td>
+				<!-- Row number -->
+				<td *ngIf="config.num">{{ row.num }}</td>
+
+				<!-- Data rows with custom cells if defined -->
 				<ng-container *ngFor="let column of columns">
 					<ng-template #defaultRows>
 						<td [attr.data-label]="column.title + ':&nbsp;'">
-							{{row[column.field]}}
+							{{ row[column.field] }}
 						</td>
 					</ng-template>
 					<ng-template #customRows>
 						<td [attr.data-label]="column.title + ':&nbsp;'">
 							<ng-container
-								*ngTemplateOutlet="custom_cell[column.field]; context: {$implicit: row}"
+								*ngTemplateOutlet="custom_cell[column.field]; context: { $implicit: row }"
 							></ng-container>
 						</td>
 					</ng-template>
@@ -116,12 +128,15 @@
 						*ngIf="custom_cell[column.field]; then customRows; else defaultRows"
 					></ng-container>
 				</ng-container>
+
+				<!-- Action buttons for each row -->
 				<td
 					class="table-body__last-td"
 					*ngIf="config.delete || config.update || config.buttons"
 					data-label="Actions:&nbsp;"
 				>
 					<div class="table__actions">
+						<!-- Custom buttons -->
 						<ng-container *ngIf="config.buttons">
 							<ng-container *ngFor="let button of config.buttons">
 								<ng-container *ngIf="button">
@@ -129,14 +144,9 @@
 										(click)="button.click(row)"
 										class="material-icons"
 										[title]="button.icon"
-										*ngIf="
-											!button.ahref &&
-											!button.ahrefFunc &&
-											!button.href &&
-											!button.hrefFunc
-										"
+										*ngIf="!button.ahref && !button.ahrefFunc && !button.href && !button.hrefFunc"
 									>
-										{{button.icon}}
+										{{ button.icon }}
 									</i>
 									<a
 										[href]="button.ahref"
@@ -147,7 +157,7 @@
 											class="material-icons"
 											[title]="button.icon"
 										>
-											{{button.icon}}
+											{{ button.icon }}
 										</i>
 									</a>
 									<a
@@ -159,47 +169,36 @@
 											class="material-icons"
 											[title]="button.icon"
 										>
-											{{button.icon}}
+											{{ button.icon }}
 										</i>
 									</a>
 									<a
-										[href]="button.ahref"
-										[target]="button.target || '_blank'"
+										[routerLink]="button.href"
 										*ngIf="button.href"
 									>
 										<i
 											class="material-icons"
 											[title]="button.icon"
 										>
-											{{button.icon}}
+											{{ button.icon }}
 										</i>
 									</a>
 									<a
-										routerLink="{{button.href}}"
-										*ngIf="button.href"
-									>
-										<i
-											class="material-icons"
-											[title]="button.icon"
-										>
-											{{button.icon}}
-										</i>
-									</a>
-									<a
-										routerLink="{{button.hrefFunc(row)}}"
+										[routerLink]="button.hrefFunc(row)"
 										*ngIf="button.hrefFunc"
 									>
 										<i
 											class="material-icons"
 											[title]="button.icon"
 										>
-											{{button.icon}}
+											{{ button.icon }}
 										</i>
 									</a>
 								</ng-container>
 							</ng-container>
 						</ng-container>
 
+						<!-- Edit and Delete buttons -->
 						<i
 							class="material-icons"
 							*ngIf="config.update"
@@ -224,6 +223,7 @@
 			class="table-footer"
 			*ngIf="config.perPage || (config.formCreate && config.create)"
 		>
+			<!-- Items per page dropdown -->
 			<div class="item-page" *ngIf="config.perPage">
 				<div class="item-page__text">Showing items per page</div>
 				<div
@@ -235,7 +235,7 @@
 						class="caption"
 						(click)="select_page_size = !select_page_size"
 					>
-						{{config.perPage === -1 ? 'All' : config.perPage}}
+						{{ config.perPage === -1 ? 'All' : config.perPage }}
 					</div>
 					<div class="list">
 						<div
@@ -246,7 +246,7 @@
 								[class.selected]="config.perPage === pageSize"
 								(click)="changePerPage(pageSize)"
 							>
-								{{pageSize}}
+								{{ pageSize }}
 							</div>
 						</div>
 						<div class="item" *ngIf="config.allDocs">
@@ -263,24 +263,26 @@
 					class="item-page__result"
 					*ngIf="config.perPage >= 0 && !config.allDocs"
 				>
-					Page {{config.page}}
+					Page {{ config.page }}
 				</div>
 				<div
 					class="item-page__result"
 					*ngIf="config.perPage >= 0 && config.allDocs"
 				>
-					<span>
-						{{((config.page-1)*config.perPage)+1}} -
-						{{config.page*config.perPage >
-						rows?.length&&rows?.length||config.page*config.perPage}}
-					</span>
+					<span
+						>{{ ((config.page - 1) * config.perPage) + 1 }} - {{
+						config.page * config.perPage > rows?.length &&
+						rows?.length || config.page * config.perPage }}</span
+					>
 					<span> of </span>
-					<span>
-						{{(rows | search: searching_text:
-						(config.searchBy||'title'))?.length}}
-					</span>
+					<span
+						>{{ (rows | search: searching_text: (config.searchBy ||
+						'title'))?.length }}</span
+					>
 				</div>
 			</div>
+
+			<!-- Pagination controls -->
 			<div
 				class="table-footer__pagination"
 				*ngIf="config.perPage !== -1 && config.allDocs"
@@ -300,7 +302,7 @@
 					<i class="chevron"></i>
 				</wbutton>
 				<wbutton
-					[disabled]="config.page*config.perPage > rows?.length"
+					[disabled]="config.page * config.perPage > rows?.length"
 					class="table-footer__arrow _right"
 					(click)="next()"
 				>

@@ -18,6 +18,10 @@ import {
 import { Router } from '@angular/router';
 import { StoreService } from 'wacom';
 
+/**
+ * TableComponent is a reusable component for displaying data in a table format with
+ * features like sorting, pagination, search, and custom action buttons.
+ */
 @Component({
 	selector: 'wtable',
 	templateUrl: './table.component.html',
@@ -26,6 +30,7 @@ import { StoreService } from 'wacom';
 export class TableComponent implements OnInit, AfterContentInit {
 	constructor(private _router: Router, private _store: StoreService) {}
 
+	/** A unique ID for the table based on the current route. */
 	tableId =
 		'table_' +
 		this._router.url
@@ -33,66 +38,63 @@ export class TableComponent implements OnInit, AfterContentInit {
 			.filter((p) => p && p.length !== 24)
 			.join('/');
 
+	/** Configuration object for the table. */
 	@Input() config: any = {};
 
+	/** List of columns to display in the table. */
 	@Input() columns: any = [];
 
+	/** List of rows (data) to display in the table. */
 	@Input() rows: any = [];
 
+	/** The value field used as the key for each row. */
 	@Input() value = '_id';
 
+	/** Title of the table. */
 	@Input() title = '';
 
+	/** Directives for custom cell templates. */
 	@ContentChildren(CellDirective) cell: QueryList<CellDirective>;
 
+	/** Directives for sortable columns. */
 	@ContentChildren(SortDirective) sortHeaders: QueryList<SortDirective>;
 
+	/** Directive for custom action buttons. */
 	@ContentChild(ActionsDirective, { static: false }) action: any;
 
+	/** Directive for custom edit form. */
 	@ContentChild(CustomEditDirective, { static: false }) editForm: any;
 
+	/** Current timestamp to force table refresh. */
 	now = Date.now();
-	refresh() {
-		this.now = Date.now();
-	}
 
+	/** Whether the search input is visible. */
 	searchShow = false;
+
+	/** Text entered in the search input. */
 	searching_text = '';
+
+	/** Filter for search functionality. */
 	filter_filter = '';
+
+	/** Event emitted when a search is performed. */
 	@Output() onSearch = new EventEmitter();
+
 	private _search_timeout: any;
-	searching() {
-		setTimeout(() => {
-			if (!this.config.globalSearch) {
-				this.filter_filter = this.searching_text;
-			}
-		}, 100);
-		clearTimeout(this._search_timeout);
-		this._search_timeout = setTimeout(this.searching.bind(this), 2000);
-	}
-	search() {
-		clearTimeout(this._search_timeout);
-		setTimeout(() => {
-			if (!this.config.globalSearch) {
-				this.filter_filter = this.searching_text;
-			}
 
-			this.refresh();
-		}, 100);
-		this.onSearch.emit(this.searching_text);
-	}
-
-	select_page_size = false;
-
+	/** Custom cell templates keyed by column field. */
 	custom_cell: any = {};
 
+	/** Object containing the sort state for each column. */
 	sort_type: any = {};
 
+	/** Object containing the sortable state for each column. */
 	sortable: any = {};
 
 	ngOnInit(): void {
 		this.default_config();
 
+		// Initialize columns
 		for (let i = 0; i < this.columns.length; i++) {
 			if (typeof this.columns[i] === 'string') {
 				this.columns[i] = {
@@ -102,6 +104,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 			}
 		}
 
+		// Restore the perPage value from the store if available
 		this._store.get(this.tableId + 'perPage', (perPage) => {
 			if (perPage) {
 				this.changePerPage(Number(perPage));
@@ -109,6 +112,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 		});
 	}
 
+	/** Sets the default configuration for the table if not provided. */
 	default_config(): void {
 		if (!this.config.pageSizeOptions) {
 			this.config.pageSizeOptions = [1, 10, 20, 50];
@@ -132,16 +136,18 @@ export class TableComponent implements OnInit, AfterContentInit {
 	}
 
 	ngAfterContentInit(): void {
+		// Initialize sortable headers
 		for (let i = 0; i < this.sortHeaders.toArray().length; i++) {
 			this.sortable[this.sortHeaders.toArray()[i].cell] = true;
 		}
 
+		// Initialize custom cells
 		for (let i = 0; i < this.cell.toArray().length; i++) {
 			const cell = this.cell.toArray()[i];
-
 			this.custom_cell[cell.cell] = cell.template;
 		}
 
+		// Refresh the table periodically
 		const interval = setInterval(() => {
 			this.refresh();
 		}, 1000);
@@ -150,6 +156,39 @@ export class TableComponent implements OnInit, AfterContentInit {
 		}, 20000);
 	}
 
+	/** Refreshes the table by updating the current timestamp. */
+	refresh() {
+		this.now = Date.now();
+	}
+
+	/** Handles search input changes with a delay. */
+	searching() {
+		setTimeout(() => {
+			if (!this.config.globalSearch) {
+				this.filter_filter = this.searching_text;
+			}
+		}, 100);
+		clearTimeout(this._search_timeout);
+		this._search_timeout = setTimeout(this.searching.bind(this), 2000);
+	}
+
+	/** Performs a search and emits the search event. */
+	search() {
+		clearTimeout(this._search_timeout);
+		setTimeout(() => {
+			if (!this.config.globalSearch) {
+				this.filter_filter = this.searching_text;
+			}
+
+			this.refresh();
+		}, 100);
+		this.onSearch.emit(this.searching_text);
+	}
+
+	/** Whether the page size dropdown is open. */
+	select_page_size = false;
+
+	/** Handles the next page action. */
 	next(): void {
 		if (
 			typeof this.config.paginate === 'function' ||
@@ -165,6 +204,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 		this.refresh();
 	}
 
+	/** Handles the previous page action. */
 	previous(): void {
 		if (this.config.page > 1) {
 			this.config.page -= 1;
@@ -177,6 +217,7 @@ export class TableComponent implements OnInit, AfterContentInit {
 		}
 	}
 
+	/** Changes the number of items per page. */
 	changePerPage(row: any): void {
 		this.config.perPage = row;
 
@@ -201,19 +242,21 @@ export class TableComponent implements OnInit, AfterContentInit {
 		this.refresh();
 	}
 
+	/** Goes to the last page of the table. */
 	lastPage(): void {
 		this.config.page = Math.ceil(this.rows.length / this.config.perPage);
 	}
 
+	/** Checks if the current page is the last page. */
 	isLast(): boolean {
 		return (
-			(this.rows &&
-				this.config.page ==
-					Math.ceil(this.rows.length / this.config.perPage)) ||
-			false
+			this.rows &&
+			this.config.page ==
+				Math.ceil(this.rows.length / this.config.perPage)
 		);
 	}
 
+	/** Sorts the table by the specified column. */
 	sort(column: any): void {
 		if (this.sort_type.title != column.title) {
 			this.sort_type = {};
