@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CoreService } from 'wacom';
-import { FormComponentInterface } from '../interfaces/component.interface';
-import { FormInterface } from '../interfaces/form.interface';
+import { FormComponentInterface } from './interfaces/component.interface';
+import { FormInterface } from './interfaces/form.interface';
 
 interface Submission {
 	data: Record<string, unknown>;
@@ -25,7 +25,7 @@ export class FormComponent implements AfterViewInit {
 
 	@Output() wSubmit = new EventEmitter();
 
-	constructor(private _core: CoreService, private _fb: FormBuilder) {}
+	constructor(private _core: CoreService, private _fb: FormBuilder) { }
 
 	ngAfterViewInit(): void {
 		this.submition['data'] = this.submition['data'] || {};

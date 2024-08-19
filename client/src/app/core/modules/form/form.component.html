@@ -1,6 +1,6 @@
 <div class="w-forms">
 	<h1 class="w-forms__title" *ngIf="config.title">{{config.title}}</h1>
-	<form [formGroup]="form" (ngSubmit)="onSubmit()">
+	<form (ngSubmit)="onSubmit()">
 		<ng-container *ngFor="let component of config.components; index as i">
 			<form-component
 				*ngIf="!component.hidden"

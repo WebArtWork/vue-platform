@@ -1,11 +1,10 @@
-import { NgModule, Renderer2 } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WacomModule } from 'wacom';
 import { ButtonModule } from 'src/app/core/modules/button/button.module';
 import { InputModule } from 'src/app/core/modules/input/input.module';
 import { CardModule } from 'src/app/core/modules/card/card.module';
-import { FormModule } from 'src/app/core/modules/form/form.module';
 import { TableModule } from './modules/table/table.module';
 import { UserComponent } from './selectors/user/user.component';
 import { IconsModule } from './icons/icons.module';
@@ -14,7 +13,7 @@ import { AlertModule } from './modules/alert/alert.module';
 import { ModalModule } from './modules/modal/modal.module';
 import { FormcomponentsModule } from './formcomponents/formcomponents.module';
 import { SelectModule } from './modules/select/select.module';
-
+import { FormModule } from './modules/form/form.module';
 
 @NgModule({
 	declarations: [UserComponent],

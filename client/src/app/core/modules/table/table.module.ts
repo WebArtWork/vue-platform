@@ -1,5 +1,4 @@
 import { TableComponent } from './table.component';
-import { FormModule } from '../form/form.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -14,6 +13,7 @@ import { ButtonModule } from '../button/button.module';
 import { RouterModule } from '@angular/router';
 import { InputModule } from '../input/input.module';
 import { PerPagePipe } from './per-page.pipe';
+import { FormModule } from '../form/form.module';
 
 @NgModule({
 	imports: [
