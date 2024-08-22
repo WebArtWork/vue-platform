@@ -53,16 +53,16 @@ export class FormComponentComponent implements OnInit {
 	) {}
 
 	value(key: string, doc: Record<string, unknown>): unknown {
-		if(key.indexOf('.') > -1) {
-			const local_key: string = key.slice(0, key.indexOf('.'));
+		if (key.indexOf('.') > -1) {
+			const localKey: string = key.slice(0, key.indexOf('.'));
 
-			if (!doc[local_key]) {
-				doc[local_key] = {};
+			if (!doc[localKey]) {
+				doc[localKey] = {};
 			}
 
 			return this.value(
 				key.slice(key.indexOf('.') + 1),
-				doc[local_key] as Record<string, unknown>
+				doc[localKey] as Record<string, unknown>
 			);
 		} else {
 			return doc[key];
@@ -87,8 +87,11 @@ export class FormComponentComponent implements OnInit {
 				if (!this.submition['data']) {
 					this.submition['data'] = {};
 				}
-				data.value = this.value(this.component.key, this.submition['data'] as Record<string, unknown>);
 
+				data.value = this.value(
+					this.component.key,
+					this.submition['data'] as Record<string, unknown>
+				);
 			}
 		}
 
@@ -99,7 +102,9 @@ export class FormComponentComponent implements OnInit {
 				if (this.component.root) {
 					this.submition[this.component.key as string] = value;
 				} else {
-					(this.submition['data'] as Record<string, unknown>)[this.component.key as string] = value;
+					(this.submition['data'] as Record<string, unknown>)[
+						this.component.key as string
+					] = value;
 				}
 
 				this.wChange.emit();
@@ -114,16 +119,18 @@ export class FormComponentComponent implements OnInit {
 			this._form.addRef(this.component);
 		}
 
-		this._viewContainerRef.insert(this._dom.getComponentRef(this.component.component, {
-			component: this.component,
-			config: this.config,
-			field: this.data.field,
-			value: this.data.value,
-			control: this.control,
-			form: this.form,
-			wSubmit: this.wSubmit.emit,
-			wChange: this.wChange.emit,
-			wClick: this.wClick.emit
-		}).hostView as unknown as ViewRef);
+		this._viewContainerRef.insert(
+			this._dom.getComponentRef(this.component.component, {
+				component: this.component,
+				config: this.config,
+				field: this.data.field,
+				value: this.data.value,
+				control: this.control,
+				form: this.form,
+				wSubmit: this.wSubmit.emit,
+				wChange: this.wChange.emit,
+				wClick: this.wClick.emit
+			}).hostView as unknown as ViewRef
+		);
 	}
 }
