@@ -76,7 +76,7 @@
 	.item {
 		padding: 10px;
 		transition: var(--transition);
-		border-bottom: 1px solid transparent;
+		border-bottom: 1px solid var(--c-text-primary);
 		&:hover {
 			background: var(--c-shadow);
 			border-bottom: 1px solid var(--c-primary);
