@@ -19,7 +19,6 @@ import { SelectComponent } from './select/select.component';
 import { BooleanComponent } from './boolean/boolean.component';
 import { TagsComponent } from './tags/tags.component';
 
-
 @NgModule({
 	imports: [
 		InputModule,
@@ -39,8 +38,8 @@ import { TagsComponent } from './tags/tags.component';
 		PasswordComponent,
 		SelectComponent,
 		TextComponent,
-  		ButtonComponent,
-    	BooleanComponent,
+		ButtonComponent,
+		BooleanComponent,
 		TagsComponent
 	]
 })
@@ -52,26 +51,31 @@ export class FormcomponentsModule {
 			name: 'Boolean',
 			fields: ['Label']
 		});
+
 		this._form.addComponent({
 			component: TagsComponent,
 			name: 'Tags',
 			fields: ['Placeholder', 'Label', 'Button']
 		});
+
 		this._form.addComponent({
 			component: EmailComponent,
 			name: 'Email',
 			fields: ['Placeholder', 'Label']
 		});
+
 		this._form.addComponent({
 			component: NumberComponent,
 			name: 'Number',
 			fields: ['Placeholder', 'Label']
 		});
+
 		this._form.addComponent({
 			component: TimeComponent,
 			name: 'Time',
 			fields: ['Placeholder', 'Label']
 		});
+
 		this._form.addComponent({
 			component: SelectComponent,
 			name: 'Select',
@@ -81,11 +85,13 @@ export class FormcomponentsModule {
 				Multiple: 'Boolean'
 			}
 		});
+
 		this._form.addComponent({
 			component: DateComponent,
 			name: 'Date',
 			fields: ['Placeholder', 'Label']
 		});
+
 		this._form.addComponent({
 			component: TextComponent,
 			name: 'Text',
@@ -94,11 +100,13 @@ export class FormcomponentsModule {
 				Textarea: 'Boolean'
 			}
 		});
+
 		this._form.addComponent({
 			component: PasswordComponent,
 			name: 'Password',
 			fields: ['Placeholder', 'Label']
 		});
+
 		this._form.addComponent({
 			component: ButtonComponent,
 			name: 'Button',
@@ -107,16 +115,19 @@ export class FormcomponentsModule {
 				Submit: 'Boolean'
 			}
 		});
+
 		this._form.addComponent({
 			component: PhotoComponent,
 			name: 'Photo',
 			fields: ['Placeholder', 'Label']
 		});
+
 		this._form.addComponent({
 			component: PhotosComponent,
 			name: 'Photos',
 			fields: ['Placeholder', 'Label']
 		});
+
 		this._form.inited = true;
 	}
 }

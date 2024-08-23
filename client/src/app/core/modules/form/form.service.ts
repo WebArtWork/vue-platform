@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { MongoService, StoreService } from 'wacom';
+import { StoreService } from 'wacom';
 import {
 	FormComponentInterface,
 	TemplateComponentInterface,
 	TemplateFieldInterface
 } from './interfaces/component.interface';
 import { ModalService } from 'src/app/core/modules/modal/modal.service';
-import { AlertService } from 'src/app/core/modules/alert/alert.service';
 import { FormInterface } from './interfaces/form.interface';
 import { ModalFormComponent } from './modals/modal-form/modal-form.component';
 import { TranslateService } from '../translate/translate.service';
@@ -15,8 +14,11 @@ import { Modal } from '../modal/modal.interface';
 import { environment } from 'src/environments/environment';
 
 export interface FormModalButton {
+	/** Function to execute on button click */
 	click: (submition: unknown, close: () => void) => void;
+	/** Label for the button */
 	label: string;
+	/** CSS class for the button (optional) */
 	class?: string;
 }
 
@@ -24,26 +26,32 @@ export interface FormModalButton {
 	providedIn: 'root'
 })
 export class FormService {
+	/** Application ID from the environment configuration */
 	readonly appId = (environment as unknown as { appId: string }).appId;
+
 	constructor(
 		private _translate: TranslateService,
 		private _modal: ModalService,
-		private _mongo: MongoService,
-		private _store: StoreService,
-		private _alert: AlertService
+		private _store: StoreService
 	) {
-		this.customForms = _mongo.get('form', {
-			param: '?appId=' + this.appId
-		}, (arr: any, obj: any) => {
-			this._forms = obj;
+		// Fetch custom forms and initialize them with components
+		// this.customForms = _mongo.get(
+		// 	'form',
+		// 	{
+		// 		param: '?appId=' + this.appId
+		// 	},
+		// 	(arr: any, obj: any) => {
+		// 		this._forms = obj;
 
-			for (const form of this.customForms) {
-				for (const component of form.components) {
-					this.addRef(component);
-				}
-			}
-		});
+		// 		for (const form of this.customForms) {
+		// 			for (const component of form.components) {
+		// 				this.addRef(component);
+		// 			}
+		// 		}
+		// 	}
+		// );
 
+		// Load form IDs from the store
 		this._store.getJson('formIds', (formIds: string[]) => {
 			if (Array.isArray(formIds)) {
 				this.formIds.push(...formIds);
@@ -51,7 +59,8 @@ export class FormService {
 		});
 	}
 
-	translateForm(form: FormInterface) {
+	/** Translates the form title and its components' fields */
+	translateForm(form: FormInterface): void {
 		if (form.title) {
 			form.title = this._translate.translate(
 				`Form_${form.formId}.${form.title}`,
@@ -59,17 +68,22 @@ export class FormService {
 					form.title = title;
 				}
 			);
+
 			for (const component of form.components) {
-				for (const field of (component.fields ||
-					[]) as TemplateFieldInterface[]) {
+				for (const field of component.fields || []) {
 					this.translateFormComponent(form, field);
 				}
 			}
 		}
 	}
 
-	translateFormComponent(form: FormInterface, field: TemplateFieldInterface) {
+	/** Translates individual form components' fields */
+	translateFormComponent(
+		form: FormInterface,
+		field: TemplateFieldInterface
+	): void {
 		const fieldValue = field.value;
+
 		if (typeof fieldValue === 'string' && !field.skipTranslation) {
 			field.value = this._translate.translate(
 				`Form_${form.formId}.${fieldValue}`,
@@ -80,27 +94,33 @@ export class FormService {
 		}
 	}
 
+	/** List of registered components */
 	components: TemplateComponentInterface[] = [];
+	/** Map of custom field components */
 	customFieldComponent: Record<string, string> = {};
 
-	addComponent(component: TemplateComponentInterface) {
+	/** Adds a new component to the service */
+	addComponent(component: TemplateComponentInterface): void {
 		if (this.components.map((c) => c.name).indexOf(component.name) === -1) {
 			this.components.push(component);
 
 			component.fieldComponent = component.fieldComponent || {};
 
 			for (const field in component.fieldComponent) {
-				this.customFieldComponent[component.name + field] = component.fieldComponent[field];
+				this.customFieldComponent[component.name + field] =
+					component.fieldComponent[field];
 			}
 		}
 	}
 
+	/** Retrieves a component by its name */
 	getComponent(name: string) {
 		const index = this.components.map((c) => c.name).indexOf(name);
 
 		return index === -1 ? null : this.components[index];
 	}
 
+	/** Retrieves a custom component by its name */
 	getCustomComponent(name: string) {
 		const index = this.components.map((c) => c.name).indexOf(name);
 
@@ -114,71 +134,62 @@ export class FormService {
 			  };
 	}
 
-	inited = false;
-
+	/** Adds references to component fields and subcomponents */
 	addRef(component: FormComponentInterface): void {
-		if (this.inited) {
-			if (!Array.isArray(component.fields)) {
-				component.fields = [];
+		if (!Array.isArray(component.fields)) {
+			component.fields = [];
+		}
+
+		if (component.name) {
+			const index = this.components
+				.map((c) => c.name)
+				.indexOf(component.name);
+
+			if (index === -1) {
+				// eslint-disable-next-line
+				console.error(`Component ${component.name} is not configured`);
+
+				return;
 			}
 
-			if (component.name) {
-				const index = this.components
-					.map((c) => c.name)
-					.indexOf(component.name);
+			component.component = this.components[index].component;
 
-				if (index === -1) {
-					console.error(
-						`Component ${component.name} is not configured`
-					);
-
-					return;
-				}
-
-				component.component = this.components[index].component;
-
-				for (const field of this.components[index].fields || []) {
-					if (
-						component.fields.map((f) => f.name).indexOf(field) ===
-						-1
-					) {
-						component.fields.push({
-							name: field,
-							value: ''
-						});
-					}
-				}
-
-				for (const field of component.fields) {
-					if (
-						(this.components[index].fields || []).indexOf(
-							field.name
-						) === -1
-					) {
-						const i = component.fields
-							.map((f) => f.name)
-							.indexOf(field.name);
-
-						component.fields.splice(i, 1);
-					}
+			for (const field of this.components[index].fields || []) {
+				if (component.fields.map((f) => f.name).indexOf(field) === -1) {
+					component.fields.push({
+						name: field,
+						value: ''
+					});
 				}
 			}
 
-			if (Array.isArray(component.components)) {
-				for (const comp of component.components) {
-					this.addRef(comp);
+			for (const field of component.fields) {
+				if (
+					(this.components[index].fields || []).indexOf(
+						field.name
+					) === -1
+				) {
+					const i = component.fields
+						.map((f) => f.name)
+						.indexOf(field.name);
+
+					component.fields.splice(i, 1);
 				}
 			}
-		} else {
-			setTimeout(() => {
-				this.addRef(component);
-			}, 500);
+		}
+
+		if (Array.isArray(component.components)) {
+			for (const comp of component.components) {
+				this.addRef(comp);
+			}
 		}
 	}
 
+	/** List of forms managed by the service */
 	forms: FormInterface[] = [];
 
-	addForm(form: FormInterface) {
+	/** Adds a form to the service and initializes its components */
+	addForm(form: FormInterface): void {
 		if (this.forms.map((c) => c.formId).indexOf(form.formId) === -1) {
 			for (const component of form.components) {
 				component.root = true;
@@ -192,6 +203,7 @@ export class FormService {
 		}
 	}
 
+	/** Creates a default form with specified components */
 	getDefaultForm(
 		id: string,
 		components = ['name', 'description']
@@ -227,14 +239,16 @@ export class FormService {
 		return form;
 	}
 
+	/** List of form IDs managed by the service */
 	formIds: string[] = [];
 
+	/** Retrieves a form by its ID, initializing it if necessary */
 	getForm(formId: string, form?: FormInterface): FormInterface {
 		if (
 			form &&
 			this.forms.map((c) => c.formId).indexOf(form?.formId) === -1
 		) {
-			this.forms.push(form as FormInterface);
+			this.forms.push(form);
 		}
 
 		if (this.formIds.indexOf(formId) === -1) {
@@ -256,6 +270,7 @@ export class FormService {
 				component.root = true;
 			}
 		}
+
 		if (customForm) {
 			for (const component of customForm.components) {
 				component.root = false;
@@ -271,7 +286,9 @@ export class FormService {
 		}
 
 		form.formId = formId;
+
 		form.title = form.title || devForm?.title || customForm?.title;
+
 		form.class = form.class || devForm?.class || customForm?.class;
 
 		if ((form || devForm) && customForm) {
@@ -282,28 +299,29 @@ export class FormService {
 
 		this.translateForm(form);
 
-		this._mongo.on('form', () => {
-			const forms = this.customForms.filter(
-				(c) => c.formId === (form as FormInterface).formId
-			);
+		// this._mongo.on('form', () => {
+		// 	const forms = this.customForms.filter(
+		// 		(c) => c.formId === form.formId
+		// 	);
 
-			for (const _form of forms) {
-				for (const component of _form.components) {
-					if (
-						form?.components &&
-						!form?.components.filter(
-							(c) => !c.root && c.key === component.key
-						).length
-					) {
-						form?.components.push(component);
-					}
-				}
-			}
-		});
+		// 	for (const _form of forms) {
+		// 		for (const component of _form.components) {
+		// 			if (
+		// 				form?.components &&
+		// 				!form?.components.filter(
+		// 					(c) => !c.root && c.key === component.key
+		// 				).length
+		// 			) {
+		// 				form?.components.push(component);
+		// 			}
+		// 		}
+		// 	}
+		// });
 
 		return form;
 	}
 
+	/** Shows a modal form with specified options */
 	modal<T>(
 		form: FormInterface | FormInterface[],
 		buttons: FormModalButton | FormModalButton[] = [],
@@ -311,7 +329,7 @@ export class FormService {
 		change = (doc: T) => {},
 		modalOptions: Modal = {}
 	): Promise<T> {
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve) => {
 			this._modal.show({
 				...modalOptions,
 				component: ModalFormComponent,
@@ -320,7 +338,7 @@ export class FormService {
 				buttons: Array.isArray(buttons) ? buttons : [buttons],
 				submition,
 				onClose: function () {
-					resolve(this.submition);
+					resolve(this.submition as T);
 				},
 				submit: (update: T) => {
 					resolve(update);
@@ -334,6 +352,7 @@ export class FormService {
 		});
 	}
 
+	/** Shows a modal with a unique component */
 	modalUnique<T>(
 		module: string,
 		field: string,
@@ -354,97 +373,6 @@ export class FormService {
 		});
 	}
 
+	/** List of custom forms managed by the service */
 	customForms: FormInterface[] = [];
-
-	_forms: any = {};
-
-	new(): FormInterface {
-		return {
-			_id: '',
-			title: '',
-			class: '',
-			components: []
-		};
-	}
-
-	create(
-		form: FormInterface = this.new(),
-		callback = (created: FormInterface) => {},
-		text = 'form has been created.'
-	) {
-		if (form._id) {
-			this.save(form);
-		} else {
-			form.appId = this.appId;
-			this._mongo.create('form', form, (created: FormInterface) => {
-				callback(created);
-
-				this._alert.show({ text });
-			});
-		}
-	}
-
-	doc(formId: string): FormInterface {
-		if (!this._forms[formId]) {
-			this._forms[formId] = this._mongo.fetch('form', {
-				query: {
-					_id: formId
-				}
-			});
-		}
-
-		return this._forms[formId];
-	}
-
-	update(
-		form: FormInterface,
-		callback = () => {},
-		text = 'form has been updated.'
-	): void {
-		this._mongo.afterWhile(form, () => {
-			this.save(form, callback, text);
-		});
-	}
-
-	save(
-		form: FormInterface,
-		callback = () => {},
-		text = 'form has been updated.'
-	): void {
-		this._mongo.update(
-			'form',
-			{
-				_id: form._id,
-				title: form.title,
-				formId: form.formId,
-				active: form.active,
-				components: form.components.map((c) => {
-					return {
-						name: c.name,
-						key: c.key,
-						root: c.root,
-						fields: c.fields,
-						components: c.components
-					};
-				})
-			},
-			() => {
-				callback();
-
-				if (text) this._alert.show({ text, unique: 'form' });
-			}
-		);
-	}
-
-	delete(
-		form: FormInterface,
-		callback = () => {},
-		text = 'form has been deleted.'
-	): void {
-		this._mongo.delete('form', form, () => {
-			callback();
-
-			if (text) this._alert.show({ text });
-		});
-	}
 }
