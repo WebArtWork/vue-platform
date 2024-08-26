@@ -1,17 +1,17 @@
-import { Component } from "@angular/core";
-import { FormService } from "src/app/core/modules/form/form.service";
+import { Component } from '@angular/core';
+import { FormService } from 'src/app/core/modules/form/form.service';
 import {
 	CustomformService,
-	Customform,
-} from "../../services/customform.service";
-import { AlertService, CoreService } from "wacom";
-import { TranslateService } from "src/app/core/modules/translate/translate.service";
-import { FormInterface } from "src/app/core/modules/form/interfaces/form.interface";
-import { FormComponentInterface } from "src/app/core/modules/form/interfaces/component.interface";
+	Customform
+} from '../../services/customform.service';
+import { AlertService } from 'wacom';
+import { TranslateService } from 'src/app/core/modules/translate/translate.service';
+import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
+import { FormComponentInterface } from 'src/app/core/modules/form/interfaces/component.interface';
 
 @Component({
-	templateUrl: "./customforms.component.html",
-	styleUrls: ["./customforms.component.scss"],
+	templateUrl: './customforms.component.html',
+	styleUrls: ['./customforms.component.scss']
 })
 export class CustomformsComponent {
 	columns = ['title', 'components', 'formId', 'active'];
@@ -93,35 +93,33 @@ export class CustomformsComponent {
 	config = {
 		create: () => {
 			this._form
-				.modal<FormInterface>(this.form, {
+				.modal<Customform>(this.form, {
 					label: 'Create',
 					click: (created: unknown, close: () => void) => {
-						this._form.create(
-							created as FormInterface,
-							close.bind(this)
-						);
+						this._fs.create(created as Customform, {
+							callback: close.bind(this)
+						});
 					}
 				})
-				.then(this._form.create.bind(this));
+				.then(this._fs.create.bind(this));
 		},
-		update: (form: FormInterface) => {
+		update: (form: Customform) => {
 			this._form
-				.modal<FormInterface>(
+				.modal<Customform>(
 					this.form,
 					{
 						label: 'Update',
 						click: (updated: unknown, close: () => void) => {
-							this._form.update(
-								updated as FormInterface,
-								close.bind(this)
-							);
+							this._fs.update(updated as Customform, {
+								callback: close.bind(this)
+							});
 						}
 					},
 					form
 				)
-				.then(this._form.update.bind(this));
+				.then(this._fs.update.bind(this));
 		},
-		delete: (form: FormInterface) => {
+		delete: (form: Customform) => {
 			this._alert.question({
 				text: this._translate.translate(
 					'Common.Are you sure you want to delete this user?'
@@ -133,7 +131,7 @@ export class CustomformsComponent {
 					{
 						text: this._translate.translate('Common.Yes'),
 						callback: () => {
-							this._form.delete(form);
+							this._fs.delete(form);
 						}
 					}
 				]
@@ -144,34 +142,40 @@ export class CustomformsComponent {
 				icon: 'text_fields',
 				click: (doc: Customform) => {
 					this.components.splice(0, this.components.length);
+
 					const submition: Record<string, unknown> = {
 						addComponent: 'Text'
 					};
+
 					doc.components = doc.components || [];
 
 					for (let i = 0; i < doc.components.length; i++) {
 						submition['key' + i] = doc.components[i].key as string;
+
 						for (const field of doc.components[i].fields) {
-							submition[field.name + i] = field.value as string;
+							submition[field.name + i] = field.value;
 						}
 					}
+
 					const remove = (i: number) => {
 						this.components.splice(i, 1);
+
 						doc.components.splice(i, 1);
+
 						this._fs.updateAfterWhile(doc);
-					}
-					(doc.components || []).forEach((component, index) => {
+					};
+
+					(doc.components || []).forEach((component) => {
 						this.components.push(
 							this._addCustomComponent(
-								component.name as string,
-								component.fields?.map(
-									(f) => f.name
-								) as string[],
+								component.name,
+								component.fields?.map((f) => f.name),
 								this.components.length,
 								remove
 							)
 						);
 					});
+
 					this._form
 						.modal<Customform>(
 							this.formComponents,
@@ -182,6 +186,7 @@ export class CustomformsComponent {
 										(c) =>
 											c.name === submition['addComponent']
 									)?.fields as string[];
+
 									this.components.push(
 										this._addCustomComponent(
 											submition['addComponent'] as string,
@@ -190,6 +195,7 @@ export class CustomformsComponent {
 											remove
 										)
 									);
+
 									doc.components.push({
 										name: submition[
 											'addComponent'
@@ -204,7 +210,7 @@ export class CustomformsComponent {
 								}
 							},
 							submition,
-							() => { },
+							() => {},
 							{ size: 'big' }
 						)
 						.then(() => {
@@ -212,12 +218,14 @@ export class CustomformsComponent {
 								doc.components[i].key = submition[
 									'key' + i
 								] as string;
+
 								for (const field of doc.components[i].fields) {
 									field.value = submition[
 										field.name + i
 									] as string;
 								}
 							}
+
 							this._fs.updateAfterWhile(doc);
 						});
 				}
@@ -234,7 +242,7 @@ export class CustomformsComponent {
 		private _fs: CustomformService,
 		private _alert: AlertService,
 		private _form: FormService
-	) { }
+	) {}
 
 	private _addCustomComponent(
 		component: string,
@@ -258,24 +266,26 @@ export class CustomformsComponent {
 					}
 				]
 			},
-			...(fields || [])?.map((f) => {
-				return {
-					name: this._form.customFieldComponent[component + f] || 'Text',
-					key: f + index,
-					root: true,
-					fields: [
-						{
-							name: 'Placeholder',
-							value: 'fill ' + f
-						},
-						{
-							name: 'Label',
-							value:
-								f.charAt(0).toUpperCase() + f.slice(1, f.length)
-						}
-					]
-				};
-			}),
+			// ...(fields || [])?.map((f) => {
+			// 	return {
+			// 		name:
+			// 			this._form.customFieldComponent[component + f] ||
+			// 			'Text',
+			// 		key: f + index,
+			// 		root: true,
+			// 		fields: [
+			// 			{
+			// 				name: 'Placeholder',
+			// 				value: 'fill ' + f
+			// 			},
+			// 			{
+			// 				name: 'Label',
+			// 				value:
+			// 					f.charAt(0).toUpperCase() + f.slice(1, f.length)
+			// 			}
+			// 		]
+			// 	};
+			// }),
 			{
 				name: 'Button',
 				fields: [
@@ -290,8 +300,9 @@ export class CustomformsComponent {
 						}
 					}
 				]
-			},
+			}
 		];
+
 		return {
 			class: 'd-f mt10',
 			components

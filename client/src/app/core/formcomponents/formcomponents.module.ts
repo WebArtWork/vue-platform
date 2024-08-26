@@ -127,7 +127,5 @@ export class FormcomponentsModule {
 			name: 'Photos',
 			fields: ['Placeholder', 'Label']
 		});
-
-		this._form.inited = true;
 	}
 }
