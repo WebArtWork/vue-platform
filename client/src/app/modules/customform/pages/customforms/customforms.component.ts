@@ -234,7 +234,7 @@ export class CustomformsComponent {
 	};
 
 	get rows(): FormInterface[] {
-		return this._form.customForms;
+		return this._fs.customforms;
 	}
 
 	constructor(
