@@ -309,17 +309,20 @@ export class CustomformsComponent {
 		};
 	}
 
-	changeStatus(form: Customform) {
+	changeStatus(form: Customform): void {
 		setTimeout(() => {
 			if (form.active) {
-				for (const _form of this._fs.customforms) {
-					if (_form._id === form._id || _form.formId !== form.formId)
+				for (const customForm of this._fs.customforms) {
+					if (
+						customForm._id === form._id ||
+						customForm.formId !== form.formId
+					)
 						continue;
 
-					if (_form.active) {
-						_form.active = false;
+					if (customForm.active) {
+						customForm.active = false;
 
-						this._fs.updateAfterWhile(_form);
+						this._fs.updateAfterWhile(customForm);
 					}
 				}
 			}
