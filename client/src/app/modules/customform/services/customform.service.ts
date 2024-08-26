@@ -12,12 +12,14 @@ export interface CustomformcomponnetfieldInterface {
 	name: string;
 	value: string;
 }
+
 export interface CustomformcomponnetInterface {
 	name: string;
 	fields: CustomformcomponnetfieldInterface[];
 	key?: string;
 	components?: CustomformcomponnetInterface[];
 }
+
 export interface Customform extends CrudDocument {
 	name: string;
 	fields: CustomformcomponnetfieldInterface[];
@@ -40,19 +42,22 @@ export class CustomformService extends CrudService<Customform> {
 	) {
 		super(
 			{
-				name: 'customform'
+				name: 'form'
 			},
 			_http,
 			_store,
 			_alert,
 			_core
 		);
+
 		this.get().subscribe((customforms: Customform[]) =>
 			this.customforms.push(...customforms)
 		);
+
 		_core.on('customform_create').subscribe((customform: Customform) => {
 			this.customforms.push(customform);
 		});
+
 		_core.on('customform_delete').subscribe((customform: Customform) => {
 			this.customforms.splice(
 				this.customforms.findIndex((o) => o._id === customform._id),
