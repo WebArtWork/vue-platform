@@ -78,6 +78,22 @@
         --c-text-secondary: #19235c;
         --c-placeholder: #313335ab;
 		--c-img-round: 50%;
+        --card-background: #fefefe;
+        --card-border-radius: 10px;
+        --card-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        --card-margin-bottom: 24px;
+        --card-header-padding: 20px;
+        --card-header-background: #e0e0e0;
+        --card-body-padding: 20px;
+        --card-section-padding: 10px 0;
+        --card-footer-padding: 20px;
+        --card-footer-background: #e0e0e0;
+        --card-border-width: 2px;
+        --card-border-color: #cccccc;
+        --file-img-border-radius: 50%;
+        --file-add-bg: #28a745;
+        --file-add-bg-hover: #218838;
+        --file-item-border-radius: 10px;
     }
 
     html.dark:root {

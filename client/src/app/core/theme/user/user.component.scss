@@ -26,7 +26,9 @@
 		@media screen and (max-width: 991px) {
 			padding: 20px;
 		}
-
+		@media screen and (max-width: 767px) {
+			padding: 10px;
+		}
 		// .fade {
 		// 	display: none;
 		// 	position: fixed;
@@ -41,9 +43,9 @@
 	}
 }
 
-.showTable {
+/*.showTable {
 	padding: 20px !important;
-}
+}*/
 
 hr {
 	border: none;
