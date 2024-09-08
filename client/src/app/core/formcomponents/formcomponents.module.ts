@@ -9,7 +9,7 @@ import { NgModule } from '@angular/core';
 import { EmailComponent } from './email/email.component';
 import { NumberComponent } from './number/number.component';
 import { TimeComponent } from './time/time.component';
-import { PhotoComponent } from './photo/photo.components';
+import { PhotoComponent } from './photo/photo.component';
 import { PhotosComponent } from './photos/photos.component';
 import { DateComponent } from './date/date.component';
 import { TextComponent } from './text/text.component';
