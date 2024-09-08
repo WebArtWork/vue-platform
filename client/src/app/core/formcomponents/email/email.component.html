@@ -1,9 +1,11 @@
-<winput
-	type="email"
-	[placeholder]="field.Placeholder"
-	[name]="field.Label || 'name'"
-	[focused]="component.focused"
-	[ngClass]="component.class"
-	[label]="field.Label"
-	[value]="value"
-></winput>
+<ng-template #templateRef let-data>
+	<winput
+		[placeholder]="data.field.Placeholder"
+		[name]="data.field.Label || 'name'"
+		[focused]="data.component.focused"
+		[ngClass]="data.component.class"
+		[label]="data.field.Label"
+		[value]="data.value"
+		type="email"
+	></winput>
+</ng-template>

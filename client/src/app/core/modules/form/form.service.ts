@@ -1,15 +1,15 @@
 import {
-	ApplicationRef,
 	ComponentFactoryResolver,
+	ApplicationRef,
+	TemplateRef,
 	Injectable,
 	Injector,
-	TemplateRef,
 	Type
 } from '@angular/core';
 import { StoreService } from 'wacom';
 import {
-	FormComponentInterface,
 	TemplateComponentInterface,
+	FormComponentInterface,
 	TemplateFieldInterface
 } from './interfaces/component.interface';
 import { ModalService } from 'src/app/core/modules/modal/modal.service';
@@ -70,15 +70,9 @@ export class FormService {
 	}
 
 	private _injectedComponent: Record<string, boolean> = {};
-	injectComponent<T>(
-		name: string,
-		component: Type<T>,
-		opts: {
-			fields: string[];
-		}
-	) {
-		if (!this._injectedComponent[name]) {
-			this._injectedComponent[name] = true;
+	injectComponent<T>(component: Type<T>) {
+		if (!this._injectedComponent[component.name]) {
+			this._injectedComponent[component.name] = true;
 			const componentFactory =
 				this.componentFactoryResolver.resolveComponentFactory(
 					component
@@ -95,6 +89,7 @@ export class FormService {
 		if (!this._templateComponent[name]) {
 			this._templateComponent[name] = template;
 		}
+		console.log(this._templateComponent);
 	}
 
 	/** Translates the form title and its components' fields */

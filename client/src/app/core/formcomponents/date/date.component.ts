@@ -1,16 +1,15 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormService } from '../../modules/form/form.service';
+interface Interface {}
 @Component({
 	templateUrl: './date.component.html',
 	styleUrls: ['./date.component.scss']
 })
-export class DateComponent {
-	constructor() {
-		console.log('started');
+export class DateComponent implements OnInit {
+	@ViewChild('templateRef', { static: true })
+	templateRef: TemplateRef<Interface>;
+	constructor(private _form: FormService) {}
+	ngOnInit(): void {
+		this._form.addTemplateComponent<Interface>('Date', this.templateRef);
 	}
-	component: any = {};
-	control: FormControl;
-	field: any = {};
-	form: FormGroup;
-	value: string;
 }

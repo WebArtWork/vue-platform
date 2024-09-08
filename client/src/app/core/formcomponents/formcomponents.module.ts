@@ -47,91 +47,28 @@ export class FormcomponentsModule {
 	constructor(
 		private _form: FormService
 	) {
-		this._form.injectComponent<DateComponent>('Date', DateComponent, {
-			fields: ['Placeholder', 'Label']
-		});
-
 		/* addComponents */
-		this._form.addComponent({
-			component: BooleanComponent,
-			name: 'Boolean',
-			fields: ['Label']
-		});
+		this._form.injectComponent<ButtonComponent>(ButtonComponent);
+		this._form.injectComponent<TextComponent>(TextComponent);
+		this._form.injectComponent<NumberComponent>(NumberComponent);
+		this._form.injectComponent<EmailComponent>(EmailComponent);
+		this._form.injectComponent<PasswordComponent>(PasswordComponent);
+		this._form.injectComponent<DateComponent>(DateComponent);
+		this._form.injectComponent<TimeComponent>(TimeComponent);
+		this._form.injectComponent<BooleanComponent>(BooleanComponent);
+		this._form.injectComponent<SelectComponent>(SelectComponent);
+		this._form.injectComponent<TagsComponent>(TagsComponent);
+		this._form.injectComponent<PhotoComponent>(PhotoComponent);
+		this._form.injectComponent<PhotosComponent>(PhotosComponent);
 
-		this._form.addComponent({
-			component: TagsComponent,
-			name: 'Tags',
-			fields: ['Placeholder', 'Label', 'Button']
-		});
-
-		this._form.addComponent({
-			component: EmailComponent,
-			name: 'Email',
-			fields: ['Placeholder', 'Label']
-		});
-
-		this._form.addComponent({
-			component: NumberComponent,
-			name: 'Number',
-			fields: ['Placeholder', 'Label']
-		});
-
-		this._form.addComponent({
-			component: TimeComponent,
-			name: 'Time',
-			fields: ['Placeholder', 'Label']
-		});
-
-		this._form.addComponent({
-			component: SelectComponent,
-			name: 'Select',
-			fields: ['Placeholder', 'Label', 'Items', 'Multiple'],
-			fieldComponent: {
-				Items: 'Tags',
-				Multiple: 'Boolean'
-			}
-		});
-
-		this._form.addComponent({
-			component: DateComponent,
-			name: 'Date',
-			fields: ['Placeholder', 'Label']
-		});
-
-		this._form.addComponent({
-			component: TextComponent,
-			name: 'Text',
-			fields: ['Placeholder', 'Label', 'Textarea'],
-			fieldComponent: {
-				Textarea: 'Boolean'
-			}
-		});
-
-		this._form.addComponent({
-			component: PasswordComponent,
-			name: 'Password',
-			fields: ['Placeholder', 'Label']
-		});
-
-		this._form.addComponent({
-			component: ButtonComponent,
-			name: 'Button',
-			fields: ['Label', 'Click', 'Submit'],
-			fieldComponent: {
-				Submit: 'Boolean'
-			}
-		});
-
-		this._form.addComponent({
-			component: PhotoComponent,
-			name: 'Photo',
-			fields: ['Placeholder', 'Label']
-		});
-
-		this._form.addComponent({
-			component: PhotosComponent,
-			name: 'Photos',
-			fields: ['Placeholder', 'Label']
-		});
+		// this._form.addComponent({
+		// 	component: SelectComponent,
+		// 	name: 'Select',
+		// 	fields: ['Placeholder', 'Label', 'Items', 'Multiple'],
+		// 	fieldComponent: {
+		// 		Items: 'Tags',
+		// 		Multiple: 'Boolean'
+		// 	}
+		// });
 	}
 }

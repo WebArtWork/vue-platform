@@ -1,23 +1,22 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormService } from '../../modules/form/form.service';
 @Component({
 	selector: 'tags-formcomponents',
 	templateUrl: './tags.component.html',
 	styleUrls: ['./tags.component.scss']
 })
-export class TagsComponent implements AfterViewInit {
+export class TagsComponent implements AfterViewInit, OnInit {
+	@ViewChild('templateRef', { static: true })
+	templateRef: TemplateRef<Interface>;
+	constructor(private _form: FormService) { }
+	ngOnInit(): void {
+		this._form.addTemplateComponent<Interface>('Tags', this.templateRef);
+	}
 	@ViewChild('inputRef', { static: false }) inputRef: any;
 
-	field: any = {};
-	config: any = {};
-	component: any = {};
-	control: FormControl;
-	form: FormGroup;
-	value: string[];
-
-	tags: string[] = [];
-	addTag() {
-		this.tags.push(this.inputRef.formControl.value.replace('\n', ''));
+	// tags: string[] = [];
+	addTag(data: any) {
+		data.tags.push(this.inputRef.formControl.value.replace('\n', ''));
 		this.inputRef.formControl.setValue('');
 		this.update();
 		setTimeout(() => {
@@ -26,10 +25,10 @@ export class TagsComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		this.tags = this.value || this.tags;
+		// this.tags = this.value || this.tags;
 	}
 
 	update() {
-		this.control.setValue(this.tags);
+		// this.control.setValue(this.tags);
 	}
 }
