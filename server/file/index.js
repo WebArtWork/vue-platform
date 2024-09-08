@@ -82,11 +82,11 @@ module.exports = async waw => {
 		} else if (fs.existsSync(filePath)) {
 			res.sendFile(filePath);
 		} else {
-			res.sendFile(path.join(process.cwd(), 'default.jpg'));
+			res.sendFile(__dirname + '/default.jpg');
 		}
 	});
 
-	router.post('/photo', async (req, res) => {
+	router.post('/photo', async (req, res)=>{
 		const name = req.body.name || Date.now() + '.png';
 		const container = req.body.container || 'general';
 		const filePath = path.join(

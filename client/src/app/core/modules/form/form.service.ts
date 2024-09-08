@@ -1,4 +1,11 @@
-import { Injectable } from '@angular/core';
+import {
+	ApplicationRef,
+	ComponentFactoryResolver,
+	Injectable,
+	Injector,
+	TemplateRef,
+	Type
+} from '@angular/core';
 import { StoreService } from 'wacom';
 import {
 	FormComponentInterface,
@@ -30,9 +37,12 @@ export class FormService {
 	readonly appId = (environment as unknown as { appId: string }).appId;
 
 	constructor(
+		private componentFactoryResolver: ComponentFactoryResolver,
 		private _translate: TranslateService,
 		private _modal: ModalService,
-		private _store: StoreService
+		private _store: StoreService,
+		private appRef: ApplicationRef,
+		private injector: Injector
 	) {
 		// Fetch custom forms and initialize them with components
 		// this.customForms = _mongo.get(
@@ -57,6 +67,34 @@ export class FormService {
 				this.formIds.push(...formIds);
 			}
 		});
+	}
+
+	private _injectedComponent: Record<string, boolean> = {};
+	injectComponent<T>(
+		name: string,
+		component: Type<T>,
+		opts: {
+			fields: string[];
+		}
+	) {
+		if (!this._injectedComponent[name]) {
+			this._injectedComponent[name] = true;
+			const componentFactory =
+				this.componentFactoryResolver.resolveComponentFactory(
+					component
+				);
+			const componentRef = componentFactory.create(this.injector);
+			this.appRef.attachView(componentRef.hostView);
+			const domElem = (componentRef.hostView as any)
+				.rootNodes[0] as HTMLElement;
+			document.body.appendChild(domElem);
+		}
+	}
+	private _templateComponent: Record<string, TemplateRef<unknown>> = {};
+	addTemplateComponent<T>(name: string, template: TemplateRef<T>) {
+		if (!this._templateComponent[name]) {
+			this._templateComponent[name] = template;
+		}
 	}
 
 	/** Translates the form title and its components' fields */

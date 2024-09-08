@@ -5,6 +5,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 	styleUrls: ['./date.component.scss']
 })
 export class DateComponent {
+	constructor() {
+		console.log('started');
+	}
 	field: any = {};
 	component: any = {};
 	control: FormControl;

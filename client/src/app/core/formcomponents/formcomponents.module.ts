@@ -44,7 +44,13 @@ import { TagsComponent } from './tags/tags.component';
 	]
 })
 export class FormcomponentsModule {
-	constructor(private _form: FormService) {
+	constructor(
+		private _form: FormService
+	) {
+		this._form.injectComponent<DateComponent>('Date', DateComponent, {
+			fields: ['Placeholder', 'Label']
+		});
+
 		/* addComponents */
 		this._form.addComponent({
 			component: BooleanComponent,
