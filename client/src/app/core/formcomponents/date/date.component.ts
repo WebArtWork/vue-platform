@@ -8,9 +8,9 @@ export class DateComponent {
 	constructor() {
 		console.log('started');
 	}
-	field: any = {};
 	component: any = {};
 	control: FormControl;
+	field: any = {};
 	form: FormGroup;
 	value: string;
 }
