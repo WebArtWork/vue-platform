@@ -4,6 +4,7 @@ import {
 	Input,
 	OnInit,
 	Output,
+	TemplateRef,
 	ViewContainerRef,
 	ViewRef
 } from '@angular/core';
@@ -13,24 +14,15 @@ import { FormInterface } from '../interfaces/form.interface';
 import { DomService } from 'wacom';
 import { FormService } from '../form.service';
 
-interface Data {
-	field: Record<string, unknown>;
-	value: unknown;
-}
-
 @Component({
 	selector: 'form-component',
 	templateUrl: './form-component.component.html',
 	styleUrls: ['./form-component.component.scss']
 })
 export class FormComponentComponent implements OnInit {
-	@Input() component: FormComponentInterface;
-
 	@Input() config: FormInterface;
 
-	@Input() form: FormGroup;
-
-	@Input() control: FormControl;
+	@Input() component: FormComponentInterface;
 
 	@Input() submition: Record<string, unknown> = {};
 
@@ -40,17 +32,31 @@ export class FormComponentComponent implements OnInit {
 
 	@Output() wClick = new EventEmitter();
 
+	submit(): void {
+
+	}
+
+	change(): void {
+
+	}
+
+	click(): void {
+
+	}
+
 	get hasComponents(): boolean {
 		return Array.isArray(this.component.components);
 	}
 
-	data: Data;
+	get template(): TemplateRef<unknown> {
+		return this._form.getTemplateComponent(
+			this.component.name as string
+		) as TemplateRef<unknown>;
+	}
 
-	constructor(
-		private _viewContainerRef: ViewContainerRef,
-		private _form: FormService,
-		private _dom: DomService
-	) {}
+	field: Record<string, unknown> = {};
+
+	constructor(private _form: FormService) {}
 
 	value(key: string, doc: Record<string, unknown>): unknown {
 		if (key.indexOf('.') > -1) {
@@ -70,67 +76,67 @@ export class FormComponentComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		const data: Data = {
-			field: {}
-		} as Data;
-
 		if (Array.isArray(this.component.fields)) {
 			for (const field of this.component.fields) {
-				data.field[field.name] = field.value;
+				this.field[field.name] = field.value;
 			}
 		}
 
-		if (this.component.key && this.submition !== undefined) {
-			if (this.component.root) {
-				data.value = this.value(this.component.key, this.submition);
-			} else {
-				if (!this.submition['data']) {
-					this.submition['data'] = {};
-				}
+		// const data: Data = {
+		// 	field: {}
+		// } as Data;
 
-				data.value = this.value(
-					this.component.key,
-					this.submition['data'] as Record<string, unknown>
-				);
-			}
-		}
+		// if (this.component.key && this.submition !== undefined) {
+		// 	if (this.component.root) {
+		// 		data.value = this.value(this.component.key, this.submition);
+		// 	} else {
+		// 		if (!this.submition['data']) {
+		// 			this.submition['data'] = {};
+		// 		}
 
-		if (this.component.key && !this.control) {
-			this.control = new FormControl(data.value);
+		// 		data.value = this.value(
+		// 			this.component.key,
+		// 			this.submition['data'] as Record<string, unknown>
+		// 		);
+		// 	}
+		// }
 
-			this.control.valueChanges.subscribe((value: unknown) => {
-				if (this.component.root) {
-					this.submition[this.component.key as string] = value;
-				} else {
-					(this.submition['data'] as Record<string, unknown>)[
-						this.component.key as string
-					] = value;
-				}
+		// if (this.component.key && !this.control) {
+		// 	this.control = new FormControl(data.value);
 
-				this.wChange.emit();
-			});
+		// 	this.control.valueChanges.subscribe((value: unknown) => {
+		// 		if (this.component.root) {
+		// 			this.submition[this.component.key as string] = value;
+		// 		} else {
+		// 			(this.submition['data'] as Record<string, unknown>)[
+		// 				this.component.key as string
+		// 			] = value;
+		// 		}
 
-			this.form.addControl(this.component.key, this.control);
-		}
+		// 		this.wChange.emit();
+		// 	});
 
-		this.data = data;
+		// 	this.form.addControl(this.component.key, this.control);
+		// }
 
-		if (!this.component.component) {
-			this._form.addRef(this.component);
-		}
+		// this.data = data;
 
-		this._viewContainerRef.insert(
-			this._dom.getComponentRef(this.component.component, {
-				component: this.component,
-				config: this.config,
-				field: this.data.field,
-				value: this.data.value,
-				control: this.control,
-				form: this.form,
-				wSubmit: this.wSubmit.emit,
-				wChange: this.wChange.emit,
-				wClick: this.wClick.emit
-			}).hostView as unknown as ViewRef
-		);
+		// if (!this.component.component) {
+		// 	this._form.addRef(this.component);
+		// }
+
+		// this._viewContainerRef.insert(
+		// 	this._dom.getComponentRef(this.component.component, {
+		// 		component: this.component,
+		// 		config: this.config,
+		// 		field: this.data.field,
+		// 		value: this.data.value,
+		// 		control: this.control,
+		// 		form: this.form,
+		// 		wSubmit: this.wSubmit.emit,
+		// 		wChange: this.wChange.emit,
+		// 		wClick: this.wClick.emit
+		// 	}).hostView as unknown as ViewRef
+		// );
 	}
 }

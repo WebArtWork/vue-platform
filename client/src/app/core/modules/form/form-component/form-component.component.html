@@ -1,13 +1,34 @@
 <ng-container *ngIf="hasComponents">
-	<form-component
-		*ngFor="let comp of component.components"
-		[class]="comp.class || ''"
-		class="w-forms__component"
-		[component]="comp"
-		[submition]="submition"
-		[form]="form"
-		(wSubmit)="wSubmit.emit()"
-		(wChange)="wChange.emit()"
-		(wClick)="wClick.emit()"
-	></form-component>
+	<ng-container *ngFor="let comp of component.components">
+		<form-component
+			*ngIf="!this.component.hidden"
+			[class]="comp.class || ''"
+			class="w-forms__component"
+			[component]="comp"
+			[submition]="this.submition"
+			[config]="this.config"
+			(wSubmit)="this.wSubmit.emit(this.submition)"
+			(wChange)="this.wChange.emit()"
+			(wClick)="this.wClick.emit()"
+		></form-component>
+	</ng-container>
+</ng-container>
+
+<ng-container *ngIf="component.name && template">
+	<ng-container
+		*ngTemplateOutlet="
+				template;
+				context: {
+					$implicit: {
+						field: field,
+						config: config,
+						component: component,
+						submition: submition,
+						wSubmit: wSubmit.emit,
+						wChange: wChange.emit,
+						wClick: wClick.emit
+					}
+				}
+			"
+	></ng-container>
 </ng-container>

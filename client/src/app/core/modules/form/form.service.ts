@@ -89,7 +89,9 @@ export class FormService {
 		if (!this._templateComponent[name]) {
 			this._templateComponent[name] = template;
 		}
-		console.log(this._templateComponent);
+	}
+	getTemplateComponent(name: string): TemplateRef<unknown> | undefined {
+		return this._templateComponent[name];
 	}
 
 	/** Translates the form title and its components' fields */
@@ -109,7 +111,6 @@ export class FormService {
 			}
 		}
 	}
-
 	/** Translates individual form components' fields */
 	translateFormComponent(
 		form: FormInterface,
@@ -227,7 +228,7 @@ export class FormService {
 			for (const component of form.components) {
 				component.root = true;
 
-				this.addRef(component);
+				// this.addRef(component);
 			}
 
 			this.forms.push(form);
@@ -266,7 +267,7 @@ export class FormService {
 		};
 
 		for (const component of form.components) {
-			this.addRef(component);
+			// this.addRef(component);
 		}
 
 		return form;

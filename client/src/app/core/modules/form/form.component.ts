@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { CoreService } from 'wacom';
 import { FormComponentInterface } from './interfaces/component.interface';
 import { FormInterface } from './interfaces/form.interface';
+import { CoreService } from 'wacom';
 
 interface Submission {
 	data: Record<string, unknown>;
@@ -19,13 +18,11 @@ export class FormComponent implements AfterViewInit {
 
 	@Input() submition: Record<string, unknown> = {};
 
-	@Input() form = this._fb.group({});
-
 	@Output() wChange = new EventEmitter();
 
 	@Output() wSubmit = new EventEmitter();
 
-	constructor(private _core: CoreService, private _fb: FormBuilder) { }
+	constructor(private _core: CoreService) { }
 
 	ngAfterViewInit(): void {
 		this.submition['data'] = this.submition['data'] || {};
@@ -70,46 +67,21 @@ export class FormComponent implements AfterViewInit {
 		}
 	}
 
-	_values() {
-		const submition: Submission = {
-			data: {}
-		};
-
-		for (const field in this.form.controls) {
-			const component = this.component(field);
-
-			const value = (this.form.value as Record<string, unknown>)[field];
-
-			if (component && component.root) {
-				this.fill(field, submition, value);
-			} else {
-				if (!submition.data) {
-					submition.data = {};
-				}
-
-				this.fill(field, submition.data, value);
-			}
-
-		}
-
-		return submition;
-	}
-
 	onSubmit(): void {
 		this._core.afterWhile(this, () => {
-			this.wSubmit.emit(this._values());
+			this.wSubmit.emit(this.submition);
 		});
 	}
 
 	onChange(): void {
 		this._core.afterWhile(this, () => {
-			this.wChange.emit(this._values());
+			this.wChange.emit(this.submition);
 		});
 	}
 
 	onClick(/* component: FormComponentInterface */): void {
 		// if (typeof component.click === 'function') {
-		// 	component.click(this._values());
+		// 	component.click(this.submition);
 		// }
 	}
 }
