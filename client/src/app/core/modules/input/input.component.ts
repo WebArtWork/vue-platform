@@ -132,6 +132,7 @@ export class InputComponent implements OnInit {
 	onChange(value: string | number | boolean): void {
 		this.value =
 			typeof this.replace === 'function' ? this.replace(value) : value;
+
 		this.wChange.emit(this.value);
 	}
 

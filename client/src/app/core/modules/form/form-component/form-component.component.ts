@@ -4,14 +4,10 @@ import {
 	Input,
 	OnInit,
 	Output,
-	TemplateRef,
-	ViewContainerRef,
-	ViewRef
+	TemplateRef
 } from '@angular/core';
 import { FormComponentInterface } from '../interfaces/component.interface';
-import { FormControl, FormGroup } from '@angular/forms';
 import { FormInterface } from '../interfaces/form.interface';
-import { DomService } from 'wacom';
 import { FormService } from '../form.service';
 
 @Component({
@@ -32,17 +28,11 @@ export class FormComponentComponent implements OnInit {
 
 	@Output() wClick = new EventEmitter();
 
-	submit(): void {
+	submit(): void {}
 
-	}
+	change(): void {}
 
-	change(): void {
-
-	}
-
-	click(): void {
-
-	}
+	click(): void {}
 
 	get hasComponents(): boolean {
 		return Array.isArray(this.component.components);

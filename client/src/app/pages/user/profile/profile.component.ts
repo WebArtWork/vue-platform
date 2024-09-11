@@ -154,8 +154,9 @@ export class ProfileComponent {
 			});
 	}
 
-	updateThumb(thumb: string | string[]) {
+	updateThumb(thumb: string | string[]): void {
 		this.us.user.thumb = Array.isArray(thumb) ? thumb[0] : thumb;
-		this.us.updateMe()
+
+		this.us.updateMe();
 	}
 }
