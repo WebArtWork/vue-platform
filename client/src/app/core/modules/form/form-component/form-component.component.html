@@ -15,7 +15,8 @@
 </ng-container>
 
 <ng-container *ngIf="component.name && template">
-	<ng-container
+	<div class="form-container">
+		<ng-container
 		*ngTemplateOutlet="
 				template;
 				context: {
@@ -31,4 +32,5 @@
 				}
 			"
 	></ng-container>
+	</div>
 </ng-container>

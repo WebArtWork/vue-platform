@@ -2,6 +2,11 @@
  
 @import 'angular';
 // forms
+
+.form-container{
+	margin-bottom: 15px;
+}
+
 .w-forms {
 	position: relative;
 
@@ -19,13 +24,14 @@
 		letter-spacing: $letter-spacing;
 		// margin-bottom: 6px;
 		font-weight: 500;
+		margin-bottom: 15px;
 	}
 	&__component{
 		label{
 			padding: 0 !important;
 		}
 		.w-btn{
-			margin: 0 20px;
+			//margin: 0 20px;
 		}
 	}
 	&__input,
