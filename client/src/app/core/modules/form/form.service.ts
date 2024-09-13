@@ -52,12 +52,6 @@ export class FormService {
 		// 	},
 		// 	(arr: any, obj: any) => {
 		// 		this._forms = obj;
-
-		// 		for (const form of this.customForms) {
-		// 			for (const component of form.components) {
-		// 				this.addRef(component);
-		// 			}
-		// 		}
 		// 	}
 		// );
 
@@ -73,14 +67,19 @@ export class FormService {
 	injectComponent<T>(component: Type<T>) {
 		if (!this._injectedComponent[component.name]) {
 			this._injectedComponent[component.name] = true;
+
 			const componentFactory =
 				this.componentFactoryResolver.resolveComponentFactory(
 					component
 				);
+
 			const componentRef = componentFactory.create(this.injector);
+
 			this.appRef.attachView(componentRef.hostView);
+
 			const domElem = (componentRef.hostView as any)
 				.rootNodes[0] as HTMLElement;
+
 			document.body.appendChild(domElem);
 		}
 	}
@@ -128,120 +127,23 @@ export class FormService {
 		}
 	}
 
-	/** List of registered components */
-	components: TemplateComponentInterface[] = [];
-	/** Map of custom field components */
-	customFieldComponent: Record<string, string> = {};
-
-	/** Adds a new component to the service */
-	addComponent(component: TemplateComponentInterface): void {
-		if (this.components.map((c) => c.name).indexOf(component.name) === -1) {
-			this.components.push(component);
-
-			component.fieldComponent = component.fieldComponent || {};
-
-			for (const field in component.fieldComponent) {
-				this.customFieldComponent[component.name + field] =
-					component.fieldComponent[field];
-			}
-		}
-	}
-
-	/** Retrieves a component by its name */
-	getComponent(name: string) {
-		const index = this.components.map((c) => c.name).indexOf(name);
-
-		return index === -1 ? null : this.components[index];
-	}
-
-	/** Retrieves a custom component by its name */
-	getCustomComponent(name: string) {
-		const index = this.components.map((c) => c.name).indexOf(name);
-
-		return index === -1
-			? null
-			: {
-					component: this.components[index].component,
-					components: [],
-					fields: [],
-					name
-			  };
-	}
-
-	/** Adds references to component fields and subcomponents */
-	addRef(component: FormComponentInterface): void {
-		if (!Array.isArray(component.fields)) {
-			component.fields = [];
-		}
-
-		if (component.name) {
-			const index = this.components
-				.map((c) => c.name)
-				.indexOf(component.name);
-
-			if (index === -1) {
-				// eslint-disable-next-line
-				console.error(`Component ${component.name} is not configured`);
-
-				return;
-			}
-
-			component.component = this.components[index].component;
-
-			for (const field of this.components[index].fields || []) {
-				if (component.fields.map((f) => f.name).indexOf(field) === -1) {
-					component.fields.push({
-						name: field,
-						value: ''
-					});
-				}
-			}
-
-			for (const field of component.fields) {
-				if (
-					(this.components[index].fields || []).indexOf(
-						field.name
-					) === -1
-				) {
-					const i = component.fields
-						.map((f) => f.name)
-						.indexOf(field.name);
-
-					component.fields.splice(i, 1);
-				}
-			}
-		}
-
-		if (Array.isArray(component.components)) {
-			for (const comp of component.components) {
-				this.addRef(comp);
-			}
-		}
-	}
-
 	/** List of forms managed by the service */
 	forms: FormInterface[] = [];
 
-	/** Adds a form to the service and initializes its components */
-	addForm(form: FormInterface): void {
-		if (this.forms.map((c) => c.formId).indexOf(form.formId) === -1) {
-			for (const component of form.components) {
-				component.root = true;
-
-				// this.addRef(component);
-			}
-
-			this.forms.push(form);
-		} else {
-			throw 'Form id is unique';
-		}
-	}
+	/** List of form IDs managed by the service */
+	formIds: string[] = [];
 
 	/** Creates a default form with specified components */
 	getDefaultForm(
 		id: string,
 		components = ['name', 'description']
 	): FormInterface {
+		if (this.formIds.indexOf(id) === -1) {
+			this.formIds.push(id);
+
+			this._store.setJson('formIds', this.formIds);
+		}
+
 		const form = {
 			id,
 			components: components.map((key, index) => {
@@ -251,7 +153,6 @@ export class FormService {
 					name,
 					key,
 					focused: !index,
-					root: true,
 					fields: [
 						{
 							name: 'Placeholder',
@@ -266,15 +167,8 @@ export class FormService {
 			})
 		};
 
-		for (const component of form.components) {
-			// this.addRef(component);
-		}
-
 		return form;
 	}
-
-	/** List of form IDs managed by the service */
-	formIds: string[] = [];
 
 	/** Retrieves a form by its ID, initializing it if necessary */
 	getForm(formId: string, form?: FormInterface): FormInterface {
@@ -332,25 +226,6 @@ export class FormService {
 		}
 
 		this.translateForm(form);
-
-		// this._mongo.on('form', () => {
-		// 	const forms = this.customForms.filter(
-		// 		(c) => c.formId === form.formId
-		// 	);
-
-		// 	for (const _form of forms) {
-		// 		for (const component of _form.components) {
-		// 			if (
-		// 				form?.components &&
-		// 				!form?.components.filter(
-		// 					(c) => !c.root && c.key === component.key
-		// 				).length
-		// 			) {
-		// 				form?.components.push(component);
-		// 			}
-		// 		}
-		// 	}
-		// });
 
 		return form;
 	}

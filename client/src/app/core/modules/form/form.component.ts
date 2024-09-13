@@ -1,12 +1,13 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	EventEmitter,
+	Input,
+	Output
+} from '@angular/core';
 import { FormComponentInterface } from './interfaces/component.interface';
 import { FormInterface } from './interfaces/form.interface';
 import { CoreService } from 'wacom';
-
-interface Submission {
-	data: Record<string, unknown>;
-	[key: string]: unknown;
-}
 
 @Component({
 	selector: 'wform',
@@ -22,7 +23,7 @@ export class FormComponent implements AfterViewInit {
 
 	@Output() wSubmit = new EventEmitter();
 
-	constructor(private _core: CoreService) { }
+	constructor(private _core: CoreService) {}
 
 	ngAfterViewInit(): void {
 		this.submition['data'] = this.submition['data'] || {};
@@ -49,26 +50,23 @@ export class FormComponent implements AfterViewInit {
 		return false;
 	}
 
-	fill(key: string, submition: Record<string, unknown>, value: unknown): void {
-		if (key.indexOf('.') > -1) {
-			const local_key: string = key.slice(0, key.indexOf('.'));
-
-			if (!submition[local_key]) {
-				submition[local_key] = {};
-			}
-
-			return this.fill(
-				key.slice(key.indexOf('.') + 1),
-				submition[local_key] as Record<string, unknown>,
-				value
-			);
-		} else {
-			submition[key] = value;
-		}
-	}
-
 	onSubmit(): void {
 		this._core.afterWhile(this, () => {
+			for (const component of this.config.components) {
+				if (
+					component.key &&
+					component.required &&
+					((component.valid && !component.valid()) ||
+						(!component.valid && !this.submition[component.key]))
+				) {
+					if (typeof component.focus === 'function') {
+						component.focus();
+					}
+
+					return;
+				}
+			}
+
 			this.wSubmit.emit(this.submition);
 		});
 	}

@@ -31,8 +31,8 @@ export class SignComponent {
 			{
 				name: 'Email',
 				key: 'email',
-				root: true,
 				focused: true,
+				required: true,
 				fields: [
 					{
 						name: 'Placeholder',
@@ -47,7 +47,7 @@ export class SignComponent {
 			{
 				name: 'Password',
 				key: 'password',
-				root: true,
+				required: true,
 				fields: [
 					{
 						name: 'Placeholder',
@@ -62,7 +62,6 @@ export class SignComponent {
 			{
 				name: 'Text',
 				key: 'code',
-				root: true,
 				fields: [
 					{
 						name: 'Placeholder',
@@ -88,8 +87,8 @@ export class SignComponent {
 					},
 					{
 						name: 'Click',
-						value: () => {
-							this.submit(this.user);
+						value: (): void => {
+							this.submit();
 						}
 					}
 				]
@@ -99,7 +98,8 @@ export class SignComponent {
 
 	user = {
 		email: 'ceo@webart.work',
-		password: 'asdasdasdasd'
+		password: 'asdasdasdasd',
+		code: ''
 	};
 
 	constructor(
@@ -113,48 +113,52 @@ export class SignComponent {
 		private _translate: TranslateService
 	) {}
 
-	submit(form: any): void {
-		if (!this.form.components[2].hidden && form.code) {
+	submit(): void {
+		if (!this.form.components[2].hidden && this.user.code) {
 			this.save();
-		} else if (!form.email) {
+		} else if (!this.user.email) {
 			this._alert.error({
 				text: this._translate.translate('Sign.Enter your email')
 			});
 		}
 
-		if (!this.ui.valid(form.email)) {
+		if (!this.ui.valid(this.user.email)) {
 			this._alert.error({
 				text: this._translate.translate('Sign.Enter proper email')
 			});
-		} else if (!form.password) {
+		} else if (!this.user.password) {
 			this._alert.error({
 				text: this._translate.translate('Sign.Enter your password')
 			});
 		} else {
-			this._hash.set('email', form.email);
+			this._hash.set('email', this.user.email);
 
-			this._http.post('/api/user/status', form, (resp: RespStatus) => {
-				if (resp.email && resp.pass) {
-					this.login(form);
-				} else if (resp.email) {
-					this.reset(form);
-				} else {
-					this.sign(form);
+			this._http.post(
+				'/api/user/status',
+				this.user,
+				(resp: RespStatus) => {
+					if (resp.email && resp.pass) {
+						this.login();
+					} else if (resp.email) {
+						this.reset();
+					} else {
+						this.sign();
+					}
 				}
-			});
+			);
 		}
 	}
 
-	login(user: Form): void {
-		this._http.post('/api/user/login', user, this._set.bind(this));
+	login(): void {
+		this._http.post('/api/user/login', this.user, this._set.bind(this));
 	}
 
-	sign(user: Form): void {
-		this._http.post('/api/user/sign', user, this._set.bind(this));
+	sign(): void {
+		this._http.post('/api/user/sign', this.user, this._set.bind(this));
 	}
 
-	reset(user: Form): void {
-		this._http.post('/api/user/request', user, () => {
+	reset(): void {
+		this._http.post('/api/user/request', this.user, () => {
 			this.form.components[2].hidden = false;
 		});
 

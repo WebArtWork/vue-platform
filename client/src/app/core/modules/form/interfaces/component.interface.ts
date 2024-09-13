@@ -12,16 +12,20 @@ export interface TemplateComponentInterface {
 }
 
 export interface FormComponentInterface {
+	components?: FormComponentInterface[];
+	// or
 	name?: string; // template name
-	component?: unknown;
-
 	key?: string; // submition location
 	root?: boolean; // if key should be applied to data or root document
-
+	focus?: () => void; // ???
 	focused?: boolean;
 	hidden?: boolean;
 	class?: string;
-
-	components?: FormComponentInterface[];
 	fields?: TemplateFieldInterface[];
+	valid?: () => boolean;
+	required?: boolean;
+	disabled?: boolean;
+	// disabled?: boolean | (value: unknown) => boolean;
+
+	component?: unknown; // deprecated
 }

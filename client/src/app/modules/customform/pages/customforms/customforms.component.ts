@@ -83,7 +83,8 @@ export class CustomformsComponent {
 					},
 					{
 						name: 'Items',
-						value: this._form.components
+						value: []
+						// value: this._form.components
 					}
 				]
 			}
@@ -182,10 +183,11 @@ export class CustomformsComponent {
 							{
 								label: 'Add component',
 								click: () => {
-									const fields = this._form.components.find(
-										(c) =>
-											c.name === submition['addComponent']
-									)?.fields as string[];
+									// const fields = this._form.components.find(
+									// 	(c) =>
+									// 		c.name === submition['addComponent']
+									// )?.fields as string[];
+									const fields: string[] = [];
 
 									this.components.push(
 										this._addCustomComponent(

@@ -24,9 +24,9 @@
 						config: config,
 						component: component,
 						submition: submition,
-						wSubmit: wSubmit.emit,
-						wChange: wChange.emit,
-						wClick: wClick.emit
+						wSubmit: submit.bind(this),
+						wChange: change.bind(this),
+						wClick: click.bind(this)
 					}
 				}
 			"
