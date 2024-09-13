@@ -41,7 +41,6 @@ export class ProfileComponent {
 			{
 				name: 'Text',
 				key: 'name',
-				root: true,
 				focused: true,
 				fields: [
 					{
@@ -105,7 +104,6 @@ export class ProfileComponent {
 			{
 				name: 'Password',
 				key: 'oldPass',
-				root: true,
 				focused: true,
 				fields: [
 					{
@@ -121,7 +119,6 @@ export class ProfileComponent {
 			{
 				name: 'Password',
 				key: 'newPass',
-				root: true,
 				fields: [
 					{
 						name: 'Placeholder',

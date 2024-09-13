@@ -17,15 +17,14 @@ export interface FormComponentInterface {
 	name?: string; // template name
 	key?: string; // submition location
 	root?: boolean; // if key should be applied to data or root document
-	focus?: () => void; // ???
-	focused?: boolean;
-	hidden?: boolean;
-	class?: string;
-	fields?: TemplateFieldInterface[];
-	valid?: () => boolean;
-	required?: boolean;
-	disabled?: boolean;
+	focus?: () => void; // to set focus in components where we have focus functionality
+	focused?: boolean; // in case of focus functionality, we focus on init
+	hidden?: boolean; // if component should be hidden or shown
+	class?: string; // put class on component container
+	fields?: TemplateFieldInterface[]; // pass general info to component
+	valid?: () => boolean; // check if component is valid
+	required?: boolean; // set component requirement
+	disabled?: boolean; // set component disabled
 	// disabled?: boolean | (value: unknown) => boolean;
-
 	component?: unknown; // deprecated
 }

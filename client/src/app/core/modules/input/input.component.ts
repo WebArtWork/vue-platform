@@ -97,6 +97,13 @@ export class InputComponent implements OnInit {
 	@Input() label = '';
 
 	/**
+	 * The label for the input field.
+	 */
+	@Input() setFocus: {
+		focus: () => void;
+	};
+
+	/**
 	 * Event emitted when the input value changes.
 	 */
 	@Output() wChange = new EventEmitter<string | number | boolean>();
@@ -159,6 +166,10 @@ export class InputComponent implements OnInit {
 	ngOnInit(): void {
 		if (this.focused) {
 			this.focus();
+		}
+
+		if (this.setFocus) {
+			this.setFocus.focus = this.focus.bind(this);
 		}
 	}
 

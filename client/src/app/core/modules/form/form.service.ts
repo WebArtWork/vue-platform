@@ -7,11 +7,7 @@ import {
 	Type
 } from '@angular/core';
 import { StoreService } from 'wacom';
-import {
-	TemplateComponentInterface,
-	FormComponentInterface,
-	TemplateFieldInterface
-} from './interfaces/component.interface';
+import { TemplateFieldInterface } from './interfaces/component.interface';
 import { ModalService } from 'src/app/core/modules/modal/modal.service';
 import { FormInterface } from './interfaces/form.interface';
 import { ModalFormComponent } from './modals/modal-form/modal-form.component';
@@ -44,18 +40,7 @@ export class FormService {
 		private appRef: ApplicationRef,
 		private injector: Injector
 	) {
-		// Fetch custom forms and initialize them with components
-		// this.customForms = _mongo.get(
-		// 	'form',
-		// 	{
-		// 		param: '?appId=' + this.appId
-		// 	},
-		// 	(arr: any, obj: any) => {
-		// 		this._forms = obj;
-		// 	}
-		// );
-
-		// Load form IDs from the store
+		/** Load form IDs from the store */
 		this._store.getJson('formIds', (formIds: string[]) => {
 			if (Array.isArray(formIds)) {
 				this.formIds.push(...formIds);
@@ -64,7 +49,7 @@ export class FormService {
 	}
 
 	private _injectedComponent: Record<string, boolean> = {};
-	injectComponent<T>(component: Type<T>) {
+	injectComponent<T>(component: Type<T>): void {
 		if (!this._injectedComponent[component.name]) {
 			this._injectedComponent[component.name] = true;
 
@@ -77,14 +62,15 @@ export class FormService {
 
 			this.appRef.attachView(componentRef.hostView);
 
-			const domElem = (componentRef.hostView as any)
-				.rootNodes[0] as HTMLElement;
+			const domElem = (
+				componentRef.hostView as unknown as { rootNodes: HTMLElement[] }
+			).rootNodes[0];
 
 			document.body.appendChild(domElem);
 		}
 	}
 	private _templateComponent: Record<string, TemplateRef<unknown>> = {};
-	addTemplateComponent<T>(name: string, template: TemplateRef<T>) {
+	addTemplateComponent<T>(name: string, template: TemplateRef<T>): void {
 		if (!this._templateComponent[name]) {
 			this._templateComponent[name] = template;
 		}
@@ -235,7 +221,8 @@ export class FormService {
 		form: FormInterface | FormInterface[],
 		buttons: FormModalButton | FormModalButton[] = [],
 		submition: unknown = {},
-		change = (doc: T) => {},
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		change = (update: T): void => {},
 		modalOptions: Modal = {}
 	): Promise<T> {
 		return new Promise((resolve) => {
@@ -267,7 +254,7 @@ export class FormService {
 		field: string,
 		doc: T,
 		component: string = '',
-		onClose = () => {}
+		onClose = (): void => {}
 	): void {
 		this._modal.show({
 			component: ModalUniqueComponent,

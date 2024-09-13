@@ -256,7 +256,6 @@ export class CustomformsComponent {
 			{
 				name: 'Text',
 				key: 'key' + index,
-				root: true,
 				fields: [
 					{
 						name: 'Placeholder',
