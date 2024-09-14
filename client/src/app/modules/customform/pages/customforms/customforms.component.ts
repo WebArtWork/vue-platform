@@ -14,7 +14,7 @@ import { FormComponentInterface } from 'src/app/core/modules/form/interfaces/com
 	styleUrls: ['./customforms.component.scss']
 })
 export class CustomformsComponent {
-	columns = ['title', 'components', 'formId', 'active'];
+	columns = ['formId', 'components', 'active'];
 
 	form: FormInterface = this._form.getForm('form', {
 		formId: 'form',
@@ -83,8 +83,7 @@ export class CustomformsComponent {
 					},
 					{
 						name: 'Items',
-						value: []
-						// value: this._form.components
+						value: this._form.getTemplateComponentsNames()
 					}
 				]
 			}
@@ -92,35 +91,35 @@ export class CustomformsComponent {
 	});
 
 	config = {
-		create: () => {
+		create: (): void => {
 			this._form
 				.modal<Customform>(this.form, {
 					label: 'Create',
 					click: (created: unknown, close: () => void) => {
-						this._fs.create(created as Customform, {
+						this._cfs.create(created as Customform, {
 							callback: close.bind(this)
 						});
 					}
 				})
-				.then(this._fs.create.bind(this));
+				.then(this._cfs.create.bind(this));
 		},
-		update: (form: Customform) => {
+		update: (form: Customform): void => {
 			this._form
 				.modal<Customform>(
 					this.form,
 					{
 						label: 'Update',
 						click: (updated: unknown, close: () => void) => {
-							this._fs.update(updated as Customform, {
+							this._cfs.update(updated as Customform, {
 								callback: close.bind(this)
 							});
 						}
 					},
 					form
 				)
-				.then(this._fs.update.bind(this));
+				.then(this._cfs.update.bind(this));
 		},
-		delete: (form: Customform) => {
+		delete: (form: Customform): void => {
 			this._alert.question({
 				text: this._translate.translate(
 					'Common.Are you sure you want to delete this user?'
@@ -131,8 +130,8 @@ export class CustomformsComponent {
 					},
 					{
 						text: this._translate.translate('Common.Yes'),
-						callback: () => {
-							this._fs.delete(form);
+						callback: (): void => {
+							this._cfs.delete(form);
 						}
 					}
 				]
@@ -141,7 +140,7 @@ export class CustomformsComponent {
 		buttons: [
 			{
 				icon: 'text_fields',
-				click: (doc: Customform) => {
+				click: (doc: Customform): void => {
 					this.components.splice(0, this.components.length);
 
 					const submition: Record<string, unknown> = {
@@ -150,7 +149,28 @@ export class CustomformsComponent {
 
 					doc.components = doc.components || [];
 
-					for (let i = 0; i < doc.components.length; i++) {
+					for (let i = doc.components.length - 1; i >= 0; i--) {
+						const fields = this._form.getTemplateFields(
+							doc.components[i].name
+						);
+
+						doc.components[i].fields = doc.components[
+							i
+						].fields.filter((f) => fields.includes(f.name));
+
+						for (const name of fields) {
+							if (
+								!doc.components[i].fields.find(
+									(f) => f.name === name
+								)
+							) {
+								doc.components[i].fields.push({
+									value: '',
+									name
+								});
+							}
+						}
+
 						submition['key' + i] = doc.components[i].key as string;
 
 						for (const field of doc.components[i].fields) {
@@ -158,19 +178,18 @@ export class CustomformsComponent {
 						}
 					}
 
-					const remove = (i: number) => {
+					const remove = (i: number): void => {
 						this.components.splice(i, 1);
 
 						doc.components.splice(i, 1);
 
-						this._fs.updateAfterWhile(doc);
+						this._cfs.updateAfterWhile(doc);
 					};
 
 					(doc.components || []).forEach((component) => {
 						this.components.push(
 							this._addCustomComponent(
 								component.name,
-								component.fields?.map((f) => f.name),
 								this.components.length,
 								remove
 							)
@@ -183,16 +202,13 @@ export class CustomformsComponent {
 							{
 								label: 'Add component',
 								click: () => {
-									// const fields = this._form.components.find(
-									// 	(c) =>
-									// 		c.name === submition['addComponent']
-									// )?.fields as string[];
-									const fields: string[] = [];
+									const component: string = submition[
+										'addComponent'
+									] as string;
 
 									this.components.push(
 										this._addCustomComponent(
-											submition['addComponent'] as string,
-											fields,
+											component,
 											this.components.length,
 											remove
 										)
@@ -202,12 +218,14 @@ export class CustomformsComponent {
 										name: submition[
 											'addComponent'
 										] as string,
-										fields: fields.map((name) => {
-											return {
-												value: '',
-												name
-											};
-										})
+										fields: this._form
+											.getTemplateFields(component)
+											.map((name) => {
+												return {
+													value: '',
+													name
+												};
+											})
 									});
 								}
 							},
@@ -228,7 +246,7 @@ export class CustomformsComponent {
 								}
 							}
 
-							this._fs.updateAfterWhile(doc);
+							this._cfs.updateAfterWhile(doc);
 						});
 				}
 			}
@@ -236,22 +254,43 @@ export class CustomformsComponent {
 	};
 
 	get rows(): FormInterface[] {
-		return this._fs.customforms;
+		return this._cfs.customforms;
 	}
 
 	constructor(
 		private _translate: TranslateService,
-		private _fs: CustomformService,
+		private _cfs: CustomformService,
 		private _alert: AlertService,
 		private _form: FormService
 	) {}
 
 	private _addCustomComponent(
 		component: string,
-		fields: string[],
 		index: number,
 		remove: (i: number) => void
 	): FormComponentInterface {
+		const templateFields = this._form
+			.getTemplateFields(component)
+			.map((f) => {
+				return {
+					name:
+						this._form.getCustomTemplateFields(component)[f] ||
+						'Text',
+					key: f + index,
+					fields: [
+						{
+							name: 'Placeholder',
+							value: 'fill ' + f
+						},
+						{
+							name: 'Label',
+							value:
+								f.charAt(0).toUpperCase() + f.slice(1, f.length)
+						}
+					]
+				};
+			});
+
 		const components = [
 			{
 				name: 'Text',
@@ -267,26 +306,7 @@ export class CustomformsComponent {
 					}
 				]
 			},
-			// ...(fields || [])?.map((f) => {
-			// 	return {
-			// 		name:
-			// 			this._form.customFieldComponent[component + f] ||
-			// 			'Text',
-			// 		key: f + index,
-			// 		root: true,
-			// 		fields: [
-			// 			{
-			// 				name: 'Placeholder',
-			// 				value: 'fill ' + f
-			// 			},
-			// 			{
-			// 				name: 'Label',
-			// 				value:
-			// 					f.charAt(0).toUpperCase() + f.slice(1, f.length)
-			// 			}
-			// 		]
-			// 	};
-			// }),
+			...templateFields,
 			{
 				name: 'Button',
 				fields: [
@@ -296,7 +316,7 @@ export class CustomformsComponent {
 					},
 					{
 						name: 'Click',
-						value: () => {
+						value: (): void => {
 							remove(index);
 						}
 					}
@@ -313,7 +333,7 @@ export class CustomformsComponent {
 	changeStatus(form: Customform): void {
 		setTimeout(() => {
 			if (form.active) {
-				for (const customForm of this._fs.customforms) {
+				for (const customForm of this._cfs.customforms) {
 					if (
 						customForm._id === form._id ||
 						customForm.formId !== form.formId
@@ -323,12 +343,12 @@ export class CustomformsComponent {
 					if (customForm.active) {
 						customForm.active = false;
 
-						this._fs.updateAfterWhile(customForm);
+						this._cfs.updateAfterWhile(customForm);
 					}
 				}
 			}
 
-			this._fs.updateAfterWhile(form);
+			this._cfs.updateAfterWhile(form);
 		});
 	}
 }

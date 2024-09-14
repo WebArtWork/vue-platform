@@ -49,9 +49,27 @@ export class FormService {
 	}
 
 	private _injectedComponent: Record<string, boolean> = {};
-	injectComponent<T>(component: Type<T>): void {
-		if (!this._injectedComponent[component.name]) {
-			this._injectedComponent[component.name] = true;
+	templateFields: Record<string, string[]> = {};
+	getTemplateFields(name: string): string[] {
+		return this.templateFields[name] || [];
+	}
+	customTemplateFields: Record<string, Record<string, string>> = {};
+	getCustomTemplateFields(name: string): Record<string, string> {
+		return this.customTemplateFields[name] || {};
+	}
+	injectComponent<T>(
+		component: Type<T>,
+		fields = ['Placeholder', 'Label'],
+		customFields: Record<string, string> = {}
+	): void {
+		const name = component.name.replace('_', '').replace('Component', '');
+
+		if (!this._injectedComponent[name]) {
+			this._injectedComponent[name] = true;
+
+			this.templateFields[name] = fields;
+
+			this.customTemplateFields[name] = customFields;
 
 			const componentFactory =
 				this.componentFactoryResolver.resolveComponentFactory(
@@ -77,6 +95,15 @@ export class FormService {
 	}
 	getTemplateComponent(name: string): TemplateRef<unknown> | undefined {
 		return this._templateComponent[name];
+	}
+	getTemplateComponentsNames(): string[] {
+		const names = [];
+
+		for (const name in this._templateComponent) {
+			names.push(name);
+		}
+
+		return names;
 	}
 
 	/** Translates the form title and its components' fields */
