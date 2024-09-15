@@ -69,8 +69,11 @@ export class SelectComponent implements OnInit {
 	@Output() modelChange = new EventEmitter();
 
 	_values: any = [];
+
 	_names: any = [];
+
 	_selected: string;
+
 	selectShow: any;
 
 	/** The selected value(s). */
@@ -132,7 +135,9 @@ export class SelectComponent implements OnInit {
 			this.modelChange.emit(this._values);
 		} else {
 			this._selected = item[this.name];
+
 			this.selectShow = false;
+
 			this.modelChange.emit(item[this.value]);
 		}
 	}

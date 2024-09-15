@@ -141,6 +141,8 @@ export class CustomformsComponent {
 			{
 				icon: 'text_fields',
 				click: (doc: Customform): void => {
+					console.log(this.formComponents);
+
 					this.components.splice(0, this.components.length);
 
 					const submition: Record<string, unknown> = {
@@ -201,7 +203,7 @@ export class CustomformsComponent {
 							this.formComponents,
 							{
 								label: 'Add component',
-								click: () => {
+								click: (): void => {
 									const component: string = submition[
 										'addComponent'
 									] as string;
