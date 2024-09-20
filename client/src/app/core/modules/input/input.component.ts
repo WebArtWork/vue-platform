@@ -89,6 +89,7 @@ export class InputComponent implements OnInit {
 		| 'month'
 		| 'week'
 		| 'time'
+		| 'datetime'
 		| 'datetime-local' = 'text';
 
 	/**
