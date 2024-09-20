@@ -15,6 +15,7 @@ import { TranslateService } from '../translate/translate.service';
 import { ModalUniqueComponent } from './modals/modal-unique/modal-unique.component';
 import { Modal } from '../modal/modal.interface';
 import { environment } from 'src/environments/environment';
+import { CustomformService } from 'src/app/modules/customform/services/customform.service';
 
 export interface FormModalButton {
 	/** Function to execute on button click */
@@ -34,6 +35,7 @@ export class FormService {
 
 	constructor(
 		private componentFactoryResolver: ComponentFactoryResolver,
+		private _cfs: CustomformService,
 		private _translate: TranslateService,
 		private _modal: ModalService,
 		private _store: StoreService,
@@ -198,13 +200,9 @@ export class FormService {
 			this._store.setJson('formIds', this.formIds);
 		}
 
-		const devForm = this.forms.find((f) => f.formId === formId);
+		form = form || this.forms.find((f) => f.formId === formId);
 
-		const customForm = this.customForms.find(
-			(f) => f.formId === formId && f.active
-		);
-
-		const defaultForm = this.getDefaultForm(formId);
+		form = form || this.getDefaultForm(formId);
 
 		if (form) {
 			for (const component of form.components) {
@@ -212,28 +210,20 @@ export class FormService {
 			}
 		}
 
-		if (customForm) {
-			for (const component of customForm.components) {
-				component.root = false;
-			}
-		}
-
-		if (!form) {
-			form = devForm
-				? { ...devForm }
-				: customForm
-				? { ...customForm }
-				: defaultForm;
-		}
+		const customForms = this._cfs.customforms.filter(
+			(f) => f.active && f.formId === formId
+		);
 
 		form.formId = formId;
 
-		form.title = form.title || devForm?.title || customForm?.title;
+		for (const customForm of customForms) {
+			form.title = form.title || customForm.name;
 
-		form.class = form.class || devForm?.class || customForm?.class;
+			form.class = form.class || customForm.class;
 
-		if ((form || devForm) && customForm) {
 			for (const component of customForm.components) {
+				component.root = false;
+
 				form.components.push(component);
 			}
 		}
@@ -295,7 +285,4 @@ export class FormService {
 			onClose
 		});
 	}
-
-	/** List of custom forms managed by the service */
-	customForms: FormInterface[] = [];
 }

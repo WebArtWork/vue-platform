@@ -18,10 +18,12 @@ export interface CustomformcomponnetInterface {
 	fields: CustomformcomponnetfieldInterface[];
 	key?: string;
 	components?: CustomformcomponnetInterface[];
+	root?: boolean;
 }
 
 export interface Customform extends CrudDocument {
 	name: string;
+	class: string;
 	fields: CustomformcomponnetfieldInterface[];
 	components: CustomformcomponnetInterface[];
 	key?: string;
@@ -34,6 +36,7 @@ export interface Customform extends CrudDocument {
 })
 export class CustomformService extends CrudService<Customform> {
 	customforms: Customform[] = [];
+
 	constructor(
 		_http: HttpService,
 		_store: StoreService,
