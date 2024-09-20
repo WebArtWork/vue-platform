@@ -16,6 +16,8 @@ import { FormService } from '../form.service';
 	styleUrls: ['./form-component.component.scss']
 })
 export class FormComponentComponent implements OnInit {
+	@Input() index: string;
+
 	@Input() config: FormInterface;
 
 	@Input() component: FormComponentInterface;

@@ -1,23 +1,26 @@
 <ng-container *ngIf="hasComponents">
-	<ng-container *ngFor="let comp of component.components">
-		<form-component
-			*ngIf="!this.component.hidden"
-			[class]="comp.class || ''"
-			class="w-forms__component"
-			[component]="comp"
-			[submition]="this.submition"
-			[config]="this.config"
-			(wSubmit)="this.wSubmit.emit(this.submition)"
-			(wChange)="this.wChange.emit()"
-			(wClick)="this.wClick.emit()"
-		></form-component>
-	</ng-container>
+	<div class="form-components-container" [class]="component.class || ''">
+		<ng-container *ngFor="let comp of component.components; index as i">
+			<form-component
+				*ngIf="!this.component.hidden"
+				[class]="config.formId + '_' + index+'_'+i + ' ' +(component.class || '')"
+				class="w-forms__component"
+				[component]="comp"
+				[submition]="this.submition"
+				[config]="this.config"
+				(wSubmit)="this.wSubmit.emit(this.submition)"
+				(wChange)="this.wChange.emit()"
+				(wClick)="this.wClick.emit()"
+				[index]="index+'_'+i"
+			></form-component>
+		</ng-container>
+	</div>
 </ng-container>
 
 <ng-container *ngIf="component.name && template">
 	<div class="form-container">
 		<ng-container
-		*ngTemplateOutlet="
+			*ngTemplateOutlet="
 				template;
 				context: {
 					$implicit: {
@@ -31,6 +34,6 @@
 					}
 				}
 			"
-	></ng-container>
+		></ng-container>
 	</div>
 </ng-container>
