@@ -46,38 +46,59 @@ import { TagsComponent } from './tags/tags.component';
 export class FormcomponentsModule {
 	constructor(private _form: FormService) {
 		/* addComponents */
-		this._form.injectComponent<ButtonComponent>(ButtonComponent);
+		this._form.injectComponent<BooleanComponent>(BooleanComponent, [
+			'Label'
+		]);
 
-		this._form.injectComponent<TextComponent>(TextComponent);
-
-		this._form.injectComponent<NumberComponent>(NumberComponent);
-
-		this._form.injectComponent<EmailComponent>(EmailComponent);
-
-		this._form.injectComponent<PasswordComponent>(PasswordComponent);
+		this._form.injectComponent<ButtonComponent>(ButtonComponent, ['Label']);
 
 		this._form.injectComponent<DateComponent>(DateComponent);
 
+		this._form.injectComponent<EmailComponent>(EmailComponent);
+
+		this._form.injectComponent<NumberComponent>(NumberComponent);
+
+		this._form.injectComponent<PasswordComponent>(PasswordComponent);
+
+		this._form.injectComponent<PhotoComponent>(
+			PhotoComponent,
+			['Label', 'Width', 'Height'],
+			{
+				Width: 'Number',
+				Height: 'Number'
+			}
+		);
+
+		this._form.injectComponent<PhotosComponent>(
+			PhotosComponent,
+			['Label', 'Width', 'Height'],
+			{
+				Width: 'Number',
+				Height: 'Number'
+			}
+		);
+
+		this._form.injectComponent<SelectComponent>(
+			SelectComponent,
+			['Placeholder', 'Label', 'Items', 'Multiple'],
+			{
+				Items: 'Tags',
+				Multiple: 'Boolean'
+			}
+		);
+
+		this._form.injectComponent<TagsComponent>(TagsComponent, [
+			'Button',
+			'Placeholder',
+			'Label'
+		]);
+
+		this._form.injectComponent<TextComponent>(
+			TextComponent,
+			['Textarea', 'Placeholder', 'Label'],
+			{ Textarea: 'Boolean' }
+		);
+
 		this._form.injectComponent<TimeComponent>(TimeComponent);
-
-		this._form.injectComponent<BooleanComponent>(BooleanComponent);
-
-		this._form.injectComponent<SelectComponent>(SelectComponent);
-
-		this._form.injectComponent<TagsComponent>(TagsComponent);
-
-		this._form.injectComponent<PhotoComponent>(PhotoComponent);
-
-		this._form.injectComponent<PhotosComponent>(PhotosComponent);
-
-		// this._form.addComponent({
-		// 	component: SelectComponent,
-		// 	name: 'Select',
-		// 	fields: ['Placeholder', 'Label', 'Items', 'Multiple'],
-		// 	fieldComponent: {
-		// 		Items: 'Tags',
-		// 		Multiple: 'Boolean'
-		// 	}
-		// });
 	}
 }
