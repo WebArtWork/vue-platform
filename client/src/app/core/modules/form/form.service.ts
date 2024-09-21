@@ -53,7 +53,19 @@ export class FormService {
 	private _injectedComponent: Record<string, boolean> = {};
 	templateFields: Record<string, string[]> = {};
 	getTemplateFields(name: string): string[] {
-		return this.templateFields[name] || [];
+		return this.templateFields[name] || ['Placeholder', 'Label'];
+	}
+	setTemplateFields(
+		name: string,
+		fields: string[],
+		customFields: Record<string, string> = {}
+	): void {
+		this.templateFields[name] = fields;
+
+		this.customTemplateFields[name] = {
+			...(this.customTemplateFields[name] || {}),
+			...customFields
+		};
 	}
 	customTemplateFields: Record<string, Record<string, string>> = {};
 	getCustomTemplateFields(name: string): Record<string, string> {
