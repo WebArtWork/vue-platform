@@ -74,14 +74,14 @@
 <ng-container *ngIf="type === 'checkbox'">
 	<label class="container-box" [for]="name">
 		<input
-			[(ngModel)]="value"
 			(ngModelChange)="onChange(value)"
 			class="w-input__checkbox"
 			[disabled]="disabled"
-			[ngClass]="wClass"
 			[class.error]="error"
-			[name]="name"
+			[(ngModel)]="value"
+			[ngClass]="wClass"
 			type="checkbox"
+			[name]="name"
 			#inputEl
 		/>
 		<span class="checkmark"></span>
