@@ -7,11 +7,9 @@
 			#inputRef
 		></winput>
 
-		<ng-container
-			*ngFor="let tag of data.submition[data.component.key]; index as i"
-		>
+		<ng-container *ngFor="let tag of data.submition[data.key]; index as i">
 			<span>{{tag}}</span>
-			<i (click)="data.submition[data.component.key].splice(i, 1)">X</i>
+			<i (click)="data.submition[data.key].splice(i, 1)">X</i>
 		</ng-container>
 
 		<wbutton [disabled]="!inputRef.value" (click)="addTag(data)">

@@ -20,12 +20,9 @@ export class TagsComponent implements OnInit {
 	@ViewChild('inputRef', { static: false }) inputRef: any;
 
 	addTag(data: any): void {
-		data.submition[data.component.key] =
-			data.submition[data.component.key] || [];
+		data.submition[data.key] = data.submition[data.key] || [];
 
-		data.submition[data.component.key].push(
-			this.inputRef.value.replace('\n', '')
-		);
+		data.submition[data.key].push(this.inputRef.value.replace('\n', ''));
 
 		this.inputRef.value = '';
 
