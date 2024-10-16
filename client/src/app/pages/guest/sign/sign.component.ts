@@ -13,12 +13,6 @@ interface RespStatus {
 	pass: string;
 }
 
-interface Form {
-	email: string;
-	password: string;
-	code: string;
-}
-
 @Component({
 	templateUrl: './sign.component.html',
 	styleUrls: ['./sign.component.scss']
@@ -60,8 +54,8 @@ export class SignComponent {
 				]
 			},
 			{
-				name: 'Text',
-				key: 'code',
+				name: 'Number',
+				key: 'resetPin',
 				fields: [
 					{
 						name: 'Placeholder',
@@ -99,7 +93,7 @@ export class SignComponent {
 	user = {
 		email: 'ceo@webart.work',
 		password: 'asdasdasdasd',
-		code: ''
+		resetPin: null
 	};
 
 	constructor(
@@ -114,7 +108,7 @@ export class SignComponent {
 	) {}
 
 	submit(): void {
-		if (!this.form.components[2].hidden && this.user.code) {
+		if (!this.form.components[2].hidden && this.user.resetPin) {
 			this.save();
 		} else if (!this.user.email) {
 			this._alert.error({
@@ -168,18 +162,19 @@ export class SignComponent {
 	}
 
 	save(): void {
-		// this._http.post('/api/user/change', this.user, (resp: boolean) => {
-		// 	if (resp) {
-		// 		this._alert.info({
-		// 			text: 'Password successfully changed'
-		// 		});
-		// 	} else {
-		// 		this._alert.error({
-		// 			text: 'Wrong Code'
-		// 		});
-		// 	}
-		// 	this.login();
-		// });
+		this._http.post('/api/user/change', this.user, (resp: boolean) => {
+			if (resp) {
+				this._alert.info({
+					text: 'Password successfully changed'
+				});
+			} else {
+				this._alert.error({
+					text: 'Wrong Code'
+				});
+			}
+
+			this.login();
+		});
 	}
 
 	private _set = (user: User): void => {

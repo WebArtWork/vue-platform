@@ -2,7 +2,7 @@ const path = require('path');
 const template = path.join(process.cwd(), 'template');
 const { v4: uuidv4 } = require('uuid');
 const nJwt = require('njwt');
-module.exports = function(waw) {
+module.exports = function (waw) {
 	/*
 	*	User configuration
 	*/
@@ -110,7 +110,7 @@ module.exports = function(waw) {
 			}]
 		});
 	};
-	const new_pin = async (user, cb = ()=>{}) => {
+	const new_pin = async (user, cb = () => { }) => {
 		user.resetPin = Math.floor(Math.random() * (999999 - 100000)) + 100000;
 
 		console.log(user.resetPin);
@@ -126,7 +126,6 @@ module.exports = function(waw) {
 		}, cb);
 	};
 	waw.api({
-		router: '/api/user',
 		app: path.join(
 			process.cwd(), 'client', 'dist', 'app'
 		),
@@ -148,7 +147,10 @@ module.exports = function(waw) {
 					)
 				);
 			}
-		},
+		}
+	});
+	waw.api({
+		router: '/api/user',
 		post: {
 			"/status": async (req, res) => {
 				const user = await findUser(req.body.email);
@@ -175,7 +177,7 @@ module.exports = function(waw) {
 			"/change": async (req, res) => {
 				const user = await findUser(req.body.email);
 
-				if (user && user.resetPin === req.body.pin) {
+				if (user && user.resetPin === req.body.resetPin) {
 					user.password = user.generateHash(req.body.password);
 
 					delete user.resetPin;
@@ -256,7 +258,7 @@ module.exports = function(waw) {
 				}
 			},
 			select
-		},{
+		}, {
 			name: 'me',
 			query: req => {
 				return {
