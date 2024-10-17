@@ -94,6 +94,11 @@
         --file-add-bg: #28a745;
         --file-add-bg-hover: #218838;
         --file-item-border-radius: 10px;
+        --day-name: #988888;
+        --b-radius-btn: 10px;
+        --transition: all .3s;
+        --events: #4c8e9d;
+        --border: rgba(102, 91, 91, 0.432);
     }
 
     html.dark:root {
@@ -107,4 +112,8 @@
         --c-text-primary: #ffffff;
         --c-text-secondary: #ffffff;
         --c-placeholder: #d3cdcd;
+        --c-calendar: #141414;
+        --day-name: #dad5d5;
+        --events: #1c2e32;  
+        --border: rgb(255 255 255 / 23%);
     }
