@@ -1,6 +1,6 @@
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Renderer2 } from '@angular/core';
+import { NgModule } from '@angular/core';
 // Core
 import { GuestComponent } from './core/theme/guest/guest.component';
 import { UserComponent } from './core/theme/user/user.component';
@@ -14,8 +14,6 @@ import { environment } from 'src/environments/environment';
 import { AuthenticatedGuard } from './core/guards/authenticated.guard';
 import { GuestGuard } from './core/guards/guest.guard';
 import { AdminsGuard } from './core/guards/admins.guard';
-import { AlertModule } from './core/modules/alert/alert.module';
-import { ModalModule } from './core/modules/modal/modal.module';
 
 const routes: Routes = [
 	{
@@ -37,8 +35,11 @@ const routes: Routes = [
 						title: 'Test'
 					}
 				},
-				loadChildren: () => import('./pages/guest/test/test.module').then(m => m.TestModule)
-			}, 
+				loadChildren: () =>
+					import('./pages/guest/test/test.module').then(
+						(m) => m.TestModule
+					)
+			},
 			{
 				path: 'components',
 				canActivate: [MetaGuard],
@@ -47,8 +48,11 @@ const routes: Routes = [
 						title: 'Components'
 					}
 				},
-				loadChildren: () => import('./pages/guest/components/components.module').then(m => m.ComponentsModule)
-			}, 
+				loadChildren: () =>
+					import('./pages/guest/components/components.module').then(
+						(m) => m.ComponentsModule
+					)
+			},
 			{
 				path: 'sign',
 				canActivate: [MetaGuard],
@@ -113,9 +117,9 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () =>
-					import('./modules/customform/pages/customforms/customforms.module').then(
-						(m) => m.CustomformsModule
-					)
+					import(
+						'./modules/customform/pages/customforms/customforms.module'
+					).then((m) => m.CustomformsModule)
 			},
 			{
 				path: 'translates',
@@ -142,8 +146,6 @@ const routes: Routes = [
 @NgModule({
 	declarations: [AppComponent, GuestComponent, UserComponent],
 	imports: [
-		AlertModule,
-		ModalModule,
 		CoreModule,
 		BrowserModule,
 		ReactiveFormsModule,
@@ -165,6 +167,11 @@ const routes: Routes = [
 			modal: {
 				modals: {
 					/* modals */
+				}
+			},
+			alert: {
+				alerts: {
+					/* alerts */
 				}
 			}
 		}),

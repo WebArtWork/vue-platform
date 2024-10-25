@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { HashService, HttpService, UiService } from 'wacom';
-import { AlertService } from 'src/app/core/modules/alert/alert.service';
+import { AlertService, HashService, HttpService, UiService } from 'wacom';
 import { Router } from '@angular/router';
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
 import { FormService } from 'src/app/core/modules/form/form.service';

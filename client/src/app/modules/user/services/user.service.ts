@@ -14,7 +14,11 @@ import { environment } from 'src/environments/environment';
 	providedIn: 'root'
 })
 export class UserService extends CrudService<User> {
-	roles = (environment as unknown as { roles: string[] }).roles || ['admin'];
+	roles = (
+		(environment as unknown as { roles: string[] }).roles || []
+	).concat(['admin']);
+
+	employees = (environment as unknown as { roles: string[] }).roles || [];
 
 	mode = '';
 

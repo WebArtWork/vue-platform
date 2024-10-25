@@ -9,8 +9,6 @@ import { TableModule } from './modules/table/table.module';
 import { UserComponent } from './selectors/user/user.component';
 import { IconsModule } from './icons/icons.module';
 import { TranslateModule } from './modules/translate/translate.module';
-import { AlertModule } from './modules/alert/alert.module';
-import { ModalModule } from './modules/modal/modal.module';
 import { FormcomponentsModule } from './formcomponents/formcomponents.module';
 import { SelectModule } from './modules/select/select.module';
 import { FormModule } from './modules/form/form.module';
@@ -28,8 +26,6 @@ import { FormModule } from './modules/form/form.module';
 		InputModule,
 		CardModule,
 		FormModule,
-		AlertModule,
-		ModalModule,
 		TableModule,
 		IconsModule
 	],
