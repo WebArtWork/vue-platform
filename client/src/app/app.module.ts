@@ -7,7 +7,6 @@ import { UserComponent } from './core/theme/user/user.component';
 import { AppComponent } from './app.component';
 import { CoreModule } from 'src/app/core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
 // config
 import { WacomModule, MetaGuard } from 'wacom';
 import { environment } from 'src/environments/environment';
@@ -148,7 +147,6 @@ const routes: Routes = [
 	imports: [
 		CoreModule,
 		BrowserModule,
-		ReactiveFormsModule,
 		BrowserAnimationsModule,
 		WacomModule.forRoot({
 			store: {},
