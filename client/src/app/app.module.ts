@@ -171,6 +171,16 @@ const routes: Routes = [
 				alerts: {
 					/* alerts */
 				}
+			},
+			loader: {
+				loaders: {
+					/* loaders */
+				}
+			},
+			popup: {
+				popups: {
+					/* popups */
+				}
 			}
 		}),
 		RouterModule.forRoot(routes, {

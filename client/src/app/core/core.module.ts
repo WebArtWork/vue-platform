@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule, Pipe, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WacomModule } from 'wacom';
@@ -12,11 +12,19 @@ import { TranslateModule } from './modules/translate/translate.module';
 import { FormcomponentsModule } from './formcomponents/formcomponents.module';
 import { SelectModule } from './modules/select/select.module';
 import { FormModule } from './modules/form/form.module';
+/* imports */
+
+const components: Type<Component>[] = [
+	/* components */
+];
+
+const pipes: Type<Pipe>[] = [
+	/* pipes */
+];
 
 @NgModule({
-	declarations: [UserComponent],
+	declarations: [UserComponent].concat(components).concat(pipes),
 	exports: [
-		/* exports */
 		TranslateModule,
 		SelectModule,
 		CommonModule,
@@ -28,7 +36,9 @@ import { FormModule } from './modules/form/form.module';
 		FormModule,
 		TableModule,
 		IconsModule
-	],
+	]
+		.concat(components)
+		.concat(pipes),
 	imports: [CommonModule, FormsModule, WacomModule, FormcomponentsModule],
 	providers: []
 })
