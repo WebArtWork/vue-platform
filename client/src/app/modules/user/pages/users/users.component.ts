@@ -15,6 +15,26 @@ import { UserService } from '../../services/user.service';
 export class UsersComponent {
 	form: FormInterface = this._form.getForm('user');
 
+	formUserBulk: FormInterface = {
+		title: 'Modify content of documents',
+		components: [
+			{
+				name: 'Text',
+				key: 'docs',
+				fields: [
+					{
+						name: 'Textarea',
+						value: true
+					},
+					{
+						name: 'Placeholder',
+						value: 'fill content of documents'
+					},
+				]
+			}
+		]
+	};
+
 	config = {
 		create: (): void => {
 			this._form
@@ -65,27 +85,11 @@ export class UsersComponent {
 		headerButtons: [
 			{
 				icon: 'edit_note',
-				click: (): void => {
-					// for (const product of products) {
-					// 	if (this.commerce) {
-					// 		product.commerce = this.commerce
-					// 	}
-
-					// 	this._cps.create(product);
-					// }
-				}
+				click: this._bulkManagement(false)
 			},
 			{
 				icon: 'playlist_add',
-				click: (): void => {
-					// for (const product of products) {
-					// 	if (this.commerce) {
-					// 		product.commerce = this.commerce
-					// 	}
-
-					// 	this._cps.create(product);
-					// }
-				}
+				click: this._bulkManagement()
 			}
 		]
 	};
@@ -114,5 +118,23 @@ export class UsersComponent {
 
 	update(user: User): void {
 		this._us.updateAdmin(user);
+	}
+
+	private _bulkManagement(create = true): ()=>void {
+		return (): void => {
+			this._form.modal(this.formUserBulk, [], {
+				docs: create ? '' : JSON.stringify(this.users)
+			}).then((resp: unknown) => {
+				const users = JSON.parse((resp as {docs: string}).docs);
+
+				for (const user of users) {
+					if (create) {
+						this._us.create(user);
+					} else {
+						this._us.update(user);
+					}
+				}
+			});
+		}
 	}
 }
