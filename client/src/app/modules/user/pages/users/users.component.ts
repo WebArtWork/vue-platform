@@ -61,7 +61,33 @@ export class UsersComponent {
 					}
 				]
 			});
-		}
+		},
+		headerButtons: [
+			{
+				icon: 'edit_note',
+				click: (): void => {
+					// for (const product of products) {
+					// 	if (this.commerce) {
+					// 		product.commerce = this.commerce
+					// 	}
+
+					// 	this._cps.create(product);
+					// }
+				}
+			},
+			{
+				icon: 'playlist_add',
+				click: (): void => {
+					// for (const product of products) {
+					// 	if (this.commerce) {
+					// 		product.commerce = this.commerce
+					// 	}
+
+					// 	this._cps.create(product);
+					// }
+				}
+			}
+		]
 	};
 
 	columns = ['name', 'email'];
