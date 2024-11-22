@@ -85,11 +85,13 @@ export class UsersComponent {
 		headerButtons: [
 			{
 				icon: 'edit_note',
-				click: this._bulkManagement(false)
+				click: this._bulkManagement(false),
+				class: 'edit'
 			},
 			{
 				icon: 'playlist_add',
-				click: this._bulkManagement()
+				click: this._bulkManagement(),
+				class: 'playlist'
 			}
 		]
 	};

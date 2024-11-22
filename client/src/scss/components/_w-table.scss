@@ -2,7 +2,16 @@
  
 @import 'angular';
 
-
+.edit-header{
+	height: 45px;
+	.edit, .playlist{
+		width: 45px;
+		height: 45px;
+	}
+	.playlist{
+		margin: 0 10px;
+	}
+}
 .wtable {
 	background: var(--c-bg-secondary);
 	box-shadow: var(--c-shadow);
@@ -44,6 +53,17 @@
 			background-color: var(--c-primary);
 			color: var(--c-white);
 			border: 1px solid var(--c-primary);
+			button{
+				width: unset !important;
+			}
+
+			.w-btn{
+				width: unset !important;
+			}
+			.playlist, .edit{
+				width: 45px;
+				min-width: 45px;
+			}
 			&:hover {
 				box-shadow: 0 0 3px 0px var(--c-primary);
 				background-color: var(--c-primary);
@@ -56,7 +76,7 @@
 				}
 			}
 			@media screen and (max-width: 599px) {
-				position: absolute;
+				//position: absolute;
 				right: 0;
 				min-width: auto;
 				font-size: 28px;
@@ -125,7 +145,7 @@
 				}
 
 				&__icon-mobile {
-					display: inherit;
+					display: none;
 				}
 			}
 		}
