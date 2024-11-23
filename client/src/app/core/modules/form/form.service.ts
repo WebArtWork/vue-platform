@@ -257,6 +257,7 @@ export class FormService {
 				...modalOptions,
 				component: ModalFormComponent,
 				class: 'forms_modal',
+				size: 'big',
 				form,
 				buttons: Array.isArray(buttons) ? buttons : [buttons],
 				submition,

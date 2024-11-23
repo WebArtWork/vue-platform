@@ -7,10 +7,10 @@ import { User } from '../../interfaces/user.interface';
 import { UserService } from '../../services/user.service';
 
 @Component({
-    selector: 'app-users',
-    templateUrl: './users.component.html',
-    styleUrls: ['./users.component.scss'],
-    standalone: false
+	selector: 'app-users',
+	templateUrl: './users.component.html',
+	styleUrls: ['./users.component.scss'],
+	standalone: false
 })
 export class UsersComponent {
 	form: FormInterface = this._form.getForm('user');
@@ -19,7 +19,7 @@ export class UsersComponent {
 		title: 'Modify content of documents',
 		components: [
 			{
-				name: 'Text',
+				name: 'Code',
 				key: 'docs',
 				fields: [
 					{
@@ -29,7 +29,7 @@ export class UsersComponent {
 					{
 						name: 'Placeholder',
 						value: 'fill content of documents'
-					},
+					}
 				]
 			}
 		]
@@ -84,14 +84,14 @@ export class UsersComponent {
 		},
 		headerButtons: [
 			{
-				icon: 'edit_note',
-				click: this._bulkManagement(false),
-				class: 'edit'
-			},
-			{
 				icon: 'playlist_add',
 				click: this._bulkManagement(),
 				class: 'playlist'
+			},
+			{
+				icon: 'edit_note',
+				click: this._bulkManagement(false),
+				class: 'edit'
 			}
 		]
 	};
@@ -122,21 +122,23 @@ export class UsersComponent {
 		this._us.updateAdmin(user);
 	}
 
-	private _bulkManagement(create = true): ()=>void {
+	private _bulkManagement(create = true): () => void {
 		return (): void => {
-			this._form.modal(this.formUserBulk, [], {
-				docs: create ? '' : JSON.stringify(this.users)
-			}).then((resp: unknown) => {
-				const users = JSON.parse((resp as {docs: string}).docs);
+			this._form
+				.modal(this.formUserBulk, [], {
+					docs: create ? '' : JSON.stringify(this.users)
+				})
+				.then((resp: unknown) => {
+					const users = JSON.parse((resp as { docs: string }).docs);
 
-				for (const user of users) {
-					if (create) {
-						this._us.create(user);
-					} else {
-						this._us.update(user);
+					for (const user of users) {
+						if (create) {
+							this._us.create(user);
+						} else {
+							this._us.update(user);
+						}
 					}
-				}
-			});
-		}
+				});
+		};
 	}
 }
