@@ -15,26 +15,6 @@ import { UserService } from '../../services/user.service';
 export class UsersComponent {
 	form: FormInterface = this._form.getForm('user');
 
-	formUserBulk: FormInterface = {
-		title: 'Modify content of documents',
-		components: [
-			{
-				name: 'Code',
-				key: 'docs',
-				fields: [
-					{
-						name: 'Textarea',
-						value: true
-					},
-					{
-						name: 'Placeholder',
-						value: 'fill content of documents'
-					}
-				]
-			}
-		]
-	};
-
 	config = {
 		create: (): void => {
 			this._form
@@ -108,10 +88,10 @@ export class UsersComponent {
 
 	constructor(
 		private _translate: TranslateService,
-		private _us: UserService,
-		private _form: FormService,
 		private _alert: AlertService,
-		private _core: CoreService
+		private _form: FormService,
+		private _core: CoreService,
+		private _us: UserService
 	) {
 		for (const role of this._us.roles) {
 			this.columns.push(role);
@@ -125,16 +105,20 @@ export class UsersComponent {
 	private _bulkManagement(create = true): () => void {
 		return (): void => {
 			this._form
-				.modal(this.formUserBulk, [], {
-					docs: create ? '' : JSON.stringify(this.users)
-				})
-				.then((resp: unknown) => {
-					const users = JSON.parse((resp as { docs: string }).docs);
+				.modalDocs<User>(create ? [] : this.users)
+				.then((users: User[]) => {
+					for (const user of this.users) {
+						if (!users.find((_user) => _user._id === user._id)) {
+							this._us.delete(user);
+						}
+					}
 
 					for (const user of users) {
 						if (create) {
 							this._us.create(user);
 						} else {
+							this._core.copy(user, this._us.doc(user._id));
+
 							this._us.update(user);
 						}
 					}
