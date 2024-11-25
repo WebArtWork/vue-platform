@@ -35,29 +35,28 @@
 
 		<div class="users__btns">
 			<!-- Header buttons -->
-		<ng-container *ngIf="config.headerButtons">
-			<ng-container *ngFor="let button of config.headerButtons">
-				<wbutton
-					*ngIf="config.create && button"
-					(click)="button.click()"
-					class="edit-header"
-					[disableSubmit]="true"
-					[class]="button.class"
-				>
-					<i
-						class="material-icons"
-						[title]="button.icon"
-						*ngIf="button.icon"
+		<div class="user__icons">
+			<ng-container *ngIf="config.headerButtons">
+				<ng-container *ngFor="let button of config.headerButtons">
+					<wbutton
+						*ngIf="config.create && button"
+						(click)="button.click()"
+						class="edit-header"
+						[disableSubmit]="true"
+						[class]="button.class"
 					>
-						{{ button.icon }}
-					</i>
-					<span *ngIf="button.text">{{ button.text }}</span>
-				</wbutton>
+						<i
+							class="material-icons"
+							[title]="button.icon"
+							*ngIf="button.icon"
+						>
+							{{ button.icon }}
+						</i>
+						<span *ngIf="button.text">{{ button.text }}</span>
+					</wbutton>
+				</ng-container>
 			</ng-container>
-		</ng-container>
-
-		<!-- Add new item button -->
-		<wbutton
+			<wbutton
 			(click)="config.create()"
 			class="table-plus-btn"
 			*ngIf="config.create"
@@ -65,6 +64,10 @@
 		>
 			+ <span>Add new</span>
 		</wbutton>
+		</div>
+
+		<!-- Add new item button -->
+
 		</div>
 	</div>
 
