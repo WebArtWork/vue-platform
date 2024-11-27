@@ -39,6 +39,7 @@
 
 ## III. SETTINGS
 - Go to ```waw.scss``` and turn on/off imports scss files
+
 ## IV. INFO
 1. atom - include atomic classes.
 2. common - include styles which appears on few pages.
