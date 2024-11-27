@@ -27,7 +27,8 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git clone git@github.com:WebArtWork/ngx-css.git ngx-css
-        rsync -av --delete client/src/scss/ ngx-css/
+        rm -rf ngx-css/*
+        cp -r client/src/scss/* ngx-css/
         cd ngx-css
         git add .
         git commit -m "Update SCSS files from source repository" || echo "No changes to commit"

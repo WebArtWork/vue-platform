@@ -56,6 +56,7 @@
 - Go to ```scss/Classes.md``` - ready made htnl classes
 
 ## VII. HTML/SCSS RULES
+
 ### We use BEM technology but changed a little for themselves (optional)
 #### a. HTML
 	1. block -> "header"
