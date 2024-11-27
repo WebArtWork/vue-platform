@@ -1,0 +1,37 @@
+name: Sync SCSS to ngx-css
+
+on:
+  push:
+    paths:
+      - 'client/src/scss/**' # Trigger only on changes in the scss folder
+
+jobs:
+  sync-scss:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source repository
+      uses: actions/checkout@v3
+
+    - name: Set up SSH
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+    - name: Sync SCSS folder to ngx-css
+      run: |
+        # Clone the target repository
+        git clone git@github.com:WebArtWork/ngx-css.git target-repo
+
+        # Copy updated files from client/src/scss
+        rsync -av --delete client/src/scss/ target-repo/
+
+        # Commit and push changes to the target repository
+        cd target-repo
+        git add .
+        git commit -m "Update SCSS files from source repository" || echo "No changes to commit"
+        git push --force

@@ -11,6 +11,7 @@
 	4. padding
 	5. size
 	6. text
+
 ### Components
 	1. w-btn
 	2. w-checkbox
@@ -19,10 +20,12 @@
 	5. w-radio
 	6. w-switch
 	7. w-table
+
 ### Layout
 	1. base
 	2. grid
 	3. scroll
+
 ### Utils
 	1. fonts
 	2. icons
@@ -30,8 +33,10 @@
 	4. mixins
 	5. vars
 	6. angular
+
 ### Vendors
 	1. normalize
+
 ## III. SETTINGS
 - Go to ```waw.scss``` and turn on/off imports scss files
 ## IV. INFO
