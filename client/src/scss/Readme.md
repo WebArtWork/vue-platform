@@ -58,6 +58,7 @@
 ## VII. HTML/SCSS RULES
 
 ### We use BEM technology but changed a little for themselves (optional)
+
 #### a. HTML
 	1. block -> "header"
 	2. element -> "header__link"
