@@ -61,6 +61,7 @@
 	1. block -> "header"
 	2. element -> "header__link"
 	3. modifier -> "_active"
+
 #### b. SCSS
 	1. block -> "header {}"
 	2. element -> "&__link {}"
