@@ -3,10 +3,10 @@ name: Sync Angular client to ngx-default
 on:
   push:
     paths:
-      - 'client/**' # Trigger only on changes in the scss folder
+      - 'client/**' # Trigger only on changes in the angular folder
 
 jobs:
-  sync-scss:
+  sync-angular:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-    - name: Sync SCSS folder to ngx-default
+    - name: Sync Angular folder to ngx-default
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -31,7 +31,7 @@ jobs:
         cp -r client/* ngx-default/
         cd ngx-default
         git add .
-        git commit -m "Update SCSS files from source repository" || echo "No changes to commit"
+        git commit -m "Update Angular files from source repository" || echo "No changes to commit"
         git push --force
 
     - name: Clean up SSH
