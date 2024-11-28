@@ -40,19 +40,6 @@ const routes: Routes = [
 					)
 			},
 			{
-				path: 'test',
-				canActivate: [MetaGuard],
-				data: {
-					meta: {
-						title: 'test'
-					}
-				},
-				loadChildren: () =>
-					import('./pages/guest/test/test.module').then(
-						(m) => m.TestModule
-					)
-			},
-			{
 				path: 'sign',
 				canActivate: [MetaGuard],
 				data: {
@@ -188,7 +175,12 @@ const routes: Routes = [
 			preloadingStrategy: PreloadAllModules
 		})
 	],
-	providers: [AuthenticatedGuard, GuestGuard, AdminsGuard],
+	providers: [
+		/* providers */
+		AuthenticatedGuard,
+		GuestGuard,
+		AdminsGuard
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {}
