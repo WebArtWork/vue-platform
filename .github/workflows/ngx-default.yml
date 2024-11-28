@@ -30,6 +30,7 @@ jobs:
         rm -rf ngx-default/*
         cp -r client/* ngx-default/
         cd ngx-default
+        echo "ngx.webart.work" > CNAME
         git add .
         git commit -m "Update Angular files from source repository" || echo "No changes to commit"
         git push --force
