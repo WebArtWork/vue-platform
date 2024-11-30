@@ -1,5 +1,4 @@
 const path = require('path');
-const template = path.join(process.cwd(), 'template');
 const { v4: uuidv4 } = require('uuid');
 const nJwt = require('njwt');
 module.exports = function (waw) {
@@ -15,7 +14,7 @@ module.exports = function (waw) {
 
 		waw.writeJson(process.cwd() + '/server.json', serverJson);
 	}
-
+	// move below to other module, mail one
 	if (waw.config.mail) {
 		const nodemailer = require("nodemailer");
 
@@ -125,29 +124,11 @@ module.exports = function (waw) {
 			html: 'Code: ' + user.resetPin
 		}, cb);
 	};
+	// move below to angular/serve.js
 	waw.api({
 		app: path.join(
 			process.cwd(), 'client', 'dist', 'app'
-		),
-		template: {
-			path: template,
-			prefix: '/template',
-			pages: 'index'
-		},
-		page: {
-			'/': (req, res) => {
-				res.send(
-					waw.render(
-						path.join(
-							template,
-							"dist",
-							"index.html"
-						),
-						waw.config
-					)
-				);
-			}
-		}
+		)
 	});
 	waw.api({
 		router: '/api/user',

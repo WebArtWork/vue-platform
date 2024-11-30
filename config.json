@@ -17,8 +17,17 @@
 		"wjst": "waw",
 		"core": "waw",
 		"sem": "waw",
-		"translate":"waw",
+		"translate": "waw",
 		"form": "waw"
+	},
+	"wjst": {
+		"templates": [
+			{
+				"path": "/template",
+				"prefix": "/wjst-default",
+				"pages": "index"
+			}
+		]
 	},
 	"dependencies": {},
 	"user": {
