@@ -1,12 +1,12 @@
-name: Sync wjst default project to wjst-default
+name: Sync waw default project to waw-default
 
 on:
   push:
     paths:
-      - 'template/**' # Trigger only on changes in the template folder
+      - 'server/**' # Trigger only on changes in the server folder
 
 jobs:
-  sync-wjst:
+  sync-waw:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,15 +22,14 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-    - name: Sync wjst default folder to wjst-default
+    - name: Sync waw default folder to waw-default
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git clone git@github.com:WebArtWork/wjst-default.git wjst-default
-        rm -rf wjst-default/*
-        cp -r template/* wjst-default/
-        cd wjst-default
-        echo "wjst-default.webart.work" > CNAME
+        git clone git@github.com:WebArtWork/waw-default.git waw-default
+        rm -rf waw-default/*
+        cp -r server/* waw-default/
+        cd waw-default
         git add .
         git commit -m "Update files from source repository" || echo "No changes to commit"
         git push --force
