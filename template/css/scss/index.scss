@@ -1,32 +1,40 @@
-@import "utils/normalize";
-@import "utils/fonts";
-@import "utils/vars";
+@use "utils/variables";
+@use "utils/normalize";
+@use "utils/fonts";
 
 // ## VENDORS
-@import "vendors/normalize";
+@use "vendors/normalize" as vendorsNorm;
 
-@import "base";
-@import "pages/index";
-@import "pages/sections";
-@import "pages/components";
+@use "pages/index";
 
 // ## COMPONENTS
-@import "components/w-btn";
-@import "components/w-switch";
-@import "components/w-forms";
-@import "components/w-card";
-@import "components/w-radio";
-@import "components/w-modal";
-
+@use "components/w-btn";
+@use "components/w-switch";
+@use "components/w-forms";
+@use "components/w-card";
+@use "components/w-radio";
+@use "components/w-modals";
+@use "components/w-alert";
+@use "components/w-accardion";
+@use "components/w-breadcrumb";
+@use "components/w-dropdawn";
+@use "components/w-nav";
+@use "components/w-pagination";
+@use "components/w-propovers";
+@use "components/w-progress";
+@use "components/w-spinner";
+@use "components/w-select";
+@use "components/w-checkbox";
+@use "components/w-stats";
+@use "components/w-slider";
+@use "components/w-file";
 // ## ATOM
-@import "atom/display";
-@import "atom/margin";
-@import "atom/padding";
-@import "atom/size";
-@import "atom/text";
-@import "atom/other";
+@use "atom/display";
+@use "atom/margin";
+@use "atom/padding";
+@use "atom/size";
+@use "atom/text";
 
-// // // ## LAYOUT
-// @import "layout/base";
-// @import "layout/scroll";
-
+// ## LAYOUT
+@use "layout/base";
+@use "layout/scroll";
